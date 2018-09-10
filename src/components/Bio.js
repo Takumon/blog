@@ -27,7 +27,7 @@ class Bio extends React.Component {
           }}
         />
         <p>
-          東京でJavaのSierやってます。
+          東京でJavaのSIerやってます。
         </p>
       </div>
     )
