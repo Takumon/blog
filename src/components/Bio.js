@@ -17,7 +17,7 @@ class Bio extends React.Component {
       >
         <img
           src="https://s.gravatar.com/avatar/37d27f624f8c9c8db6fe6b6581b256f1?s=80"
-          alt={`Kyle Mathews`}
+          alt={`Takuto Inoue`}
           style={{
             marginRight: rhythm(1 / 2),
             marginBottom: 0,
@@ -27,7 +27,7 @@ class Bio extends React.Component {
           }}
         />
         <p>
-          Written by <strong>Takuto Inoue</strong> who lives and works in Tokyo building useful things.{' '}
+          東京でJavaのSierやってます。
         </p>
       </div>
     )
