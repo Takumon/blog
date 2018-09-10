@@ -1,21 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Mon, 10 Sep 2018 03:22:52 GMT</lastBuildDate><item><title><![CDATA[Gatsbyでブログ始めました。]]></title><description><![CDATA[TODO 序章は後で記載 ブログ開設手順 Git、Node、npmは事前にインストールしておいてください。 1. ブログのスターターキットを起動 Gatsby…]]></description><link>https://takumon.com//hello-world/</link><guid isPermaLink="false">https://takumon.com//hello-world/</guid><pubDate>Sun, 09 Sep 2018 22:00:00 GMT</pubDate><content:encoded>&lt;p&gt;TODO 序章は後で記載&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Mon, 10 Sep 2018 09:21:52 GMT</lastBuildDate><item><title><![CDATA[Gatsbyでブログ始めました。]]></title><description><![CDATA[TODO 序章は後で記載 ブログ開設手順 Git、Node、npmは事前にインストールしておいてください。 1. ブログのスターターキットを起動 Gatsby…]]></description><link>https://takumon.com//hello-world/</link><guid isPermaLink="false">https://takumon.com//hello-world/</guid><pubDate>Sun, 09 Sep 2018 22:00:00 GMT</pubDate><content:encoded>&lt;p&gt;TODO 序章は後で記載&lt;/p&gt;
 &lt;h2&gt;ブログ開設手順&lt;/h2&gt;
 &lt;p&gt;Git、Node、npmは事前にインストールしておいてください。&lt;/p&gt;
-&lt;h3&gt;1. ブログのスターターキットを起動&lt;/h3&gt;
-&lt;p&gt;Gatsbyはブログをすぐ始められるようにスターターキット(スキャフォールド)を用意しています。
+&lt;h3&gt;1. ブログのスターターキットを起動&lt;/h3&gt;
+&lt;p&gt;Gatsbyはブログをすぐ始められるようにスターターキット(スキャフォールド)を用意しています。
 まずはそれを使ってローカルでブログを起動してみます。&lt;/p&gt;
-&lt;p&gt;#### 1-1. Gatsbyインストール&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;npm install -g gatsby&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;1-1. Gatsbyインストール&lt;/h4&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -g gatsby&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h4&gt;1-2. プロジェクト生成&lt;/h4&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;gatsby new blog https://github.com/gatsbyjs/gatsby-starter-blog&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;gatsby new blog https://github.com/gatsbyjs/gatsby-starter-blog&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h4&gt;1-3. ローカルで起動&lt;/h4&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;cd blog
-npm run dev&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;cd&lt;/span&gt; blog
+&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; run dev&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;p&gt;&lt;a href=&quot;http://localhost:8000/&quot;&gt;http://localhost:8000&lt;/a&gt;にアクセスするとブログが表示されます。&lt;/p&gt;
 &lt;p&gt;
@@ -38,7 +38,7 @@ npm run dev&lt;/code&gt;&lt;/pre&gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
-        alt=&quot;ブログ初期イメージ&quot;
+        alt=&quot;ブログ初期イメージ&quot;
         title=&quot;&quot;
         src=&quot;/static/blog_image_1_main-7e3132994c4eb6ab77004896a109d06d-fb8a0.png&quot;
         srcset=&quot;/static/blog_image_1_main-7e3132994c4eb6ab77004896a109d06d-1a291.png 148w,
@@ -52,71 +52,75 @@ npm run dev&lt;/code&gt;&lt;/pre&gt;
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;h3&gt;2. ブログの記事などを自分仕様にカスタマイズ&lt;/h3&gt;
-&lt;p&gt;現状だと、ブロガーがKyle Mathews氏(Gatsbyの作者)になっていたり、仮の記事が3つある状態なので、
+&lt;h3&gt;2. ブログの記事などを自分仕様にカスタマイズ&lt;/h3&gt;
+&lt;p&gt;現状だと、ブロガーがKyle Mathews氏(Gatsbyの作者)になっていたり、仮の記事が3つある状態なので、
 自分仕様にカスタマイズします。
 &lt;small&gt;ここでは僕の例を示します。&lt;/small&gt;&lt;/p&gt;
 &lt;h4&gt;2-1. ブラウザタブのタイトル修正&lt;/h4&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;gatsby-config.js&lt;/code&gt;の&lt;code class=&quot;language-text&quot;&gt;siteMetadata&lt;/code&gt;を下記のように修正します。
-なお&lt;code class=&quot;language-text&quot;&gt;siteUrl&lt;/code&gt;はGitHub Pagesでの公開を想定したものです。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;module.exports = {
-  siteMetadata: {
-    title: &amp;#39;Takumon Blog&amp;#39;,
-    author: &amp;#39;Takuto Inoue&amp;#39;,
-    description: &amp;#39;日々の作業をつづっていきます。&amp;#39;,
-    siteUrl: &amp;#39;https://takumon.github.io/blog/&amp;#39;,
-  },&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;gatsby-config.js&lt;/code&gt;の&lt;code class=&quot;language-text&quot;&gt;siteMetadata&lt;/code&gt;を下記のように修正します。
+なお&lt;code class=&quot;language-text&quot;&gt;siteUrl&lt;/code&gt;はGitHub Pagesでの公開を想定したものです。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  siteMetadata&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    title&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Takumon Blog&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    author&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Takuto Inoue&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    description&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;日々の作業をつづっていきます。&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    siteUrl&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;https://takumon.github.io/blog/&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  ・・・
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h4&gt;2-2. 画面タイトル修正&lt;/h4&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;src/layouts/index.js&lt;/code&gt;を修正します。
 &lt;code class=&quot;language-text&quot;&gt;Gatsby Starter Blog&lt;/code&gt;となっている部分が2カ所あるので、自分のブログ名に修正します。
 僕は&lt;code class=&quot;language-text&quot;&gt;Takumon Blog&lt;/code&gt;にしました。&lt;/p&gt;
-&lt;h4&gt;2-3. プロフィール修正&lt;/h4&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;src/components/Bio.js&lt;/code&gt;のアバター(imgタグ)と自己紹介文(pタグ)を修正します。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;img
-  src=&amp;quot;https://s.gravatar.com/avatar/37d27f624f8c9c8db6fe6b6581b256f1?s=80&amp;quot;
-  alt={`Takuto Inoue`}
-  style={{
-    marginRight: rhythm(1 / 2),
-    marginBottom: 0,
-    width: rhythm(2),
-    height: rhythm(2),
-    borderRadius: rhythm(1),
-  }}
-/&amp;gt;
-&amp;lt;p&amp;gt;
-  Written by &amp;lt;strong&amp;gt;Takuto Inoue&amp;lt;/strong&amp;gt; who lives and works in Tokyo building useful things.
-&amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;2-3. プロフィール修正&lt;/h4&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;src/components/Bio.js&lt;/code&gt;のアバター(imgタグ)と自己紹介文(pタグ)を修正します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;
+      &lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;img&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  &lt;span class=&quot;token attr-name&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;https://s.gravatar.com/avatar/37d27f624f8c9c8db6fe6b6581b256f1?s=80&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  &lt;span class=&quot;token attr-name&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token string&quot;&gt;`Takuto Inoue`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  &lt;span class=&quot;token attr-name&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    marginRight&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;rhythm&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    marginBottom&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    width&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;rhythm&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    height&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;rhythm&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    borderRadius&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;rhythm&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;/&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  Written by &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;strong&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;Takuto Inoue&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;strong&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt; who lives and works &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; Tokyo building useful things&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;h4&gt;2-4. 余計な記事を削除&lt;/h4&gt;
-&lt;p&gt;記事は&lt;code class=&quot;language-text&quot;&gt;src/page&lt;/code&gt;配下にフォルダ分けされて存在します。
-1つ目以外の記事は不要なのでフォルダごと削除します。
-あと1つ目の記事て使っている画像も削除します。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;src/
+&lt;h4&gt;2-4. 余計な記事を削除&lt;/h4&gt;
+&lt;p&gt;記事は&lt;code class=&quot;language-text&quot;&gt;src/page&lt;/code&gt;配下にフォルダ分けされて存在します。
+1つ目以外の記事は不要なのでフォルダごと削除します。
+あと1つ目の記事て使っている画像も削除します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;src/
 ├── pages
-│   ├── hello-world
-│   │   ├── index.md
-│   │   └── salty_egg.jpg ・・・削除対象
-│   ├── hi-folks          ・・・削除対象
-│   │   └── index.md
-│   └── my-second-post    ・・・削除対象
-│       └── index.md&lt;/code&gt;&lt;/pre&gt;
+│   ├── hello-world
+│   │   ├── index.md
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;│   │   └── salty_egg.jpg ・・・削除対象
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;│   ├── hi-folks          ・・・削除対象
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;│   │   └── index.md
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;│   └── my-second-post    ・・・削除対象
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;│       └── index.md
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h4&gt;2-5. 記事を編集&lt;/h4&gt;
 &lt;p&gt;1つめの記事&lt;code class=&quot;language-text&quot;&gt;src/pages/hello-world/index.md&lt;/code&gt;を編集します。
 マークダウンファイル上部にメタ情報としてタイトルと作成日時を、その下に本文を記載しましょう。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;---
-title: Hello World
-date: &amp;quot;2018-09-10T12:00:00.000Z&amp;quot;
----
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;markup&quot;&gt;
+      &lt;pre class=&quot;language-markup&quot;&gt;&lt;code class=&quot;language-markup&quot;&gt;---
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;title: Hello World
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;date: &quot;2018-09-10T12:00:00.000Z&quot;
+&lt;/span&gt;---
 
-Gatsbyでブログ始めました！&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;Gatsbyでブログ始めました！
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;h4&gt;2-6. ローカルで起動&lt;/h4&gt;
+&lt;h4&gt;2-6. ローカルで起動&lt;/h4&gt;
 &lt;p&gt;この状態で&lt;code class=&quot;language-text&quot;&gt;npm run dev&lt;/code&gt;して&lt;a href=&quot;http://localhost:8000&quot;&gt;http://localhost:8000&lt;/a&gt;を見てみると下記のようになっています。&lt;/p&gt;
 &lt;p&gt;記事一覧
 
@@ -139,7 +143,7 @@ Gatsbyでブログ始めました！&lt;/code&gt;&lt;/pre&gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
-        alt=&quot;ブログ修正後イメージ_記事一覧&quot;
+        alt=&quot;ブログ修正後イメージ_記事一覧&quot;
         title=&quot;&quot;
         src=&quot;/static/blog_image_2_main-7da4ae8b009b5d5c1bd9f97e99c153a7-fb8a0.png&quot;
         srcset=&quot;/static/blog_image_2_main-7da4ae8b009b5d5c1bd9f97e99c153a7-1a291.png 148w,
@@ -153,7 +157,7 @@ Gatsbyでブログ始めました！&lt;/code&gt;&lt;/pre&gt;
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;p&gt;記事詳細
+&lt;p&gt;記事詳細
 
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -174,7 +178,7 @@ Gatsbyでブログ始めました！&lt;/code&gt;&lt;/pre&gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
-        alt=&quot;ブログ修正後イメージ_記事詳細&quot;
+        alt=&quot;ブログ修正後イメージ_記事詳細&quot;
         title=&quot;&quot;
         src=&quot;/static/blog_image_2_detail-ddf78c319bfb9bdb52617201c72de7df-fb8a0.png&quot;
         srcset=&quot;/static/blog_image_2_detail-ddf78c319bfb9bdb52617201c72de7df-1a291.png 148w,
@@ -188,12 +192,12 @@ Gatsbyでブログ始めました！&lt;/code&gt;&lt;/pre&gt;
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;p&gt;ここまでで一通り自分のブログをローカルで作ることができました。&lt;/p&gt;
+&lt;p&gt;ここまでで一通り自分のブログをローカルで作ることができました。&lt;/p&gt;
 &lt;h3&gt;3. GitHub Pagesにブログを公開&lt;/h3&gt;
-&lt;p&gt;Gatsbyを使うとnpmスクリプト一発でGitHub Pageに公開ができます。
-ここではGitHubでのリポジトリ作成などの事前準備も含めて手順を示します。&lt;/p&gt;
+&lt;p&gt;Gatsbyを使うとnpmスクリプト一発でGitHub Pageに公開ができます。
+ここではGitHubでのリポジトリ作成などの事前準備も含めて手順を示します。&lt;/p&gt;
 &lt;h4&gt;3-1. GitHubにリポジトリ作成&lt;/h4&gt;
-&lt;p&gt;GitHubにリポジトリを作り、手順2で作成した資産をプッシュしてください。&lt;/p&gt;
+&lt;p&gt;GitHubにリポジトリを作り、手順2で作成した資産をプッシュしてください。&lt;/p&gt;
 &lt;h4&gt;3-2. GitHub Pagesの設定&lt;/h4&gt;
 &lt;p&gt;GitHubのリポジトリ &gt; settings &gt; GitHub Pages &gt; Source で&lt;code class=&quot;language-text&quot;&gt;gh-pages branch&lt;/code&gt;を選択します。&lt;/p&gt;
 &lt;h4&gt;3-3. メタ情報の修正&lt;/h4&gt;
@@ -202,12 +206,12 @@ Gatsbyでブログ始めました！&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;ブログのコンテキストURLは、現状だとスターターキットの値なので修正します。
 これを指定するとブログのURLが&lt;code class=&quot;language-text&quot;&gt;https://[オーナー名].github.io/[pathPrefixの値]/&lt;/code&gt;のようになります。
 僕の場合は&lt;code class=&quot;language-text&quot;&gt;https://takumon.github.io/blog&lt;/code&gt;のようになります。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;module.exports = {
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;
+      &lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   ・・・
-  pathPrefix: &amp;#39;/blog&amp;#39;,
-  ・・・
-}&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  pathPrefix&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;/blog&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;  ・・・
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h5&gt;package.json、pacakge-lock.json、README.mdのメタ情報修正&lt;/h5&gt;
 &lt;p&gt;上記3ファイルにおいて、プロジェクト名や、管理者、ブログのURLなどが、すべてスターターキットの状態になっているので
@@ -223,7 +227,7 @@ Gatsbyでブログ始めました！&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;https://qiita.com/jaxx2104/items/5f28915355a85d36e38a&quot;&gt;React.js製の静的サイトジェネレーターGatsbyに移行した&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Gatsbyを始めるきっかけとなった記事です。この記事のおかげで簡単にGatsby製ブログを開設できました。&lt;/li&gt;
+&lt;li&gt;Gatsbyを始めるきっかけとなった記事です。この記事のおかげで簡単にGatsby製ブログを開設できました。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -237,7 +241,7 @@ Gatsbyでブログ始めました！&lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://blog.mismithportfolio.com/&quot;&gt;写真やWeb制作についてのブログ&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://dvg.179.jp/&quot;&gt;dvg.179&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://tmnm.tech/&quot;&gt;tmnm.tech&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://tmnm.tech/&quot;&gt;tmnm.tech&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;</content:encoded></item></channel></rss>
