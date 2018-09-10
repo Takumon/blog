@@ -1,6 +1,243 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon/blog/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 09 Sep 2018 13:28:07 GMT</lastBuildDate><item><title><![CDATA[Hello World]]></title><description><![CDATA[ブログを作ってみます。]]></description><link>https://takumon/blog//hello-world/</link><guid isPermaLink="false">https://takumon/blog//hello-world/</guid><pubDate>Sun, 09 Sep 2018 22:00:00 GMT</pubDate><content:encoded>&lt;p&gt;ブログを作ってみます。&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Mon, 10 Sep 2018 03:22:52 GMT</lastBuildDate><item><title><![CDATA[Gatsbyでブログ始めました。]]></title><description><![CDATA[TODO 序章は後で記載 ブログ開設手順 Git、Node、npmは事前にインストールしておいてください。 1. ブログのスターターキットを起動 Gatsby…]]></description><link>https://takumon.com//hello-world/</link><guid isPermaLink="false">https://takumon.com//hello-world/</guid><pubDate>Sun, 09 Sep 2018 22:00:00 GMT</pubDate><content:encoded>&lt;p&gt;TODO 序章は後で記載&lt;/p&gt;
+&lt;h2&gt;ブログ開設手順&lt;/h2&gt;
+&lt;p&gt;Git、Node、npmは事前にインストールしておいてください。&lt;/p&gt;
+&lt;h3&gt;1. ブログのスターターキットを起動&lt;/h3&gt;
+&lt;p&gt;Gatsbyはブログをすぐ始められるようにスターターキット(スキャフォールド)を用意しています。
+まずはそれを使ってローカルでブログを起動してみます。&lt;/p&gt;
+&lt;p&gt;#### 1-1. Gatsbyインストール&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;public static void main(String[] args) {
-  System.out.println(&amp;quot;Hello world!&amp;quot;);
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;npm install -g gatsby&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h4&gt;1-2. プロジェクト生成&lt;/h4&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;gatsby new blog https://github.com/gatsbyjs/gatsby-starter-blog&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h4&gt;1-3. ローカルで起動&lt;/h4&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;cd blog
+npm run dev&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;http://localhost:8000/&quot;&gt;http://localhost:8000&lt;/a&gt;にアクセスするとブログが表示されます。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/blog_image_1_main-7e3132994c4eb6ab77004896a109d06d-4a9bb.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 101.7857142857143%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAADAklEQVQ4y5WUy07bQBSG81iVuqoULquCxLP0BUgKYlfYgJBAiG4qKnWDBM0CtVIXEIcIVJTSQBIUEt9jO4mN787fM5MLOEIVWPr1j489n2fOOZ7Mwts3H94vvvuVX109yudyhXz+Y2Fzc7OwsrJSWFpaKmSz2cLc3BzX7Ows1/ieaX5+nr1zPJOd+bGwsJjPfDs4+FouC/h9dYV6rYZWqwXTtNDpdNBoNFCv17nX6NnYb25uUK1Wudi4XC5DEAQQ6mfGdpx9DK/A6lqxYRgxwWJZlmPf92PTNHnMdV0+fnh4iJMkien9pwoZ4OLi8ihjWdbnETA6OTnB+vo6dnd3kcvlsL29jZ2dHSwvL2NrawsbGxvc6QN8AoExGAzIBwyKUqn0PQU8PDzE2toa9vb2UKlUYNv2ZFIURfylOOZzeeyJHoHdbncCvKX8CKUSGPj6+hovuf4LlJp3uKeiuK4HXdN4QdqiBFnrDKXqUMkVkk5FC8NwDB0CBSENvG/U0KxVYVCVNU2HQZOMrg21F0DpeuQ+9L7PPYwYY2rLQvERSImN8JrruRwWz9IrVPsBapqLRsfHreah7ycvzePzwKak47J6jxvRxN+2Ac2y4bkuHMfh7o5Evcg7gMVpZxNg8WwK2O9S7mQRhqbA1BWossT/HFEUIbbb3CVJ4n3IYMO2egJMr3AQ+WEM2wvhkJgHYcT7jon14XjM8vbcloViMb3Cumrj/M7CH9XDleyh94Icpqs8tWXWJmK7BU1VoJMs06S+03kL6XqH4io/NFRydoD0er0UsHx+mgY6/T4sg/pPU6EqCjoMwmFDqCTJfKwoKi8OS8NT4HlpCqjYMRpmhNtOiIfoNS05zuEpPxwmx5ekW0mtpSaS6SSOFyRRGCZBECZ0jJEHQ9HY9wMeYyIYKYlGVT7OUB6+jL9k93vUKjLPH9syaxOdtipTq8iyQi7ze/oIwiAgD1IrFYSzk4yua5/oJzfpYYPU9Jl8v+l5PncmFg9GceaUuya1D9cofkcxtVK52v8HdAO2pf8ZX28AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;ブログ初期イメージ&quot;
+        title=&quot;&quot;
+        src=&quot;/static/blog_image_1_main-7e3132994c4eb6ab77004896a109d06d-fb8a0.png&quot;
+        srcset=&quot;/static/blog_image_1_main-7e3132994c4eb6ab77004896a109d06d-1a291.png 148w,
+/static/blog_image_1_main-7e3132994c4eb6ab77004896a109d06d-2bc4a.png 295w,
+/static/blog_image_1_main-7e3132994c4eb6ab77004896a109d06d-fb8a0.png 590w,
+/static/blog_image_1_main-7e3132994c4eb6ab77004896a109d06d-4a9bb.png 784w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3&gt;2. ブログの記事などを自分仕様にカスタマイズ&lt;/h3&gt;
+&lt;p&gt;現状だと、ブロガーがKyle Mathews氏(Gatsbyの作者)になっていたり、仮の記事が3つある状態なので、
+自分仕様にカスタマイズします。
+&lt;small&gt;ここでは僕の例を示します。&lt;/small&gt;&lt;/p&gt;
+&lt;h4&gt;2-1. ブラウザタブのタイトル修正&lt;/h4&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;gatsby-config.js&lt;/code&gt;の&lt;code class=&quot;language-text&quot;&gt;siteMetadata&lt;/code&gt;を下記のように修正します。
+なお&lt;code class=&quot;language-text&quot;&gt;siteUrl&lt;/code&gt;はGitHub Pagesでの公開を想定したものです。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;module.exports = {
+  siteMetadata: {
+    title: &amp;#39;Takumon Blog&amp;#39;,
+    author: &amp;#39;Takuto Inoue&amp;#39;,
+    description: &amp;#39;日々の作業をつづっていきます。&amp;#39;,
+    siteUrl: &amp;#39;https://takumon.github.io/blog/&amp;#39;,
+  },&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h4&gt;2-2. 画面タイトル修正&lt;/h4&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;src/layouts/index.js&lt;/code&gt;を修正します。
+&lt;code class=&quot;language-text&quot;&gt;Gatsby Starter Blog&lt;/code&gt;となっている部分が2カ所あるので、自分のブログ名に修正します。
+僕は&lt;code class=&quot;language-text&quot;&gt;Takumon Blog&lt;/code&gt;にしました。&lt;/p&gt;
+&lt;h4&gt;2-3. プロフィール修正&lt;/h4&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;src/components/Bio.js&lt;/code&gt;のアバター(imgタグ)と自己紹介文(pタグ)を修正します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;img
+  src=&amp;quot;https://s.gravatar.com/avatar/37d27f624f8c9c8db6fe6b6581b256f1?s=80&amp;quot;
+  alt={`Takuto Inoue`}
+  style={{
+    marginRight: rhythm(1 / 2),
+    marginBottom: 0,
+    width: rhythm(2),
+    height: rhythm(2),
+    borderRadius: rhythm(1),
+  }}
+/&amp;gt;
+&amp;lt;p&amp;gt;
+  Written by &amp;lt;strong&amp;gt;Takuto Inoue&amp;lt;/strong&amp;gt; who lives and works in Tokyo building useful things.
+&amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h4&gt;2-4. 余計な記事を削除&lt;/h4&gt;
+&lt;p&gt;記事は&lt;code class=&quot;language-text&quot;&gt;src/page&lt;/code&gt;配下にフォルダ分けされて存在します。
+1つ目以外の記事は不要なのでフォルダごと削除します。
+あと1つ目の記事て使っている画像も削除します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;src/
+├── pages
+│   ├── hello-world
+│   │   ├── index.md
+│   │   └── salty_egg.jpg ・・・削除対象
+│   ├── hi-folks          ・・・削除対象
+│   │   └── index.md
+│   └── my-second-post    ・・・削除対象
+│       └── index.md&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h4&gt;2-5. 記事を編集&lt;/h4&gt;
+&lt;p&gt;1つめの記事&lt;code class=&quot;language-text&quot;&gt;src/pages/hello-world/index.md&lt;/code&gt;を編集します。
+マークダウンファイル上部にメタ情報としてタイトルと作成日時を、その下に本文を記載しましょう。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;---
+title: Hello World
+date: &amp;quot;2018-09-10T12:00:00.000Z&amp;quot;
+---
+
+Gatsbyでブログ始めました！&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h4&gt;2-6. ローカルで起動&lt;/h4&gt;
+&lt;p&gt;この状態で&lt;code class=&quot;language-text&quot;&gt;npm run dev&lt;/code&gt;して&lt;a href=&quot;http://localhost:8000&quot;&gt;http://localhost:8000&lt;/a&gt;を見てみると下記のようになっています。&lt;/p&gt;
+&lt;p&gt;記事一覧
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/blog_image_2_main-7da4ae8b009b5d5c1bd9f97e99c153a7-1d2e1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 100.86100861008612%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAACGklEQVQ4y92Uz2saQRTH9w+yioSEEi+Fpuf+F4UmXhKop6wElRSSHsSCRysFW3LoRfDnxWvxYrri7noQgjEUrK7bXdfsGve9vv0Ru0ZsNfTUL3zZ2Zl5n3nzZneYl0+3t/aePYm92n99HHkTYSORCBuLxdhwOMyGdkOsz+djA4EA6/f7bVttr4PBoOXj3VAo/nzvxRaTODk5+vzpI1aqVazX69hoXGKn00GB57FWq2GxWMRKpYJVGreepVIJy6Wy8yyXMZ/PY/ZDFr9cXODp6dsjRhDFfSSZpqlrmjZVVfXOEnUt2DCMpT6PdYvBcdwBI4piGB3Nut0uJOIJOH93DplMBlKpFKTTacjlchCNRiGZTNrvuq4DzQdKAixZsS4wzAiC4AABZjQC8q2K0lBCSZKw3+/bHo1G+FNRcDgYYqvVwslkgpSxtSsERx4gz88z/NH4Cq3sexxKMvauezgggEKg8Vglj23ruoGyLNsLTu3K4GKG4n2G1GmqCsy+31BjRoG3uI6Wt+yp4RQQNBrWDBPvTGdxa/5f/ADIt+bAgaLDtysJL7sjHIyn9xlsBhSF3zWkWsFN75qKP7APwiq8F7rWlsV2ew4ET5R7gpsDec+huJ/AQvAq0OoMPYfiBXrBf4IuAdsrtryu/gPgY/QQeOACDfcn38hujDG/vgh4iP9IzWbzkKFbd4fjmmdEj5MTjzGB4uSzQqGw8wtf9qFNOS60nQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;ブログ修正後イメージ_記事一覧&quot;
+        title=&quot;&quot;
+        src=&quot;/static/blog_image_2_main-7da4ae8b009b5d5c1bd9f97e99c153a7-fb8a0.png&quot;
+        srcset=&quot;/static/blog_image_2_main-7da4ae8b009b5d5c1bd9f97e99c153a7-1a291.png 148w,
+/static/blog_image_2_main-7da4ae8b009b5d5c1bd9f97e99c153a7-2bc4a.png 295w,
+/static/blog_image_2_main-7da4ae8b009b5d5c1bd9f97e99c153a7-fb8a0.png 590w,
+/static/blog_image_2_main-7da4ae8b009b5d5c1bd9f97e99c153a7-1d2e1.png 813w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;記事詳細
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/blog_image_2_detail-ddf78c319bfb9bdb52617201c72de7df-3a8a9.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 101.10974106041924%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAB60lEQVQ4y+WUTWsTURSG5xdpM6FdaBQt7vwdVugHlrTqwsxm/AG60k0QxA/QVdpmkGYRyGqmxEjoJIj5cFFboQkxM8lkMs1M7uu5kzFNoKlp6K4vvFy4l/eZc+ZcrnB/XgzfWxTlpeXl2JPHT6VH6+tSdGNTerD0ULpxMyJduz4nhURRmgudOjRiMRyW5hcWYpFbt5/fubsYFuTYs+j7d2/wZXcXe9oestkscrkc9nUd6XQa2zs7UBQFyaQyWJXxNZFIIB6P4/OHj5BleVP4USqtgOS6rtPpdHqGYbimafrm21Pa4Qxd11eFaqWyioG8er3OVFVl+XyeaZrGjo9rrNvtMq5+v3+muQIoCoXCmlAul4fAg18HbHtrC6qqIZPJIEntlkpl/5DC4NkzzOUFFa4JlZEKu7bN6rUaqF1QZRh8HJNAQyDPDiscBfaoBbvn4sRxYFkWPNfD/3Qu0Kodst/fv8Jqd0DDQaPxB81mE61WC+1W219Nk2yYtG/wQfrMiUBj/xv7+ektGhQ4OjzyAbx1hyoeNd+zbRue500GBj+W4YI6t+XgfkwziOmGElyBscA/+MwVXnrLVxA4i8aA9DisBMATOnP5fbyoefb0+apWo7gkFYvFDYGeqQhBX5FfkF/OaJ59nUqlIn8BqESsK9UQHY4AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;ブログ修正後イメージ_記事詳細&quot;
+        title=&quot;&quot;
+        src=&quot;/static/blog_image_2_detail-ddf78c319bfb9bdb52617201c72de7df-fb8a0.png&quot;
+        srcset=&quot;/static/blog_image_2_detail-ddf78c319bfb9bdb52617201c72de7df-1a291.png 148w,
+/static/blog_image_2_detail-ddf78c319bfb9bdb52617201c72de7df-2bc4a.png 295w,
+/static/blog_image_2_detail-ddf78c319bfb9bdb52617201c72de7df-fb8a0.png 590w,
+/static/blog_image_2_detail-ddf78c319bfb9bdb52617201c72de7df-3a8a9.png 811w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;ここまでで一通り自分のブログをローカルで作ることができました。&lt;/p&gt;
+&lt;h3&gt;3. GitHub Pagesにブログを公開&lt;/h3&gt;
+&lt;p&gt;Gatsbyを使うとnpmスクリプト一発でGitHub Pageに公開ができます。
+ここではGitHubでのリポジトリ作成などの事前準備も含めて手順を示します。&lt;/p&gt;
+&lt;h4&gt;3-1. GitHubにリポジトリ作成&lt;/h4&gt;
+&lt;p&gt;GitHubにリポジトリを作り、手順2で作成した資産をプッシュしてください。&lt;/p&gt;
+&lt;h4&gt;3-2. GitHub Pagesの設定&lt;/h4&gt;
+&lt;p&gt;GitHubのリポジトリ &gt; settings &gt; GitHub Pages &gt; Source で&lt;code class=&quot;language-text&quot;&gt;gh-pages branch&lt;/code&gt;を選択します。&lt;/p&gt;
+&lt;h4&gt;3-3. メタ情報の修正&lt;/h4&gt;
+&lt;p&gt;手順2によりローカルでブログを起動できるようになりましたが、GitHub Pagesに公開するには、まだ少し修正が必要です。&lt;/p&gt;
+&lt;h5&gt;gatsby-config.jsの&lt;code class=&quot;language-text&quot;&gt;pathPrefix&lt;/code&gt;の修正&lt;/h5&gt;
+&lt;p&gt;ブログのコンテキストURLは、現状だとスターターキットの値なので修正します。
+これを指定するとブログのURLが&lt;code class=&quot;language-text&quot;&gt;https://[オーナー名].github.io/[pathPrefixの値]/&lt;/code&gt;のようになります。
+僕の場合は&lt;code class=&quot;language-text&quot;&gt;https://takumon.github.io/blog&lt;/code&gt;のようになります。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;module.exports = {
+  ・・・
+  pathPrefix: &amp;#39;/blog&amp;#39;,
+  ・・・
 }&lt;/code&gt;&lt;/pre&gt;
-      &lt;/div&gt;</content:encoded></item></channel></rss>
+      &lt;/div&gt;
+&lt;h5&gt;package.json、pacakge-lock.json、README.mdのメタ情報修正&lt;/h5&gt;
+&lt;p&gt;上記3ファイルにおいて、プロジェクト名や、管理者、ブログのURLなどが、すべてスターターキットの状態になっているので
+自分仕様に修正します。&lt;/p&gt;
+&lt;h4&gt;3-4. 資産をgh-pagesブランチにプッシュ&lt;/h4&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;git push origin master&lt;/code&gt;でマスターに最新資産をプッシュします。&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;npm run deploy&lt;/code&gt;を実行します。実態は&lt;code class=&quot;language-text&quot;&gt;gatsby build &amp;amp;&amp;amp; gh-pages -d public&lt;/code&gt;というコマンドです。これを実行するとgatbyコマンドによりビルド資産をgh-pagesブランチにプッシュしてくれます。&lt;/p&gt;
+&lt;h4&gt;3-5. 公開できたことを確認&lt;/h4&gt;
+&lt;p&gt;GitHub Pagesの公開URLをブラウザでたたき、自分のブログが公開されていることを確認します。&lt;/p&gt;
+&lt;p&gt;以上でブログの公開手順は終了です。&lt;/p&gt;
+&lt;h3&gt;参考記事&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://qiita.com/jaxx2104/items/5f28915355a85d36e38a&quot;&gt;React.js製の静的サイトジェネレーターGatsbyに移行した&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Gatsbyを始めるきっかけとなった記事です。この記事のおかげで簡単にGatsby製ブログを開設できました。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.gatsbyjs.org/&quot;&gt;公式サイト&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;英語ですが、、、結構充実しています。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Gatsby製ブログ(ググるといくつかヒットします。どれも見た目が格好いいので参考にしたいです。)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.mismithportfolio.com/&quot;&gt;写真やWeb制作についてのブログ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://dvg.179.jp/&quot;&gt;dvg.179&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://tmnm.tech/&quot;&gt;tmnm.tech&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item></channel></rss>
