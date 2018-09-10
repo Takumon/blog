@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Mon, 10 Sep 2018 10:34:12 GMT</lastBuildDate><item><title><![CDATA[Gatsby製ブログ開設手順]]></title><description><![CDATA[ブログ開設手順 Gatsbyってなにって状態から30分程度でブログを開設できました。
-下記にそのときの手順をメモしておきます。 0. 前提条件 Git、Node、npmは事前にインストールしておいてください。 1. ブログのスターターキットを起動 Gatsby…]]></description><link>https://takumon.com//2018/09/10/</link><guid isPermaLink="false">https://takumon.com//2018/09/10/</guid><pubDate>Mon, 10 Sep 2018 19:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;ブログ開設手順&lt;/h2&gt;
-&lt;p&gt;Gatsbyってなにって状態から30分程度でブログを開設できました。
-下記にそのときの手順をメモしておきます。&lt;/p&gt;
-&lt;h3&gt;0. 前提条件&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Mon, 10 Sep 2018 10:47:30 GMT</lastBuildDate><item><title><![CDATA[Gatsby製ブログ開設手順]]></title><description><![CDATA[ブログ開設手順 Gatsbyってなにって状態から30分程度でブログを開設できました。
+下記にそのときの手順をメモしておきます。 0. 前提条件 Git、Node、npmは事前にインストールしておいてください。 1. ブログのスターターキットを起動 Gatsby…]]></description><link>https://takumon.com//2018/09/10/</link><guid isPermaLink="false">https://takumon.com//2018/09/10/</guid><pubDate>Mon, 10 Sep 2018 19:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;ブログ開設手順&lt;/h2&gt;
+&lt;p&gt;Gatsbyってなにって状態から30分程度でブログを開設できました。
+下記にそのときの手順をメモしておきます。&lt;/p&gt;
+&lt;h3&gt;0. 前提条件&lt;/h3&gt;
 &lt;p&gt;Git、Node、npmは事前にインストールしておいてください。&lt;/p&gt;
 &lt;h3&gt;1. ブログのスターターキットを起動&lt;/h3&gt;
 &lt;p&gt;Gatsbyはブログをすぐ始められるようにスターターキット(スキャフォールド)を用意しています。
@@ -233,27 +233,27 @@
 &lt;li&gt;Gatsbyを始めるきっかけとなった記事です。この記事のおかげで簡単にGatsby製ブログを開設できました。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Gatsbyでブログ始めました。]]></title><description><![CDATA[ブログをやろうと思った理由 Qiita は、誰得な作業メモは載せられないし
- はてなブログ は、見た目が好きじゃない…
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Gatsbyでブログ始めました。]]></title><description><![CDATA[ブログをやろうと思った理由 Qiita は、誰得な作業メモは載せられないし
+ はてなブログ は、見た目が好きじゃない…
 一時期、 WikiHub日報 とかもやっていたんですが、なかなか続かず…
-そのせいか、やったことを…]]></description><link>https://takumon.com//2018/09/09/</link><guid isPermaLink="false">https://takumon.com//2018/09/09/</guid><pubDate>Sun, 09 Sep 2018 22:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;ブログをやろうと思った理由&lt;/h2&gt;
+そのせいか、やったことを…]]></description><link>https://takumon.com//2018/09/09/</link><guid isPermaLink="false">https://takumon.com//2018/09/09/</guid><pubDate>Sun, 09 Sep 2018 22:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;ブログをやろうと思った理由&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://qiita.com/&quot;&gt;Qiita&lt;/a&gt;は、誰得な作業メモは載せられないし
-&lt;a href=&quot;http://hatenablog.com/&quot;&gt;はてなブログ&lt;/a&gt;は、見た目が好きじゃない…
+&lt;a href=&quot;http://hatenablog.com/&quot;&gt;はてなブログ&lt;/a&gt;は、見た目が好きじゃない…
 一時期、&lt;a href=&quot;https://nippo.wikihub.io/&quot;&gt;WikiHub日報&lt;/a&gt;とかもやっていたんですが、なかなか続かず…
 そのせいか、やったことを3ヶ月後には忘れてしまう状況がココ半年ほど続きまして、
 コリャなんとかせねばということでオリジナルのブログ始めた次第です。&lt;/p&gt;
 &lt;h2&gt;Gatsbyを使い始めた理由&lt;/h2&gt;
-&lt;p&gt;独自でブログを始めるなら&lt;code class=&quot;language-text&quot;&gt;簡単&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;便利&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;格好いい&lt;/code&gt;、の3つがそろった静的サイトジェネレーターを使おうと考えていました。
-すこし調べただけでも、有名どころでは&lt;a href=&quot;https://jekyllrb-ja.github.io/&quot;&gt;jekyll&lt;/a&gt;、&lt;a href=&quot;https://gohugo.io/&quot;&gt;Hugo&lt;/a&gt;、&lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;、&lt;a href=&quot;https://www.gatsbyjs.org/&quot;&gt;Gatsby&lt;/a&gt;
+&lt;p&gt;独自でブログを始めるなら&lt;code class=&quot;language-text&quot;&gt;簡単&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;便利&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;格好いい&lt;/code&gt;、の3つがそろった静的サイトジェネレーターを使おうと考えていました。
+すこし調べただけでも、有名どころでは&lt;a href=&quot;https://jekyllrb-ja.github.io/&quot;&gt;jekyll&lt;/a&gt;、&lt;a href=&quot;https://gohugo.io/&quot;&gt;Hugo&lt;/a&gt;、&lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;、&lt;a href=&quot;https://www.gatsbyjs.org/&quot;&gt;Gatsby&lt;/a&gt;
 などがあり、どれも3つの要素を満たせそうではありましたが、
-その中でも、React、PWA、GraphQLなどのフロントエンドよりの技術構成になっているGastbyに興味を引かれたので採用しました。
+その中でも、React、PWA、GraphQLなどのフロントエンドよりの技術構成になっているGastbyに興味を引かれたので採用しました。
 読み方はギャッツビーです（ガッツバイではないし、ヘアワックスでもない）。
-ちょうどいまReactをやり始めたところなので勉強も兼ねてGatsbyのブログを育てていきたいと思っています。&lt;/p&gt;
+ちょうどいまReactをやり始めたところなので勉強も兼ねてGatsbyのブログを育てていきたいと思っています。&lt;/p&gt;
 &lt;h2&gt;ブログを作ってみた感想&lt;/h2&gt;
-&lt;p&gt;Gatsbyってなに？って状態から30分程度でブログを開設できました。
-デフォルトで既に格好いいブログができあがっています。
-他の静的サイトジェネレーターと比較はしていませんが、記事の表示がとにかく爆速です。
-ソースコードのシンタックスハイライトに&lt;a href=&quot;https://prismjs.com/&quot;&gt;Prism&lt;/a&gt;というライブラリを使っており、見た目がきれいな上に指定行をハイライトしたりもできます。またレスポンシブ対応しておりスマホからも見やすいのがうれしいポイントでした。&lt;/p&gt;
+&lt;p&gt;Gatsbyってなに？って状態から30分程度でブログを開設できました。
+デフォルトで既に格好いいブログができあがっています。
+他の静的サイトジェネレーターと比較はしていませんが、記事の表示がとにかく爆速です。
+ソースコードのシンタックスハイライトに&lt;a href=&quot;https://prismjs.com/&quot;&gt;Prism&lt;/a&gt;というライブラリを使っており、見た目がきれいな上に指定行をハイライトしたりもできます。またレスポンシブ対応しておりスマホからも見やすいのがうれしいポイントでした。&lt;/p&gt;
 &lt;h2&gt;参考&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
