@@ -1,4 +1,2 @@
-# blog
-Takumon blog powered by Gatsby
-
-https://takumon.com/
+# [My Blog](https://takumon.com/)
+=> https://takumon.com/
