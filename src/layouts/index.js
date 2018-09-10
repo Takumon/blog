@@ -30,7 +30,9 @@ class Template extends React.Component {
               boxShadow: 'none',
               textDecoration: 'none',
               color: 'inherit',
+              fontFamily: 'Montserrat',
             }}
+            className="milky"
             to={'/'}
           >
             Takumon Blog
@@ -51,7 +53,9 @@ class Template extends React.Component {
               boxShadow: 'none',
               textDecoration: 'none',
               color: 'inherit',
+              fontFamily: 'Montserrat',
             }}
+            className="milky"
             to={'/'}
           >
             Takumon Blog
