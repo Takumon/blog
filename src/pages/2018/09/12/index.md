@@ -1,5 +1,5 @@
 ---
-title: GitHub Pagesを独自ドメイン化、Https化
+title: GitHub Pagesを独自ドメイン化 + Https化
 date: "2018-09-12T07:00:00.000Z"
 ---
 
@@ -48,14 +48,14 @@ GitHub Pagesでブログを開設した後、
 お名前.comの設定は以上です。
 
 ### 3. GitHub Pagesの設定を変更する(Https対応も含む)
-いままで http://takumon.github.io/ だったところを準備した独自ドメインに変更します。
+いままで http://takumon.github.io/ のようはGitHub Pages標準のURLだったところを準備した独自ドメインに変更します。
 ![GitHubPages設定手順1](./githubpages_config_1.png)
 1. GitHubでブログリポジトリのsettingsタブを開き　GitHub Pages > Custom domain に準備した独自ドメインを入力しSaveボタンをクリックします。
     * しばらく待ってSettingsタグを開き直すとhttp://独自ドメイン でブログにアクセスできるようになります。
 2. その後 GitHub Pages > Enforce HTTPS にチェックを入れます。
 3. またしばらく待つと https://独自ドメイン でブログにアクセスできるようになります。
 
-※GitHub Pagesの設定は反映までに少し時間がかかったりするので、設定直後はエラーまたは警告メッセージが表示されますが、しばらくたつと解消するので2〜3分ほど待ってみると解消します。
+※GitHub Pagesの設定は反映までに少し時間がかかったりするので、設定直後はエラーまたは警告メッセージが表示されますが、しばらくたつと解消するので2〜3分ほど待ってみてください。
 
 ### 4. ブログリポジトリにて独自ドメインを設定する
 手順3で独自ドメインにアクセスできるようになりますが、再度ブログを記事を更新してgh-pagesブランチにブログをデプロイすると
@@ -68,6 +68,8 @@ takumon.com
 ```
 そうすることで次回以降デプロイ時もGitHub Pagesの独自ドメイン設定が保たれるようになります。
 
+## まとめ
+GitHub Pagesの方がHttps対応は用意してくれているので、独自ドメインに対するドメインレコードの設定さえできれば、あとは簡単に、独自ドメイン化+Https化を実現できました。
 
 ## 参考
 * [GitHub Pages + 独自ドメイン + HTTPS (SSL) のサポートをGitHubが提供開始](https://qiita.com/foobaron/items/cd9cfc403defa706372b)
