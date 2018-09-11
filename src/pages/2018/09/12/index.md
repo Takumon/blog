@@ -12,7 +12,7 @@ GitHub Pagesでブログを開設した後、
 ### 1. 独自ドメインを取得する
 いつくかサービスはありますが、有名どころの[お名前.com](https://www.onamae.com/)で取得します。アクセスして検索窓に、自分のほしい独自ドメインを入力し検索してみます。
 他の人が既に取得していなければ、そのまま手続きに進みます。<br />
-「早い者勝ちです。」と煽っているわりには　`takumon.com`は誰も使ってなかったので、よほど(`taro.com`みないなの)でない限り、
+「早い者勝ちです。」と煽っているわりには　`takumon.com`は誰も使ってなかったので、よほど(`taro.com`みないなの)でない限り、
 自分のほしいドメインはゲットできるのではないでしょうか。
 
 ![お名前.com](./namecom.png)
@@ -31,7 +31,7 @@ GitHub Pagesでブログを開設した後、
 ![お名前.comDNS設定手順3](./namecom_config_3.png)
 
 
-* [GitHub 公式サイト](https://help.github.com/articles/setting-up-an-apex-domain/)に載っている4つのレコードを登録します
+* [GitHub 公式サイト](https://help.github.com/articles/setting-up-an-apex-domain/)に載っている4つのレコードを登録します
   * 登録する4つのレコード
       * `185.199.108.153`
       * `185.199.109.153`
@@ -39,27 +39,27 @@ GitHub Pagesでブログを開設した後、
       * `185.199.111.153`
   * 具体的には下記にDNSレコードを指定して、追加ボタンをクリックします。
     ![お名前.comDNS設定手順4](./namecom_config_4.png)
-  * 4つ追加すると下記のような感じになるので、画面下部の確認画面へすすむボタンをクリックします。
+  * 4つ追加すると下記のような感じになるので、画面下部の確認画面へすすむボタンをクリックします。
     ![お名前.comDNS設定手順5](./namecom_config_5.png)
 
-* こんな感じになっていることを確認して設定するボタンをクリックします。
+* こんな感じになっていることを確認して設定するボタンをクリックします。
   ![お名前.comDNS設定手順6](./namecom_config_6.png)
 
 お名前.comの設定は以上です。
-
+
 ### 3. GitHub Pagesの設定を変更する(Https対応も含む)
-いままで http://takumon.github.io/ だったところを準備した独自ドメインに変更します。
+いままで http://takumon.github.io/ だったところを準備した独自ドメインに変更します。
 ![GitHubPages設定手順1](./githubpages_config_1.png)
-1. GitHubでブログリポジトリのsettingsタブを開き　GitHub Pages > Custom domain に準備した独自ドメインを入力しSaveボタンをクリックします。
+1. GitHubでブログリポジトリのsettingsタブを開き　GitHub Pages > Custom domain に準備した独自ドメインを入力しSaveボタンをクリックします。
     * しばらく待ってSettingsタグを開き直すとhttp://独自ドメイン でブログにアクセスできるようになります。
-2. その後 GitHub Pages > Enforce HTTPS にチェックを入れます。
+2. その後 GitHub Pages > Enforce HTTPS にチェックを入れます。
 3. またしばらく待つと https://独自ドメイン でブログにアクセスできるようになります。
 
 ※GitHub Pagesの設定は反映までに少し時間がかかったりするので、設定直後はエラーまたは警告メッセージが表示されますが、しばらくたつと解消するので2〜3分ほど待ってみると解消します。
 
 ### 4. ブログリポジトリにて独自ドメインを設定する
-手順3で独自ドメインにアクセスできるようになりますが、再度ブログを記事を更新してgh-pagesブランチにブログをデプロイすると
-GitHub Pagesの独自ドメイン設定がもとに戻ってしまいます。<br />
+手順3で独自ドメインにアクセスできるようになりますが、再度ブログを記事を更新してgh-pagesブランチにブログをデプロイすると
+GitHub Pagesの独自ドメイン設定がもとに戻ってしまいます。<br />
 これを防ぐためにはブログのリポジトリの`static`フォルダに`CNAME`というファイルを格納し、
 下記のように独自ドメインを定義します。
 
@@ -75,4 +75,4 @@ takumon.com
 * [GitHub 公式サイト](https://help.github.com/articles/setting-up-an-apex-domain/)
   * 英語ですが、、、色々ちゃんと書いてありますね。
 * [Gatsby 公式サイト](https://www.gatsbyjs.org/docs/how-gatsby-works-with-github-pages/#custom-domains)
-  * GitHub Pagesで独自ドメインを設定する時の注意事項が記されています。
+  * GitHub Pagesで独自ドメインを設定する時の注意事項が記されています。
