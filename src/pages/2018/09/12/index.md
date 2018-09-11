@@ -51,7 +51,7 @@ GitHub Pagesでブログを開設した後、
 いままで http://takumon.github.io/ だったところを準備した独自ドメインに変更します。
 ![GitHubPages設定手順1](./githubpages_config_1.png)
 1. GitHubでブログリポジトリのsettingsタブを開き　GitHub Pages > Custom domain に準備した独自ドメインを入力しSaveボタンをクリックします。
-    * しばらく待ってSettingsタグを開き直すとhttp://独自ドメイン でブログにアクセスできるようになります。
+    * しばらく待ってSettingsタグを開き直すとhttp://独自ドメイン でブログにアクセスできるようになります。
 2. その後 GitHub Pages > Enforce HTTPS にチェックを入れます。
 3. またしばらく待つと https://独自ドメイン でブログにアクセスできるようになります。
 
@@ -75,4 +75,4 @@ takumon.com
 * [GitHub 公式サイト](https://help.github.com/articles/setting-up-an-apex-domain/)
   * 英語ですが、、、色々ちゃんと書いてありますね。
 * [Gatsby 公式サイト](https://www.gatsbyjs.org/docs/how-gatsby-works-with-github-pages/#custom-domains)
-  * GitHub Pagesで独自ドメインを設定する時の注意事項が記されています。
+  * GitHub Pagesで独自ドメインを設定する時の注意事項が記されています。
