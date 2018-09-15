@@ -11,7 +11,7 @@ import {
   TwitterIcon,
 } from 'react-share';
 
-export default function SNSShare({title, link}) {
+export default function SNSShare({title, link, twitterUserName}) {
   console.log(title)
   console.log(link)
 
@@ -37,7 +37,7 @@ export default function SNSShare({title, link}) {
         </LinkedinShareButton>
       </li>
       <li className="sns-share__button">
-        <TwitterShareButton title={title} via="inouetakumon" url={link}>
+        <TwitterShareButton title={title} via={twitterUserName} url={link}>
           <TwitterIcon size={32} round />
         </TwitterShareButton>
       </li>

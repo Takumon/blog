@@ -5,7 +5,10 @@ import get from 'lodash/get'
 
 import { rhythm, scale } from '../utils/typography'
 import SNSShare from '../components/sns-share';
-import { blogUrl } from '../config/blog-config';
+import {
+  blogUrl,
+  blogAuthorTwitterUserName
+} from '../config/blog-config';
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -30,7 +33,11 @@ class BlogPostTemplate extends React.Component {
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
 
         <footer>
-          <SNSShare title={post.frontmatter.title} link={`${blogUrl}${this.props.location.pathname}`} ></SNSShare>
+          <SNSShare
+            title={post.frontmatter.title}
+            link={`${blogUrl}${this.props.location.pathname}`}
+            twitterUserName={blogAuthorTwitterUserName}
+            />
           <ul
             style={{
               marginTop: '12px',

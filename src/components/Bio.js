@@ -7,7 +7,12 @@ import 'typeface-merriweather'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithubSquare, faTwitterSquare } from '@fortawesome/free-brands-svg-icons'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-
+import {
+  blogDescription,
+  blogAuthorGitHubUrl,
+  blogAuthorTwitterUrl,
+  blogAuthorQiitaUrl,
+} from '../config/blog-config.js';
 import { rhythm } from '../utils/typography'
 
 class Bio extends React.Component {
@@ -34,11 +39,11 @@ class Bio extends React.Component {
           display: 'flex',
           flexDirection: 'column',
         }}>
-          <div>東京でJavaのSIerやってます。</div>
+          <div>{blogDescription}</div>
           <div className="profile" style={{display: 'flex',fontSize: '1.6em'}}>
             <a
               className="profile__link"
-              href="https://github.com/Takumon">
+              href={blogAuthorGitHubUrl}>
               <FontAwesomeIcon
                 color="#333"
                 className="profile__icon"
@@ -46,7 +51,7 @@ class Bio extends React.Component {
             </a>
             <a
               className="profile__link"
-              href="https://twitter.com/inouetakumon?lang=ja">
+              href={blogAuthorTwitterUrl}>
               <FontAwesomeIcon
                 color="#3eaded"
                 className="profile__icon"
@@ -54,7 +59,7 @@ class Bio extends React.Component {
             </a>
             <a
               className="profile__link"
-              href="https://qiita.com/Takumon">
+              href={blogAuthorQiitaUrl}>
               <FontAwesomeIcon
                 color="white"
                 className="profile__icon"

@@ -3,8 +3,9 @@ import Link from 'gatsby-link'
 
 import { rhythm, scale } from '../utils/typography'
 
+import {blogTitle} from '../config/blog-config.js';
 import Footer from '../components/footer';
-
+import tomatoSvg from '../svg/tomato.svg';
 import 'prismjs/themes/prism-solarizedlight.css';
 import '../css/base.scss';
 import '../css/highlight.scss';
@@ -39,9 +40,7 @@ export default class Template extends React.Component {
             }}
             className="milky"
             to={'/'}
-          >
-            Takumon Blog
-          </Link>
+          >{blogTitle}</Link>
         </h1>
       )
     } else {
@@ -62,8 +61,12 @@ export default class Template extends React.Component {
             }}
             className="milky"
             to={'/'}
-          >
-            Takumon Blog
+          >{blogTitle}<i className="footer-icon-github" style={{
+              backgroundImage: `url(${tomatoSvg})`,
+              width: '1em',
+              backgroundRepeat: 'no-repeat',
+              margin: '0 0 0 0.2em',
+            }}></i>
           </Link>
         </h3>
       )

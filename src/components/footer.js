@@ -2,7 +2,9 @@ import React, { Fragment } from 'react';
 import Link from 'gatsby-link';
 
 import githubSvg from '../svg/github.svg';
+import tomatoSvg from '../svg/tomato.svg';
 import Bio from '../components/Bio'
+import { blogTitle, blogAuthor, blogRepositoryUrl } from '../config/blog-config';
 import { rhythm } from '../utils/typography'
 
 export default function Footer({isRoot}) {
@@ -23,12 +25,18 @@ export default function Footer({isRoot}) {
               color: 'inherit',
             }}
             to='/'
-          >Takumon blog</Link>
+          >{blogTitle}<i className="footer-icon-github" style={{
+              backgroundImage: `url(${tomatoSvg})`,
+              width: '1em',
+              height: '1em',
+              backgroundRepeat: 'no-repeat',
+              margin: '0 0 0.3em 0.2em',
+            }}></i></Link>
         </h4>
 
 
-        <div className="copyright">Copyright © 2018. Takumon</div>
-        <a href="https://github.com/Takumon/blog" rel="noopener noreferrer" style={{ boxShadow: 'none'}}>
+        <div className="copyright">Copyright © 2018. {blogAuthor}</div>
+        <a href={blogRepositoryUrl} rel="noopener noreferrer" style={{ boxShadow: 'none'}}>
             <i className="footer-icon-github" style={{
               backgroundImage: `url(${githubSvg})`,
             }}></i>
