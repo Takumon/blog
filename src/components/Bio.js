@@ -3,6 +3,9 @@ import React from 'react'
 // Import typefaces
 import 'typeface-montserrat'
 import 'typeface-merriweather'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithubSquare, faTwitterSquare } from '@fortawesome/free-brands-svg-icons'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 import { rhythm } from '../utils/typography'
 
@@ -26,9 +29,34 @@ class Bio extends React.Component {
             borderRadius: rhythm(1),
           }}
         />
-        <p>
-          東京でJavaのSIerやってます。
-        </p>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}>
+          <div>東京でJavaのSIerやってます。</div>
+          <div style={{display: 'flex',fontSize: '1.6em'}}>
+            <FontAwesomeIcon
+              color="#333"
+              className="profile-link-icon"
+              icon={faGithubSquare} />
+            <FontAwesomeIcon
+              color="#3eaded"
+              className="profile-link-icon"
+              icon={faTwitterSquare} />
+            <FontAwesomeIcon
+              color="white"
+              className="profile-link-icon"
+              style={{
+                overflow: 'hidden',
+                height: '0.9em',
+                width: '0.9em',
+                backgroundColor: '#4cb10d',
+                borderRadius: '2px',
+                marginTop: '2px',
+              }}
+              icon={faSearch} />
+          </div>
+        </div>
       </div>
     )
   }
