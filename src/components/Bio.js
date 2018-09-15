@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'gatsby-link';
 
 // Import typefaces
 import 'typeface-montserrat'
@@ -34,27 +35,39 @@ class Bio extends React.Component {
           flexDirection: 'column',
         }}>
           <div>東京でJavaのSIerやってます。</div>
-          <div style={{display: 'flex',fontSize: '1.6em'}}>
-            <FontAwesomeIcon
-              color="#333"
-              className="profile-link-icon"
-              icon={faGithubSquare} />
-            <FontAwesomeIcon
-              color="#3eaded"
-              className="profile-link-icon"
-              icon={faTwitterSquare} />
-            <FontAwesomeIcon
-              color="white"
-              className="profile-link-icon"
-              style={{
-                overflow: 'hidden',
-                height: '0.9em',
-                width: '0.9em',
-                backgroundColor: '#4cb10d',
-                borderRadius: '2px',
-                marginTop: '2px',
-              }}
-              icon={faSearch} />
+          <div className="profile" style={{display: 'flex',fontSize: '1.6em'}}>
+            <a
+              className="profile__link"
+              href="https://github.com/Takumon">
+              <FontAwesomeIcon
+                color="#333"
+                className="profile__icon"
+                icon={faGithubSquare} />
+            </a>
+            <a
+              className="profile__link"
+              href="https://twitter.com/inouetakumon?lang=ja">
+              <FontAwesomeIcon
+                color="#3eaded"
+                className="profile__icon"
+                icon={faTwitterSquare} />
+            </a>
+            <a
+              className="profile__link"
+              href="https://qiita.com/Takumon">
+              <FontAwesomeIcon
+                color="white"
+                className="profile__icon"
+                style={{
+                  overflow: 'hidden',
+                  height: '0.9em',
+                  width: '0.9em',
+                  backgroundColor: '#4cb10d',
+                  borderRadius: '2px',
+                  marginTop: '2px',
+                }}
+                icon={faSearch} />
+            </a>
           </div>
         </div>
       </div>
