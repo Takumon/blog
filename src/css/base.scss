@@ -86,13 +86,12 @@ li > ul {
 .profile {
   &__link {
     padding: 0;
-    margin: 0;
+    margin-right: 18px;
     border: 0;
     display: block;
     box-shadow: none;
   }
   &__icon {
-    margin-right: 6px;
     display: block;
 
     &:hover {
