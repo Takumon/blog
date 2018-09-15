@@ -1,0 +1,83 @@
+// For Html
+@import "node_modules/normalize-scss/sass/normalize";
+
+// 全体
+@font-face {
+  font-family: "YuGothic M";
+  src: local("Yu Gothic Medium"),
+       local("Yu Gothic");
+  font-weight: 500;
+}
+
+body,
+h1,h2,h3,h4,h5,h6 {
+  color: #333;
+  font-family: '游ゴシック体', YuGothic, 'YuGothic M', 'Merriweather','Georgia';
+  -webkit-font-smoothing: antialiased;
+  font-kerning: auto;
+  font-variant-ligatures: none;
+  letter-spacing: .05rem;
+  line-height: 1.75;
+}
+
+// リスト部分
+ul li {
+  margin-left: 1.5rem;
+}
+
+li > ul {
+  margin-left: 0rem;
+}
+
+
+// フッター部分
+.footer {
+  border-top: 1px solid hsla(0,0%,0%,0.2);
+  margin-top: 24px;
+
+  &__inner {
+    padding: 24px 0 12px;
+    margin: auto;
+  }
+
+  &__title {
+    font-family: Montserrat;
+    text-transform: none;
+    margin: 8px auto;
+  }
+}
+
+.copyright {
+  font-size: 0.9em;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.footer-icon-github {
+  display: inline-block;
+  margin-left: 24px;
+  box-sizing: border-box;
+  vertical-align: bottom;
+  padding: 4px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+
+// SNS共有部分
+.sns-share {
+  &__area {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    min-height: 50px;
+  }
+  &__button {
+    display: inline-block;
+    margin: 0 8px;
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}

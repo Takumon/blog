@@ -1,3 +1,4 @@
+// For Prism.js
 .gatsby-highlight-code-line {
   background-color: #feb;
   display: block;
@@ -33,31 +34,4 @@
   overflow: initial;
   float: left; /* 1 */
   min-width: 100%; /* 2 */
-}
-
-
-ul li {
-  margin-left: 1.5rem;
-}
-
-li > ul {
-  margin-left: 0rem;
-}
-
-@font-face {
-  font-family: "YuGothic M";
-  src: local("Yu Gothic Medium"),
-       local("Yu Gothic");
-  font-weight: 500;
-}
-
-body,
-h1,h2,h3,h4,h5,h6 {
-  color: #333;
-  font-family: '游ゴシック体', YuGothic, 'YuGothic M', 'Merriweather','Georgia';
-  -webkit-font-smoothing: antialiased;
-  font-kerning: auto;
-  font-variant-ligatures: none;
-  letter-spacing: .05rem;
-  line-height: 1.75;
 }

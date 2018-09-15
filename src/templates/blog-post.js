@@ -3,8 +3,9 @@ import Helmet from 'react-helmet'
 import Link from 'gatsby-link'
 import get from 'lodash/get'
 
-import Bio from '../components/Bio'
 import { rhythm, scale } from '../utils/typography'
+import SNSShare from '../components/sns-share';
+import { blogUrl } from '../config/blog-config';
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -27,39 +28,39 @@ class BlogPostTemplate extends React.Component {
           {post.frontmatter.date}
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
-        <hr
-          style={{
-            marginBottom: rhythm(1),
-          }}
-        />
-        <Bio />
 
-        <ul
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            listStyle: 'none',
-            padding: 0,
-          }}
-        >
-          <li>
-            {
-              previous &&
-              <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
-              </Link>
-            }
-          </li>
-          <li>
-            {
-              next &&
-              <Link to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
-              </Link>
-            }
-          </li>
-        </ul>
+        <footer>
+          <SNSShare title={post.frontmatter.title} link={`${blogUrl}${this.props.location.pathname}`} ></SNSShare>
+          <ul
+            style={{
+              marginTop: '12px',
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+              listStyle: 'none',
+              padding: 0,
+            }}
+          >
+            <li>
+              {
+                previous &&
+                <Link to={previous.fields.slug} rel="prev">
+                  ← {previous.frontmatter.title}
+                </Link>
+              }
+            </li>
+            <li>
+              {
+                next &&
+                <Link to={next.fields.slug} rel="next">
+                  {next.frontmatter.title} →
+                </Link>
+              }
+            </li>
+          </ul>
+        </footer>
+
+
       </div>
     )
   }
