@@ -9,4 +9,5 @@ module.exports = {
   blogAuthorTwitterUrl: 'https://twitter.com/inouetakumon',
   blogAuthorQiitaUrl: 'https://qiita.com/Takumon',
   blogAuthorGitHubUrl: 'https://github.com/Takumon',
+  facebookAppId: '1959327667485352',
 };

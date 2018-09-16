@@ -25,6 +25,7 @@ export default class Template extends React.Component {
     const isRoot = location.pathname === rootPath;
 
     if (isRoot) {
+      // ルートの場合はココでOGPタグを追加
       header = (
         <h1
           style={{
@@ -33,6 +34,7 @@ export default class Template extends React.Component {
             marginTop: 0,
           }}
         >
+          <Ogp isRoot={isRoot} />
           <Link
             className="blogTitle"
             to={'/'}
@@ -78,7 +80,6 @@ export default class Template extends React.Component {
           padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
         }}
       >
-        <Ogp />
         {header}
         {children()}
 
