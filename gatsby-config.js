@@ -76,6 +76,18 @@ module.exports = {
         pathToConfigModule: 'src/utils/typography',
       },
     },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: "Takumon blog",
+        short_name: "Takumon blog",
+        start_url: "/",
+        background_color: "#333",
+        theme_color: "#d23d29",
+        display: "minimal-ui",
+        icons: `/src/images/app.png`,
+      },
+    },
     `gatsby-plugin-twitter`,
     `gatsby-plugin-sass`,
   ],

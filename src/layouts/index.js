@@ -6,7 +6,7 @@ import { rhythm, scale } from '../utils/typography'
 import {blogTitle} from '../config/blog-config.js';
 import Ogp from '../components/ogp';
 import Footer from '../components/footer';
-import tomatoSvg from '../svg/tomato.svg';
+import tomatoSvg from '../images/tomato.svg';
 
 import 'prismjs/themes/prism-solarizedlight.css';
 import '../css/base.scss';
