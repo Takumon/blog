@@ -10,7 +10,8 @@ Gatsby製ブログで下記のようなSNS対策を実施した時のメモで�
   ![SNSシェアボタン](./snssharebuttons.png)
 * 自分のSNSへのリンク設置
   ![SNSリンク](./mysnsicons.png)
-
+* OGPタグ追加
+  ![つぶやきサンプル](./tweetsample.png)
 
 
 
