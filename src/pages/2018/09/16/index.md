@@ -109,6 +109,9 @@ function sumarrize(html) {
 これでTwitterやFacebookで呟くと下記のようにいい感じに画像とタイトル、説明文を表示してくれるようになります。
   ![つぶやきサンプル](./tweet-sample.png)
 
+実際にどんな感じになるかは下記サイトで確認できます。
+    * Twitter → [Card validator](https://cards-dev.twitter.com/validator)
+    * Facebook → [シェアデバッガー](https://developers.facebook.com/tools/debug/)
 
 ## まとめ
 今回はGatsby製ブログでSNSシェアボタンや自分のSNSへのリンクを設置し、さらにOGPタグを設置して
