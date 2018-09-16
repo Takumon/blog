@@ -9,7 +9,7 @@ import { faGithubSquare, faTwitterSquare } from '@fortawesome/free-brands-svg-ic
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import {
   blogDescription,
-  blogImageUrl,
+  blogAuthorAvatarUrl,
   blogAuthorGitHubUrl,
   blogAuthorTwitterUrl,
   blogAuthorQiitaUrl,
@@ -26,7 +26,7 @@ class Bio extends React.Component {
         }}
       >
         <img
-          src={blogImageUrl}
+          src={blogAuthorAvatarUrl}
           alt={`Takuto Inoue`}
           style={{
             marginRight: rhythm(1 / 2),
