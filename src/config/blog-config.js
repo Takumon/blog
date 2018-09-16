@@ -2,7 +2,7 @@ module.exports = {
   blogTitle: 'Takumon blog',
   blogDescription: '東京でJavaのSIerやってます。',
   blogUrl: 'https://takumon.com',
-  blogImageUrl: 'https://github.com/Takumon/blog/blob/gh-pages/icons/icon-512x512.png',
+  blogImageUrl: 'https://takumon.com/icons/icon-512x512.png',
   blogAuthorTwitterUserName: 'inouetakumon',
   blogRepositoryUrl: 'https://github.com/Takumon/blog',
   blogAuthor: 'Takumon',
