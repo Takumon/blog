@@ -58,7 +58,7 @@ export default function Ogp({isRoot, title, description}) {
   )
 }
 ```
-※`blog-config.js`はブログタイトルなどの設定を外出しした設定ファイル
+※`blog-config.js`はブログタイトルなどの設定を外出しした設定ファイル<br>
 いろいろあるプロパティは下記の通り
 
 |プロパティ名|説明|
