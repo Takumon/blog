@@ -1,4 +1,79 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 16 Sep 2018 07:08:06 GMT</lastBuildDate><item><title><![CDATA[GitHub Pagesを独自ドメイン化 + Https化]]></title><description><![CDATA[なにこれ GitHub Pagesでブログを開設した後、
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 16 Sep 2018 12:11:00 GMT</lastBuildDate><item><title><![CDATA[Gatsby製ブログでSNS対応(SNSシェアボタン、OGPタグ追加)]]></title><description><![CDATA[なにこれ Gatsby製ブログで下記のようなSNS対策を実施した時のメモです。 
+ブログの見栄えがちょっと良い感じになりました。 SNSシェアボタン設置
+ 自分のSNSへのリンク設置
+]]></description><link>https://takumon.com//2018/09/16/</link><guid isPermaLink="false">https://takumon.com//2018/09/16/</guid><pubDate>Sun, 16 Sep 2018 22:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;なにこれ&lt;/h2&gt;
+&lt;p&gt;Gatsby製ブログで下記のようなSNS対策を実施した時のメモです。&lt;br&gt;
+ブログの見栄えがちょっと良い感じになりました。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SNSシェアボタン設置
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/snssharebuttons-e883fa050aaa23e13a544b284635f20b-333ce.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 303px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 22.772277227722775%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAAAsSAAALEgHS3X78AAABQUlEQVQY02WQTUtCQRSG749qUT+hZav+QLRv0TpIiIQ+EFsZOrSqqE0QRYWIE1mmWVCUoNT9VrxqoV695369jdeiRQce5pl5D5zDSAAeBLnA97gXBDwEeCBwyeXiPcIXWSgAfI7Q5+S6vG87vGePBM7EB6Ncf+iUpVYPOMlW8VvO6THwUYv80ejj8MmMXAzCkQJohP8V/qm0FL/A1FzCvqroFJbyVJ2dJmN5kWw3oPlUnmbiZ1SsN+hc9Wgh+0Wx0oC6Q4+27i1av7No5bpBazdNihVaw81KD9Kb6mJ7r/gzxIeTSYpPuI1ul/VP7BTUyMeLpd6Bl+Fkk0zNR/LVxcazi8Srh9WyjV3RKnWs5kG33Uybuspkw2Rau8NUq8MURWbthiHQmaGpzNRk1tIVZhkKU0U2zmVZZtrYJ2fa0JT9by+vXhFiruy8AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;SNSシェアボタン&quot;
+        title=&quot;&quot;
+        src=&quot;/static/snssharebuttons-e883fa050aaa23e13a544b284635f20b-333ce.png&quot;
+        srcset=&quot;/static/snssharebuttons-e883fa050aaa23e13a544b284635f20b-b83f3.png 148w,
+/static/snssharebuttons-e883fa050aaa23e13a544b284635f20b-154a5.png 295w,
+/static/snssharebuttons-e883fa050aaa23e13a544b284635f20b-333ce.png 303w&quot;
+        sizes=&quot;(max-width: 303px) 100vw, 303px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/li&gt;
+&lt;li&gt;自分のSNSへのリンク設置
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/mysnsicons-3e4af866cee59b71c767d8b7dbd47fde-3135f.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 333px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 26.426426426426424%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAAAsSAAALEgHS3X78AAABNElEQVQY03WOO07DQBiEfQWuwBFyCErOQENLQU2BCAdAQhQ0IERLiwQSESI8xNtESCArmyAnxrHx24t3bf+Jh41JCb/06Z8pZjRayvkOgC4mY70COuPJpKN8TTX7f1FVVc3MPyvdk1LualKI1rf7hK39ZdjGOaZnWRZ830eWxgg9F57nIwk57E9baQ9BEECFkec54jiG67p1jogutNgyju9WFtFszOW3SwskE5faV9c0ND/o3Unose/QyBnS6+CeBnafAj8kzjmpQhJCUBRFpErzaWFRFKca52GLb6/jsjEPs7mKspTYaG7C7HVxFgJHQ6BEhEO2hhS/S/67sizbWpjwvSz27NHNiSESn2WyYC+6znzvi5mRYF1PsCAdsTfngfGMMykkU8uYWlgz1QpDaSdN04Mfz6hqU7WoIWIAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;SNSリンク&quot;
+        title=&quot;&quot;
+        src=&quot;/static/mysnsicons-3e4af866cee59b71c767d8b7dbd47fde-3135f.png&quot;
+        srcset=&quot;/static/mysnsicons-3e4af866cee59b71c767d8b7dbd47fde-2c691.png 148w,
+/static/mysnsicons-3e4af866cee59b71c767d8b7dbd47fde-4b7bd.png 295w,
+/static/mysnsicons-3e4af866cee59b71c767d8b7dbd47fde-3135f.png 333w&quot;
+        sizes=&quot;(max-width: 333px) 100vw, 333px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[GitHub Pagesを独自ドメイン化 + Https化]]></title><description><![CDATA[なにこれ GitHub Pagesでブログを開設した後、
 どうせならURLも短く覚えてもらいやすいものにしようと思い独自ドメインに切り替えました。
 その方法のメモです。　※（注意）独自ドメイン取得はお金がかかります！！！ 手順…]]></description><link>https://takumon.com//2018/09/12/</link><guid isPermaLink="false">https://takumon.com//2018/09/12/</guid><pubDate>Wed, 12 Sep 2018 07:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;GitHub Pagesでブログを開設した後、
