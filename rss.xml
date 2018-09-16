@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 16 Sep 2018 17:19:52 GMT</lastBuildDate><item><title><![CDATA[Gatsby製ブログでSNS対応(SNSシェアボタン、OGPタグ追加)]]></title><description><![CDATA[なにこれ Gatsby製ブログでSNS対応を実施した時のメモです。 
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 16 Sep 2018 17:29:09 GMT</lastBuildDate><item><title><![CDATA[Gatsby製ブログでSNS対応(SNSシェアボタン、OGPタグ追加)]]></title><description><![CDATA[なにこれ Gatsby製ブログでSNS対応を実施した時のメモです。 
  (1) SNSシェアボタン設置 して  (2) 自分のSNSへのリンク設置 することでブログフッターの見栄えがちょっと良い感じになりました。
    またSNSシェア時にわかりやすくするためにOGP…]]></description><link>https://takumon.com//2018/09/16/</link><guid isPermaLink="false">https://takumon.com//2018/09/16/</guid><pubDate>Sun, 16 Sep 2018 22:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;Gatsby製ブログでSNS対応を実施した時のメモです。&lt;br&gt;
@@ -115,7 +115,7 @@ OGPをWebページで設定することでユーザーに対してWEBページ�
   &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;p&gt;※&lt;code class=&quot;language-text&quot;&gt;blog-config.js&lt;/code&gt;はブログタイトルなどの設定を外出しした設定ファイル
+&lt;p&gt;※&lt;code class=&quot;language-text&quot;&gt;blog-config.js&lt;/code&gt;はブログタイトルなどの設定を外出しした設定ファイル&lt;br&gt;
 いろいろあるプロパティは下記の通り&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -236,6 +236,9 @@ Gatsby製ブログでは下記2カ所でOGPタグを呼び出します。&lt;/p&
   
   &lt;/a&gt;
     &lt;/p&gt;
+&lt;p&gt;実際にどんな感じになるかは下記サイトで確認できます。
+* Twitter → &lt;a href=&quot;https://cards-dev.twitter.com/validator&quot;&gt;Card validator&lt;/a&gt;
+* Facebook → &lt;a href=&quot;https://developers.facebook.com/tools/debug/&quot;&gt;シェアデバッガー&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;まとめ&lt;/h2&gt;
 &lt;p&gt;今回はGatsby製ブログでSNSシェアボタンや自分のSNSへのリンクを設置し、さらにOGPタグを設置して
 TwitterやFacebookなどでのシェアをより効果的にする方法をメモとして残しました。
