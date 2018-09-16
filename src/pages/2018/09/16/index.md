@@ -8,16 +8,128 @@ Gatsby製ブログでSNS対応を実施した時のメモです。<br>
 **(1) SNSシェアボタン設置**して **(2) 自分のSNSへのリンク設置**することでブログフッターの見栄えがちょっと良い感じになりました。
   ![ブログフッタ](./blog-footer.png)
 
-またSNSシェア時にわかりやすくするためにOGPタグなるものを設定しました。Twitterで呟くと画像、タイトル、記事概要を表示できるようになります。<br>はてなブログとかQiitaみたいな感じですね。
-  ![つぶやきサンプル](./tweet-sample.png)
+またSNSシェア時にわかりやすくするために**(3) OGPタグなるものを設定**しました。Twitterで呟くと画像、タイトル、記事概要を表示できるようになります。<br>はてなブログとかQiitaみたいな感じですね。
+  ![つぶやきサンプル](./tweet-sample-with-number.png)
 
-##  SNSシェアボタンを設置
-TODO 手順記載
+##  1. SNSシェアボタンを設置
+[react-share](https://github.com/nygardk/react-share)で超簡単に設置できます。
 
-## 自分のSNSへのリンクを設置
-TODO 手順記載
+ここではFacebook、Google、Linkedin、Twitterのアイコンを設置します。<br>
+基本は記事のURLを`url`属性に、アイコンサイズを`icon`属性に指定します。<br>
+Twitterの場合はブロガーのTwitterアカウントを`via`属性に、ブログ記事タイトルを`title`属性に指定します。
 
-## OGPタグを設定
+```jsx{13}
+<FacebookShareButton url={link}>
+  <FacebookIcon size={32} round />
+</FacebookShareButton>
+
+<GooglePlusShareButton url={link}>
+  <GooglePlusIcon size={32} round />
+</GooglePlusShareButton>
+
+<LinkedinShareButton url={link}>
+  <LinkedinIcon title={title} size={32} round />
+</LinkedinShareButton>
+
+<TwitterShareButton title={title} via={twitterUserName} url={link}>
+  <TwittearIcon size={32} round />
+</TwitterShareButton>
+```
+
+そうすると下記のように画面にSNSシェアアイコンが表示されます。
+![SNSシェアアイコン](./sns-share-icons.png)
+
+
+はてブ追加ボタンは下記のようにします。
+
+```jsx
+<Helmet>
+  <script type="text/javascript" src="//b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async" />
+</Helmet>
+<a
+  href="http://b.hatena.ne.jp/entry/"
+  className="hatena-bookmark-button"
+  data-hatena-bookmark-layout="vertical-normal"
+  data-hatena-bookmark-lang="ja"
+  title="このエントリーをはてなブックマークに追加"
+  >
+  <img
+    src="//b.st-hatena.com/images/entry-button/button-only@2x.png"
+    alt="このエントリーをはてなブックマークに追加"
+    width="20"
+    height="20"
+    style={{border: 'none'}}
+  />
+</a>
+```
+
+そうすると下記のように画面にはてブ追加アイコンが表示されます。
+![はてブシェアアイコン](./hatebu1.png)
+
+クリックするとウィジェットが表示されます。(`bookmark_button.js`がやってくれています。)
+![はてブシェアアイコンウィジェット](./hatebu2.png)
+
+
+## 2. 自分のSNSへのリンクを設置
+SNSへのリンクアイコンは[react-fontawesome](https://github.com/FortAwesome/react-fontawesome)を使います。react-fontawesomeをインストールします。
+
+```
+npm install --save @fortawesome/react-fontawesome
+npm install --save @fortawesome/fontawesome-svg-core
+npm install --save @fortawesome/free-brands-svg-icons
+npm install --save @fortawesome/free-solid-svg-icons
+npm install --save @fortawesome/free-regular-svg-icons
+```
+
+
+コンポーネントで下記のようにします。
+スタイルの細かい部分は省略していますがざっくりこんな感じです
+* GitHub → Font Awsomeアイコン使って背景をダークグレイにする
+* Twitter → Font Awsomeアイコンを使って背景を水色にする
+* Qiita → Font Awsomeに用意がないので、代わりに虫眼鏡を使って背景を黄緑にしてQiitaっぽくする
+
+```jsx{13-29}
+・・・
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithubSquare, faTwitterSquare } from '@fortawesome/free-brands-svg-icons'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+
+・・・
+
+class Bio extends React.Component {
+  render() {
+    return (
+      ・・・
+      <a
+        href="https://github.com/Takumon">
+       <FontAwesomeIcon
+         color="#333"
+         icon={faGithubSquare} />
+      </a>
+      <a
+        href="https://twitter.com/inouetakumon">
+        <FontAwesomeIcon
+          color="#3eaded"
+          icon={faTwitterSquare} />
+      </a>
+      <a
+        href="https://qiita.com/Takumon">
+        <FontAwesomeIcon
+          color="white"
+          icon={faSearch} />
+      ・・・
+    );
+  }
+}
+```
+
+
+ここまでくると、下記のようなアイコンが画面に追加されています。
+![自分のSNSリンク](./my-sns-icons.png)
+
+
+## 3. OGPタグを設定
 OGPとは、「Open Graph Protcol」の略でFacebookやTwitterなどのSNSでシェアした際に、
 WEBページのタイトルやイメージ画像、説明文などをわかりやすく伝えるためのHTML要素です。
 OGPをWebページで設定することでユーザーに対してWEBページの内容を詳しく伝えることができます。
@@ -78,14 +190,14 @@ export default function Ogp({isRoot, title, description}) {
 タイトルやURLはページ個別で設定が必要です。
 Gatsby製ブログでは下記2カ所でOGPタグを呼び出します。
 
-#### 1. ブログトップページでの呼び出し
+#### ブログトップページでの呼び出し
 **src/layouts/index.js**<br>
 ※全体のテンプレートなのでURLがブログトップページの時のみOGPタグを呼び出します。
 ```jsx
 <Ogp isRoot={isRoot} />
 ```
 
-#### 2. ブログ記事ページでの呼び出し
+#### ブログ記事ページでの呼び出し
 **src/templates/blog-post.js**
 ```jsx{4}
 <Ogp isRoot={isRoot} />
