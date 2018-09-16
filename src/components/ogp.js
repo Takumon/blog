@@ -5,7 +5,7 @@ import {
   blogTitle,
   blogUrl,
   blogDescription,
-  blogImageUrl,
+  blogAuthorAvatarUrl,
   facebookAppId,
   blogAuthorTwitterUserName,
 } from '../config/blog-config.js';
@@ -22,7 +22,7 @@ export default function Ogp({isRoot, title, description}) {
       <meta property="og:url" content={blogUrl} />
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content={blogTitle} />
-      <meta property="og:image" content={blogImageUrl} />
+      <meta property="og:image" content={blogAuthorAvatarUrl} />
       <meta property="fb:app_id" content={facebookAppId} />
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:site" content={`@${blogAuthorTwitterUserName}`} />
