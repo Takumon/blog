@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 16 Sep 2018 12:11:00 GMT</lastBuildDate><item><title><![CDATA[Gatsby製ブログでSNS対応(SNSシェアボタン、OGPタグ追加)]]></title><description><![CDATA[なにこれ Gatsby製ブログで下記のようなSNS対策を実施した時のメモです。 
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 16 Sep 2018 12:33:17 GMT</lastBuildDate><item><title><![CDATA[Gatsby製ブログでSNS対応(SNSシェアボタン、OGPタグ追加)]]></title><description><![CDATA[なにこれ Gatsby製ブログで下記のようなSNS対策を実施した時のメモです。 
 ブログの見栄えがちょっと良い感じになりました。 SNSシェアボタン設置
  自分のSNSへのリンク設置
+ OGPタグ追加
 ]]></description><link>https://takumon.com//2018/09/16/</link><guid isPermaLink="false">https://takumon.com//2018/09/16/</guid><pubDate>Sun, 16 Sep 2018 22:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;Gatsby製ブログで下記のようなSNS対策を実施した時のメモです。&lt;br&gt;
 ブログの見栄えがちょっと良い感じになりました。&lt;/p&gt;
@@ -67,6 +68,41 @@
 /static/mysnsicons-3e4af866cee59b71c767d8b7dbd47fde-4b7bd.png 295w,
 /static/mysnsicons-3e4af866cee59b71c767d8b7dbd47fde-3135f.png 333w&quot;
         sizes=&quot;(max-width: 333px) 100vw, 333px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/li&gt;
+&lt;li&gt;OGPタグ追加
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/tweetsample-cc899d45ac1e76eff86d36cd7c56285f-320d7.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 46.56616415410385%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAAAsSAAALEgHS3X78AAACUklEQVQoz1XSPW/TQBgH8HwUlk5dKrEywIIQW3cGJD4AYmFH/QoMDNAJqUKAqARIbdUXVeprkiaOnfotTtIkjpvEL/E5font8/PHLSyc9NM9z+meu9PdVWZj46hd/zW7HQ1HqqqZiqKYWtmblmXOHNec2I7pM2a63twMw8gE8B/uOmYm1IcF4MZRtFe52f2mnb16BsvQ0Na70Ls9qEYftufDjxJ4iwhxxpGU4pyjLESYZgjjBGkZ8+0vCF6u465leS5VllF0jTSFM+5zuXVOk75K06FGulyjrlJSazQ0mmTdSGRpIt22RfK6OgW9DkWOTbTzg9KNtznKrTLfa1bSopCRZ4jOfxdB9Ss6hx9xc7yJsLmHqdTAsHYCu924N6qeYnhxgkmjilCX4bUFBB0VriJx3I6Q10+FypJzGc4MkXxcHGy+wfPXq9h6tw6mHkEdmLhqSRCuZYiKVlLRbMu4EiUMrAnkjgHF6KEhtrnl+sjkVrlgnssIfARnP4ujp2v4/HgVB2sPMNn+hNFkCqnZgK6qkFotjAYDdHUdV9UaqhcXkCUJoiDg8uycO7aLXBbuT3gNz4Hf3OX1F09o/+EK7T9aocnhFk3jlCzHJS+MKUiWtFimFGU5JbwgN1gQi2Ni5XiYpvz+UWShvENeaMhSpJc7YLubsD9swP/+HkthH0W/A95TUfS08oP0/hqVBgYw7pf5P3e5PUZ2eSxW4iSpElGSzOd+HiUMBJYsIlYsFiz3PRbbM4YFY4ljs6XrMM7mbNztstT7G9/NKc0LNs/TgJ3+AT4QgA5v7j9HAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;つぶやきサンプル&quot;
+        title=&quot;&quot;
+        src=&quot;/static/tweetsample-cc899d45ac1e76eff86d36cd7c56285f-fb8a0.png&quot;
+        srcset=&quot;/static/tweetsample-cc899d45ac1e76eff86d36cd7c56285f-1a291.png 148w,
+/static/tweetsample-cc899d45ac1e76eff86d36cd7c56285f-2bc4a.png 295w,
+/static/tweetsample-cc899d45ac1e76eff86d36cd7c56285f-fb8a0.png 590w,
+/static/tweetsample-cc899d45ac1e76eff86d36cd7c56285f-320d7.png 597w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
   &lt;/span&gt;
