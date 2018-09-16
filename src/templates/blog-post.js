@@ -93,8 +93,6 @@ function sumarrize(html) {
   return postContent.length <= 120
     ? postContent
     : postContent.slice(0, 120) + '...';
-
-
 }
 
 export default BlogPostTemplate
