@@ -4,8 +4,10 @@ import Link from 'gatsby-link'
 import { rhythm, scale } from '../utils/typography'
 
 import {blogTitle} from '../config/blog-config.js';
+import Ogp from '../components/ogp';
 import Footer from '../components/footer';
 import tomatoSvg from '../svg/tomato.svg';
+
 import 'prismjs/themes/prism-solarizedlight.css';
 import '../css/base.scss';
 import '../css/highlight.scss';
@@ -32,13 +34,7 @@ export default class Template extends React.Component {
           }}
         >
           <Link
-            style={{
-              boxShadow: 'none',
-              textDecoration: 'none',
-              color: 'inherit',
-              fontFamily: 'Montserrat',
-            }}
-            className="milky"
+            className="blogTitle"
             to={'/'}
           >{blogTitle}</Link>
         </h1>
@@ -82,6 +78,7 @@ export default class Template extends React.Component {
           padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
         }}
       >
+        <Ogp />
         {header}
         {children()}
 

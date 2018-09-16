@@ -12,8 +12,6 @@ import {
 } from 'react-share';
 
 export default function SNSShare({title, link, twitterUserName}) {
-  console.log(title)
-  console.log(link)
 
   return (
     <ul className="sns-share__area">

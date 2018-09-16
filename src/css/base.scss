@@ -1,6 +1,10 @@
 // For Html
 @import "node_modules/normalize-scss/sass/normalize";
 
+$colorFontSection: #333;
+
+
+
 // 全体
 @font-face {
   font-family: "YuGothic M";
@@ -11,13 +15,23 @@
 
 body,
 h1,h2,h3,h4,h5,h6 {
-  color: #333;
+  color: $colorFontSection;
   font-family: '游ゴシック体', YuGothic, 'YuGothic M', 'Merriweather','Georgia';
   -webkit-font-smoothing: antialiased;
   font-kerning: auto;
   font-variant-ligatures: none;
   letter-spacing: .05rem;
   line-height: 1.75;
+}
+
+.blogTitle {
+  box-shadow: none;
+  color: $colorFontSection;
+  font-family: 'Montserrat';
+}
+
+a:hover {
+  opacity: 0.7;
 }
 
 // リスト部分
@@ -93,11 +107,10 @@ li > ul {
   }
   &__icon {
     display: block;
-
-    &:hover {
-      opacity: 0.7;
-      cursor: pointer;
-    }
   }
+}
 
+.sns-share__button svg:hover {
+  cursor: pointer;
+  opacity: 0.7;
 }
