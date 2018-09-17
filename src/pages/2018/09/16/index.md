@@ -1,47 +1,53 @@
 ---
-title: Gatsby製ブログでSNS対応(SNSシェアボタン、OGPタグ追加)
+title: ReactでSNS対応（Gatsby製ブログでSNSシェアボタン、OGPタグ追加）
 date: "2018-09-16T22:00:00.000Z"
 ---
 
 ## なにこれ
-Gatsby製ブログでSNS対応を実施した時のメモです。<br>
-**(1) SNSシェアボタン設置**して **(2) 自分のSNSへのリンク設置**することでブログフッターの見栄えがちょっと良い感じになりました。
+Gatsby製ブログ(Reactアプリ)でSNS対応した時のメモです。<br>
+**(1) SNSシェアボタン**と**(2) 自分のSNSへのリンク**を設置して、ブログの記事をSNSでシェアできるように、、、<br>
+また、**(3) OGPタグを設定し**、SNSでシェアするときにイメージ画像や、タイトル、記事概要を表示できるようにしました。
+* ブログのフッター
   ![ブログフッタ](./blog-footer.png)
-
-またSNSシェア時にわかりやすくするために**(3) OGPタグなるものを設定**しました。Twitterで呟くと画像、タイトル、記事概要を表示できるようになります。<br>はてなブログとかQiitaみたいな感じですね。
+* Twitterの呟き
   ![つぶやきサンプル](./tweet-sample-with-number.png)
 
 ##  1. SNSシェアボタンを設置
-[react-share](https://github.com/nygardk/react-share)で超簡単に設置できます。
 
-ここではFacebook、Google、Linkedin、Twitterのアイコンを設置します。<br>
-基本は記事のURLを`url`属性に、アイコンサイズを`icon`属性に指定します。<br>
-Twitterの場合はブロガーのTwitterアカウントを`via`属性に、ブログ記事タイトルを`title`属性に指定します。
 
-```jsx{13}
-<FacebookShareButton url={link}>
+### Facebook、Google、Linkedin、Twitterシェアボタン
+[react-share](https://github.com/nygardk/react-share)でめっちゃ簡単にできます。<br>
+それぞれ専用タグが用意されているので<br>
+`url`属性に記事のURL、`icon`属性にアイコンサイズを指定するだけです。<br>
+Linkedinアイコンはそれに加えて`title`属性に記事タイトルを<br>
+Twitterアイコンは`via`属性に自分のTwitterアカウント名、`title`属性に記事タイトルを指定します。<br>
+※下記コード中の`articleUrl`は記事URL、`articleTitle`は記事タイトルです。
+
+```jsx{10,13}
+<FacebookShareButton url={articleUrl}>
   <FacebookIcon size={32} round />
 </FacebookShareButton>
 
-<GooglePlusShareButton url={link}>
+<GooglePlusShareButton url={articleUrl}>
   <GooglePlusIcon size={32} round />
 </GooglePlusShareButton>
 
-<LinkedinShareButton url={link}>
-  <LinkedinIcon title={title} size={32} round />
+<LinkedinShareButton url={articleUrl}>
+  <LinkedinIcon title={articleTitle} size={32} round />
 </LinkedinShareButton>
 
-<TwitterShareButton title={title} via={twitterUserName} url={link}>
+<TwitterShareButton title={articleTitle} via="@inouetakumon" url={articleUrl}>
   <TwittearIcon size={32} round />
 </TwitterShareButton>
 ```
 
-そうすると下記のように画面にSNSシェアアイコンが表示されます。
+<br>
+すると下記のように画面にSNSシェアアイコンが表示されます。
+
 ![SNSシェアアイコン](./sns-share-icons.png)
 
-
-はてブ追加ボタンは下記のようにします。
-
+### はてブ追加ボタン
+`bookmark_button.js`というJavaScriptファイルを読み込んで、リンクタグを設置するだけです。
 ```jsx
 <Helmet>
   <script type="text/javascript" src="//b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async" />
@@ -63,7 +69,8 @@ Twitterの場合はブロガーのTwitterアカウントを`via`属性に、ブ�
 </a>
 ```
 
-そうすると下記のように画面にはてブ追加アイコンが表示されます。
+<br>
+すると下記のように画面にはてブ追加アイコンが表示されます。
 ![はてブシェアアイコン](./hatebu1.png)
 
 クリックするとウィジェットが表示されます。(`bookmark_button.js`がやってくれています。)
@@ -71,9 +78,10 @@ Twitterの場合はブロガーのTwitterアカウントを`via`属性に、ブ�
 
 
 ## 2. 自分のSNSへのリンクを設置
-SNSへのリンクアイコンは[react-fontawesome](https://github.com/FortAwesome/react-fontawesome)を使います。react-fontawesomeをインストールします。
+SNSへのリンクアイコンは[react-fontawesome](https://github.com/FortAwesome/react-fontawesome)を使いました。<br>
+まずはreact-fontawesomeをインストールします。
 
-```
+```bash
 npm install --save @fortawesome/react-fontawesome
 npm install --save @fortawesome/fontawesome-svg-core
 npm install --save @fortawesome/free-brands-svg-icons
@@ -81,14 +89,16 @@ npm install --save @fortawesome/free-solid-svg-icons
 npm install --save @fortawesome/free-regular-svg-icons
 ```
 
+<br>
+実装は下記のようにします。スタイルの細かい部分は省略していますが、ざっくり書きのような感じです。Qiitaだけ小細工してます。
 
-コンポーネントで下記のようにします。
-スタイルの細かい部分は省略していますがざっくりこんな感じです
-* GitHub → Font Awsomeアイコン使って背景をダークグレイにする
-* Twitter → Font Awsomeアイコンを使って背景を水色にする
-* Qiita → Font Awsomeに用意がないので、代わりに虫眼鏡を使って背景を黄緑にしてQiitaっぽくする
+|||
+|:-|:-|
+|GitHub|Font Awsomeアイコン使用。背景をダークグレイ。|
+|Twitter|Font Awsomeアイコン使用。背景を水色。|
+|Qiita|Font Awsomeに用意がないので、**代わりに虫眼鏡アイコン使用。背景を黄緑にしてQiitaっぽくする**|
 
-```jsx{13-29}
+```jsx{13-17,19-23,25-37}
 ・・・
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -101,31 +111,41 @@ class Bio extends React.Component {
   render() {
     return (
       ・・・
-      <a
-        href="https://github.com/Takumon">
+      <a href="https://github.com/Takumon">
        <FontAwesomeIcon
          color="#333"
          icon={faGithubSquare} />
       </a>
-      <a
-        href="https://twitter.com/inouetakumon">
+
+      <a href="https://twitter.com/inouetakumon">
         <FontAwesomeIcon
           color="#3eaded"
           icon={faTwitterSquare} />
       </a>
-      <a
-        href="https://qiita.com/Takumon">
+
+      <a href="https://qiita.com/Takumon">
         <FontAwesomeIcon
           color="white"
+          style={{
+            overflow: 'hidden',
+            height: '0.9em',
+            width: '0.9em',
+            backgroundColor: '#4cb10d',
+            borderRadius: '2px',
+            marginTop: '2px',
+          }}
           icon={faSearch} />
+      </a>
+
       ・・・
     );
   }
 }
 ```
 
-
+<br>
 ここまでくると、下記のようなアイコンが画面に追加されています。
+
 ![自分のSNSリンク](./my-sns-icons.png)
 
 
@@ -134,11 +154,12 @@ OGPとは、「Open Graph Protcol」の略でFacebookやTwitterなどのSNSで�
 WEBページのタイトルやイメージ画像、説明文などをわかりやすく伝えるためのHTML要素です。
 OGPをWebページで設定することでユーザーに対してWEBページの内容を詳しく伝えることができます。
 
-### OGPタグ定義
-このブログはReactを使って書かれているので、ReactHelmetを使ってOPG専用のコンポーネントを作りました。
-ブログのトップと記事詳細で設定する値が違うので、そこは引数でとれるようにしてあります。
+### OGPタグを定義
+Reactアプリだと、[ReactHelmet](https://github.com/nfl/react-helmet)を使います。<br>
+今回はOgpタグを作りました。ただブログのトップと記事詳細で設定する値が違うので、そこはコンポーネントの引数で受け取れるようにしています。<br>
+※`blog-config.js`はブログタイトルなどの設定しているファイルです。
 
-```jsx{13,18-27}
+```jsx{4-11,13,18-27}
 import React from 'react'
 import Helmet from 'react-helmet'
 
@@ -170,8 +191,11 @@ export default function Ogp({isRoot, title, description}) {
   )
 }
 ```
-※`blog-config.js`はブログタイトルなどの設定を外出しした設定ファイル<br>
+
+<br>
 いろいろあるプロパティは下記の通り
+<br>
+<br>
 
 |プロパティ名|説明|
 |:--|:--|
@@ -187,18 +211,20 @@ export default function Ogp({isRoot, title, description}) {
 
 
 ### OGPタグ呼び出し
-タイトルやURLはページ個別で設定が必要です。
-Gatsby製ブログでは下記2カ所でOGPタグを呼び出します。
+
+こんどは作ったOgpタグを呼び出す側の実装です。
+Gatsby製ブログではトップページとブログ議事ページの2カ所で呼び出します。
 
 #### ブログトップページでの呼び出し
 **src/layouts/index.js**<br>
-※全体のテンプレートなのでURLがブログトップページの時のみOGPタグを呼び出します。
+全体のテンプレートなのでURLがブログトップページの時のみOGPタグを呼び出します。
 ```jsx
 <Ogp isRoot={isRoot} />
 ```
 
 #### ブログ記事ページでの呼び出し
 **src/templates/blog-post.js**
+
 ```jsx{4}
 <Ogp isRoot={isRoot} />
   isRoot={false}
@@ -215,35 +241,39 @@ function sumarrize(html) {
     : postContent.slice(0, 120) + '...';
 }
 ```
+<br>
 
 ※[striptags](https://github.com/ericnorris/striptags)は非常に便利なライブラリですが、1点だけ注意点があって、最新バージョンの3系(2018/9/16現在)はGatsbyビルド時にエラーになるため**2系を使用してください**。Gatsbyではビルド時に[Uglifyjs](https://github.com/mishoo/UglifyJS2)を使用しているためES6のコードをコンパイルできません。
 
-これでTwitterやFacebookで呟くと下記のようにいい感じに画像とタイトル、説明文を表示してくれるようになります。
+<br>
+
+これでTwitterなどでシェアするとイメージ画像とタイトル、記事概要を表示してくれるようになります。
   ![つぶやきサンプル](./tweet-sample.png)
 
-実際にどんな感じになるかは下記サイトで確認できます。
+開発中に下記サイトで実際にどんな感じになるかを確認できます。
 * Twitter → [Card validator](https://cards-dev.twitter.com/validator)
 * Facebook → [シェアデバッガー](https://developers.facebook.com/tools/debug/)
 
 ## まとめ
-今回はGatsby製ブログでSNSシェアボタンや自分のSNSへのリンクを設置し、さらにOGPタグを設置して
-TwitterやFacebookなどでのシェアをより効果的にする方法をメモとして残しました。
-GatsbyはReact製ということもあり、かなり簡単に実現できますし、グっとブログっぽくなるので是非みなさんも挑戦してみてください。
+今回はReactアプリでSNSシェアボタンや自分のSNSへのリンクを設置し、さらにOGPタグを設置して
+Twitterなどでのシェアをより効果的にする方法をメモに残しました。
+Reactだと、かなり簡単に実現できるし、グっと今時のWebサイトっぽくなるので是非みなさんも試してみてください。
 
 ## 参考
-
-* OGPタグ系関連
-    * 参考にしたサイト
-        * [Facebook・TwitterのOGP設定方法まとめ｜ferret [フェレット]](https://ferret-plus.com/610)
-        * [React Helmetを使ってOGP対応した | akameco Blog](https://akameco.github.io/blog/react-helmet/)
-        * [FacebookのOGP設定に必要なfb:app IDの取得方法](https://design-plus1.com/tcd-w/2018/01/facebook_app_id.html)
-    * 下記で実際の表示結果のプレビューが確認できます。
-        * Twitter → [Card validator](https://cards-dev.twitter.com/validator)
-        * Facebook → [シェアデバッガー](https://developers.facebook.com/tools/debug/)
-    * [striptags](https://github.com/ericnorris/striptags)
-        * HTML文字列から単純テキストを抽出してくれるライブラリです。
-    * [GatsbyはES6未対応 | GitHub issues](https://github.com/gatsbyjs/gatsby/issues/3780)
-        * GatsbyはビルドでJSファイル最初化時にUglifyを使っており、uglifyがES6未対応なのでES6のコードをコンパイルしようとするとエラーになってしまいます。
+* [react-share](https://github.com/nygardk/react-share)
+* [react-fontawesome](https://github.com/FortAwesome/react-fontawesome)
+* [ReactHelmet](https://github.com/nfl/react-helmet)
+* [Facebook・TwitterのOGP設定方法まとめ｜ferret フェレット](https://ferret-plus.com/610)
+* [React Helmetを使ってOGP対応した | akameco Blog](https://akameco.github.io/blog/react-helmet/)
+* [FacebookのOGP設定に必要なfb:app IDの取得方法](https://design-plus1.com/tcd-w/2018/01/facebook_app_id.html)
+* [Card validator](https://cards-dev.twitter.com/validator)
+  * Twitterシェア時にOGP領域プレビュー確認サイト
+* [シェアデバッガー](https://developers.facebook.com/tools/debug/)
+  * Facebookシェア時にOGP領域プレビュー確認サイト
+* [striptags](https://github.com/ericnorris/striptags)
+    * HTML文字列から単純テキストを抽出してくれるライブラリで
+* [GatsbyはES6未対応 | GitHub issues](https://github.com/gatsbyjs/gatsby/issues/3780)
+    * GatsbyはビルドでJSファイル最初化時にUglifyを使っており、uglifyがES6未対応なのでES6のコードをコンパイルしようとするとエラーになってしまいます。
 
 
 
