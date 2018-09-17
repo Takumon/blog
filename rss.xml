@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 16 Sep 2018 19:21:51 GMT</lastBuildDate><item><title><![CDATA[Gatsby製ブログでSNS対応(SNSシェアボタン、OGPタグ追加)]]></title><description><![CDATA[なにこれ Gatsby製ブログでSNS対応を実施した時のメモです。 
- (1) SNSシェアボタン設置 して  (2) 自分のSNSへのリンク設置 することでブログフッターの見栄えがちょっと良い感じになりました。
-   またSNSシェア時にわかりやすくするために (3) OGP…]]></description><link>https://takumon.com//2018/09/16/</link><guid isPermaLink="false">https://takumon.com//2018/09/16/</guid><pubDate>Sun, 16 Sep 2018 22:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;なにこれ&lt;/h2&gt;
-&lt;p&gt;Gatsby製ブログでSNS対応を実施した時のメモです。&lt;br&gt;
-&lt;strong&gt;(1) SNSシェアボタン設置&lt;/strong&gt;して &lt;strong&gt;(2) 自分のSNSへのリンク設置&lt;/strong&gt;することでブログフッターの見栄えがちょっと良い感じになりました。
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Mon, 17 Sep 2018 11:30:16 GMT</lastBuildDate><item><title><![CDATA[ReactでSNS対応（Gatsby製ブログでSNSシェアボタン、OGPタグ追加）]]></title><description><![CDATA[なにこれ Gatsby製ブログ(Reactアプリ)でSNS対応した時のメモです。 
+ (1) SNSシェアボタン と (2) 自分のSNSへのリンク を設置して、ブログの記事をSNSでシェアできるように、、、 
+また、 (3) OGPタグを設定し 、SNS…]]></description><link>https://takumon.com//2018/09/16/</link><guid isPermaLink="false">https://takumon.com//2018/09/16/</guid><pubDate>Sun, 16 Sep 2018 22:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;なにこれ&lt;/h2&gt;
+&lt;p&gt;Gatsby製ブログ(Reactアプリ)でSNS対応した時のメモです。&lt;br&gt;
+&lt;strong&gt;(1) SNSシェアボタン&lt;/strong&gt;と&lt;strong&gt;(2) 自分のSNSへのリンク&lt;/strong&gt;を設置して、ブログの記事をSNSでシェアできるように、、、&lt;br&gt;
+また、&lt;strong&gt;(3) OGPタグを設定し&lt;/strong&gt;、SNSでシェアするときにイメージ画像や、タイトル、記事概要を表示できるようにしました。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ブログのフッター
 
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -36,8 +39,8 @@
   &lt;/span&gt;
   
   &lt;/a&gt;
-    &lt;/p&gt;
-&lt;p&gt;またSNSシェア時にわかりやすくするために&lt;strong&gt;(3) OGPタグなるものを設定&lt;/strong&gt;しました。Twitterで呟くと画像、タイトル、記事概要を表示できるようになります。&lt;br&gt;はてなブログとかQiitaみたいな感じですね。
+    &lt;/li&gt;
+&lt;li&gt;Twitterの呟き
 
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -71,31 +74,36 @@
   &lt;/span&gt;
   
   &lt;/a&gt;
-    &lt;/p&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2&gt;1. SNSシェアボタンを設置&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/nygardk/react-share&quot;&gt;react-share&lt;/a&gt;で超簡単に設置できます。&lt;/p&gt;
-&lt;p&gt;ここではFacebook、Google、Linkedin、Twitterのアイコンを設置します。&lt;br&gt;
-基本は記事のURLを&lt;code class=&quot;language-text&quot;&gt;url&lt;/code&gt;属性に、アイコンサイズを&lt;code class=&quot;language-text&quot;&gt;icon&lt;/code&gt;属性に指定します。&lt;br&gt;
-Twitterの場合はブロガーのTwitterアカウントを&lt;code class=&quot;language-text&quot;&gt;via&lt;/code&gt;属性に、ブログ記事タイトルを&lt;code class=&quot;language-text&quot;&gt;title&lt;/code&gt;属性に指定します。&lt;/p&gt;
+&lt;h3&gt;Facebook、Google、Linkedin、Twitterシェアボタン&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/nygardk/react-share&quot;&gt;react-share&lt;/a&gt;でめっちゃ簡単にできます。&lt;br&gt;
+それぞれ専用タグが用意されているので&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;url&lt;/code&gt;属性に記事のURL、&lt;code class=&quot;language-text&quot;&gt;icon&lt;/code&gt;属性にアイコンサイズを指定するだけです。&lt;br&gt;
+Linkedinアイコンはそれに加えて&lt;code class=&quot;language-text&quot;&gt;title&lt;/code&gt;属性に記事タイトルを&lt;br&gt;
+Twitterアイコンは&lt;code class=&quot;language-text&quot;&gt;via&lt;/code&gt;属性に自分のTwitterアカウント名、&lt;code class=&quot;language-text&quot;&gt;title&lt;/code&gt;属性に記事タイトルを指定します。&lt;br&gt;
+※下記コード中の&lt;code class=&quot;language-text&quot;&gt;articleUrl&lt;/code&gt;は記事URL、&lt;code class=&quot;language-text&quot;&gt;articleTitle&lt;/code&gt;は記事タイトルです。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;
-      &lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;FacebookShareButton&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;link&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+      &lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;FacebookShareButton&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;articleUrl&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
   &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;FacebookIcon&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;round&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;/&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;FacebookShareButton&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
 
-&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;GooglePlusShareButton&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;link&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;GooglePlusShareButton&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;articleUrl&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
   &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;GooglePlusIcon&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;round&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;/&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;GooglePlusShareButton&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
 
-&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;LinkedinShareButton&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;link&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
-  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;LinkedinIcon&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;title&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;round&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;/&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;LinkedinShareButton&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;LinkedinShareButton&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;articleUrl&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;LinkedinIcon&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;articleTitle&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;round&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;/&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;LinkedinShareButton&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
 
-&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;TwitterShareButton&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;title&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;via&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;twitterUserName&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;link&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;TwitterShareButton&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;articleTitle&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;via&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;@inouetakumon&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;articleUrl&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;/span&gt;  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;TwittearIcon&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;round&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;/&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;TwitterShareButton&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;p&gt;そうすると下記のように画面にSNSシェアアイコンが表示されます。
-
+&lt;br&gt;
+すると下記のように画面にSNSシェアアイコンが表示されます。
+&lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
     href=&quot;/static/sns-share-icons-d0d7eb87f24ffe765de329c18b8cf04a-1d2d3.png&quot;
@@ -127,7 +135,8 @@ Twitterの場合はブロガーのTwitterアカウントを&lt;code class=&quot;
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;p&gt;はてブ追加ボタンは下記のようにします。&lt;/p&gt;
+&lt;h3&gt;はてブ追加ボタン&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;bookmark_button.js&lt;/code&gt;というJavaScriptファイルを読み込んで、リンクタグを設置するだけです。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;
       &lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;Helmet&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
   &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;script&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;text/javascript&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;//b.st-hatena.com/js/bookmark_button.js&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;charset&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;utf-8&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;async&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;async&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;/&gt;&lt;/span&gt;&lt;/span&gt;
@@ -148,38 +157,9 @@ Twitterの場合はブロガーのTwitterアカウントを&lt;code class=&quot;
   &lt;span class=&quot;token punctuation&quot;&gt;/&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;a&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;p&gt;そうすると下記のように画面にはてブ追加アイコンが表示されます。
-
-  &lt;a
-    class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/hatebu1-071417b7b9f032c217826eb11a0a2698-93e48.png&quot;
-    style=&quot;display: block&quot;
-    target=&quot;_blank&quot;
-    rel=&quot;noopener&quot;
-  &gt;
-  
-  &lt;span
-    class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 114px; margin-left: auto; margin-right: auto;&quot;
-  &gt;
-    &lt;span
-      class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 60.526315789473685%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAAsSAAALEgHS3X78AAACNElEQVQoz61SSWtTYRTNsmu3gtZdtoKoi9qKm6oxo4iJomhxW3BfFJMSwYW4yA8Qa9PYNqVQbRUcFg4gIgEz1EbN1Ey0TfJenn1543ev93tJwdogCD443HvO+e7hG54tFosNNBoNH+GK0GpebosCobUHotDqq/P1fK7ZbF3N5XL7bZFI5ICqaTL+hy+bzfptwWBwUFWVTSBBkBRDVnRz+w9wTZLVPfqO15IUnQemksmLttDk5KCmqQ1GgiRrvAADBOhVzuWOBm8+JEFWNOjnSx3d5IGrmXQvUFUb3DF1nfU9CzMw9WWNRo1+LjDdYL1AOnKoG8iF5W8ie5wWcJow+1XE2KqIMxkB42ttnMtKFo8S55Vr3ItmRFj+LlqBmXTKb7tDgXSHVqAzXmLXVyo4/qqGZ+aLGHhaxkvPynh0KoeBpXWL33heRe9iCQ8//IHXaK0jXgT3QskKTKeSuwM9ZDyhnb2tyjj2oop3P27irfcbOEG492kLJ95t4IPPDbxNfPxlDe9Tf/N1Hc4vru8OVBRliwtjKxXmWihBYKkMo3NFcMwXYWQmD6OzBThN/EQ0D6diBRiazsPxqRycJf/YoxzQrq1HSfJXDofDh+g/bHJB0AAKbROLkomVbYblnwyrMuv2hBr11V6td3Z005rrBtIdhkKhg21RrKuqirqq6KArBgfT/g7zt57mNMMwMJFIXLDZ7fYBv99/xOfznXR6vMMOt3f43D+Ar3e6PSOUMeRyufb9AlfhDwNnjBcYAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
-    &gt;
-      &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
-        alt=&quot;はてブシェアアイコン&quot;
-        title=&quot;&quot;
-        src=&quot;/static/hatebu1-071417b7b9f032c217826eb11a0a2698-93e48.png&quot;
-        srcset=&quot;/static/hatebu1-071417b7b9f032c217826eb11a0a2698-93e48.png 114w&quot;
-        sizes=&quot;(max-width: 114px) 100vw, 114px&quot;
-      /&gt;
-    &lt;/span&gt;
-  &lt;/span&gt;
-  
-  &lt;/a&gt;
-    &lt;/p&gt;
+&lt;br&gt;
+すると下記のように画面にはてブ追加アイコンが表示されます。
+![はてブシェアアイコン](./hatebu1.png)
 &lt;p&gt;クリックするとウィジェットが表示されます。(&lt;code class=&quot;language-text&quot;&gt;bookmark_button.js&lt;/code&gt;がやってくれています。)
 
   &lt;a
@@ -215,21 +195,40 @@ Twitterの場合はブロガーのTwitterアカウントを&lt;code class=&quot;
   &lt;/a&gt;
     &lt;/p&gt;
 &lt;h2&gt;2. 自分のSNSへのリンクを設置&lt;/h2&gt;
-&lt;p&gt;SNSへのリンクアイコンは&lt;a href=&quot;https://github.com/FortAwesome/react-fontawesome&quot;&gt;react-fontawesome&lt;/a&gt;を使います。react-fontawesomeをインストールします。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;npm install --save @fortawesome/react-fontawesome
-npm install --save @fortawesome/fontawesome-svg-core
-npm install --save @fortawesome/free-brands-svg-icons
-npm install --save @fortawesome/free-solid-svg-icons
-npm install --save @fortawesome/free-regular-svg-icons&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;SNSへのリンクアイコンは&lt;a href=&quot;https://github.com/FortAwesome/react-fontawesome&quot;&gt;react-fontawesome&lt;/a&gt;を使いました。&lt;br&gt;
+まずはreact-fontawesomeをインストールします。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; --save @fortawesome/react-fontawesome
+&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; --save @fortawesome/fontawesome-svg-core
+&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; --save @fortawesome/free-brands-svg-icons
+&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; --save @fortawesome/free-solid-svg-icons
+&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; --save @fortawesome/free-regular-svg-icons&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;p&gt;コンポーネントで下記のようにします。
-スタイルの細かい部分は省略していますがざっくりこんな感じです&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;GitHub → Font Awsomeアイコン使って背景をダークグレイにする&lt;/li&gt;
-&lt;li&gt;Twitter → Font Awsomeアイコンを使って背景を水色にする&lt;/li&gt;
-&lt;li&gt;Qiita → Font Awsomeに用意がないので、代わりに虫眼鏡を使って背景を黄緑にしてQiitaっぽくする&lt;/li&gt;
-&lt;/ul&gt;
+&lt;br&gt;
+実装は下記のようにします。スタイルの細かい部分は省略していますが、ざっくり書きのような感じです。Qiitaだけ小細工してます。
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&quot;left&quot;&gt;&lt;/th&gt;
+&lt;th align=&quot;left&quot;&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;GitHub&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;Font Awsomeアイコン使用。背景をダークグレイ。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;Twitter&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;Font Awsomeアイコン使用。背景を水色。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;Qiita&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;Font Awsomeに用意がないので、
+&lt;strong&gt;代わりに虫眼鏡アイコン使用。背景を黄緑にしてQiitaっぽくする&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;
       &lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;・・・
 
@@ -243,30 +242,40 @@ npm install --save @fortawesome/free-regular-svg-icons&lt;/code&gt;&lt;/pre&gt;
   &lt;span class=&quot;token function&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
       ・・・
-&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;a&lt;/span&gt;
-&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;        &lt;span class=&quot;token attr-name&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;https://github.com/Takumon&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;a&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;https://github.com/Takumon&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;       &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;FontAwesomeIcon&lt;/span&gt;
 &lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;         &lt;span class=&quot;token attr-name&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;#333&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;
 &lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;         &lt;span class=&quot;token attr-name&quot;&gt;icon&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;faGithubSquare&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;/&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;a&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;a&lt;/span&gt;
-&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;        &lt;span class=&quot;token attr-name&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;https://twitter.com/inouetakumon&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;a&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;https://twitter.com/inouetakumon&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;FontAwesomeIcon&lt;/span&gt;
 &lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;          &lt;span class=&quot;token attr-name&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;#3eaded&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;
 &lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;          &lt;span class=&quot;token attr-name&quot;&gt;icon&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;faTwitterSquare&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;/&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;a&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;a&lt;/span&gt;
-&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;        &lt;span class=&quot;token attr-name&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;https://qiita.com/Takumon&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;a&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;https://qiita.com/Takumon&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;FontAwesomeIcon&lt;/span&gt;
 &lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;          &lt;span class=&quot;token attr-name&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;white&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;          &lt;span class=&quot;token attr-name&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;            overflow&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;hidden&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;            height&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;0.9em&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;            width&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;0.9em&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;            backgroundColor&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;#4cb10d&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;            borderRadius&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;2px&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;            marginTop&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;2px&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;          &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;
 &lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;          &lt;span class=&quot;token attr-name&quot;&gt;icon&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;faSearch&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;/&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;/span&gt;      ・・・
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;a&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;/span&gt;
+      ・・・
     &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
   &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;p&gt;ここまでくると、下記のようなアイコンが画面に追加されています。
-
+&lt;br&gt;
+ここまでくると、下記のようなアイコンが画面に追加されています。
+&lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
     href=&quot;/static/my-sns-icons-dcdd6bd9dc56f2fdd0408117969af22c-3135f.png&quot;
@@ -303,22 +312,23 @@ npm install --save @fortawesome/free-regular-svg-icons&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;OGPとは、「Open Graph Protcol」の略でFacebookやTwitterなどのSNSでシェアした際に、
 WEBページのタイトルやイメージ画像、説明文などをわかりやすく伝えるためのHTML要素です。
 OGPをWebページで設定することでユーザーに対してWEBページの内容を詳しく伝えることができます。&lt;/p&gt;
-&lt;h3&gt;OGPタグ定義&lt;/h3&gt;
-&lt;p&gt;このブログはReactを使って書かれているので、ReactHelmetを使ってOPG専用のコンポーネントを作りました。
-ブログのトップと記事詳細で設定する値が違うので、そこは引数でとれるようにしてあります。&lt;/p&gt;
+&lt;h3&gt;OGPタグを定義&lt;/h3&gt;
+&lt;p&gt;Reactアプリだと、&lt;a href=&quot;https://github.com/nfl/react-helmet&quot;&gt;ReactHelmet&lt;/a&gt;を使います。&lt;br&gt;
+今回はOgpタグを作りました。ただブログのトップと記事詳細で設定する値が違うので、そこはコンポーネントの引数で受け取れるようにしています。&lt;br&gt;
+※&lt;code class=&quot;language-text&quot;&gt;blog-config.js&lt;/code&gt;はブログタイトルなどの設定しているファイルです。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;
       &lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; React &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;react&apos;&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; Helmet &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;react-helmet&apos;&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-  blogTitle&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-  blogUrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-  blogDescription&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-  blogImageUrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-  facebookAppId&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-  blogAuthorTwitterUserName&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;../config/blog-config.js&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  blogTitle&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  blogUrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  blogDescription&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  blogImageUrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  facebookAppId&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  blogAuthorTwitterUserName&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;../config/blog-config.js&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;
 &lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;Ogp&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;isRoot&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; title&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; description&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
 &lt;/span&gt;  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; type &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; isRoot &lt;span class=&quot;token operator&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;website&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;article&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
@@ -338,8 +348,10 @@ OGPをWebページで設定することでユーザーに対してWEBページ�
   &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;p&gt;※&lt;code class=&quot;language-text&quot;&gt;blog-config.js&lt;/code&gt;はブログタイトルなどの設定を外出しした設定ファイル&lt;br&gt;
-いろいろあるプロパティは下記の通り&lt;/p&gt;
+&lt;br&gt;
+いろいろあるプロパティは下記の通り
+&lt;br&gt;
+&lt;br&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -397,11 +409,11 @@ OGPをWebページで設定することでユーザーに対してWEBページ�
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h3&gt;OGPタグ呼び出し&lt;/h3&gt;
-&lt;p&gt;タイトルやURLはページ個別で設定が必要です。
-Gatsby製ブログでは下記2カ所でOGPタグを呼び出します。&lt;/p&gt;
+&lt;p&gt;こんどは作ったOgpタグを呼び出す側の実装です。
+Gatsby製ブログではトップページとブログ議事ページの2カ所で呼び出します。&lt;/p&gt;
 &lt;h4&gt;ブログトップページでの呼び出し&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;src/layouts/index.js&lt;/strong&gt;&lt;br&gt;
-※全体のテンプレートなのでURLがブログトップページの時のみOGPタグを呼び出します。&lt;/p&gt;
+全体のテンプレートなのでURLがブログトップページの時のみOGPタグを呼び出します。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;
       &lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;Ogp&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;isRoot&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;isRoot&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;/&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
@@ -423,8 +435,10 @@ Gatsby製ブログでは下記2カ所でOGPタグを呼び出します。&lt;/p&
     &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; postContent&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;120&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;...&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
+&lt;br&gt;
 &lt;p&gt;※&lt;a href=&quot;https://github.com/ericnorris/striptags&quot;&gt;striptags&lt;/a&gt;は非常に便利なライブラリですが、1点だけ注意点があって、最新バージョンの3系(2018/9/16現在)はGatsbyビルド時にエラーになるため&lt;strong&gt;2系を使用してください&lt;/strong&gt;。Gatsbyではビルド時に&lt;a href=&quot;https://github.com/mishoo/UglifyJS2&quot;&gt;Uglifyjs&lt;/a&gt;を使用しているためES6のコードをコンパイルできません。&lt;/p&gt;
-&lt;p&gt;これでTwitterやFacebookで呟くと下記のようにいい感じに画像とタイトル、説明文を表示してくれるようになります。
+&lt;br&gt;
+&lt;p&gt;これでTwitterなどでシェアするとイメージ画像とタイトル、記事概要を表示してくれるようになります。
 
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -459,47 +473,45 @@ Gatsby製ブログでは下記2カ所でOGPタグを呼び出します。&lt;/p&
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;p&gt;実際にどんな感じになるかは下記サイトで確認できます。&lt;/p&gt;
+&lt;p&gt;開発中に下記サイトで実際にどんな感じになるかを確認できます。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Twitter → &lt;a href=&quot;https://cards-dev.twitter.com/validator&quot;&gt;Card validator&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Facebook → &lt;a href=&quot;https://developers.facebook.com/tools/debug/&quot;&gt;シェアデバッガー&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;まとめ&lt;/h2&gt;
-&lt;p&gt;今回はGatsby製ブログでSNSシェアボタンや自分のSNSへのリンクを設置し、さらにOGPタグを設置して
-TwitterやFacebookなどでのシェアをより効果的にする方法をメモとして残しました。
-GatsbyはReact製ということもあり、かなり簡単に実現できますし、グっとブログっぽくなるので是非みなさんも挑戦してみてください。&lt;/p&gt;
+&lt;p&gt;今回はReactアプリでSNSシェアボタンや自分のSNSへのリンクを設置し、さらにOGPタグを設置して
+Twitterなどでのシェアをより効果的にする方法をメモに残しました。
+Reactだと、かなり簡単に実現できるし、グっと今時のWebサイトっぽくなるので是非みなさんも試してみてください。&lt;/p&gt;
 &lt;h2&gt;参考&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;OGPタグ系関連&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;参考にしたサイト&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://ferret-plus.com/610&quot;&gt;Facebook・TwitterのOGP設定方法まとめ｜ferret [フェレット]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/nygardk/react-share&quot;&gt;react-share&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/FortAwesome/react-fontawesome&quot;&gt;react-fontawesome&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/nfl/react-helmet&quot;&gt;ReactHelmet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://ferret-plus.com/610&quot;&gt;Facebook・TwitterのOGP設定方法まとめ｜ferret フェレット&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://akameco.github.io/blog/react-helmet/&quot;&gt;React Helmetを使ってOGP対応した | akameco Blog&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://design-plus1.com/tcd-w/2018/01/facebook_app_id.html&quot;&gt;FacebookのOGP設定に必要なfb:app IDの取得方法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://cards-dev.twitter.com/validator&quot;&gt;Card validator&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Twitterシェア時にOGP領域プレビュー確認サイト&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;下記で実際の表示結果のプレビューが確認できます。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://developers.facebook.com/tools/debug/&quot;&gt;シェアデバッガー&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Twitter → &lt;a href=&quot;https://cards-dev.twitter.com/validator&quot;&gt;Card validator&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Facebook → &lt;a href=&quot;https://developers.facebook.com/tools/debug/&quot;&gt;シェアデバッガー&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Facebookシェア時にOGP領域プレビュー確認サイト&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/ericnorris/striptags&quot;&gt;striptags&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;HTML文字列から単純テキストを抽出してくれるライブラリです。&lt;/li&gt;
+&lt;li&gt;HTML文字列から単純テキストを抽出してくれるライブラリで&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/gatsbyjs/gatsby/issues/3780&quot;&gt;GatsbyはES6未対応 | GitHub issues&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;GatsbyはビルドでJSファイル最初化時にUglifyを使っており、uglifyがES6未対応なのでES6のコードをコンパイルしようとするとエラーになってしまいます。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;</content:encoded></item><item><title><![CDATA[GitHub Pagesを独自ドメイン化 + Https化]]></title><description><![CDATA[なにこれ GitHub Pagesでブログを開設した後、
