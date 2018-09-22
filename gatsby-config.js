@@ -131,5 +131,6 @@ module.exports = {
     },
     `gatsby-plugin-twitter`,
     `gatsby-plugin-sass`,
+    `gatsby-plugin-sitemap`,
   ],
 }
