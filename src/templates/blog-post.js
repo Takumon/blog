@@ -6,29 +6,32 @@ import striptags from 'striptags'
 
 import { rhythm, scale } from '../utils/typography'
 import SNSShare from '../components/sns-share'
-import Ogp from '../components/ogp';
-import {
-  blogUrl,
-  blogAuthorTwitterUserName
-} from '../config/blog-config';
+import Seo from '../components/seo';
+import config from '../config/blog-config';
 
 
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
-    const { previous, next } = this.props.pathContext
-
+    const { previous, next, slug } = this.props.pathContext
+    const postUrl = `${config.blogUrl}${slug}`;
 
     return (
       <div>
         <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />
-        <Ogp
+        <Seo
           isRoot={false}
           title={`${post.frontmatter.title} | ${siteTitle}`}
           description={sumarrize(post.html)}
+          postUrl={postUrl}
+          postDate={post.frontmatter.date}
           />
-        <h1>{post.frontmatter.title}</h1>
+        <a href={postUrl} rel="current">
+          <h1>
+            {post.frontmatter.title}
+          </h1>
+        </a>
         <p
           style={{
             ...scale(-1 / 5),
@@ -44,8 +47,8 @@ class BlogPostTemplate extends React.Component {
         <footer>
           <SNSShare
             title={post.frontmatter.title}
-            link={`${blogUrl}${this.props.location.pathname}`}
-            twitterUserName={blogAuthorTwitterUserName}
+            link={postUrl}
+            twitterUserName={config.blogAuthorTwitterUserName}
             />
           <ul
             style={{

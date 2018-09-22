@@ -4,7 +4,7 @@ import Link from 'gatsby-link'
 import { rhythm, scale } from '../utils/typography'
 
 import {blogTitle} from '../config/blog-config.js';
-import Ogp from '../components/ogp';
+import Seo from '../components/seo';
 import Footer from '../components/footer';
 import tomatoSvg from '../images/tomato.svg';
 
@@ -25,7 +25,7 @@ export default class Template extends React.Component {
     const isRoot = location.pathname === rootPath;
 
     if (isRoot) {
-      // ルートの場合はココでOGPタグを追加
+      // ルートの場合はココでSeoタグを追加
       header = (
         <h1
           style={{
@@ -34,7 +34,7 @@ export default class Template extends React.Component {
             marginTop: 0,
           }}
         >
-          <Ogp isRoot={isRoot} />
+          <Seo isRoot={isRoot} />
           <Link
             className="blogTitle"
             to={'/'}
