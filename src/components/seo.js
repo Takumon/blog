@@ -55,15 +55,59 @@ function createJSONLD({
   postUrl, // not required
   postDate, // not required
 }) {
+
+  const author = [
+    {
+      '@type': 'Person',
+      name: config.blogAuthor,
+      description: config.blogAuthorDescription,
+      image: {
+        '@type': 'ImageObject',
+        url: config.blogAuthorAvatarUrl,
+        width: 60,
+        height: 60
+      }          },
+    {
+      '@type': 'thing',
+      name: config.blogAuthor,
+      sameas: config.blogTitle,
+      url: config.blogURL,
+      image: {
+        '@type': 'ImageObject',
+        url: config.blogImageUrl,
+        width: 60,
+        height: 60
+      }
+    }
+  ];
+
+  const publisher = {
+    '@type': 'Organization',
+    name: config.blogAuthor,
+    description: config.blogAuthorDescription,
+    logo: {
+      '@type': 'ImageObject',
+      url: config.blogAuthorAvatarUrl,
+      width: 60,
+      height: 60
+    }
+  }
+
   const result = [
     {
       '@context': 'http://schema.org',
       '@type': 'WebSite',
+      inLanguage: 'ja',
       url: config.blogUrl,
       name: title,
       alternateName: config.blogTitle,
+      image: config.blogImageUrl,
+      description,
+      author,
+      publisher,
     },
   ];
+
   if (!isRoot) {
     result.push({
         '@context': 'http://schema.org',
@@ -99,41 +143,8 @@ function createJSONLD({
           '@type': 'WebPage',
           '@id': config.blogUrl
         },
-        author: [
-          {
-            '@type': 'Person',
-            name: config.blogAuthor,
-            description: config.blogAuthorDescription,
-            image: {
-              '@type': 'ImageObject',
-              url: config.blogAuthorAvatarUrl,
-              width: 60,
-              height: 60
-            }          },
-          {
-            '@type': 'thing',
-            name: config.blogAuthor,
-            sameas: config.blogTitle,
-            url: config.blogURL,
-            image: {
-              '@type': 'ImageObject',
-              url: config.blogImageUrl,
-              width: 60,
-              height: 60
-            }
-          }
-        ],
-        publisher: {
-          "@type": "Organization",
-          "name": "<?php bloginfo('name'); ?>",
-          "description":"<?php bloginfo('description'); ?>",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://noronoron.com/customize-memo/wp-content/uploads/2017/04/noronoro-favicon-96x96.png",
-            "width": 60,
-            "height": 60
-          }
-        }
+        author,
+        publisher,
       });
   };
 
