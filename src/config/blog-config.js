@@ -8,6 +8,7 @@ module.exports = {
   blogAuthorTwitterUrl: 'https://twitter.com/inouetakumon',
   blogAuthorQiitaUrl: 'https://qiita.com/Takumon',
   blogAuthorGitHubUrl: 'https://github.com/Takumon',
+  blogAuthorFacebookUrl: 'https://www.facebook.com/takuto.inoue.54',
   facebookAppId: '1959327667485352',
   blogAuthor: 'Takumon',
   blogAuthorDescription: '東京でJavaのSIerやってます。',

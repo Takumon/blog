@@ -12,7 +12,7 @@ export default function Seo({
 }) {
   const type = isRoot ? 'website' : 'article';
 
-  const schemaOrgJSONLD = createJSONLD({
+  const JSONLDTag = createJSONLDTag({
     isRoot,
     title,
     description,
@@ -27,7 +27,7 @@ export default function Seo({
       <meta name="image" content={config.blogImageUrl} />
 
       {/* Schema.org tags */}
-      <script type="application/ld+json">{JSON.stringify(schemaOrgJSONLD)}</script>
+      {JSONLDTag}
 
       {/* OpenGraph tags */}
       <meta property="og:title" content={title || config.blogTitle} />
@@ -48,7 +48,7 @@ export default function Seo({
 }
 
 
-function createJSONLD({
+function createJSONLDTag({
   isRoot,
   title,  // not required
   description, // not required
@@ -66,7 +66,13 @@ function createJSONLD({
         url: config.blogAuthorAvatarUrl,
         width: 60,
         height: 60
-      }          },
+      },
+      'url': config.blogUrl,
+      "sameAs": [
+        config.blogAuthorFacebookUrl,
+        config.blogAuthorTwitterUrl,
+      ]
+    },
     {
       '@type': 'thing',
       name: config.blogAuthor,
@@ -148,5 +154,5 @@ function createJSONLD({
       });
   };
 
-  return result;
+  return <script type="application/ld+json">{JSON.stringify(result)}</script>;
 }
