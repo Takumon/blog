@@ -43,30 +43,31 @@ export default class Template extends React.Component {
       )
     } else {
       header = (
-        <h3
-          style={{
-            fontFamily: 'Montserrat, sans-serif',
-            marginTop: 0,
-            marginBottom: rhythm(-1),
-          }}
-        >
-          <Link
+          <h3
             style={{
-              boxShadow: 'none',
-              textDecoration: 'none',
-              color: 'inherit',
-              fontFamily: 'Montserrat',
+              fontFamily: 'Montserrat, sans-serif',
+              marginTop: 0,
+              marginBottom: rhythm(-1),
             }}
-            className="milky"
-            to={'/'}
-          >{blogTitle}<i className="footer-icon-github" style={{
-              backgroundImage: `url(${tomatoSvg})`,
-              width: '1em',
-              backgroundRepeat: 'no-repeat',
-              margin: '0 0 0 0.2em',
-            }}></i>
-          </Link>
-        </h3>
+          >
+            <Link
+              style={{
+                boxShadow: 'none',
+                textDecoration: 'none',
+                color: 'inherit',
+                fontFamily: 'Montserrat',
+              }}
+              className="milky"
+              to={'/'}
+            >{blogTitle}<i className="footer-icon-github" style={{
+                backgroundImage: `url(${tomatoSvg})`,
+                width: '1em',
+                backgroundRepeat: 'no-repeat',
+                margin: '0 0 0 0.2em',
+              }}></i>
+            </Link>
+          </h3>
+
       )
     }
 
@@ -76,8 +77,8 @@ export default class Template extends React.Component {
         style={{
           marginLeft: 'auto',
           marginRight: 'auto',
-          maxWidth: rhythm(24),
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+          maxWidth: rhythm(26),
+          padding: `${rhythm(1.5)} ${rhythm(1)}`,
         }}
       >
         {header}
