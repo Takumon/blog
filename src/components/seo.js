@@ -114,7 +114,7 @@ function createJSONLDTag({
       potentialAction: {
         '@type': "SearchAction",
         target: `${config.blogUrl}/search?q={q}`,
-        'query-input': 'required maxlength=300 name=q'
+        'query-input': 'required name=q'
       }
     }
   ];
