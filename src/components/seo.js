@@ -108,10 +108,15 @@ function createJSONLDTag({
       name: title,
       alternateName: config.blogTitle,
       image: config.blogImageUrl,
-      description,
+      description: config.blogAuthorDescription,
       author,
       publisher,
-    },
+      potentialAction: {
+        '@type': "SearchAction",
+        target: `${config.blogUrl}/search?q={q}`,
+        'query-input': 'required maxlength=300 name=q'
+      }
+    }
   ];
 
   if (!isRoot) {
