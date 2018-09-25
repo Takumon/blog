@@ -81,7 +81,7 @@ class BlogPostTemplate extends React.Component {
         </footer>
 
 
-      </div>
+      </article>
     )
   }
 }
