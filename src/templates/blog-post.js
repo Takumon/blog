@@ -18,7 +18,7 @@ class BlogPostTemplate extends React.Component {
     const postUrl = `${config.blogUrl}${slug}`;
 
     return (
-      <article itemscope itemtype="http://schema.org/BlogPosting">
+      <article itemScope itemType="http://schema.org/BlogPosting">
         <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />
         <Seo
           isRoot={false}
@@ -28,12 +28,12 @@ class BlogPostTemplate extends React.Component {
           postDate={post.frontmatter.date}
           />
         <a href={postUrl} rel="current">
-          <h1　itemprop="name">
+          <h1　itemProp="name">
             {post.frontmatter.title}
           </h1>
         </a>
         <p
-          itemprop="dateModified"
+          itemProp="dateModified"
           style={{
             ...scale(-1 / 5),
             display: 'block',
