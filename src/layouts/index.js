@@ -9,6 +9,7 @@ import Footer from '../components/footer';
 import tomatoSvg from '../images/tomato.svg';
 
 import 'prismjs/themes/prism-solarizedlight.css';
+import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import '../css/base.scss';
 import '../css/highlight.scss';
 
