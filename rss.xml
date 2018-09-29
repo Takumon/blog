@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sat, 29 Sep 2018 15:38:17 GMT</lastBuildDate><item><title><![CDATA[Reactで構造化データマークアップ（JSON-LD対応）]]></title><description><![CDATA[なにこれ ググった時に自分のブログ(React製)でパンくずを表示させたい 
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sat, 29 Sep 2018 15:46:37 GMT</lastBuildDate><item><title><![CDATA[Reactで構造化データマークアップ（JSON-LD対応）]]></title><description><![CDATA[なにこれ ググった時に自分のブログ(React製)でパンくずを表示させたい 
 ということでJSON-LD対応しました。 
  JSON+LD…]]></description><link>https://takumon.com//2018/09/29/</link><guid isPermaLink="false">https://takumon.com//2018/09/29/</guid><pubDate>Sat, 29 Sep 2018 23:50:00 GMT</pubDate><content:encoded>&lt;h2&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;ググった時に自分のブログ(React製)でパンくずを表示させたい&lt;/strong&gt;
@@ -37,7 +37,7 @@
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;p&gt;JSON+LDについてググると色々良い記事ができて一通り学ぶことができました。
+&lt;p&gt;JSON+LDについてググると色々良い記事がでてきて一通り学ぶことができました。
 ここでは、それら記事の紹介を兼ねて、構造化データの説明からパンくず実現方法についてまでを記します。&lt;/p&gt;
 &lt;h2&gt;構造化データについて&lt;/h2&gt;
 &lt;p&gt;グーグルなどの検索エンジンは、Webサイトに構造化マークアップが定義されているとパンくずやイメージ画像を表示してくれます。
