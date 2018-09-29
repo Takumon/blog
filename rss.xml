@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sat, 29 Sep 2018 15:32:16 GMT</lastBuildDate><item><title><![CDATA[Reactで構造化データマークアップ（JSON-LD対応）]]></title><description><![CDATA[なにこれ ググった時に自分のブログ(React製)でパンくずを表示させたい 
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sat, 29 Sep 2018 15:38:17 GMT</lastBuildDate><item><title><![CDATA[Reactで構造化データマークアップ（JSON-LD対応）]]></title><description><![CDATA[なにこれ ググった時に自分のブログ(React製)でパンくずを表示させたい 
 ということでJSON-LD対応しました。 
  JSON+LD…]]></description><link>https://takumon.com//2018/09/29/</link><guid isPermaLink="false">https://takumon.com//2018/09/29/</guid><pubDate>Sat, 29 Sep 2018 23:50:00 GMT</pubDate><content:encoded>&lt;h2&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;ググった時に自分のブログ(React製)でパンくずを表示させたい&lt;/strong&gt;
@@ -51,13 +51,13 @@
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;https://qiita.com/narumana/items/b66969b80cce848b2ddf&quot;&gt;Google推奨「JSON-LD」で構造化マークアップ | Qiita&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Qiitaの記事です。ユースケース別に、簡単な設定例とググった時の実際のイメージが載っていてわかりやすいです。&lt;/li&gt;
+&lt;li&gt;Qiitaの記事です。ユースケース別に、簡単な設定例とググった時の実際のイメージが載っていてわかりやすいです。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;https://webnooboegaki.com/others/jsonld-schemaorg&quot;&gt;構造化データをまとめてみた(JSON-LD + schema.org)&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;こちらもユースケース別ですが、上記Qiita記事よりも実用レベルの設定例が載っていて参考になります。&lt;/li&gt;
+&lt;li&gt;こちらもユースケース別ですが、上記Qiita記事よりも実用レベルの設定例が載っていて参考になります。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -78,8 +78,8 @@
 &lt;/ul&gt;
 &lt;h3&gt;構造化テストツール&lt;/h3&gt;
 &lt;p&gt;JSON+LDの概要を把握したら、実際に作ってみるのがイイです。
-その時、便利なのが&lt;a href=&quot;https://search.google.com/structured-data/testing-tool&quot;&gt;構造化テストツール&lt;/a&gt;です。これはGoogleが提供しているWebサイトの構造化データを検証するためのツールです。
-自分の作った構造化データが正しいかは、ここを見ながら作成しました。&lt;/p&gt;
+その時、便利なのが&lt;a href=&quot;https://search.google.com/structured-data/testing-tool&quot;&gt;構造化テストツール&lt;/a&gt;です。これはGoogleが提供しているWebサイトの構造化データを検証するためのツールです。
+自分の作った構造化データが正しいかは、ここを見ながら作成しました。&lt;/p&gt;
 &lt;h4&gt;使い方&lt;/h4&gt;
 &lt;p&gt;設定を貼り付けるか、URLを指定するかして、&lt;code class=&quot;language-text&quot;&gt;テストを実行&lt;/code&gt;ボタンをクリックすると
 
@@ -135,8 +135,8 @@
 &lt;br&gt;&lt;/p&gt;
 &lt;h4&gt;構造化テストツールのプレビュー機能は廃止されている&lt;/h4&gt;
 &lt;p&gt;ググると構造化テストツールのプレビュー機能の情報がでてきますが、
-プレビューと実際のグーグル検索結果が違うなどの問題があって現在のバージョンでは廃止されているみたいです。実際のインターネットじゃないと確認できないのはちょっと残念ですね。&lt;br&gt;
-参考：&lt;a href=&quot;https://www.suzukikenichi.com/blog/rip-rich-snippet-testing-tool/&quot;&gt;旧構造化データテストツールの提供をGoogleが終了、リッチスニペットのプレビューができなくなった&lt;/a&gt;&lt;/p&gt;
+プレビューと実際のグーグル検索結果が違うなどの問題があって現在のバージョンでは廃止されているみたいです実際のインターネットじゃないと確認できないのはちょっと残念ですね。&lt;br&gt;
+参考：&lt;a href=&quot;https://www.suzukikenichi.com/blog/rip-rich-snippet-testing-tool/&quot;&gt;旧構造化データテストツールの提供をGoogleが終了、リッチスニペットのプレビューができなくなった&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;ReactでJSON+LD&lt;/h3&gt;
 &lt;p&gt;Reactだと&lt;a href=&quot;https://github.com/nfl/react-helmet&quot;&gt;React Helmet&lt;/a&gt;で簡単に対応でます。
 こんな感じのコンポーネントを作って、どこかで呼び出してあげればいいです。&lt;br&gt;
@@ -154,7 +154,7 @@
   postDate&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;token comment&quot;&gt;// 記事更新日（記事ページの時のみ指定）&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
 
-  &lt;span class=&quot;token comment&quot;&gt;// ブログ管理者（自分）&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// ブログ管理者（自分）&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; author &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
     &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
       &lt;span class=&quot;token string&quot;&gt;&apos;@type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Person&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
@@ -199,7 +199,7 @@
     &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
   &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
-  &lt;span class=&quot;token comment&quot;&gt;// JSON+LDの設定&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// JSON+LDの設定&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; jsonLdConfigs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
     &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
       &lt;span class=&quot;token string&quot;&gt;&apos;@context&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;http://schema.org&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
