@@ -27,7 +27,7 @@ JSON+LDについてググると色々良い記事ができて一通り学ぶこ�
 * [Google推奨「JSON-LD」で構造化マークアップ | Qiita](https://qiita.com/narumana/items/b66969b80cce848b2ddf)
   *  Qiitaの記事です。ユースケース別に、簡単な設定例とググった時の実際のイメージが載っていてわかりやすいです。
 * [構造化データをまとめてみた(JSON-LD + schema.org)](https://webnooboegaki.com/others/jsonld-schemaorg)
-  * こちらもユースケース別ですが、上記Qiita記事よりも実用レベルの設定例が載っていて参考になります。
+  * こちらもユースケース別ですが、上記Qiita記事よりも実用レベルの設定例が載っていて参考になります。
 
 さらに理解を深めたい場合は下記サイトがおすすめです。
 
