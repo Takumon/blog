@@ -25,9 +25,9 @@ JSON+LDについてググると色々良い記事ができて一通り学ぶこ�
 ## JSON+LDについて
 てっとり早く理解したい時は下記サイトがおすすめです。
 * [Google推奨「JSON-LD」で構造化マークアップ | Qiita](https://qiita.com/narumana/items/b66969b80cce848b2ddf)
-  *  Qiitaの記事です。ユースケース別に、簡単な設定例とググった時の実際のイメージが載っていてわかりやすいです。
+  *  Qiitaの記事です。ユースケース別に、簡単な設定例とググった時の実際のイメージが載っていてわかりやすいです。
 * [構造化データをまとめてみた(JSON-LD + schema.org)](https://webnooboegaki.com/others/jsonld-schemaorg)
-  * こちらもユースケース別ですが、上記Qiita記事よりも実用レベルの設定例が載っていて参考になります。
+  * こちらもユースケース別ですが、上記Qiita記事よりも実用レベルの設定例が載っていて参考になります。
 
 さらに理解を深めたい場合は下記サイトがおすすめです。
 
@@ -41,8 +41,8 @@ JSON+LDについてググると色々良い記事ができて一通り学ぶこ�
 
 ### 構造化テストツール
 JSON+LDの概要を把握したら、実際に作ってみるのがイイです。
-その時、便利なのが[構造化テストツール](https://search.google.com/structured-data/testing-tool)です。これはGoogleが提供しているWebサイトの構造化データを検証するためのツールです。
-自分の作った構造化データが正しいかは、ここを見ながら作成しました。
+その時、便利なのが[構造化テストツール](https://search.google.com/structured-data/testing-tool)です。これはGoogleが提供しているWebサイトの構造化データを検証するためのツールです。
+自分の作った構造化データが正しいかは、ここを見ながら作成しました。
 
 
 #### 使い方
@@ -64,8 +64,8 @@ JSON+LDの概要を把握したら、実際に作ってみるのがイイです�
 
 #### 構造化テストツールのプレビュー機能は廃止されている
 ググると構造化テストツールのプレビュー機能の情報がでてきますが、
-プレビューと実際のグーグル検索結果が違うなどの問題があって現在のバージョンでは廃止されているみたいです。実際のインターネットじゃないと確認できないのはちょっと残念ですね。<br>
-参考：[旧構造化データテストツールの提供をGoogleが終了、リッチスニペットのプレビューができなくなった](https://www.suzukikenichi.com/blog/rip-rich-snippet-testing-tool/)
+プレビューと実際のグーグル検索結果が違うなどの問題があって現在のバージョンでは廃止されているみたいです実際のインターネットじゃないと確認できないのはちょっと残念ですね。<br>
+参考：[旧構造化データテストツールの提供をGoogleが終了、リッチスニペットのプレビューができなくなった](https://www.suzukikenichi.com/blog/rip-rich-snippet-testing-tool/)
 
 
 ### ReactでJSON+LD
@@ -88,7 +88,7 @@ export default function createJSONLDTag({
   postDate,    // 記事更新日（記事ページの時のみ指定）
 }) {
 
-  // ブログ管理者（自分）
+  // ブログ管理者（自分）
   const author = [
     {
       '@type': 'Person',
@@ -133,7 +133,7 @@ export default function createJSONLDTag({
     }
   }
 
-  // JSON+LDの設定
+  // JSON+LDの設定
   const jsonLdConfigs = [
     {
       '@context': 'http://schema.org',
