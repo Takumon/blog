@@ -1,4 +1,310 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sat, 29 Sep 2018 01:36:24 GMT</lastBuildDate><item><title><![CDATA[ReactでSNS対応（Gatsby製ブログでSNSシェアボタン、OGPタグ追加）]]></title><description><![CDATA[なにこれ Gatsby製ブログ(Reactアプリ)でSNS対応した時のメモです。 
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sat, 29 Sep 2018 15:32:16 GMT</lastBuildDate><item><title><![CDATA[Reactで構造化データマークアップ（JSON-LD対応）]]></title><description><![CDATA[なにこれ ググった時に自分のブログ(React製)でパンくずを表示させたい 
+ということでJSON-LD対応しました。 
+ JSON+LD…]]></description><link>https://takumon.com//2018/09/29/</link><guid isPermaLink="false">https://takumon.com//2018/09/29/</guid><pubDate>Sat, 29 Sep 2018 23:50:00 GMT</pubDate><content:encoded>&lt;h2&gt;なにこれ&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;ググった時に自分のブログ(React製)でパンくずを表示させたい&lt;/strong&gt;
+ということでJSON-LD対応しました。&lt;br&gt;
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/googlesearchresult-a4575e7c72cdef073663bd0010ce1611-e5a7d.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 26.506024096385538%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAAAsSAAALEgHS3X78AAABIUlEQVQY00VQ2U4DQQzr9/PO9yCB4AH1AQpIHC1X2U73mM3szn2kZqgEWLKsOImUeBGcv4pzkkaGXdRJ+CkKI71wFIWWTkQbxTQ6YU1V8sK76k9BzMoLVfveJcFcmlLKFGM8W4hxfl1uBpzffeLmo8PdF+H6eY+Lhw88fllIC6QA4ABE/6sHeMOwcwFn/CGl9LDoJ/u0oYCXweT7HfGqUfzUaV4JxUIZPr2PfLLK7LTiWWs21rDzjn1wHFM41kSUU8oIId4uvLOvdp4xtC22729oRYOx76AVod/v0Ow73G5HvG0brNdrtG2HQUr0w4D65pHG2P8LtdbLfdebOiBJTTTNmuRINJI68geH5KnkTDUjqkt/zNUruVDNcOBSgnPu8huIzXkSZu0xBgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Googole検索結果パンくずリスト&quot;
+        title=&quot;&quot;
+        src=&quot;/static/googlesearchresult-a4575e7c72cdef073663bd0010ce1611-fb8a0.png&quot;
+        srcset=&quot;/static/googlesearchresult-a4575e7c72cdef073663bd0010ce1611-1a291.png 148w,
+/static/googlesearchresult-a4575e7c72cdef073663bd0010ce1611-2bc4a.png 295w,
+/static/googlesearchresult-a4575e7c72cdef073663bd0010ce1611-fb8a0.png 590w,
+/static/googlesearchresult-a4575e7c72cdef073663bd0010ce1611-e5a7d.png 664w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;JSON+LDについてググると色々良い記事ができて一通り学ぶことができました。
+ここでは、それら記事の紹介を兼ねて、構造化データの説明からパンくず実現方法についてまでを記します。&lt;/p&gt;
+&lt;h2&gt;構造化データについて&lt;/h2&gt;
+&lt;p&gt;グーグルなどの検索エンジンは、Webサイトに構造化マークアップが定義されているとパンくずやイメージ画像を表示してくれます。
+構造化マークアップというのはschema.orgという大手検索エンジン(Google、Yahoo、Bing)で定めた規格にしたがったマークアップのことです。検索時だけでなく、検索エンジンがクロールするときにも、Webサイトのメタ情報としてマークアップを認識させることができ、「検索に優しいWebサイト」を作れます。&lt;/p&gt;
+&lt;p&gt;この構造化マークアップを実現するにはRDFa、Microdata、JSON-LDの3種類があります。
+今回は、(1)JSON-LDはGoogleが推奨していることと、(2)JSON書きやすい、という理由からJSON+LDを使いました。&lt;/p&gt;
+&lt;p&gt;なお3種の違いについては&lt;a href=&quot;https://www.suzukikenichi.com/blog/difference-between-schemaorg-microdata-and-rdfa/&quot;&gt;[構造化データ初級者向け] schema.orgとMicrodata、RDFaって何が違うの？&lt;/a&gt;に詳しく書かれていました。&lt;/p&gt;
+&lt;h2&gt;JSON+LDについて&lt;/h2&gt;
+&lt;p&gt;てっとり早く理解したい時は下記サイトがおすすめです。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://qiita.com/narumana/items/b66969b80cce848b2ddf&quot;&gt;Google推奨「JSON-LD」で構造化マークアップ | Qiita&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Qiitaの記事です。ユースケース別に、簡単な設定例とググった時の実際のイメージが載っていてわかりやすいです。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://webnooboegaki.com/others/jsonld-schemaorg&quot;&gt;構造化データをまとめてみた(JSON-LD + schema.org)&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;こちらもユースケース別ですが、上記Qiita記事よりも実用レベルの設定例が載っていて参考になります。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;さらに理解を深めたい場合は下記サイトがおすすめです。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://schema.org&quot;&gt;schema.org&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;細かい仕様など、正しい仕様を把握する時に参考にしました。ググって調べたブログ記事などには古いバージョンだったり間違った情報が載ってたりするので、最終的にはココで確認してました。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://developers.google.com/search/docs/guides/&quot;&gt;Google Search&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;このサイトの&lt;code class=&quot;language-text&quot;&gt;左メニュー &amp;gt; Structured data &amp;gt; Future guies&lt;/code&gt;にグーグル検索の表示結果の仕様が載っています。ただコレに従ったとしても、&lt;strong&gt;必ずしも検索結果でそれ通りに表示されるわけではない&lt;/strong&gt;点に注意が必要です。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;構造化テストツール&lt;/h3&gt;
+&lt;p&gt;JSON+LDの概要を把握したら、実際に作ってみるのがイイです。
+その時、便利なのが&lt;a href=&quot;https://search.google.com/structured-data/testing-tool&quot;&gt;構造化テストツール&lt;/a&gt;です。これはGoogleが提供しているWebサイトの構造化データを検証するためのツールです。
+自分の作った構造化データが正しいかは、ここを見ながら作成しました。&lt;/p&gt;
+&lt;h4&gt;使い方&lt;/h4&gt;
+&lt;p&gt;設定を貼り付けるか、URLを指定するかして、&lt;code class=&quot;language-text&quot;&gt;テストを実行&lt;/code&gt;ボタンをクリックすると
+
+  &lt;a class=&quot;gatsby-resp-image-link&quot; href=&quot;/static/testtool1-f5bcf368d8b318ce54249629b5c11569-fee8a.png&quot; style=&quot;display: block&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;
+  
+  &lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;&gt;
+    &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 78.1124497991968%; position: relative; bottom: 0; left: 0; background-image: url(&amp;apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAAAsSAAALEgHS3X78AAACxElEQVQ4y42TXU8TQRSG+7ekRhThhl9gojHhL1BL6W4/abcJVozUG7kyxDtrIkEDkdYgCJi2+AE3NpFGCt3utt12uv2CfjCvM2tLRDboJm/O2TMzz7w7e8Zy7/6demT+aSUSiZDIfIQsLCwQt9tNxsfHyfDwTTIycpuMjo6aaIyND5OhISsZvm4t37oxdGq1XrNZdpNJZDIZKIqK41wOOVlGXlGQy8k4Ov79XiyVoGkaSgOVNGjlMn4cHCCVTGBz4xNWPuxhNbbpshTzeRweZs9kWabFYpGqqmqorGlU13VarVYpIcRUul6jjVqV7qa13ouNFrb3FcHi8Xrh9Xqpx+Ph8YJ4zaw+kMvlgtPppF63qxfwiRAFh2jhRSYqCCIcU1Ow2e2wPbDDzqPNdqUcDoexVhTFnsfr4++ixe/3s918NBQKIRp9hdjbJayvLuPtm2W8W1tDLBbDWj8Ocq54PI7FxUWwH0gZoydJEoeLFh8Dutku4XAYJUXG6+8E0XQNaqUGnPVw1ZNKpTA9PW0Ag8EgmFPu0Aenx09D4cdsCsV6AXiZBdTWGTRSRrVRR7vdRqvVQofFXq+HTqdjAHd2to0zvAAMeQTcnYvSsWdJfMsRtKtlNAsKmloJJbWIcqECdJlZpmarw8BdNJocDGxtmQC5Q4E5lB49QePk1Fj5WW0j9LWLlZ8nWNrbxfPER6TVvOGq0+0yh92+wx0zoB8et4vOhR+en02V7b6vAxr7si9yFuuZNNS6fukME4mEOZD/qdnZWShqCcdyGUfZI7RrFbQYpNs6AT1to1lvgDU5KhUCOa9BKeiIxd9DEISLQJ/PBybKoySFDAWDEoI8Z60UZO0QDEksl8Bbi2swLxAIGJeCrb0M/PNmDMTHeANPTEzAbJzX+mvNgf38XPw42BxMTk4a+d/jXNzhfwMHtZmZmfP7+y/gL/UYoypklQgWAAAAAElFTkSuQmCC&amp;apos;); background-size: cover; display: block;&quot;&gt;
+      &lt;img class=&quot;gatsby-resp-image-image&quot; style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot; alt=&quot;&amp;#x69CB;&amp;#x9020;&amp;#x5316;&amp;#x30C6;&amp;#x30B9;&amp;#x30C8;&amp;#x30C4;&amp;#x30FC;&amp;#x30EB;&quot; title=&quot;&quot; src=&quot;/static/testtool1-f5bcf368d8b318ce54249629b5c11569-fb8a0.png&quot; srcset=&quot;/static/testtool1-f5bcf368d8b318ce54249629b5c11569-1a291.png 148w,
+/static/testtool1-f5bcf368d8b318ce54249629b5c11569-2bc4a.png 295w,
+/static/testtool1-f5bcf368d8b318ce54249629b5c11569-fb8a0.png 590w,
+/static/testtool1-f5bcf368d8b318ce54249629b5c11569-526de.png 885w,
+/static/testtool1-f5bcf368d8b318ce54249629b5c11569-fee8a.png 996w&quot; sizes=&quot;(max-width: 590px) 100vw, 590px&quot;&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;構造化データの解析結果を画面右半分に表示してくれます。
+プロパティを選択すると対応するJSON+LDの部分がハイライトされるので便利です。
+
+  &lt;a class=&quot;gatsby-resp-image-link&quot; href=&quot;/static/testtool2-e6948518b55521631f29e685f9755580-468ad.png&quot; style=&quot;display: block&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;
+  
+  &lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;&gt;
+    &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 78.66531850353893%; position: relative; bottom: 0; left: 0; background-image: url(&amp;apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAAAsSAAALEgHS3X78AAADPUlEQVQ4y41U227bRhTUR+XJTmQZSPoPBQrkM5qviBEg+YO+Fy2QIo5dR3FixU7gSLKjGyVKlHi/X0RKpEjt9OzKBtynlsCAuwues3NmRqo93X80+uX5z8ujo1fhy5dHAq9fvwl/ffEifPbsp7BePwgbjcPwoNH4FxqEw8PD8Em9Hu7t7Yf1x3vhwZP9sHZ6cmJ//nSOfn+A2UzBZCJDlqeY0loajzEcSRhJYwG+5pDu9vJ0iu/tNs6bH/Du3Qf8/vYjanlRGZvVCnGcbPN8zcrNhq3Xa1YUBWPbLQPwv3A9Ldmf3xmrmaZhOo4HwzCYaZpQNQ2WbSPLVkgFMqRpiuVyKd4Z7bMHZ1EUwfcDpEmMwHdQo0amrjuYj2VmjYZwpjJcy4Rl2Qh0A7auw3VdJElChT4WiwVUVRNnK5rsvnEQBHxK1GzHMSNDx7zXY8ZggGAsIZor8KhwqavIPBdVVaHYbLBar0URR5pm2NAZSSPeeZ6Ldc22bTPSVMz6fTYjEwxJQqzMECgKAstCTONsy4qKCmRxiHUaA1UhpKuqrWjGmZLuKMuSM7RN1zBgSSNmDYdQZRmRrsGjUR3SkzPNkwjRukJT8nA2sHGlrjAOSixJNyIkxubsOMsaGWDGpJk3HDB30IMvT2CRjhF9GDo2fGJZpAn+UCpca0ucfBugq8VQ4woh6RaGoWh0DzGyz90lhj4xykjgPI6Q0IcrKqADuKst3i62NOYWnm3ejQwx7sOHMbYzZddQYro0gjyZQJ1NYXC3bQdl4OLzLKGmlSgK6KKELuUPd10nuTzPA48cd1s0DMhlo3fL/GEfNhmyJBYciWNAVi2czzO6vhQJ3rm5Y8ajMp/PoWs6z7HIpxhZoRze9GWmTHjGbCiqQ3DhmQ5+6wS4UHNqWIH/cHgelw8YqqoqjInjeKfhwnTMT0MT37pDdnX9A5eta1wRzi87uPjaRftGwvGXWxy32kRyl0UeEe4qb37vMD+7a+iaZ5d9NI9P2cX7M7SO/0brtIkLQvOv9/hy9hGtzgg3ikNmbMS43AwOnjuO+z2HiM18YaPbGbHbroSb9gC3nSH9qywwkVT0fsjQ/BUqEnBDTIr/wD+xY4UzbSqasQAAAABJRU5ErkJggg==&amp;apos;); background-size: cover; display: block;&quot;&gt;
+      &lt;img class=&quot;gatsby-resp-image-image&quot; style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot; alt=&quot;&amp;#x69CB;&amp;#x9020;&amp;#x5316;&amp;#x30C6;&amp;#x30B9;&amp;#x30C8;&amp;#x30C4;&amp;#x30FC;&amp;#x30EB;&amp;#x691C;&amp;#x8A3C;&amp;#x7D50;&amp;#x679C;&quot; title=&quot;&quot; src=&quot;/static/testtool2-e6948518b55521631f29e685f9755580-fb8a0.png&quot; srcset=&quot;/static/testtool2-e6948518b55521631f29e685f9755580-1a291.png 148w,
+/static/testtool2-e6948518b55521631f29e685f9755580-2bc4a.png 295w,
+/static/testtool2-e6948518b55521631f29e685f9755580-fb8a0.png 590w,
+/static/testtool2-e6948518b55521631f29e685f9755580-526de.png 885w,
+/static/testtool2-e6948518b55521631f29e685f9755580-468ad.png 989w&quot; sizes=&quot;(max-width: 590px) 100vw, 590px&quot;&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;また、必須プロパティが抜けていたりすると下記のようにエラーで知らせてくれます。
+
+  &lt;a class=&quot;gatsby-resp-image-link&quot; href=&quot;/static/testtool3-872e1f5c1902246664756522dbd4081c-fee8a.png&quot; style=&quot;display: block&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;
+  
+  &lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;&gt;
+    &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 78.1124497991968%; position: relative; bottom: 0; left: 0; background-image: url(&amp;apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAAAsSAAALEgHS3X78AAADcklEQVQ4y42TS27cRhCG51xRjMiSN/ERAgTIHbLzRJfQZKVTBIiBZCNnE1g2LCOSMg++hsP3q9lskkNyyCGn/xQpJPAyBApNssivq/6/evb9D9/tF4ufs+vFQlxfL8TNzY24uroS375+Lc7PX4rLy0txcTHGxRdxKS5fvaL8uTg7OxPnL874y2/O2hdff/Xj7OPdHVRNg+t5sCwbtu3AdenetmHurGkdY2c9h0X58TvP86EoKu7ev8e72z/x6+1nvP393U+zrq6Ri/xU17Xs2lY2dSNbWodhkAD+V2hBP7x9AtZO82aWsARhGMgojuD5Psa1bhpUVY39fo9yjLKk5woNvaeNp/d7ei6KApxzWVfl0DUFUhbPZ0Gcw9r5MnSoDXsHxwvg2wFix0HMfAKWEzDLMmy3JsnhTsARPAblJEGH47EfJZjPRJQh1beSkW6uvkOy2SDWLTBNB9sZaA81qH10XTeBxkpJEvTHI/r+OK6jVAO1DlUdgWE8QmREuyeKgoSgsaEhMk0I10FPoBFGVSDPc4L0ONEG1eGIomrAy0pWzTNwoyjzGQ8zMFWRzNTBR6hhI7VNpEGEhjGc5HN1o16jngNVZYoeNu/gFT1c3kg9OQzNCTA1AkZxSq3a0tJCuBsNoaHCWCswtC209RJJxqeWk4QhjOLJWHcP/GUkuKd/jLCQS0cMLWW2E9D2YC4N6elbGI8r+KsldisVDmnor/6G8EcIcJr06vDvlaScDPSR8ExGjH2pIUek7qQg3cLHJ6QEKSwL3LUQ0bAfyQReH7EJS3xUXKhRCZtafTACmrsUTnaQZlgMaSPHAzKfhX4JU09kuHUQGB7CrYvS98DJfRaFkFTVJumQRmSK2KNoTyiPEkWaI49Ho8gUJoagAn67pwq5S9opivSXa3iKA0d1kVG1XCeTVBUtT2GRCb3IQJMLHJqpZUnanmwL8nCQ6JqhoqZv1+F8VkYJgs/3MlqSAasVuGWAUauJFRCMwzV0/PLHPfq8oMgxnE4gQ9FTrs8E+raTENlQkLyfvGo+84OaDPDJFDp2moXUD8hNRmOToTsNdBoqfNi4QJFTdfV/pqDMn6OlCstsqHvgzi7J5aSFZ3HJdt503Cwngr1NEVgMguZwvBTW49OG4VFP8ZRKPHHgYVfgYZvjKRnkg38YlBJwknz+D753gR80zoH3AAAAAElFTkSuQmCC&amp;apos;); background-size: cover; display: block;&quot;&gt;
+      &lt;img class=&quot;gatsby-resp-image-image&quot; style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot; alt=&quot;&amp;#x69CB;&amp;#x9020;&amp;#x5316;&amp;#x30C6;&amp;#x30B9;&amp;#x30C8;&amp;#x30C4;&amp;#x30FC;&amp;#x30EB;&amp;#x691C;&amp;#x8A3C;&amp;#x7D50;&amp;#x679C;&amp;#x30A8;&amp;#x30E9;&amp;#x30FC;&amp;#x60C5;&amp;#x5831;&quot; title=&quot;&quot; src=&quot;/static/testtool3-872e1f5c1902246664756522dbd4081c-fb8a0.png&quot; srcset=&quot;/static/testtool3-872e1f5c1902246664756522dbd4081c-1a291.png 148w,
+/static/testtool3-872e1f5c1902246664756522dbd4081c-2bc4a.png 295w,
+/static/testtool3-872e1f5c1902246664756522dbd4081c-fb8a0.png 590w,
+/static/testtool3-872e1f5c1902246664756522dbd4081c-526de.png 885w,
+/static/testtool3-872e1f5c1902246664756522dbd4081c-fee8a.png 996w&quot; sizes=&quot;(max-width: 590px) 100vw, 590px&quot;&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br&gt;&lt;/p&gt;
+&lt;h4&gt;構造化テストツールのプレビュー機能は廃止されている&lt;/h4&gt;
+&lt;p&gt;ググると構造化テストツールのプレビュー機能の情報がでてきますが、
+プレビューと実際のグーグル検索結果が違うなどの問題があって現在のバージョンでは廃止されているみたいです。実際のインターネットじゃないと確認できないのはちょっと残念ですね。&lt;br&gt;
+参考：&lt;a href=&quot;https://www.suzukikenichi.com/blog/rip-rich-snippet-testing-tool/&quot;&gt;旧構造化データテストツールの提供をGoogleが終了、リッチスニペットのプレビューができなくなった&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;ReactでJSON+LD&lt;/h3&gt;
+&lt;p&gt;Reactだと&lt;a href=&quot;https://github.com/nfl/react-helmet&quot;&gt;React Helmet&lt;/a&gt;で簡単に対応でます。
+こんな感じのコンポーネントを作って、どこかで呼び出してあげればいいです。&lt;br&gt;
+下記例は自分のブログ用で、トップページと記事ページ毎に設定を切り替えています。&lt;br&gt;
+&lt;small&gt;※blog-config.jsはブログの設定値を集約したものです&lt;/small&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber 0&quot; class=&quot;language-javascript line-numbers&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; React &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;react&apos;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; Helmet &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;react-helmet&apos;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; config &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;../config/blog-config.js&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;createJSONLDTag&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  isRoot&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;      &lt;span class=&quot;token comment&quot;&gt;// ブログトップページか（記事ページの場合false）&lt;/span&gt;
+  title&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;       &lt;span class=&quot;token comment&quot;&gt;// 記事タイトル（記事ページの時のみ指定）&lt;/span&gt;
+  description&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 記事概要（記事ページの時のみ指定）&lt;/span&gt;
+  postUrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;     &lt;span class=&quot;token comment&quot;&gt;// 記事URL（記事ページの時のみ指定)&lt;/span&gt;
+  postDate&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;token comment&quot;&gt;// 記事更新日（記事ページの時のみ指定）&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// ブログ管理者（自分）&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; author &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token string&quot;&gt;&apos;@type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Person&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      name&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogAuthor&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      description&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogAuthorDescription&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      image&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos;@type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;ImageObject&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        url&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogAuthorAvatarUrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        width&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        height&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;60&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token string&quot;&gt;&apos;url&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogUrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token string&quot;&gt;&quot;sameAs&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+        config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogAuthorFacebookUrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogAuthorTwitterUrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token string&quot;&gt;&apos;@type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;thing&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      name&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogAuthor&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      sameas&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogTitle&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      url&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogURL&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      image&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos;@type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;ImageObject&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        url&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogImageUrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        width&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        height&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;60&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// ブログ発行者（自分）&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; publisher &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;@type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Organization&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    name&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogAuthor&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    description&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogAuthorDescription&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    logo&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token string&quot;&gt;&apos;@type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;ImageObject&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      url&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogAuthorAvatarUrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      width&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      height&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;60&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// JSON+LDの設定&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; jsonLdConfigs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token string&quot;&gt;&apos;@context&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;http://schema.org&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token string&quot;&gt;&apos;@type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;WebSite&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      inLanguage&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;ja&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      url&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogUrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      name&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; title&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      alternateName&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogTitle&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      image&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogImageUrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      description&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogAuthorDescription&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      author&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      publisher&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      potentialAction&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos;@type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;SearchAction&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        target&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogUrl&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;/search?q={q}`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos;query-input&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;required name=q&apos;&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;isRoot&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token comment&quot;&gt;// パンくずリスト表示用の設定&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    jsonLdConfigs&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;        &lt;span class=&quot;token string&quot;&gt;&apos;@context&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;http://schema.org&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;        &lt;span class=&quot;token string&quot;&gt;&apos;@type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;BreadcrumbList&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;        itemListElement&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;          &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;            &lt;span class=&quot;token string&quot;&gt;&apos;@type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;ListItem&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;            position&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;            item&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;              &lt;span class=&quot;token string&quot;&gt;&apos;@id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; postUrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;              name&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; title&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;              image&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogImageUrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;            &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;          &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;        &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;    jsonLdConfigs&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos;@context&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;http://schema.org&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos;@type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;BlogPosting&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        url&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogURL&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        name&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; title&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        alternateName&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogTitle&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        headline&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; title&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        image&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;token string&quot;&gt;&apos;@type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;ImageObject&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+          url&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogImageUrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        description&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        datePublished&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; postDate&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        dateModified&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; postDate&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        mainEntityOfPage&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;token string&quot;&gt;&apos;@type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;WebPage&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;token string&quot;&gt;&apos;@id&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; config&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;blogUrl
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        author&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        publisher&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Helmet&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;script type&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;application/ld+json&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;jsonLdConfigs&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;script&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Helmet&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot; style=&quot;white-space: normal; width: auto; left: 0;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;80-95行目の設定をすると下記のようにグーグルの検索結果にパンくずリストが表示されます。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/googlesearchresult-a4575e7c72cdef073663bd0010ce1611-e5a7d.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 26.506024096385538%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAAAsSAAALEgHS3X78AAABIUlEQVQY00VQ2U4DQQzr9/PO9yCB4AH1AQpIHC1X2U73mM3szn2kZqgEWLKsOImUeBGcv4pzkkaGXdRJ+CkKI71wFIWWTkQbxTQ6YU1V8sK76k9BzMoLVfveJcFcmlLKFGM8W4hxfl1uBpzffeLmo8PdF+H6eY+Lhw88fllIC6QA4ABE/6sHeMOwcwFn/CGl9LDoJ/u0oYCXweT7HfGqUfzUaV4JxUIZPr2PfLLK7LTiWWs21rDzjn1wHFM41kSUU8oIId4uvLOvdp4xtC22729oRYOx76AVod/v0Ow73G5HvG0brNdrtG2HQUr0w4D65pHG2P8LtdbLfdebOiBJTTTNmuRINJI68geH5KnkTDUjqkt/zNUruVDNcOBSgnPu8huIzXkSZu0xBgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Googole検索結果パンくずリスト&quot;
+        title=&quot;&quot;
+        src=&quot;/static/googlesearchresult-a4575e7c72cdef073663bd0010ce1611-fb8a0.png&quot;
+        srcset=&quot;/static/googlesearchresult-a4575e7c72cdef073663bd0010ce1611-1a291.png 148w,
+/static/googlesearchresult-a4575e7c72cdef073663bd0010ce1611-2bc4a.png 295w,
+/static/googlesearchresult-a4575e7c72cdef073663bd0010ce1611-fb8a0.png 590w,
+/static/googlesearchresult-a4575e7c72cdef073663bd0010ce1611-e5a7d.png 664w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3&gt;まとめ&lt;/h3&gt;
+&lt;p&gt;今回はschema.orgやJSON+LDについての簡単なメモと
+ReactでJSON+LDを実現する具体例を紹介しました。
+なお学習時は、&lt;a href=&quot;https://cookpad.com/&quot;&gt;クックパッド&lt;/a&gt;や&lt;a href=&quot;https://www.pinterest.jp/&quot;&gt;Pinterest&lt;/a&gt;など検索結果がリッチなWebサイトの構造化マークアップをのぞいてみると面白いかもしれません。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[ReactでSNS対応（Gatsby製ブログでSNSシェアボタン、OGPタグ追加）]]></title><description><![CDATA[なにこれ Gatsby製ブログ(Reactアプリ)でSNS対応した時のメモです。 
  (1) SNSシェアボタン と (2) 自分のSNSへのリンク を設置して、ブログの記事をSNSでシェアできるように、、、 
 また、 (3) OGPタグを設定し 、SNS…]]></description><link>https://takumon.com//2018/09/16/</link><guid isPermaLink="false">https://takumon.com//2018/09/16/</guid><pubDate>Sun, 16 Sep 2018 22:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;Gatsby製ブログ(Reactアプリ)でSNS対応した時のメモです。&lt;br&gt;
