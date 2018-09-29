@@ -23,7 +23,7 @@ Linkedinアイコンはそれに加えて`title`属性に記事タイトルを<b
 Twitterアイコンは`via`属性に自分のTwitterアカウント名、`title`属性に記事タイトルを指定します。<br>
 ※下記コード中の`articleUrl`は記事URL、`articleTitle`は記事タイトルです。
 
-```jsx{10,13}
+```html{10,13}
 <FacebookShareButton url={articleUrl}>
   <FacebookIcon size={32} round />
 </FacebookShareButton>
@@ -98,7 +98,7 @@ npm install --save @fortawesome/free-regular-svg-icons
 |Twitter|Font Awsomeアイコン使用。背景を水色。|
 |Qiita|Font Awsomeに用意がないので、**代わりに虫眼鏡アイコン使用。背景を黄緑にしてQiitaっぽくする**|
 
-```jsx{13-17,19-23,25-37}
+```js{13-17,19-23,25-37}
 ・・・
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -159,7 +159,7 @@ Reactアプリだと、[ReactHelmet](https://github.com/nfl/react-helmet)を使�
 今回はOgpタグを作りました。ただブログのトップと記事詳細で設定する値が違うので、そこはコンポーネントの引数で受け取れるようにしています。<br>
 ※`blog-config.js`はブログタイトルなどの設定しているファイルです。
 
-```jsx{4-11,13,18-27}
+```js{4-11,13,18-27}
 import React from 'react'
 import Helmet from 'react-helmet'
 
@@ -225,7 +225,7 @@ Gatsby製ブログではトップページとブログ議事ページの2カ所�
 #### ブログ記事ページでの呼び出し
 **src/templates/blog-post.js**
 
-```jsx{4}
+```html{4}
 <Ogp isRoot={isRoot} />
   isRoot={false}
   title={`${post.frontmatter.title} | ${siteTitle}`}
@@ -233,7 +233,7 @@ Gatsby製ブログではトップページとブログ議事ページの2カ所�
 ```
 
 4行目の`sumarrize`メソッドではブログ記事(HTML形式)から[striptags](https://github.com/ericnorris/striptags)というライブラリを使ってテキストを抽出し、冒頭120文字を1行にして返すようにしています。
-```jsx
+```js
 function sumarrize(html) {
   const postContent = striptags(html).replace(/\r?\n/g, '').trim();
   return postContent.length <= 120

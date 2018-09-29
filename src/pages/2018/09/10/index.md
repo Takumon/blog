@@ -46,7 +46,7 @@ npm run dev
 なお`siteUrl`はGitHub Pagesでの公開を想定したものです。
 
 
-```javascript{3-6}
+```js{3-6}
 module.exports = {
   siteMetadata: {
     title: 'Takumon Blog',
@@ -67,7 +67,7 @@ module.exports = {
 #### 2-3. プロフィール修正
 `src/components/Bio.js`のアバター(imgタグ)と自己紹介文(pタグ)を修正します。
 
-```jsx{2-9,13}
+```html{2-9,13}
 <img
   src="https://s.gravatar.com/avatar/37d27f624f8c9c8db6fe6b6581b256f1?s=80"
   alt={`Takuto Inoue`}
@@ -147,7 +147,7 @@ GitHubのリポジトリ > settings > GitHub Pages > Source で`gh-pages branch`
 僕の場合は`https://takumon.github.io/blog`のようになります。
 
 
-```jsx{3}
+```js{3}
 module.exports = {
   ・・・
   pathPrefix: '/blog',
