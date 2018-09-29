@@ -5,9 +5,13 @@ import get from 'lodash/get'
 import striptags from 'striptags'
 
 import { rhythm, scale } from '../utils/typography'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
+
 import SNSShare from '../components/sns-share'
 import Seo from '../components/seo';
 import config from '../config/blog-config';
+
 
 
 class BlogPostTemplate extends React.Component {
@@ -39,8 +43,11 @@ class BlogPostTemplate extends React.Component {
             display: 'block',
             marginBottom: rhythm(1),
             marginTop: rhythm(-1),
+            color: '#99a',
+            fontFamily: 'sans-serif',
           }}
         >
+          <FontAwesomeIcon icon={faCalendarAlt} style={{marginRight: '0.4em'}}/>
           {post.frontmatter.date}
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />

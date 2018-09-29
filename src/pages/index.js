@@ -28,7 +28,13 @@ class BlogIndex extends React.Component {
                   {title}
                 </Link>
               </h3>
-              <small>{node.frontmatter.date}</small>
+              <small style={{
+                        color: '#99a',
+                        fontFamily: 'sans-serif',
+                        display: 'block',
+                        margin: '-0.5em 0 0.7em' }}>
+                {node.frontmatter.date}
+              </small>
               <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />
             </div>
           )
