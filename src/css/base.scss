@@ -1,7 +1,7 @@
 // For Html
 @import "node_modules/normalize-scss/sass/normalize";
 
-$colorFontSection: #333;
+$colorFontSection: #444;
 
 
 
@@ -24,10 +24,15 @@ h1,h2,h3,h4,h5,h6 {
   line-height: 1.75;
 }
 
+.articleTitle {
+  line-height: 1.5;
+}
+
 .blogTitle {
   box-shadow: none;
   color: $colorFontSection;
   font-family: 'Montserrat';
+  line-height: 1.5;
 }
 
 a:hover {

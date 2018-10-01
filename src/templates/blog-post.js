@@ -32,7 +32,7 @@ class BlogPostTemplate extends React.Component {
           postDate={post.frontmatter.date}
           />
         <a href={postUrl} rel="current">
-          <h1　itemProp="name">
+          <h1　itemProp="name" className="articleTitle">
             {post.frontmatter.title}
           </h1>
         </a>
