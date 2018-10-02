@@ -5,14 +5,18 @@ $colorFontSection: #444;
 
 
 
-// 全体
-@font-face {
-  font-family: "YuGothic M";
-  src: local("Yu Gothic Medium"),
-       local("Yu Gothic");
-  font-weight: 500;
+.blogTitleArea {
+  font-size: 4em;
+  margin-bottom: 0.5em;
+  margin-top: 0;
+  animation: fade-in-down .6s both;
+  font-family: 'Montserrat';
+  line-height: 1.5;
 }
 
+
+// 全体
+html,
 body,
 h1,h2,h3,h4,h5,h6 {
   color: $colorFontSection;
@@ -24,16 +28,11 @@ h1,h2,h3,h4,h5,h6 {
   line-height: 1.75;
 }
 
-.articleTitle {
-  line-height: 1.5;
+html,
+body {
+  font-weight: 500;
 }
 
-.blogTitle {
-  box-shadow: none;
-  color: $colorFontSection;
-  font-family: 'Montserrat';
-  line-height: 1.5;
-}
 
 a:hover {
   opacity: 0.7;
@@ -61,6 +60,13 @@ li > ol {
 .footer {
   border-top: 1px solid hsla(0,0%,0%,0.2);
   margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background: -moz-linear-gradient(65deg, #F13F79, #FFC778);
+  background: -webkit-linear-gradient(65deg, #F13F79, #FFC778);
+  background: linear-gradient(25deg, #F13F79, #FFC778);
 
   &__inner {
     padding: 24px 0 12px;
@@ -131,4 +137,91 @@ li > ol {
 // 画像
 .gatsby-resp-image-wrapper {
   margin-left: 0 !important;
+}
+
+
+// 全体
+.rootContainer {
+  margin: 0;
+}
+
+.headerContainer {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  background: -moz-linear-gradient(65deg, #F13F79, #FFC778);
+  background: -webkit-linear-gradient(65deg, #F13F79, #FFC778);
+  background: linear-gradient(25deg, #F13F79, #FFC778);
+}
+
+.childContainer {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 710px;
+  padding: 1em;
+}
+
+.blogTitle {
+  box-shadow: none;
+  color: #444;
+}
+
+.articleListItem {
+  border-bottom: 1px solid #ebf2f6;
+  max-width: 710px;
+  position: relative;
+
+  &:after {
+    display: block;
+    content: "";
+    width: 7px;
+    height: 7px;
+    border: 1px solid #e7eef2;
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    margin-left: -5px;
+    background: #fff;
+    border-radius: 100%;
+    box-shadow: 0 0 0 5px #fff;
+  }
+
+}
+
+
+
+.articleTitle {
+  line-height: 1.5;
+}
+
+@keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+    -weebkit-transform: translateY(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    -weebkit-transform: translateY(0);
+  }
+}
+
+@webkit-keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+    -weebkit-transform: translateY(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    -weebkit-transform: translateY(0);
+  }
 }

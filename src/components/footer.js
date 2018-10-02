@@ -5,7 +5,6 @@ import githubSvg from '../images/github.svg';
 import tomatoSvg from '../images/tomato.svg';
 import Bio from '../components/Bio'
 import { blogTitle, blogAuthor, blogRepositoryUrl } from '../config/blog-config';
-import { rhythm } from '../utils/typography'
 
 export default function Footer({isRoot}) {
   const bio = isRoot
