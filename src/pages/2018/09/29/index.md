@@ -1,6 +1,10 @@
 ---
 title: Reactで構造化データマークアップ（JSON-LD対応）
 date: "2018-09-29T23:50:00.000Z"
+tags:
+  - react
+  - schema.org
+  - json-ld
 ---
 
 ## なにこれ
