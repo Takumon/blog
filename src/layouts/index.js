@@ -24,16 +24,25 @@ export default class Template extends React.Component {
     }
     const isRoot = location.pathname === rootPath;
 
-    const header = (
-      <h1
-        className="blogTitleArea"
-      >
-        <Link
-          className="blogTitle"
-          to={'/'}
-        >{blogTitle}</Link>
-      </h1>
-    )
+    let header;
+
+    if (isRoot) {
+      header = (
+        <div className="headerContainer">
+          <div className="headerContainer__inner">
+            <h1 className="blogTitleArea">
+              <Link
+                className="blogTitle"
+                to={'/'}
+              >{blogTitle}</Link>
+            </h1>
+            <Bio />
+          </div>
+        </div>
+      );
+    } else {
+      header = '';
+    }
 
 
     return (
@@ -41,15 +50,8 @@ export default class Template extends React.Component {
         {(() => {
             return isRoot ? <Seo isRoot={isRoot} /> : '';
         })}
-
-        <div className="headerContainer">
-          {header}
-          <Bio />
-        </div>
-
-        <div className="childContainer">
-          {children()}
-        </div>
+        {header}
+        {children()}
         <Footer isRoot={isRoot} />
       </div>
     )

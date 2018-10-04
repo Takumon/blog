@@ -4,10 +4,11 @@ import Link from 'gatsby-link'
 import get from 'lodash/get'
 import striptags from 'striptags'
 
-import { rhythm, scale } from '../utils/typography'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTags, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 
+import tomatoSvg from '../images/tomato.svg';
+import {blogTitle} from '../config/blog-config.js';
 import SNSShare from '../components/sns-share'
 import Seo from '../components/seo';
 import config from '../config/blog-config';
@@ -22,10 +23,7 @@ class BlogPostTemplate extends React.Component {
     const postUrl = `${config.blogUrl}${slug}`;
 
     const tags = post.frontmatter.tags.map(tag => <div style={{
-      borderRight: '1px solid #ccc',
-      borderBottom: '1px solid #ccc',
-      borderLeft: '1px solid #ccc',
-      borderTop: '1px solid #ccc',
+      border: '1px solid #667',
       borderRadius: '0.5em 0 0.5em 0',
       padding: '0.05em 0.75em',
       marginRight: '0.5em',
@@ -35,6 +33,58 @@ class BlogPostTemplate extends React.Component {
 
     return (
       <article itemScope itemType="http://schema.org/BlogPosting">
+        <div className="headerContainer_article">
+          <div className="headerContainer_article__content">
+
+            <h4 style={{
+              textTransform: 'none',
+              margin: '0 0 1em',
+            }}>
+              <Link
+                style={{
+                  boxShadow: 'none',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  fontFamily: 'Montserrat',
+                }}
+                to={'/'}
+              >{blogTitle}<i className="footer-icon-github" style={{
+                  backgroundImage: `url(${tomatoSvg})`,
+                  width: '1em',
+                  height: '1em',
+                  backgroundRepeat: 'no-repeat',
+                  margin: '0 0 0.3em 0.2em',
+                }}></i>
+              </Link>
+            </h4>
+
+            <a href={postUrl} rel="current" className="articleTitle">
+              <h1　itemProp="name" >
+                {post.frontmatter.title}
+              </h1>
+            </a>
+
+            <small style={{
+                      color: '#667',
+                      fontFamily: 'sans-serif',
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      alignItems: 'center',
+                      margin: '-0.5em 0 0.5em' }}>
+              <div itemProp="dateModified" style={{marginRight:'2em', fontSize: '1.1em'}}>
+                <FontAwesomeIcon icon={faCalendarAlt} style={{marginRight: '0.5em' }}/>
+                {post.frontmatter.date}
+              </div>
+              <div style={{display: 'flex', alignItems: 'center'}}>
+                <FontAwesomeIcon icon={faTags} style={{marginRight: '0.5em'}}/>
+                {tags}
+              </div>
+            </small>
+
+          </div>
+        </div>
+
+
         <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />
         <Seo
           isRoot={false}
@@ -43,30 +93,10 @@ class BlogPostTemplate extends React.Component {
           postUrl={postUrl}
           postDate={post.frontmatter.date}
           />
-        <a href={postUrl} rel="current">
-          <h1　itemProp="name" className="articleTitle">
-            {post.frontmatter.title}
-          </h1>
-        </a>
 
-          <small style={{
-                    color: '#99a',
-                    fontFamily: 'sans-serif',
-                    display: 'flex',
-                    alignItems: 'center',
-                    margin: '-0.5em 0 2em' }}>
-            <div itemProp="dateModified" style={{marginRight:'2em', fontSize: '1.1em'}}>
-              <FontAwesomeIcon icon={faCalendarAlt} style={{marginRight: '0.5em' }}/>
-              {post.frontmatter.date}
-            </div>
-            <div style={{display: 'flex', alignItems: 'center'}}>
-              <FontAwesomeIcon icon={faTags} style={{marginRight: '0.5em'}}/>
-              {tags}
-            </div>
-          </small>
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        <div className="articleContent" dangerouslySetInnerHTML={{ __html: post.html }} />
 
-        <footer>
+        <footer className="articleFooter">
           <SNSShare
             title={post.frontmatter.title}
             link={postUrl}
