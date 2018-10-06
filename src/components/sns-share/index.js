@@ -10,37 +10,38 @@ import {
   TwitterShareButton,
   TwitterIcon,
 } from 'react-share';
+import styles from './index.module.scss';
 
 export default function SNSShare({title, link, twitterUserName}) {
 
   return (
-    <ul className="sns-share__area">
+    <ul className={styles.content}>
       <Helmet>
         <script type="text/javascript" src="//b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async" />
       </Helmet>
-      <li className="sns-share__button">
+      <li className={styles.share_button}>
         <FacebookShareButton url={link}>
           <FacebookIcon size={32} round />
         </FacebookShareButton>
       </li>
 
-      <li className="sns-share__button">
+      <li className={styles.share_button}>
         <GooglePlusShareButton url={link}>
           <GooglePlusIcon size={32} round />
         </GooglePlusShareButton>
       </li>
-      <li className="sns-share__button">
+      <li className={styles.share_button}>
         <LinkedinShareButton url={link}>
           <LinkedinIcon title={title} size={32} round />
         </LinkedinShareButton>
       </li>
-      <li className="sns-share__button">
+      <li className={styles.share_button}>
         <TwitterShareButton title={title} via={twitterUserName} url={link}>
           <TwitterIcon size={32} round />
         </TwitterShareButton>
       </li>
 
-      <li className="sns-share__button">
+      <li className={styles.share_button}>
         <a
           href="http://b.hatena.ne.jp/entry/"
           className="hatena-bookmark-button"

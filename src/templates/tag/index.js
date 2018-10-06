@@ -4,8 +4,9 @@ import get from 'lodash/get'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTags } from '@fortawesome/free-solid-svg-icons'
 
-import PostList from '../components/post-list';
-
+import PostList from '../../components/post-list';
+import Tag from '../../components/tag'
+import styles from './index.module.scss';
 
 class TagTemplate extends React.Component {
   render() {
@@ -14,23 +15,11 @@ class TagTemplate extends React.Component {
     const totalCount = get(this, 'props.data.allMarkdownRemark.totalCount')
 
 
-    const targetTag =  (
-      <div style={{
-            borderRight: '1px solid #ccc',
-            borderBottom: '1px solid #ccc',
-            borderLeft: '1px solid #ccc',
-            borderTop: '1px solid #ccc',
-            borderRadius: '0.5em 0 0.5em 0',
-            padding: '0.05em 0.75em',
-            marginRight: '0.5em',
-            fontWeight: 'bold',
-            fontSize: '0.75em',
-          }}>{this.props.pathContext.tag}</div>
-    );
+    const targetTag =  <Tag value={this.props.pathContext.tag} />
 
     const tagSearchResult = (
-      <div className="tag-search-result">
-        <FontAwesomeIcon icon={faTags} style={{marginRight: '0.5em'}}/>
+      <div className={styles.tag_search_result}>
+        <FontAwesomeIcon icon={faTags} className={styles.tag_icon}/>
         {targetTag}
         {totalCount}件
       </div>

@@ -1,0 +1,8 @@
+
+@import "../../css/base";
+
+
+.content {
+  @include max-content-width();
+  padding: 1em;
+}

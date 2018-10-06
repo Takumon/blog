@@ -1,0 +1,59 @@
+
+// フッター部分
+.content {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background: -moz-linear-gradient(65deg, #F13F79, #FFC778);
+  background: -webkit-linear-gradient(65deg, #F13F79, #FFC778);
+  background: linear-gradient(25deg, #F13F79, #FFC778);
+
+  &__inner {
+    padding: 24px 0 12px;
+    margin: auto;
+  }
+}
+
+.title {
+  font-family: Montserrat;
+  text-transform: none;
+  margin: 48px auto 8px;
+
+  &__link {
+    box-shadow: none;
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.copyright {
+  font-size: 0.9em;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.tomato_icon {
+  display: inline-block;
+  box-sizing: border-box;
+  vertical-align: bottom;
+  background-image: url(../../images/tomato.svg);
+  width: 1em;
+  height: 1em;
+  background-repeat: no-repeat;
+  margin: 0 0 0.4em 0.2em;
+}
+
+.github_icon {
+  display: inline-block;
+  margin-left: 12px;
+  box-sizing: border-box;
+  vertical-align: bottom;
+  padding: 4px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  box-shadow: none;
+  background-image: url(../../images/github.svg);
+}

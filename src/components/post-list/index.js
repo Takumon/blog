@@ -1,6 +1,8 @@
-import React from 'react';
-import PostPreview from './post-preview';
 
+import React from 'react';
+import PostPreview from '../post-preview';
+
+import styles from './index.module.scss';
 
 class PostList extends React.Component {
   getPosts() {
@@ -19,7 +21,7 @@ class PostList extends React.Component {
 
   render() {
     return (
-      <div className="post-list">
+      <div className={styles.content}>
         {this.getPosts().map(post => <PostPreview post={post}></PostPreview>)}
       </div>
     );

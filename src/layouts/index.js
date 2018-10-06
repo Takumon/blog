@@ -1,5 +1,4 @@
 import '../css/base.scss';
-import '../css/highlight.scss';
 import 'prismjs/themes/prism-solarizedlight.css';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 
@@ -10,7 +9,7 @@ import Link from 'gatsby-link'
 import {blogTitle} from '../config/blog-config.js';
 import Seo from '../components/seo';
 import Footer from '../components/footer';
-import Bio from '../components/Bio'
+import Bio from '../components/bio'
 
 
 export default class Template extends React.Component {

@@ -1,35 +1,7 @@
-// For Html
 @import "node_modules/normalize-scss/sass/normalize";
 
-$colorFontSection: #444;
-
-@mixin gradient-background {
-  background: -moz-linear-gradient(65deg, #F13F79, #FFC778);
-  background: -webkit-linear-gradient(65deg, #F13F79, #FFC778);
-  background: linear-gradient(25deg, #F13F79, #FFC778);
-}
-
-@mixin max-content-width {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 710px;
-  width: 100%;
-}
-
-@mixin full-width {
-  width: 100vw;
-  overflow: hidden;
-}
-
-
-
-.blogTitleArea {
-  font-size: 4em;
-  margin-bottom: 0.5em;
-  margin-top: 0;
-  font-family: 'Montserrat';
-  line-height: 1.5;
-}
+@import "./highlight.scss";
+@import "base";
 
 
 // 全体
@@ -73,84 +45,7 @@ li > ol {
 }
 
 
-// フッター部分
-.footer {
-  margin-top: 24px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  background: -moz-linear-gradient(65deg, #F13F79, #FFC778);
-  background: -webkit-linear-gradient(65deg, #F13F79, #FFC778);
-  background: linear-gradient(25deg, #F13F79, #FFC778);
-
-  &__inner {
-    padding: 24px 0 12px;
-    margin: auto;
-  }
-
-  &__title {
-    font-family: Montserrat;
-    text-transform: none;
-    margin: 8px auto;
-  }
-}
-
-.copyright {
-  font-size: 0.9em;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
-.footer-icon-github {
-  display: inline-block;
-  margin-left: 24px;
-  box-sizing: border-box;
-  vertical-align: bottom;
-  padding: 4px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-}
-
-
-// SNS共有部分
-.sns-share {
-  &__area {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    min-height: 50px;
-  }
-  &__button {
-    display: inline-block;
-    margin: 0 8px;
-    &:first-child {
-      margin-left: 0;
-    }
-  }
-}
-
-// アイコン
-.profile {
-  &__link {
-    padding: 0;
-    margin-right: 18px;
-    border: 0;
-    display: block;
-    box-shadow: none;
-  }
-  &__icon {
-    display: block;
-  }
-}
-
-.sns-share__button svg:hover {
-  cursor: pointer;
-  opacity: 0.7;
-}
-
-// 画像
+// マークダウンプレビューエリアの画像を左寄せする
 .gatsby-resp-image-wrapper {
   margin-left: 0 !important;
 }
@@ -160,18 +55,6 @@ li > ol {
 .rootContainer {
   @include full-width();
   margin: 0;
-}
-
-@mixin flex-column-center {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin flex-column {
-  display: flex;
-  flex-direction: column;
 }
 
 
@@ -201,26 +84,12 @@ li > ol {
   }
 }
 
-.post-list {
-  @include max-content-width();
-  padding: 1em;
-}
-
-.tag-search-result {
-  @include max-content-width();
-  padding: 1em 0 0 1em;
-  display: flex;
-  align-items: center;
-}
-
-.post-content {
-  @include max-content-width();
-  padding: 1em;
-}
-
-.post-footer {
-  @include max-content-width();
-  padding: 1em;
+.blogTitleArea {
+  font-size: 4em;
+  margin-bottom: 0.5em;
+  margin-top: 0;
+  font-family: 'Montserrat';
+  line-height: 1.5;
 }
 
 .blogTitle {
@@ -228,96 +97,6 @@ li > ol {
   color: #444;
 }
 
-
-.post-preview {
-  border-bottom: 1px solid #ebf2f6;
-  max-width: 710px;
-  position: relative;
-
-  &:after {
-    display: block;
-    content: "";
-    width: 7px;
-    height: 7px;
-    border: 1px solid #e7eef2;
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    margin-left: -5px;
-    background: #fff;
-    border-radius: 100%;
-    box-shadow: 0 0 0 5px #fff;
-  }
-
-  &__title {
-    margin-bottom: 1em;
-
-    &_link {
-      box-shadow: none;
-      color: #4a4a4a;
-      font-size: 1.2em;
-      line-height: 1em;
-    }
-  }
-}
-
-
-.post-meta-info {
-  color: #99a;
-  font-family: sans-serif;
-  display: flex;
-  align-items: center;
-  margin: -0.5em 0 2em;
-
-  &__date {
-    margin-right:2em;
-    font-size: 1.1em;
-
-    & > svg {
-      margin-right: 0.5em;
-    }
-  }
-
-  &__tags {
-    display: flex;
-    align-items: center;
-    & > svg {
-      margin-right: 0.5em;
-    }
-  }
-}
-
-.tag {
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  border-left: 1px solid #ccc;
-  border-top: 1px solid #ccc;
-  border-radius: 0.5em 0 0.5em 0;
-  padding: 0.05em 0.75em;
-  margin-right: 0.5em;
-  font-weight: bold;
-  font-size: 0.75em;
-
-  &__link {
-    box-shadow: none;
-    color: #4a4a4a
-  }
-}
-
-
-
-a.post-title {
-  box-shadow: none;
-  margin-top: 0.5em;
-  margin-bottom: 1em;
-  display: block;
-
-  h1 {
-    font-size: 2.5em;
-    line-height: 1.4;
-    margin: 0;
-  }
-}
 
 @keyframes fade-in-down {
   0% {
@@ -348,8 +127,6 @@ a.post-title {
 }
 
 
-
-
 @media screen and (max-width: 580px) {
   .blogTitleArea {
     font-size: 2.5em;
@@ -363,13 +140,4 @@ a.post-title {
       min-height: 0vh;
     }
   }
-
-  a.post-title {
-    h1 {
-      font-size: 1.7em;
-    }
-  }
-
-
-
 }

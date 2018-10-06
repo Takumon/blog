@@ -1,7 +1,7 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 
-import * as config from '../config/blog-config.js';
+import * as config from '../../config/blog-config.js';
 
 export default function Seo({
   isRoot,

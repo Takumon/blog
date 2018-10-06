@@ -4,15 +4,12 @@ import Link from 'gatsby-link'
 import get from 'lodash/get'
 import striptags from 'striptags'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTags, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 
-import tomatoSvg from '../images/tomato.svg';
-import {blogTitle} from '../config/blog-config.js';
-import SNSShare from '../components/sns-share'
-import Seo from '../components/seo';
-import config from '../config/blog-config';
-
+import config from '../../config/blog-config';
+import SNSShare from '../../components/sns-share'
+import PostMetaInfo from '../../components/post-meta-info'
+import Seo from '../../components/seo';
+import styles from './index.module.scss';
 
 
 class BlogPostTemplate extends React.Component {
@@ -22,65 +19,27 @@ class BlogPostTemplate extends React.Component {
     const { previous, next, slug } = this.props.pathContext
     const postUrl = `${config.blogUrl}${slug}`;
 
-    const tags = post.frontmatter.tags.map(tag => <div style={{
-      border: '1px solid #667',
-      borderRadius: '0.5em 0 0.5em 0',
-      padding: '0.05em 0.75em',
-      marginRight: '0.5em',
-      fontWeight: 'bold',
-      fontSize: '0.75em',
-    }}>{tag}</div>)
-
     return (
       <article itemScope itemType="http://schema.org/BlogPosting">
         <div className="headerContainer_post">
           <div className="headerContainer_post__content">
 
-            <h4 style={{
-              textTransform: 'none',
-              margin: '0 0 1em',
-            }}>
+            <h4 className={styles.blog_title}>
               <Link
-                style={{
-                  boxShadow: 'none',
-                  textDecoration: 'none',
-                  color: 'inherit',
-                  fontFamily: 'Montserrat',
-                }}
-                to={'/'}
-              >{blogTitle}<i className="footer-icon-github" style={{
-                  backgroundImage: `url(${tomatoSvg})`,
-                  width: '1em',
-                  height: '1em',
-                  backgroundRepeat: 'no-repeat',
-                  margin: '0 0 0.3em 0.2em',
-                }}></i>
+                className={styles.blog_title__link}
+                to={'/'} >
+                {config.blogTitle}
+                <i className={styles.blog_title__icon}></i>
               </Link>
             </h4>
 
-            <a href={postUrl} rel="current" className="post-title">
+            <a href={postUrl} rel="current" className={styles.post_title}>
               <h1　itemProp="name" >
                 {post.frontmatter.title}
               </h1>
             </a>
 
-            <small style={{
-                      color: '#667',
-                      fontFamily: 'sans-serif',
-                      display: 'flex',
-                      flexWrap: 'wrap',
-                      alignItems: 'center',
-                      margin: '-0.5em 0 0.5em' }}>
-              <div itemProp="dateModified" style={{marginRight:'2em', fontSize: '1.1em'}}>
-                <FontAwesomeIcon icon={faCalendarAlt} style={{marginRight: '0.5em' }}/>
-                {post.frontmatter.date}
-              </div>
-              <div style={{display: 'flex', alignItems: 'center'}}>
-                <FontAwesomeIcon icon={faTags} style={{marginRight: '0.5em'}}/>
-                {tags}
-              </div>
-            </small>
-
+            <PostMetaInfo post={post.frontmatter} />
           </div>
         </div>
 
@@ -94,24 +53,15 @@ class BlogPostTemplate extends React.Component {
           postDate={post.frontmatter.date}
           />
 
-        <div className="post-content" dangerouslySetInnerHTML={{ __html: post.html }} />
+        <div className={styles.content} dangerouslySetInnerHTML={{ __html: post.html }} />
 
-        <footer className="post-footer">
+        <footer className={styles.footer}>
           <SNSShare
             title={post.frontmatter.title}
             link={postUrl}
             twitterUserName={config.blogAuthorTwitterUserName}
             />
-          <ul
-            style={{
-              marginTop: '12px',
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'space-between',
-              listStyle: 'none',
-              padding: 0,
-            }}
-          >
+          <ul className={styles.footer__paging}>
             <li>
               {
                 previous &&

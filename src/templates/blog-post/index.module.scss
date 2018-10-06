@@ -1,0 +1,73 @@
+
+@import "../../css/base";
+
+
+.blog_title {
+  text-transform: none;
+  margin: 0 0 1em;
+
+  &__link {
+    box-shadow: none;
+    text-decoration: none;
+    color: inherit;
+    font-family: Montserrat;
+  }
+
+  &__icon {
+    display: inline-block;
+    vertical-align: bottom;
+    background-image: url(../../images/tomato.svg);
+    width: 1em;
+    height: 1em;
+    background-repeat: no-repeat;
+    margin: 0 0 0.4em 0.2em;
+  }
+}
+
+.post_title {
+  box-shadow: none;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  display: block;
+
+  h1 {
+    font-size: 2.5em;
+    line-height: 1.4;
+    margin: 0;
+  }
+}
+
+
+.content {
+  @include max-content-width();
+  padding: 1em;
+}
+
+.footer {
+  @include max-content-width();
+  padding: 1em;
+
+  &__paging {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+
+    & > li {
+      width: 50%;
+      padding: 12px;
+      margin: 0;
+      box-sizing: border-box;
+    }
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .post_title {
+    h1 {
+      font-size: 1.7em;
+    }
+  }
+}
