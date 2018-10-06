@@ -18,11 +18,16 @@ export default class Template extends React.Component {
   render() {
     const { location, children, data } = this.props
 
-    let rootPath = `/`
+    let rootPath = `/`;
     if (typeof __PREFIX_PATHS__ !== `undefined` && __PREFIX_PATHS__) {
-      rootPath = __PATH_PREFIX__ + `/`
+      rootPath = __PATH_PREFIX__ + rootPath;
+    }
+    let tagPath = `/tags/`;
+    if (typeof __PREFIX_PATHS__ !== `undefined` && __PREFIX_PATHS__) {
+      tagPath = __PATH_PREFIX__ + tagPath;
     }
     const isRoot = location.pathname === rootPath;
+    const isTag = location.pathname.startsWith(tagPath);
 
     let header;
 
@@ -34,7 +39,21 @@ export default class Template extends React.Component {
               <Link
                 className="blogTitle"
                 to={'/'}
-              >{blogTitle}</Link>
+              >{blogTitle} </Link>
+            </h1>
+            <Bio />
+          </div>
+        </div>
+      );
+    } else if(isTag) {
+      header = (
+        <div className="headerContainer">
+          <div className="headerContainer__inner">
+            <h1 className="blogTitleArea">
+              <Link
+                className="blogTitle"
+                to={'/'}
+              >{blogTitle} </Link>
             </h1>
             <Bio />
           </div>

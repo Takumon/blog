@@ -186,7 +186,7 @@ li > ol {
   }
 
   $parent: &;
-  &_article {
+  &_post {
     @extend #{$parent};
     min-height: 0vh;
 
@@ -201,17 +201,24 @@ li > ol {
   }
 }
 
-.articleList {
+.post-list {
   @include max-content-width();
   padding: 1em;
 }
 
-.articleContent {
+.tag-search-result {
+  @include max-content-width();
+  padding: 1em 0 0 1em;
+  display: flex;
+  align-items: center;
+}
+
+.post-content {
   @include max-content-width();
   padding: 1em;
 }
 
-.articleFooter {
+.post-footer {
   @include max-content-width();
   padding: 1em;
 }
@@ -222,7 +229,7 @@ li > ol {
 }
 
 
-.articleListItem {
+.post-preview {
   border-bottom: 1px solid #ebf2f6;
   max-width: 710px;
   position: relative;
@@ -242,11 +249,64 @@ li > ol {
     box-shadow: 0 0 0 5px #fff;
   }
 
+  &__title {
+    margin-bottom: 1em;
+
+    &_link {
+      box-shadow: none;
+      color: #4a4a4a;
+      font-size: 1.2em;
+      line-height: 1em;
+    }
+  }
+}
+
+
+.post-meta-info {
+  color: #99a;
+  font-family: sans-serif;
+  display: flex;
+  align-items: center;
+  margin: -0.5em 0 2em;
+
+  &__date {
+    margin-right:2em;
+    font-size: 1.1em;
+
+    & > svg {
+      margin-right: 0.5em;
+    }
+  }
+
+  &__tags {
+    display: flex;
+    align-items: center;
+    & > svg {
+      margin-right: 0.5em;
+    }
+  }
+}
+
+.tag {
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  border-radius: 0.5em 0 0.5em 0;
+  padding: 0.05em 0.75em;
+  margin-right: 0.5em;
+  font-weight: bold;
+  font-size: 0.75em;
+
+  &__link {
+    box-shadow: none;
+    color: #4a4a4a
+  }
 }
 
 
 
-a.articleTitle {
+a.post-title {
   box-shadow: none;
   margin-top: 0.5em;
   margin-bottom: 1em;
@@ -299,12 +359,12 @@ a.articleTitle {
   .headerContainer {
     min-height: 40vh;
 
-    &_article {
+    &_post {
       min-height: 0vh;
     }
   }
 
-  a.articleTitle {
+  a.post-title {
     h1 {
       font-size: 1.7em;
     }

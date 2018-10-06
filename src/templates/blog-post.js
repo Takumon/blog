@@ -33,8 +33,8 @@ class BlogPostTemplate extends React.Component {
 
     return (
       <article itemScope itemType="http://schema.org/BlogPosting">
-        <div className="headerContainer_article">
-          <div className="headerContainer_article__content">
+        <div className="headerContainer_post">
+          <div className="headerContainer_post__content">
 
             <h4 style={{
               textTransform: 'none',
@@ -58,7 +58,7 @@ class BlogPostTemplate extends React.Component {
               </Link>
             </h4>
 
-            <a href={postUrl} rel="current" className="articleTitle">
+            <a href={postUrl} rel="current" className="post-title">
               <h1　itemProp="name" >
                 {post.frontmatter.title}
               </h1>
@@ -94,9 +94,9 @@ class BlogPostTemplate extends React.Component {
           postDate={post.frontmatter.date}
           />
 
-        <div className="articleContent" dangerouslySetInnerHTML={{ __html: post.html }} />
+        <div className="post-content" dangerouslySetInnerHTML={{ __html: post.html }} />
 
-        <footer className="articleFooter">
+        <footer className="post-footer">
           <SNSShare
             title={post.frontmatter.title}
             link={postUrl}
@@ -130,7 +130,6 @@ class BlogPostTemplate extends React.Component {
             </li>
           </ul>
         </footer>
-
 
       </article>
     )
