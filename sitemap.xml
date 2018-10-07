@@ -15,6 +15,8 @@
 <url> <loc>https://takumon.com//tags/json-ld/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/ogp/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/github-pages/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://takumon.com//tags/カスタムドメイン/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://takumon.com//tags/https化/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/blog/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 </urlset>
