@@ -1,4 +1,180 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sat, 06 Oct 2018 13:36:23 GMT</lastBuildDate><item><title><![CDATA[Reactで構造化データマークアップ（JSON-LD対応）]]></title><description><![CDATA[なにこれ ググった時に自分のブログ(React製)でパンくずを表示させたい 
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 07 Oct 2018 04:13:01 GMT</lastBuildDate><item><title><![CDATA[GatsbyでYouTubeとTwitter埋め込み]]></title><description><![CDATA[なにこれ ブログに良くあるYouTubeやTwitterの埋め込みをGatsbyでやる方法のメモです。 
+こんな感じで埋め込めるようになります。 YouTube Twitter やり方 YouTube 環境設定 公式ページ で紹介されているように,
+ gatsby-remark…]]></description><link>https://takumon.com//2018/10/07/</link><guid isPermaLink="false">https://takumon.com//2018/10/07/</guid><pubDate>Sun, 07 Oct 2018 12:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;なにこれ&lt;/h2&gt;
+&lt;p&gt;ブログに良くあるYouTubeやTwitterの埋め込みをGatsbyでやる方法のメモです。&lt;br&gt;
+こんな感じで埋め込めるようになります。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;YouTube&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;div&gt;&lt;iframe src=&quot;https://www.youtube.com/embed/z8Kt1gXL_2M&quot; width=&quot;undefined&quot; height=&quot;undefined&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Twitter&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;ja&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;最近忙しかったのでアレですが、ブログ更新しました。&lt;br&gt;&lt;br&gt;Reactで構造化データマークアップ（JSON-LD対応） &lt;a href=&quot;https://t.co/7V49VqH9WI&quot;&gt;https://t.co/7V49VqH9WI&lt;/a&gt; &lt;a href=&quot;https://twitter.com/inouetakumon?ref_src=twsrc%5Etfw&quot;&gt;@inouetakumon&lt;/a&gt;さんから&lt;/p&gt;&amp;mdash; takumontakumon (@inouetakumon) &lt;a href=&quot;https://twitter.com/inouetakumon/status/1046062825037344770?ref_src=twsrc%5Etfw&quot;&gt;2018年9月29日&lt;/a&gt;&lt;/blockquote&gt;
+&lt;h2&gt;やり方&lt;/h2&gt;
+&lt;h3&gt;YouTube&lt;/h3&gt;
+&lt;h4&gt;環境設定&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.gatsbyjs.org/packages/gatsby-remark-embed-youtube/?=youtube&quot;&gt;公式ページ&lt;/a&gt;で紹介されているように,
+&lt;a href=&quot;https://github.com/ntwcklng/gatsby-remark-embed-youtube&quot;&gt;gatsby-remark-embed-youtube&lt;/a&gt;というプラグインを使います。&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;プラグインをインストールして&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; --save gatsby-remark-embed-youtube&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;gatsby-config.js&lt;/code&gt;の&lt;code class=&quot;language-text&quot;&gt;gatsby-transformer-remark&lt;/code&gt;にオプションとして追加します。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;plugins&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// ・・・&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    resolve&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;gatsby-transformer-remark&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    options&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      plugins&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;        &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;          resolve&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;gatsby-remark-embed-youtube&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;          options&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;　&lt;span class=&quot;token comment&quot;&gt;// 固定サイズにする場合に指定&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;            width&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;800&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;            height&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;400&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;          &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;      &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// ・・・&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;もし&lt;code class=&quot;language-text&quot;&gt;gatsby-transformer-remark&lt;/code&gt;のオプションに&lt;code class=&quot;language-text&quot;&gt;gatsby-remark-responsive-iframe&lt;/code&gt;を指定している場合は、それより前に指定しましょう。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;plugins&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  &lt;span class=&quot;token string&quot;&gt;&quot;gatsby-remark-embed-youtube&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;     &lt;span class=&quot;token comment&quot;&gt;// 先&lt;/span&gt;
+&lt;/span&gt;  &lt;span class=&quot;token string&quot;&gt;&quot;gatsby-remark-responsive-iframe&quot;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// 後&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br&gt;
+これで準備が整いました。
+&lt;h4&gt;マークダウンでの書き方&lt;/h4&gt;
+&lt;p&gt;下記のように指定します。&lt;br&gt;
+&lt;small&gt;
+z8Kt1gXL&lt;em&gt;2Mの部分が動画のIDに当たります。&lt;br&gt;
+例えば今見ている動画のURLが&lt;a href=&quot;https://www.youtube.com/watch?v=z8Kt1gXL&quot;&gt;https://www.youtube.com/watch?v=z8Kt1gXL&lt;/a&gt;&lt;/em&gt;2M&amp;#x26;t=8635sとすると動画IDはz8Kt1gXL_2Mです。
+&lt;/small&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;`youtube:https://www.youtube.com/embed/z8Kt1gXL_2M`&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br&gt;
+&lt;p&gt;するとこんな感じで表示されます。&lt;/p&gt;
+&lt;p&gt;&lt;div&gt;&lt;iframe src=&quot;https://www.youtube.com/embed/z8Kt1gXL_2M&quot; width=&quot;undefined&quot; height=&quot;undefined&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;h3&gt;Twitter&lt;/h3&gt;
+&lt;h4&gt;環境設定&lt;/h4&gt;
+&lt;p&gt;こちらも&lt;a href=&quot;https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-twitter&quot;&gt;gatsby-plugin-twitter&lt;/a&gt;というプラグインを使います。&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;プラグインをインストールして&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; --save gatsby-plugin-twitter&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;gatsby-config.js&lt;/code&gt;に追加します。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;plugins&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// ・・・&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  &lt;span class=&quot;token string&quot;&gt;&quot;gatsby-plugin-twitter&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// ・・・&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;マークダウンでの書き方&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;載せたいTwitterの埋め込み用スクリプトをコピーします。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/twitterurl-1-bb9d80d7f9e72ed3fcd8387117747dec-bd5b8.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 32.61964735516373%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAAAsSAAALEgHS3X78AAACFklEQVQozx2QvWsTcQCGbxKUVtPBtPlsPkzukktyH7m7XO4ul1wvTWtsEltrNG0FFYJUxCVaUUFptVZKtSIoRRBxcKp/gktnZ0cHXcSfg4ODYM3vtXF4eLcXnodZbpZ/1hrt7xMnW6Qy1SSyOUmyBYckBJ1ktDIRiy4ZjfLk2IiXeLo75MidD+RQ/RY53FojfqVOCuVpoldbpOjO/PAnxW9M11CQMychFCeQ0WxE0zI4yUCcV5BVbWh2DbxSQng8Dp88Cb/egC9dhNdaQkBwEeYNhDIW4lIFfk6nzJAvDkdV+3NulVaMElUsl0ZTEj0eZmmEk2gyV6AxXqGxQJAmsjpNyGWaTGZp3m5Qtdqm2tQCVWsdWpy5CLE8+4fxRzi8f7Hd3329hb3dN7hyuYtU3sJ08yzyxgRYQQcnm2DTAriVd+C2P4LrbqG38hAbqxt4sLqJx4+26ebTV7h3d/0vE+QkfH37sv+pN4vfz27jfu8m3MY8Gmc6cOtzODXXwXSrjdPtJVzoXkNjfhGCYiLIW4iKDlhtCkm1RmOSc6Bu7zPBlIzPO0/6v87V8WV5EQvt89CcOvKmi0ROA583IeqV/y0ttw6hYCPMigildERzNji1OuhIxxIqAqy2z3jDLJ6vr/XXr1/Fje4l6GYFI0EWY7EMPL4YhkcjOHrAsHccQwcM1uM/geDgMGshrTpIyg6N5koIpY39f+dT9tj+cRxwAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;twitterurl1&quot;
+        title=&quot;&quot;
+        src=&quot;/static/twitterurl-1-bb9d80d7f9e72ed3fcd8387117747dec-fb8a0.png&quot;
+        srcset=&quot;/static/twitterurl-1-bb9d80d7f9e72ed3fcd8387117747dec-1a291.png 148w,
+/static/twitterurl-1-bb9d80d7f9e72ed3fcd8387117747dec-2bc4a.png 295w,
+/static/twitterurl-1-bb9d80d7f9e72ed3fcd8387117747dec-fb8a0.png 590w,
+/static/twitterurl-1-bb9d80d7f9e72ed3fcd8387117747dec-bd5b8.png 794w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/twitterurl-2-464d5d9dc0eed95c42b9a594b72f16eb-fde3e.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 530px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 121.88679245283018%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAYCAYAAAD6S912AAAACXBIWXMAAAsSAAALEgHS3X78AAAFf0lEQVQ4y52TaUxUVxTHJ9VW0piisu+7w8CwzDjAACKCS0GJIBBNVRQEERsq1K1qBZVFZJFNTZp+aPupfmrqp7Zf2qRN2kq01j5n2GQZBgYGmA2Yfd6df+97Qoz2Q5ve5Pf+95373rnn3HOuwNM3dNCr5Xf433qE93yC4RcRD2nmLkjScxAWK0GcNBPSjFwIk+QQSTOQk1eEnXmFSM/Jh294HDaHxMIrNBb+UQn037g/BKIk+V+R1X3YcugmK9mxj4hyiklEWh6JTMsnMZkF/Dwmo4BsLyonibtKSURqHonLLiLxuaUkWppNZLJ0EpOU4fIXb4dnpOSRwK/kBpNW04+Uk+1EfroHqTW9SDnN0QNZ9Us4W0btfcjP9ENG1+Qf9lPuYltlJ9KqOpBS2c6mnLmH4LLuAYHPgStMWV07qs53kbK62zhc14Wj53tQ/kk/pQ9lF/tw4hKnvfz8+KWXHLvQS7UfZRf6UH6xhz3Z+AWSzj0YEGzec5bZeuwW4o40kuTyVqRWdyC69Ar88+sQtP9jnkCOffUIoAQV1PM2//3n4EcJzj+LkLxa1q/wKrz31g4IAsTZjCirEDEpuSQhax+yDxxBhHQnvLfK4BebxquPMAWB8ekIFGfAV5jK26JikyGKS0KQKAVBcWmsSCyBd0jMgCBGKGYSEyWISZST+LRcRCbIESvbAUnW+0jevhciWTZCYqWISpQjOikdYSIZgoUSiEViyMTxEIq3ITp+GyuNF8MvXDQg8I1MYIKEUgTESIh3RALe9YuCh3c4NniFYYN3GDx8Inh9Z0soz5p9vVc41nlF4G36vn5LKLsxOA5eYdRhcuZuprLuKirOXibHa+pxuLwGJcdOobSsmnIKRR+cpFSs6tq8AgdXtfhIBQ6VVbFCaRY8g2jKnf2fM1iZx9zIE2IwmqDX67G4uEBZhNFgwL8NJ4UAbFXtebzlGTggaP/sK2bxx4dg7jWTF+oZPGMUePZcCcXgMLTz83C5XPyPbrebZ22szZZsLtipw4oz9Vi3KWhA0Hann7Ha7JianiFmiwUrKytYXl6Gnka3YjbDYDBinjq20DWdToeR0VFotVp+nVsjLL8hyx3Xes5ha2cfw1lMJhOxWq0wU4dWqwV2uw0Oux1OhwM2mw1Op5Pa7FhaWuKdW+i3nK5mwJ6oWY3wFo1w2WzByIsxMjGpgnJoGKqZWWh1RkxptNDML2JBb4BOb4R6RoPh0RcYn5iAcnCQz2R18A75CNu6ehkjPQRGrSfDGgMUaj2YKR0U0wYoNUuY0lkwvrCCodlljGpXMLmwjAVasDmaNhf56rm+ctjS2cunbNTriUlHI5mnFaZnxqX3X8Y/HDZ33WVgNcE2/IRoB3/DytifIKohLM7N8ikqFEowzxW0jXSYX6Cb0cLMzMzAaDJBrZ7mO+G1M+Qdmg0wftlNvm4owOOG4yA//4C5OQ3GxyegUk1hUqXC5OQkhkdGeOWqzDE4OASNZvaNlLvvMzBqsVhZTPQHc7GUl46R1isYV09hlDqYnZ2lTlRQKJUYGx+nUal5nZ6eppupXovwVcoWAxa6GshYyW4ojxbg2+bLfCWnpjU8mjkt3yJcETh09DaZaPuYaZ86aFu9lnJTB+1DuxnL40r26fcP3T9988D9y3cP3bRIbqvd6bZYbW6b3eFmWdbtcnG43IRWghAO4nY6XW6+sU/XvYywo/e+gt+C3ix6J8Etu4gbdocTLpaApXOz1cYrNzgbd7PeLHbVRxexzjPwsWDPgUNPb7TdwbWmdtvVm22OTzmabvNca253NDR3UO1wNLZ0Oq7f6nI0tnbydk6vUxpaOhxNt7ttsuw8bPSP/FUgEHjk0EcxpZBS9D8pFHhsLtkUEJ79NxbB9MYsPjm1AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;twitterurl2&quot;
+        title=&quot;&quot;
+        src=&quot;/static/twitterurl-2-464d5d9dc0eed95c42b9a594b72f16eb-fde3e.png&quot;
+        srcset=&quot;/static/twitterurl-2-464d5d9dc0eed95c42b9a594b72f16eb-8803e.png 148w,
+/static/twitterurl-2-464d5d9dc0eed95c42b9a594b72f16eb-77437.png 295w,
+/static/twitterurl-2-464d5d9dc0eed95c42b9a594b72f16eb-fde3e.png 530w&quot;
+        sizes=&quot;(max-width: 530px) 100vw, 530px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;マークダウン記事にペーストします。&lt;strong&gt;ただし最後の行は削除しましょう。&lt;/strong&gt;Twitterウィジェット用スクリプト読み込みであり、プラグインがやってくれるので。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;html&quot;&gt;&lt;pre class=&quot;language-html&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;blockquote&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;twitter-tweet&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;data-lang&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;ja&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;p&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;ja&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;dir&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;ltr&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+    最近忙しかったのでアレですが、ブログ更新しました。&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;br&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;br&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+    Reactで構造化データマークアップ（JSON-LD対応）
+    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;a&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;https://t.co/7V49VqH9WI&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;https://t.co/7V49VqH9WI&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;a&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;a&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;https://twitter.com/inouetakumon?ref_src=twsrc%5Etfw&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;@inouetakumon&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;a&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;さんから
+  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class=&quot;token entity&quot; title=&quot;&amp;mdash;&quot;&gt;&amp;amp;mdash;&lt;/span&gt;
+  takumontakumon (@inouetakumon)
+  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;a&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;https://twitter.com/inouetakumon/status/1046062825037344770?ref_src=twsrc%5Etfw&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;2018年9月29日&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;a&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;blockquote&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;script&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;https://platform.twitter.com/widgets.js&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;charset&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;utf-8&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;script&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;&amp;lt;!-- この行は削除 --&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br&gt;
+するとこんな感じで表示されます。
+&lt;br&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;ja&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;最近忙しかったのでアレですが、ブログ更新しました。&lt;br&gt;&lt;br&gt;Reactで構造化データマークアップ（JSON-LD対応） &lt;a href=&quot;https://t.co/7V49VqH9WI&quot;&gt;https://t.co/7V49VqH9WI&lt;/a&gt; &lt;a href=&quot;https://twitter.com/inouetakumon?ref_src=twsrc%5Etfw&quot;&gt;@inouetakumon&lt;/a&gt;さんから&lt;/p&gt;&amp;mdash; takumontakumon (@inouetakumon) &lt;a href=&quot;https://twitter.com/inouetakumon/status/1046062825037344770?ref_src=twsrc%5Etfw&quot;&gt;2018年9月29日&lt;/a&gt;&lt;/blockquote&gt;
+&lt;h2&gt;まとめ&lt;/h2&gt;
+&lt;p&gt;YouTubeとTwitter埋め込みともに、Gatsbyではプラグインが用意されているのでとても簡単に実現できました。
+というか大抵の機能はプラグインが用意されていて、自分で特にやることがないという感じですね。
+今後は、もうちょいReact勉強するために、本格的にブログを改造していきたいです！&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Reactで構造化データマークアップ（JSON-LD対応）]]></title><description><![CDATA[なにこれ ググった時に自分のブログ(React製)でパンくずを表示させたい 
 ということでJSON-LD対応しました。 
  JSON+LD…]]></description><link>https://takumon.com//2018/09/29/</link><guid isPermaLink="false">https://takumon.com//2018/09/29/</guid><pubDate>Sat, 29 Sep 2018 23:50:00 GMT</pubDate><content:encoded>&lt;h2&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;ググった時に自分のブログ(React製)でパンくずを表示させたい&lt;/strong&gt;
