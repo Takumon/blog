@@ -2,7 +2,7 @@
 title: Gatsby製ブログ開設手順
 date: "2018-09-10T19:00:00.000Z"
 tags:
-  - gatsby
+  - Gatsby
 ---
 
 ## ブログ開設手順

@@ -10,3 +10,10 @@
 .tag_icon {
   margin-right: 0.5em;
 }
+
+.no_post {
+  @include max-content-width();
+  padding: 1em 0 0 1em;
+  display: flex;
+  align-items: center;
+}

@@ -12,7 +12,7 @@ class TagTemplate extends React.Component {
   render() {
     const siteTitle = get(this, 'props.data.site.siteMetadata.title')
     const posts = get(this, 'props.data.allMarkdownRemark.edges')
-    const totalCount = get(this, 'props.data.allMarkdownRemark.totalCount')
+    const totalCount = get(this, 'props.data.allMarkdownRemark.totalCount', 0)
 
 
     const targetTag =  <Tag value={this.props.pathContext.tag} />
@@ -25,12 +25,15 @@ class TagTemplate extends React.Component {
       </div>
     );
 
+    const postlist = (!posts || posts.length === 0)
+        ? <div className={styles.no_post}>指摘したタグの記事はありません。</div>
+        : <PostList postEdges={posts} / >;
+
     return (
       <div>
         <Helmet title={`${siteTitle} | ${this.props.pathContext.tag}`}/>
         {tagSearchResult}
-        <PostList postEdges={posts}>
-        </PostList>
+        {postlist}
       </div>
     );
   }

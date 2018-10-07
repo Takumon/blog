@@ -2,9 +2,9 @@
 title: ReactでSNS対応（Gatsby製ブログでSNSシェアボタン、OGPタグ追加）
 date: "2018-09-16T22:00:00.000Z"
 tags:
-  - gatsby
-  - react
-  - ogp
+  - Gatsby
+  - React
+  - OGP
 ---
 
 ## なにこれ

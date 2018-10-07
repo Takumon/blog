@@ -2,8 +2,8 @@
 title: GatsbyでYouTubeとTwitter埋め込み
 date: "2018-10-07T12:00:00.000Z"
 tags:
-  - gatsby
-  - sns
+  - Gatsby
+  - SNS
 ---
 
 ## なにこれ

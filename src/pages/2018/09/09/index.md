@@ -2,8 +2,8 @@
 title: Gatsbyでブログ始めました。
 date: "2018-09-09T22:00:00.000Z"
 tags:
-  - gatsby
-  - blog
+  - Gatsby
+  - Blog
 ---
 
 ## ブログをやろうと思った理由

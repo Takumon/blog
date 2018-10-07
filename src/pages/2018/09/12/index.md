@@ -2,7 +2,9 @@
 title: GitHub Pagesを独自ドメイン化 + Https化
 date: "2018-09-12T07:00:00.000Z"
 tags:
-  - github-pages
+  - GithubPages
+  - カスタムドメイン
+  - Https化
 ---
 
 ## なにこれ
