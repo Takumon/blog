@@ -53,7 +53,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-feed`,
-    `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: 'gatsby-plugin-typography',
@@ -114,6 +113,7 @@ module.exports = {
         ],
       },
     },
+    `gatsby-plugin-offline`,
     `gatsby-plugin-twitter`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-sitemap`,
