@@ -22,7 +22,7 @@
     "gatsby-plugin-sass": "^1.0.26",
     "gatsby-plugin-sharp": "^1.6.48",
     "gatsby-plugin-sitemap": "^2.0.1",
-    "gatsby-plugin-twitter": "^2.0.5",
+    "gatsby-plugin-twitter": "^2.0.6",
     "gatsby-plugin-typography": "^1.7.19",
     "gatsby-remark-copy-linked-files": "^1.5.37",
     "gatsby-remark-embed-youtube": "0.0.7",
