@@ -11,6 +11,9 @@ import {
   TwitterIcon,
 } from 'react-share';
 import styles from './index.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGetPocket } from '@fortawesome/free-brands-svg-icons'
+
 
 export default function SNSShare({title, link, twitterUserName}) {
 
@@ -18,6 +21,7 @@ export default function SNSShare({title, link, twitterUserName}) {
     <ul className={styles.content}>
       <Helmet>
         <script type="text/javascript" src="//b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async" />
+        <script type="text/javascript" src="//widgets.getpocket.com/v1/j/btn.js?v=1"  charset="utf-8" async="async" />
       </Helmet>
       <li className={styles.share_button}>
         <FacebookShareButton url={link}>
@@ -40,7 +44,17 @@ export default function SNSShare({title, link, twitterUserName}) {
           <TwitterIcon size={32} round />
         </TwitterShareButton>
       </li>
-
+      <li className={styles.share_button}>
+        <a
+          className={styles.pocket_icon_link}
+          href={`http://getpocket.com/edit?url=${link}&title=${title}`}
+          onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;">
+          <FontAwesomeIcon
+            color="#fff"
+            className={styles.pocket_icon}
+            icon={faGetPocket} />
+        </a>
+      </li>
       <li className={styles.share_button}>
         <a
           href="http://b.hatena.ne.jp/entry/"
