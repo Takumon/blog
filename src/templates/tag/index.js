@@ -7,12 +7,15 @@ import { faTags } from '@fortawesome/free-solid-svg-icons'
 import PostList from '../../components/post-list';
 import Tag from '../../components/tag'
 import styles from './index.module.scss';
+import TagList from '../../components/tag-list';
 
 class TagTemplate extends React.Component {
+
   render() {
     const siteTitle = get(this, 'props.data.site.siteMetadata.title')
-    const posts = get(this, 'props.data.allMarkdownRemark.edges')
-    const totalCount = get(this, 'props.data.allMarkdownRemark.totalCount', 0)
+    const posts = get(this, 'props.data.tagRelated.edges')
+    const totalCount = get(this, 'props.data.tagRelated.totalCount', 0)
+    const allPosts = get(this, 'props.data.all.edges')
 
 
     const targetTag =  <Tag value={this.props.pathContext.tag} />
@@ -27,13 +30,14 @@ class TagTemplate extends React.Component {
 
     const postlist = (!posts || posts.length === 0)
         ? <div className={styles.no_post}>指摘したタグの記事はありません。</div>
-        : <PostList postEdges={posts} / >;
+        : <PostList posts={posts} / >;
 
     return (
       <div>
         <Helmet title={`${siteTitle} | ${this.props.pathContext.tag}`}/>
         {tagSearchResult}
         {postlist}
+        <TagList posts={allPosts} />
       </div>
     );
   }
@@ -42,13 +46,22 @@ class TagTemplate extends React.Component {
 export default TagTemplate;
 
 export const pageQuery = graphql`
-  query TagPage($tag: String) {
+  query TagPageQuery($tag: String) {
     site {
       siteMetadata {
         title
       }
     }
-    allMarkdownRemark(
+    all: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+      edges {
+        node {
+          frontmatter {
+            tags
+          }
+        }
+      }
+    }
+    tagRelated: allMarkdownRemark(
       limit: 1000
       sort: { fields: [frontmatter___date], order: DESC }
       filter: { frontmatter: { tags: { in: [$tag] } } }

@@ -6,15 +6,15 @@ import styles from './index.module.scss';
 
 class PostList extends React.Component {
   getPosts() {
-    return this.props.postEdges.map(postEdge => {
+    return this.props.posts.map(p => {
       return {
-        path: postEdge.node.fields.slug,
-        tags: postEdge.node.frontmatter.tags,
-        cover: postEdge.node.frontmatter.cover,
-        title: postEdge.node.frontmatter.title,
-        date: postEdge.node.frontmatter.date,
-        excerpt: postEdge.node.excerpt,
-        timeToRead: postEdge.node.timeToRead
+        path: p.node.fields.slug,
+        tags: p.node.frontmatter.tags,
+        cover: p.node.frontmatter.cover,
+        title: p.node.frontmatter.title,
+        date: p.node.frontmatter.date,
+        excerpt: p.node.excerpt,
+        timeToRead: p.node.timeToRead
       };
     })
   }

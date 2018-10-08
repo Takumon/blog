@@ -1,0 +1,21 @@
+@import "../../css/base";
+
+.content {
+  @include max-content-width();
+  padding: 1em;
+  margin-top: 2em;
+}
+.title {
+  margin: 0 0 12px;
+}
+.title__icon {
+  margin-right: 0.5em;
+}
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1em;
+  margin: 0;
+  background: #f3f0f0;
+  border-radius: 4px;
+}

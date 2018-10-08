@@ -3,6 +3,7 @@ import get from 'lodash/get'
 import Helmet from 'react-helmet'
 
 import PostList from '../components/post-list';
+import TagList from '../components/tag-list';
 
 class BlogIndex extends React.Component {
   render() {
@@ -12,7 +13,8 @@ class BlogIndex extends React.Component {
     return (
       <div>
         <Helmet title={siteTitle}/>
-        <PostList postEdges={posts}></PostList>
+        <PostList posts={posts}></PostList>
+        <TagList posts={posts}/>
       </div>
     )
   }
