@@ -1,0 +1,2 @@
+webpackJsonp([0xfcd6fbb8b066],{466:function(t,e){t.exports={data:{site:{siteMetadata:{title:"Takumon Blog"}},allMarkdownRemark:{totalCount:1,edges:[{node:{fields:{slug:"/2018/09/29/"},excerpt:"なにこれ ググった時に自分のブログ(React製)でパンくずを表示させたい \nということでJSON-LD対応しました。 \n JSON+LD…",timeToRead:4,frontmatter:{date:"2018/09/29",title:"Reactで構造化データマークアップ（JSON-LD対応）",tags:["React","Schema-org","JSON-LD"]}}}]}},pathContext:{tag:"JSON-LD"}}}});
+//# sourceMappingURL=path---tags-json-ld-9ac181eb5d30e05e07f7.js.map

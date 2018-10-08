@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 07 Oct 2018 09:47:52 GMT</lastBuildDate><item><title><![CDATA[GatsbyでPWA対応]]></title><description><![CDATA[なにこれ スマホでネイティブアプリっぽいUXを実現するため、GatsbyでPWA対応した時のメモです。
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Mon, 08 Oct 2018 08:11:00 GMT</lastBuildDate><item><title><![CDATA[GatsbyでPWA対応]]></title><description><![CDATA[なにこれ スマホでネイティブアプリっぽいUXを実現するため、GatsbyでPWA対応した時のメモです。
 以下の4つが可能になりました。 
  
- 前提 ServiceWorkerを利用するため、SSL化が必須です。そのためブログはhttps…]]></description><link>https://takumon.com//2018/10/08/</link><guid isPermaLink="false">https://takumon.com//2018/10/08/</guid><pubDate>Mon, 08 Oct 2018 12:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;なにこれ&lt;/h2&gt;
+ 前提 ServiceWorkerを利用するため、SSL化が必須です。そのためブログはhttps…]]></description><link>https://takumon.com//2018/10/08/</link><guid isPermaLink="false">https://takumon.com//2018/10/08/</guid><pubDate>Mon, 08 Oct 2018 12:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;スマホでネイティブアプリっぽいUXを実現するため、GatsbyでPWA対応した時のメモです。
 以下の4つが可能になりました。&lt;/p&gt;
 &lt;p&gt;
@@ -105,21 +105,21 @@
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;h2&gt;前提&lt;/h2&gt;
+&lt;h2 id=&quot;前提&quot;&gt;&lt;a href=&quot;#%E5%89%8D%E6%8F%90&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;前提&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;ServiceWorkerを利用するため、SSL化が必須です。そのためブログはhttpsでアクセスできるようにしておく必要があります。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;対応概要&lt;/h2&gt;
+&lt;h2 id=&quot;対応概要&quot;&gt;&lt;a href=&quot;#%E5%AF%BE%E5%BF%9C%E6%A6%82%E8%A6%81&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;対応概要&lt;/h2&gt;
 &lt;p&gt;Gatsbyは&lt;a href=&quot;https://github.com/gatsbyjs/gatsby-starter-default&quot;&gt;スターター&lt;/a&gt;の時点で、PWA用のプラグイン下記2つが導入済みなので、設定を少々いじるだけで素敵なPWA対応ができます。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-manifest&quot;&gt;gatsby-plugin-manifest&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-offline&quot;&gt;gatsby-plugin-offline&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;上記両方のプラグインを&lt;code class=&quot;language-text&quot;&gt;gatsby-config.js&lt;/code&gt;に定義する場合、&lt;code class=&quot;language-text&quot;&gt;gatsby-plugin-manifest&lt;/code&gt;を必ず先にする必要があります。&lt;/p&gt;
-&lt;h2&gt;gatsby-plugin-manifestの設定&lt;/h2&gt;
+&lt;h2 id=&quot;gatsby-plugin-manifestの設定&quot;&gt;&lt;a href=&quot;#gatsby-plugin-manifest%E3%81%AE%E8%A8%AD%E5%AE%9A&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;gatsby-plugin-manifestの設定&lt;/h2&gt;
 &lt;p&gt;PWAで必須の&lt;code class=&quot;language-text&quot;&gt;manifest.webmanifest&lt;/code&gt;を生成してくれるプラグインです。&lt;br&gt;
 サイトに&lt;code class=&quot;language-text&quot;&gt;manifest.webmanifest&lt;/code&gt;を配置することで、スマホでブログを見たときに、ネイティブアプリのようなUXを実現できます。&lt;/p&gt;
-&lt;h3&gt;&lt;code class=&quot;language-text&quot;&gt;manifest.webmanifest&lt;/code&gt;とは&lt;/h3&gt;
+&lt;h3 id=&quot;manifestwebmanifestとは&quot;&gt;&lt;a href=&quot;#manifestwebmanifest%E3%81%A8%E3%81%AF&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;manifest.webmanifestとは&lt;/h3&gt;
 &lt;p&gt;下記3サイトで概要を理解しました。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://www.w3.org/TR/appmanifest/&quot;&gt;W3C ウェブアプリマニフェスト仕様書&lt;/a&gt;&lt;/li&gt;
@@ -127,11 +127,11 @@
 &lt;li&gt;&lt;a href=&quot;https://developer.mozilla.org/ja/docs/Web/Manifest&quot;&gt;MDN ウェブアプリマニフェスト&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;とくにGoogleのサイトでは、設定ごとにどのようなUXになるかをアニメーションで示しているので、イメージをつかみやすいです。&lt;/p&gt;
-&lt;h3&gt;アイコン画像は全サイズ用意した&lt;/h3&gt;
+&lt;h3 id=&quot;アイコン画像は全サイズ用意した&quot;&gt;&lt;a href=&quot;#%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3%E7%94%BB%E5%83%8F%E3%81%AF%E5%85%A8%E3%82%B5%E3%82%A4%E3%82%BA%E7%94%A8%E6%84%8F%E3%81%97%E3%81%9F&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;アイコン画像は全サイズ用意した&lt;/h3&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;manifest.webmanifest&lt;/code&gt;ではサイズ別アイコンを指定する必要があります。
 プラグインでは1つ大きなアイコンを用意すれば、全サイズ自動生成してくれる…とありますが、僕はビルド時にエラーが出たので、
 やむなく全サイズのアイコンを用意しました。
-ただ全部手動でというわけでななく、&lt;a href=&quot;https://app-manifest.firebaseapp.com/&quot;&gt;Web App Manifest Generator&lt;/a&gt;というサイト便利なサイトを使いました。アイコンを放り込むと全サイズのアイコンを作ってくれます。&lt;/p&gt;
+ただ全部手動でというわけではなく、&lt;a href=&quot;https://app-manifest.firebaseapp.com/&quot;&gt;Web App Manifest Generator&lt;/a&gt;という便利なサイトを使いました。アイコンを放り込むと全サイズのアイコンを作ってくれます。&lt;/p&gt;
 &lt;p&gt;参考：&lt;a href=&quot;https://qiita.com/shisama/items/d4d0b24980beaea57231&quot;&gt;3分でPWAのmanifest.jsonと各サイズのアイコンを作るApp Manifest Generatorの紹介 | Qiita&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;作ったアイコンは、&lt;code class=&quot;language-text&quot;&gt;static/icons&lt;/code&gt;配下に格納します。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;├── static
@@ -145,7 +145,7 @@
     │   ├── icon-512x512.png
     │   ├── icon-72x72.png
     │   └── icon-96x96.png&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;&lt;code class=&quot;language-text&quot;&gt;gatsby-config.js&lt;/code&gt;の設定&lt;/h3&gt;
+&lt;h3 id=&quot;gatsby-configjsの設定&quot;&gt;&lt;a href=&quot;#gatsby-configjs%E3%81%AE%E8%A8%AD%E5%AE%9A&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;gatsby-config.jsの設定&lt;/h3&gt;
 &lt;p&gt;下記のようにしました。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;  plugins&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
     &lt;span class=&quot;token comment&quot;&gt;// ・・・&lt;/span&gt;
@@ -175,7 +175,7 @@
     &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;token comment&quot;&gt;// ・・・&lt;/span&gt;
   &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;設定のテスト&lt;/h3&gt;
+&lt;h3 id=&quot;設定のテスト&quot;&gt;&lt;a href=&quot;#%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;設定のテスト&lt;/h3&gt;
 &lt;p&gt;実際スマホからアクセスして試すこともできますが、
 正しくマニフェストがブラウザに読み込まれているかは、PCからChrome開発者ツールの&lt;code class=&quot;language-text&quot;&gt;Application&lt;/code&gt; &gt; &lt;code class=&quot;language-text&quot;&gt;Manifest&lt;/code&gt;で確認できます。&lt;/p&gt;
 &lt;p&gt;
@@ -213,13 +213,13 @@
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;h2&gt;gatsby-plugin-offlineの設定&lt;/h2&gt;
+&lt;h2 id=&quot;gatsby-plugin-offlineの設定&quot;&gt;&lt;a href=&quot;#gatsby-plugin-offline%E3%81%AE%E8%A8%AD%E5%AE%9A&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;gatsby-plugin-offlineの設定&lt;/h2&gt;
 &lt;p&gt;ネットワークにつながりにくい環境、オフライン環境でもGatsbyのサイトが動くようにServiceWorkerを生成するためのプラグインです。
 &lt;code class=&quot;language-text&quot;&gt;gatsby-plugin-manifest&lt;/code&gt;とあせて使う場合は、必ずこのプラグインを後に定義する必要があります。
-デフォルトは&lt;a href=&quot;https://developers.google.com/web/tools/workbox/modules/workbox-build&quot;&gt;Workbox&lt;/a&gt;の設定を従っており、必要に応じて&lt;code class=&quot;language-text&quot;&gt;gatsby-config.js&lt;/code&gt;で上書くという感じです。
-Workboxは宣言的な記述だけで最適なServiceWorkerのコードが生成できるライブラリだそうで、詳細は下記にわかりやすく書かれていました。&lt;br&gt;
+このプラグインは&lt;a href=&quot;https://developers.google.com/web/tools/workbox/modules/workbox-build&quot;&gt;Workbox&lt;/a&gt;の設定を従っており、必要に応じて&lt;code class=&quot;language-text&quot;&gt;gatsby-config.js&lt;/code&gt;で上書くという感じです。
+Workboxは宣言的な記述だけで最適なServiceWorkerのコードが生成できるライブラリで、下記にわかりやすく書かれていました。&lt;br&gt;
 参考：&lt;a href=&quot;https://qiita.com/nazonohito51/items/32b61cabdac8b24769bd&quot;&gt;ServiceWorkerを簡単に書けるworkbox-swの使い方 | Qiita&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;&lt;code class=&quot;language-text&quot;&gt;gatsby-config.js&lt;/code&gt;の設定&lt;/h3&gt;
+&lt;h3 id=&quot;gatsby-configjsの設定-1&quot;&gt;&lt;a href=&quot;#gatsby-configjs%E3%81%AE%E8%A8%AD%E5%AE%9A-1&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;gatsby-config.jsの設定&lt;/h3&gt;
 &lt;p&gt;とくに何もいじってません。&lt;br&gt;
 複雑なオフライン処理をするなら修正するかもしれませんが、基本的にWorkboxに従っておけば問題なさそうでした。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;  plugins&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
@@ -227,11 +227,11 @@ Workboxは宣言的な記述だけで最適なServiceWorkerのコードが生成
     &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token string&quot;&gt;`gatsby-plugin-offline`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;　&lt;span class=&quot;token comment&quot;&gt;// 必ずgatsby-plugin-manifestの後に定義する&lt;/span&gt;
     &lt;span class=&quot;token comment&quot;&gt;// ・・・&lt;/span&gt;
   &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;まとめ&lt;/h2&gt;
+&lt;h2 id=&quot;まとめ&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ&lt;/h2&gt;
 &lt;p&gt;これまたプラグインで簡単にPWA対応できてしまいました。（あまりプログラミングをしてる感じがありません…）&lt;br&gt;
 次あたりは、プログラミングっぽい記事を書きたいと思います。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[GatsbyでYouTubeとTwitter埋め込み]]></title><description><![CDATA[なにこれ ブログに良くあるYouTubeやTwitterの埋め込みをGatsbyでやる方法のメモです。 
 こんな感じで埋め込めるようになります。 YouTube Twitter やり方 YouTube 環境設定 公式ページ で紹介されているように,
- gatsby-remark…]]></description><link>https://takumon.com//2018/10/07/</link><guid isPermaLink="false">https://takumon.com//2018/10/07/</guid><pubDate>Sun, 07 Oct 2018 12:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;なにこれ&lt;/h2&gt;
+ gatsby-remark…]]></description><link>https://takumon.com//2018/10/07/</link><guid isPermaLink="false">https://takumon.com//2018/10/07/</guid><pubDate>Sun, 07 Oct 2018 12:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;ブログに良くあるYouTubeやTwitterの埋め込みをGatsbyでやる方法のメモです。&lt;br&gt;
 こんな感じで埋め込めるようになります。&lt;/p&gt;
 &lt;ul&gt;
@@ -242,9 +242,9 @@ Workboxは宣言的な記述だけで最適なServiceWorkerのコードが生成
 &lt;li&gt;Twitter&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;ja&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;最近忙しかったのでアレですが、ブログ更新しました。&lt;br&gt;&lt;br&gt;Reactで構造化データマークアップ（JSON-LD対応） &lt;a href=&quot;https://t.co/7V49VqH9WI&quot;&gt;https://t.co/7V49VqH9WI&lt;/a&gt; &lt;a href=&quot;https://twitter.com/inouetakumon?ref_src=twsrc%5Etfw&quot;&gt;@inouetakumon&lt;/a&gt;さんから&lt;/p&gt;&amp;mdash; takumontakumon (@inouetakumon) &lt;a href=&quot;https://twitter.com/inouetakumon/status/1046062825037344770?ref_src=twsrc%5Etfw&quot;&gt;2018年9月29日&lt;/a&gt;&lt;/blockquote&gt;
-&lt;h2&gt;やり方&lt;/h2&gt;
-&lt;h3&gt;YouTube&lt;/h3&gt;
-&lt;h4&gt;環境設定&lt;/h4&gt;
+&lt;h2 id=&quot;やり方&quot;&gt;&lt;a href=&quot;#%E3%82%84%E3%82%8A%E6%96%B9&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;やり方&lt;/h2&gt;
+&lt;h3 id=&quot;youtube&quot;&gt;&lt;a href=&quot;#youtube&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;YouTube&lt;/h3&gt;
+&lt;h4 id=&quot;環境設定&quot;&gt;&lt;a href=&quot;#%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;環境設定&lt;/h4&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.gatsbyjs.org/packages/gatsby-remark-embed-youtube/?=youtube&quot;&gt;公式ページ&lt;/a&gt;で紹介されているように,
 &lt;a href=&quot;https://github.com/ntwcklng/gatsby-remark-embed-youtube&quot;&gt;gatsby-remark-embed-youtube&lt;/a&gt;というプラグインを使います。&lt;br&gt;
 &lt;br&gt;&lt;/p&gt;
@@ -284,7 +284,7 @@ Workboxは宣言的な記述だけで最適なServiceWorkerのコードが生成
 &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;br&gt;
 これで準備が整いました。
-&lt;h4&gt;マークダウンでの書き方&lt;/h4&gt;
+&lt;h4 id=&quot;マークダウンでの書き方&quot;&gt;&lt;a href=&quot;#%E3%83%9E%E3%83%BC%E3%82%AF%E3%83%80%E3%82%A6%E3%83%B3%E3%81%A7%E3%81%AE%E6%9B%B8%E3%81%8D%E6%96%B9&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;マークダウンでの書き方&lt;/h4&gt;
 &lt;p&gt;下記のように指定します。&lt;br&gt;
 &lt;small&gt;
 z8Kt1gXL&lt;em&gt;2Mの部分が動画のIDに当たります。&lt;br&gt;
@@ -294,8 +294,8 @@ z8Kt1gXL&lt;em&gt;2Mの部分が動画のIDに当たります。&lt;br&gt;
 &lt;br&gt;
 &lt;p&gt;するとこんな感じで表示されます。&lt;/p&gt;
 &lt;p&gt;&lt;div&gt;&lt;iframe src=&quot;https://www.youtube.com/embed/z8Kt1gXL_2M&quot; width=&quot;undefined&quot; height=&quot;undefined&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/p&gt;
-&lt;h3&gt;Twitter&lt;/h3&gt;
-&lt;h4&gt;環境設定&lt;/h4&gt;
+&lt;h3 id=&quot;twitter&quot;&gt;&lt;a href=&quot;#twitter&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Twitter&lt;/h3&gt;
+&lt;h4 id=&quot;環境設定-1&quot;&gt;&lt;a href=&quot;#%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A-1&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;環境設定&lt;/h4&gt;
 &lt;p&gt;こちらも&lt;a href=&quot;https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-twitter&quot;&gt;gatsby-plugin-twitter&lt;/a&gt;というプラグインを使います。&lt;br&gt;
 &lt;br&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -311,7 +311,7 @@ z8Kt1gXL&lt;em&gt;2Mの部分が動画のIDに当たります。&lt;br&gt;
 &lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  &lt;span class=&quot;token string&quot;&gt;&quot;gatsby-plugin-twitter&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
 &lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// ・・・&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4&gt;マークダウンでの書き方&lt;/h4&gt;
+&lt;h4 id=&quot;マークダウンでの書き方-1&quot;&gt;&lt;a href=&quot;#%E3%83%9E%E3%83%BC%E3%82%AF%E3%83%80%E3%82%A6%E3%83%B3%E3%81%A7%E3%81%AE%E6%9B%B8%E3%81%8D%E6%96%B9-1&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;マークダウンでの書き方&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;載せたいTwitterの埋め込み用スクリプトをコピーします。&lt;/li&gt;
 &lt;/ul&gt;
@@ -402,12 +402,12 @@ z8Kt1gXL&lt;em&gt;2Mの部分が動画のIDに当たります。&lt;br&gt;
 するとこんな感じで表示されます。
 &lt;br&gt;
 &lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;ja&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;最近忙しかったのでアレですが、ブログ更新しました。&lt;br&gt;&lt;br&gt;Reactで構造化データマークアップ（JSON-LD対応） &lt;a href=&quot;https://t.co/7V49VqH9WI&quot;&gt;https://t.co/7V49VqH9WI&lt;/a&gt; &lt;a href=&quot;https://twitter.com/inouetakumon?ref_src=twsrc%5Etfw&quot;&gt;@inouetakumon&lt;/a&gt;さんから&lt;/p&gt;&amp;mdash; takumontakumon (@inouetakumon) &lt;a href=&quot;https://twitter.com/inouetakumon/status/1046062825037344770?ref_src=twsrc%5Etfw&quot;&gt;2018年9月29日&lt;/a&gt;&lt;/blockquote&gt;
-&lt;h2&gt;まとめ&lt;/h2&gt;
+&lt;h2 id=&quot;まとめ&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ&lt;/h2&gt;
 &lt;p&gt;YouTubeとTwitter埋め込みともに、Gatsbyではプラグインが用意されているのでとても簡単に実現できました。
 というか大抵の機能はプラグインが用意されていて、自分で特にやることがないという感じですね。
 今後は、もうちょいReact勉強するために、本格的にブログを改造していきたいです！&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Reactで構造化データマークアップ（JSON-LD対応）]]></title><description><![CDATA[なにこれ ググった時に自分のブログ(React製)でパンくずを表示させたい 
 ということでJSON-LD対応しました。 
- JSON+LD…]]></description><link>https://takumon.com//2018/09/29/</link><guid isPermaLink="false">https://takumon.com//2018/09/29/</guid><pubDate>Sat, 29 Sep 2018 23:50:00 GMT</pubDate><content:encoded>&lt;h2&gt;なにこれ&lt;/h2&gt;
+ JSON+LD…]]></description><link>https://takumon.com//2018/09/29/</link><guid isPermaLink="false">https://takumon.com//2018/09/29/</guid><pubDate>Sat, 29 Sep 2018 23:50:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;ググった時に自分のブログ(React製)でパンくずを表示させたい&lt;/strong&gt;
 ということでJSON-LD対応しました。&lt;br&gt;
 
@@ -446,13 +446,13 @@ z8Kt1gXL&lt;em&gt;2Mの部分が動画のIDに当たります。&lt;br&gt;
     &lt;/p&gt;
 &lt;p&gt;JSON+LDについてググると色々良い記事がでてきて一通り学ぶことができました。
 ここでは、それら記事の紹介を兼ねて、構造化データの説明からパンくず実現方法についてまでを記します。&lt;/p&gt;
-&lt;h2&gt;構造化データについて&lt;/h2&gt;
+&lt;h2 id=&quot;構造化データについて&quot;&gt;&lt;a href=&quot;#%E6%A7%8B%E9%80%A0%E5%8C%96%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;構造化データについて&lt;/h2&gt;
 &lt;p&gt;グーグルなどの検索エンジンは、Webサイトに構造化マークアップが定義されているとパンくずやイメージ画像を表示してくれます。
 構造化マークアップというのはschema.orgという大手検索エンジン(Google、Yahoo、Bing)で定めた規格にしたがったマークアップのことです。検索時だけでなく、検索エンジンがクロールするときにも、Webサイトのメタ情報としてマークアップを認識させることができ、「検索に優しいWebサイト」を作れます。&lt;/p&gt;
 &lt;p&gt;この構造化マークアップを実現するにはRDFa、Microdata、JSON-LDの3種類があります。
 今回は、(1)JSON-LDはGoogleが推奨していることと、(2)JSON書きやすい、という理由からJSON+LDを使いました。&lt;/p&gt;
 &lt;p&gt;なお3種の違いについては&lt;a href=&quot;https://www.suzukikenichi.com/blog/difference-between-schemaorg-microdata-and-rdfa/&quot;&gt;[構造化データ初級者向け] schema.orgとMicrodata、RDFaって何が違うの？&lt;/a&gt;に詳しく書かれていました。&lt;/p&gt;
-&lt;h2&gt;JSON+LDについて&lt;/h2&gt;
+&lt;h2 id=&quot;jsonldについて&quot;&gt;&lt;a href=&quot;#jsonld%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;JSON+LDについて&lt;/h2&gt;
 &lt;p&gt;てっとり早く理解したい時は下記サイトがおすすめです。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -483,11 +483,11 @@ z8Kt1gXL&lt;em&gt;2Mの部分が動画のIDに当たります。&lt;br&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3&gt;構造化テストツール&lt;/h3&gt;
+&lt;h3 id=&quot;構造化テストツール&quot;&gt;&lt;a href=&quot;#%E6%A7%8B%E9%80%A0%E5%8C%96%E3%83%86%E3%82%B9%E3%83%88%E3%83%84%E3%83%BC%E3%83%AB&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;構造化テストツール&lt;/h3&gt;
 &lt;p&gt;JSON+LDの概要を把握したら、実際に作ってみるのがイイです。
 その時、便利なのが&lt;a href=&quot;https://search.google.com/structured-data/testing-tool&quot;&gt;構造化テストツール&lt;/a&gt;です。これはGoogleが提供しているWebサイトの構造化データを検証するためのツールです。
 自分の作った構造化データが正しいかは、ここを見ながら作成しました。&lt;/p&gt;
-&lt;h4&gt;使い方&lt;/h4&gt;
+&lt;h4 id=&quot;使い方&quot;&gt;&lt;a href=&quot;#%E4%BD%BF%E3%81%84%E6%96%B9&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;使い方&lt;/h4&gt;
 &lt;p&gt;設定を貼り付けるか、URLを指定するかして、&lt;code class=&quot;language-text&quot;&gt;テストを実行&lt;/code&gt;ボタンをクリックすると
 
   &lt;a class=&quot;gatsby-resp-image-link&quot; href=&quot;/static/testtool1-f5bcf368d8b318ce54249629b5c11569-fee8a.png&quot; style=&quot;display: block&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;
@@ -540,11 +540,11 @@ z8Kt1gXL&lt;em&gt;2Mの部分が動画のIDに当たります。&lt;br&gt;
   &lt;/a&gt;
     
 &lt;br&gt;&lt;/p&gt;
-&lt;h4&gt;構造化テストツールのプレビュー機能は廃止されている&lt;/h4&gt;
+&lt;h4 id=&quot;構造化テストツールのプレビュー機能は廃止されている&quot;&gt;&lt;a href=&quot;#%E6%A7%8B%E9%80%A0%E5%8C%96%E3%83%86%E3%82%B9%E3%83%88%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AE%E3%83%97%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E6%A9%9F%E8%83%BD%E3%81%AF%E5%BB%83%E6%AD%A2%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;構造化テストツールのプレビュー機能は廃止されている&lt;/h4&gt;
 &lt;p&gt;ググると構造化テストツールのプレビュー機能の情報がでてきますが、
 プレビューと実際のグーグル検索結果が違うなどの問題があって現在のバージョンでは廃止されているみたいです実際のインターネットじゃないと確認できないのはちょっと残念ですね。&lt;br&gt;
 参考：&lt;a href=&quot;https://www.suzukikenichi.com/blog/rip-rich-snippet-testing-tool/&quot;&gt;旧構造化データテストツールの提供をGoogleが終了、リッチスニペットのプレビューができなくなった&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;ReactでJSON+LD&lt;/h3&gt;
+&lt;h3 id=&quot;reactでjsonld&quot;&gt;&lt;a href=&quot;#react%E3%81%A7jsonld&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;ReactでJSON+LD&lt;/h3&gt;
 &lt;p&gt;Reactだと&lt;a href=&quot;https://github.com/nfl/react-helmet&quot;&gt;React Helmet&lt;/a&gt;で簡単に対応でます。
 こんな感じのコンポーネントを作って、どこかで呼び出してあげればいいです。&lt;br&gt;
 下記例は自分のブログ用で、トップページと記事ページ毎に設定を切り替えています。&lt;br&gt;
@@ -708,12 +708,12 @@ z8Kt1gXL&lt;em&gt;2Mの部分が動画のIDに当たります。&lt;br&gt;
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;h3&gt;まとめ&lt;/h3&gt;
+&lt;h3 id=&quot;まとめ&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ&lt;/h3&gt;
 &lt;p&gt;今回はschema.orgやJSON+LDについての簡単なメモと
 ReactでJSON+LDを実現する具体例を紹介しました。
 なお学習時は、&lt;a href=&quot;https://cookpad.com/&quot;&gt;クックパッド&lt;/a&gt;や&lt;a href=&quot;https://www.pinterest.jp/&quot;&gt;Pinterest&lt;/a&gt;など検索結果がリッチなWebサイトの構造化マークアップをのぞいてみると面白いかもしれません。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[ReactでSNS対応（Gatsby製ブログでSNSシェアボタン、OGPタグ追加）]]></title><description><![CDATA[なにこれ Gatsby製ブログ(Reactアプリ)でSNS対応した時のメモです。 
  (1) SNSシェアボタン と (2) 自分のSNSへのリンク を設置して、ブログの記事をSNSでシェアできるように、、、 
-また、 (3) OGPタグを設定し 、SNS…]]></description><link>https://takumon.com//2018/09/16/</link><guid isPermaLink="false">https://takumon.com//2018/09/16/</guid><pubDate>Sun, 16 Sep 2018 22:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;なにこれ&lt;/h2&gt;
+また、 (3) OGPタグを設定し 、SNS…]]></description><link>https://takumon.com//2018/09/16/</link><guid isPermaLink="false">https://takumon.com//2018/09/16/</guid><pubDate>Sun, 16 Sep 2018 22:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;Gatsby製ブログ(Reactアプリ)でSNS対応した時のメモです。&lt;br&gt;
 &lt;strong&gt;(1) SNSシェアボタン&lt;/strong&gt;と&lt;strong&gt;(2) 自分のSNSへのリンク&lt;/strong&gt;を設置して、ブログの記事をSNSでシェアできるように、、、&lt;br&gt;
 また、&lt;strong&gt;(3) OGPタグを設定し&lt;/strong&gt;、SNSでシェアするときにイメージ画像や、タイトル、記事概要を表示できるようにしました。&lt;/p&gt;
@@ -789,8 +789,8 @@ ReactでJSON+LDを実現する具体例を紹介しました。
   &lt;/a&gt;
     &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;1. SNSシェアボタンを設置&lt;/h2&gt;
-&lt;h3&gt;Facebook、Google、Linkedin、Twitterシェアボタン&lt;/h3&gt;
+&lt;h2 id=&quot;1-snsシェアボタンを設置&quot;&gt;&lt;a href=&quot;#1-sns%E3%82%B7%E3%82%A7%E3%82%A2%E3%83%9C%E3%82%BF%E3%83%B3%E3%82%92%E8%A8%AD%E7%BD%AE&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. SNSシェアボタンを設置&lt;/h2&gt;
+&lt;h3 id=&quot;facebook、google、linkedin、twitterシェアボタン&quot;&gt;&lt;a href=&quot;#facebook%E3%80%81google%E3%80%81linkedin%E3%80%81twitter%E3%82%B7%E3%82%A7%E3%82%A2%E3%83%9C%E3%82%BF%E3%83%B3&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Facebook、Google、Linkedin、Twitterシェアボタン&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/nygardk/react-share&quot;&gt;react-share&lt;/a&gt;でめっちゃ簡単にできます。&lt;br&gt;
 それぞれ専用タグが用意されているので&lt;br&gt;
 &lt;code class=&quot;language-text&quot;&gt;url&lt;/code&gt;属性に記事のURL、&lt;code class=&quot;language-text&quot;&gt;icon&lt;/code&gt;属性にアイコンサイズを指定するだけです。&lt;br&gt;
@@ -846,7 +846,7 @@ Twitterアイコンは&lt;code class=&quot;language-text&quot;&gt;via&lt;/code&g
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;h3&gt;はてブ追加ボタン&lt;/h3&gt;
+&lt;h3 id=&quot;はてブ追加ボタン&quot;&gt;&lt;a href=&quot;#%E3%81%AF%E3%81%A6%E3%83%96%E8%BF%BD%E5%8A%A0%E3%83%9C%E3%82%BF%E3%83%B3&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;はてブ追加ボタン&lt;/h3&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;bookmark_button.js&lt;/code&gt;というJavaScriptファイルを読み込んで、リンクタグを設置するだけです。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;Helmet&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token plain-text&quot;&gt;
   &lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;script&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;text/javascript&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;//b.st-hatena.com/js/bookmark_button.js&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;charset&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;utf-8&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;async&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;async&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;/&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token plain-text&quot;&gt;
@@ -903,7 +903,7 @@ Twitterアイコンは&lt;code class=&quot;language-text&quot;&gt;via&lt;/code&g
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;h2&gt;2. 自分のSNSへのリンクを設置&lt;/h2&gt;
+&lt;h2 id=&quot;2-自分のsnsへのリンクを設置&quot;&gt;&lt;a href=&quot;#2-%E8%87%AA%E5%88%86%E3%81%AEsns%E3%81%B8%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%92%E8%A8%AD%E7%BD%AE&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. 自分のSNSへのリンクを設置&lt;/h2&gt;
 &lt;p&gt;SNSへのリンクアイコンは&lt;a href=&quot;https://github.com/FortAwesome/react-fontawesome&quot;&gt;react-fontawesome&lt;/a&gt;を使いました。&lt;br&gt;
 まずはreact-fontawesomeをインストールします。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; --save @fortawesome/react-fontawesome
@@ -1013,11 +1013,11 @@ Twitterアイコンは&lt;code class=&quot;language-text&quot;&gt;via&lt;/code&g
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;h2&gt;3. OGPタグを設定&lt;/h2&gt;
+&lt;h2 id=&quot;3-ogpタグを設定&quot;&gt;&lt;a href=&quot;#3-ogp%E3%82%BF%E3%82%B0%E3%82%92%E8%A8%AD%E5%AE%9A&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. OGPタグを設定&lt;/h2&gt;
 &lt;p&gt;OGPとは、「Open Graph Protcol」の略でFacebookやTwitterなどのSNSでシェアした際に、
 WEBページのタイトルやイメージ画像、説明文などをわかりやすく伝えるためのHTML要素です。
 OGPをWebページで設定することでユーザーに対してWEBページの内容を詳しく伝えることができます。&lt;/p&gt;
-&lt;h3&gt;OGPタグを定義&lt;/h3&gt;
+&lt;h3 id=&quot;ogpタグを定義&quot;&gt;&lt;a href=&quot;#ogp%E3%82%BF%E3%82%B0%E3%82%92%E5%AE%9A%E7%BE%A9&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;OGPタグを定義&lt;/h3&gt;
 &lt;p&gt;Reactアプリだと、&lt;a href=&quot;https://github.com/nfl/react-helmet&quot;&gt;ReactHelmet&lt;/a&gt;を使います。&lt;br&gt;
 今回はOgpタグを作りました。ただブログのトップと記事詳細で設定する値が違うので、そこはコンポーネントの引数で受け取れるようにしています。&lt;br&gt;
 ※&lt;code class=&quot;language-text&quot;&gt;blog-config.js&lt;/code&gt;はブログタイトルなどの設定しているファイルです。&lt;/p&gt;
@@ -1111,14 +1111,14 @@ OGPをWebページで設定することでユーザーに対してWEBページ�
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h3&gt;OGPタグ呼び出し&lt;/h3&gt;
+&lt;h3 id=&quot;ogpタグ呼び出し&quot;&gt;&lt;a href=&quot;#ogp%E3%82%BF%E3%82%B0%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;OGPタグ呼び出し&lt;/h3&gt;
 &lt;p&gt;こんどは作ったOgpタグを呼び出す側の実装です。
 Gatsby製ブログではトップページとブログ議事ページの2カ所で呼び出します。&lt;/p&gt;
-&lt;h4&gt;ブログトップページでの呼び出し&lt;/h4&gt;
+&lt;h4 id=&quot;ブログトップページでの呼び出し&quot;&gt;&lt;a href=&quot;#%E3%83%96%E3%83%AD%E3%82%B0%E3%83%88%E3%83%83%E3%83%97%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A7%E3%81%AE%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;ブログトップページでの呼び出し&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;src/layouts/index.js&lt;/strong&gt;&lt;br&gt;
 全体のテンプレートなのでURLがブログトップページの時のみOGPタグを呼び出します。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;Ogp&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;isRoot&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;isRoot&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;/&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4&gt;ブログ記事ページでの呼び出し&lt;/h4&gt;
+&lt;h4 id=&quot;ブログ記事ページでの呼び出し&quot;&gt;&lt;a href=&quot;#%E3%83%96%E3%83%AD%E3%82%B0%E8%A8%98%E4%BA%8B%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A7%E3%81%AE%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;ブログ記事ページでの呼び出し&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;src/templates/blog-post.js&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;html&quot;&gt;&lt;pre class=&quot;language-html&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;Ogp&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;isRoot&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;{isRoot}&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;/&gt;&lt;/span&gt;&lt;/span&gt;
   isRoot={false}
@@ -1175,11 +1175,11 @@ Gatsby製ブログではトップページとブログ議事ページの2カ所�
 &lt;li&gt;Twitter → &lt;a href=&quot;https://cards-dev.twitter.com/validator&quot;&gt;Card validator&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Facebook → &lt;a href=&quot;https://developers.facebook.com/tools/debug/&quot;&gt;シェアデバッガー&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;まとめ&lt;/h2&gt;
+&lt;h2 id=&quot;まとめ&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ&lt;/h2&gt;
 &lt;p&gt;今回はReactアプリでSNSシェアボタンや自分のSNSへのリンクを設置し、さらにOGPタグを設置して
 Twitterなどでのシェアをより効果的にする方法をメモに残しました。
 Reactだと、かなり簡単に実現できるし、グっと今時のWebサイトっぽくなるので是非みなさんも試してみてください。&lt;/p&gt;
-&lt;h2&gt;参考&lt;/h2&gt;
+&lt;h2 id=&quot;参考&quot;&gt;&lt;a href=&quot;#%E5%8F%82%E8%80%83&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;参考&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/nygardk/react-share&quot;&gt;react-share&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/FortAwesome/react-fontawesome&quot;&gt;react-fontawesome&lt;/a&gt;&lt;/li&gt;
@@ -1213,12 +1213,12 @@ Reactだと、かなり簡単に実現できるし、グっと今時のWebサイ
 &lt;/li&gt;
 &lt;/ul&gt;</content:encoded></item><item><title><![CDATA[GitHub Pagesを独自ドメイン化 + Https化]]></title><description><![CDATA[なにこれ GitHub Pagesでブログを開設した後、
 どうせならURLも短く覚えてもらいやすいものにしようと思い独自ドメインに切り替えました。
-その方法のメモです。　※（注意）独自ドメイン取得はお金がかかります！！！ 手順…]]></description><link>https://takumon.com//2018/09/12/</link><guid isPermaLink="false">https://takumon.com//2018/09/12/</guid><pubDate>Wed, 12 Sep 2018 07:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;なにこれ&lt;/h2&gt;
+その方法のメモです。　※（注意）独自ドメイン取得はお金がかかります！！！ 手順…]]></description><link>https://takumon.com//2018/09/12/</link><guid isPermaLink="false">https://takumon.com//2018/09/12/</guid><pubDate>Wed, 12 Sep 2018 07:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;GitHub Pagesでブログを開設した後、
 どうせならURLも短く覚えてもらいやすいものにしようと思い独自ドメインに切り替えました。
 その方法のメモです。　※（注意）独自ドメイン取得はお金がかかります！！！&lt;/p&gt;
-&lt;h2&gt;手順&lt;/h2&gt;
-&lt;h3&gt;1. 独自ドメインを取得する&lt;/h3&gt;
+&lt;h2 id=&quot;手順&quot;&gt;&lt;a href=&quot;#%E6%89%8B%E9%A0%86&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;手順&lt;/h2&gt;
+&lt;h3 id=&quot;1-独自ドメインを取得する&quot;&gt;&lt;a href=&quot;#1-%E7%8B%AC%E8%87%AA%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. 独自ドメインを取得する&lt;/h3&gt;
 &lt;p&gt;いつくかサービスはありますが、有名どころの&lt;a href=&quot;https://www.onamae.com/&quot;&gt;お名前.com&lt;/a&gt;で取得します。アクセスして検索窓に、自分のほしい独自ドメインを入力し検索してみます。
 他の人が既に取得していなければ、そのまま手続きに進みます。&lt;br /&gt;
 「早い者勝ちです。」と煽っているわりには　&lt;code class=&quot;language-text&quot;&gt;takumon.com&lt;/code&gt;は誰も使ってなかったので、よほど(&lt;code class=&quot;language-text&quot;&gt;taro.com&lt;/code&gt;みないなの)でない限り、
@@ -1258,7 +1258,7 @@ Reactだと、かなり簡単に実現できるし、グっと今時のWebサイ
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;h3&gt;2. DNSレコードを設定する&lt;/h3&gt;
+&lt;h3 id=&quot;2-dnsレコードを設定する&quot;&gt;&lt;a href=&quot;#2-dns%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. DNSレコードを設定する&lt;/h3&gt;
 &lt;p&gt;独自ドメインに対してGitHubがあらかじめ用意しているDNSレコードを設定します。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -1504,7 +1504,7 @@ Reactだと、かなり簡単に実現できるし、グっと今時のWebサイ
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;お名前.comの設定は以上です。&lt;/p&gt;
-&lt;h3&gt;3. GitHub Pagesの設定を変更する(Https対応も含む)&lt;/h3&gt;
+&lt;h3 id=&quot;3-github-pagesの設定を変更するhttps対応も含む&quot;&gt;&lt;a href=&quot;#3-github-pages%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8Bhttps%E5%AF%BE%E5%BF%9C%E3%82%82%E5%90%AB%E3%82%80&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. GitHub Pagesの設定を変更する(Https対応も含む)&lt;/h3&gt;
 &lt;p&gt;いままで &lt;a href=&quot;http://takumon.github.io/&quot;&gt;http://takumon.github.io/&lt;/a&gt; のようはGitHub Pages標準のURLだったところを準備した独自ドメインに変更します。
 
   &lt;a
@@ -1551,16 +1551,16 @@ Reactだと、かなり簡単に実現できるし、グっと今時のWebサイ
 &lt;li&gt;またしばらく待つと &lt;a href=&quot;https://%E7%8B%AC%E8%87%AA%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3&quot;&gt;https://独自ドメイン&lt;/a&gt; でブログにアクセスできるようになります。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;※GitHub Pagesの設定は反映までに少し時間がかかったりするので、設定直後はエラーまたは警告メッセージが表示されますが、しばらくたつと解消するので2〜3分ほど待ってみてください。&lt;/p&gt;
-&lt;h3&gt;4. ブログリポジトリにて独自ドメインを設定する&lt;/h3&gt;
+&lt;h3 id=&quot;4-ブログリポジトリにて独自ドメインを設定する&quot;&gt;&lt;a href=&quot;#4-%E3%83%96%E3%83%AD%E3%82%B0%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AB%E3%81%A6%E7%8B%AC%E8%87%AA%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;4. ブログリポジトリにて独自ドメインを設定する&lt;/h3&gt;
 &lt;p&gt;手順3で独自ドメインにアクセスできるようになりますが、再度ブログを記事を更新してgh-pagesブランチにブログをデプロイすると
 GitHub Pagesの独自ドメイン設定がもとに戻ってしまいます。&lt;br /&gt;
 これを防ぐためにはブログのリポジトリの&lt;code class=&quot;language-text&quot;&gt;static&lt;/code&gt;フォルダに&lt;code class=&quot;language-text&quot;&gt;CNAME&lt;/code&gt;というファイルを格納し、
 下記のように独自ドメインを定義します。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;takumon.com&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;そうすることで次回以降デプロイ時もGitHub Pagesの独自ドメイン設定が保たれるようになります。&lt;/p&gt;
-&lt;h2&gt;まとめ&lt;/h2&gt;
+&lt;h2 id=&quot;まとめ&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ&lt;/h2&gt;
 &lt;p&gt;GitHub Pagesの方がHttps対応は用意してくれているので、独自ドメインに対するドメインレコードの設定さえできれば、あとは簡単に、独自ドメイン化+Https化を実現できました。&lt;/p&gt;
-&lt;h2&gt;参考&lt;/h2&gt;
+&lt;h2 id=&quot;参考&quot;&gt;&lt;a href=&quot;#%E5%8F%82%E8%80%83&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;参考&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;https://qiita.com/foobaron/items/cd9cfc403defa706372b&quot;&gt;GitHub Pages + 独自ドメイン + HTTPS (SSL) のサポートをGitHubが提供開始&lt;/a&gt;&lt;/p&gt;
@@ -1581,19 +1581,19 @@ GitHub Pagesの独自ドメイン設定がもとに戻ってしまいます。&l
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Gatsby製ブログ開設手順]]></title><description><![CDATA[ブログ開設手順 Gatsbyってなにって状態から30分程度でブログを開設できました。
-下記にそのときの手順をメモしておきます。 0. 前提条件 Git、Node、npmは事前にインストールしておいてください。 1. ブログのスターターキットを起動 Gatsby…]]></description><link>https://takumon.com//2018/09/10/</link><guid isPermaLink="false">https://takumon.com//2018/09/10/</guid><pubDate>Mon, 10 Sep 2018 19:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;ブログ開設手順&lt;/h2&gt;
+下記にそのときの手順をメモしておきます。 0. 前提条件 Git、Node、npmは事前にインストールしておいてください。 1. ブログのスターターキットを起動 Gatsby…]]></description><link>https://takumon.com//2018/09/10/</link><guid isPermaLink="false">https://takumon.com//2018/09/10/</guid><pubDate>Mon, 10 Sep 2018 19:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;ブログ開設手順&quot;&gt;&lt;a href=&quot;#%E3%83%96%E3%83%AD%E3%82%B0%E9%96%8B%E8%A8%AD%E6%89%8B%E9%A0%86&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;ブログ開設手順&lt;/h2&gt;
 &lt;p&gt;Gatsbyってなにって状態から30分程度でブログを開設できました。
 下記にそのときの手順をメモしておきます。&lt;/p&gt;
-&lt;h3&gt;0. 前提条件&lt;/h3&gt;
+&lt;h3 id=&quot;0-前提条件&quot;&gt;&lt;a href=&quot;#0-%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;0. 前提条件&lt;/h3&gt;
 &lt;p&gt;Git、Node、npmは事前にインストールしておいてください。&lt;/p&gt;
-&lt;h3&gt;1. ブログのスターターキットを起動&lt;/h3&gt;
+&lt;h3 id=&quot;1-ブログのスターターキットを起動&quot;&gt;&lt;a href=&quot;#1-%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AE%E3%82%B9%E3%82%BF%E3%83%BC%E3%82%BF%E3%83%BC%E3%82%AD%E3%83%83%E3%83%88%E3%82%92%E8%B5%B7%E5%8B%95&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. ブログのスターターキットを起動&lt;/h3&gt;
 &lt;p&gt;Gatsbyはブログをすぐ始められるようにスターターキット(スキャフォールド)を用意しています。
 まずはそれを使ってローカルでブログを起動してみます。&lt;/p&gt;
-&lt;h4&gt;1-1. Gatsbyインストール&lt;/h4&gt;
+&lt;h4 id=&quot;1-1-gatsbyインストール&quot;&gt;&lt;a href=&quot;#1-1-gatsby%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1-1. Gatsbyインストール&lt;/h4&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -g gatsby&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4&gt;1-2. プロジェクト生成&lt;/h4&gt;
+&lt;h4 id=&quot;1-2-プロジェクト生成&quot;&gt;&lt;a href=&quot;#1-2-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%94%9F%E6%88%90&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1-2. プロジェクト生成&lt;/h4&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;gatsby new blog https://github.com/gatsbyjs/gatsby-starter-blog&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4&gt;1-3. ローカルで起動&lt;/h4&gt;
+&lt;h4 id=&quot;1-3-ローカルで起動&quot;&gt;&lt;a href=&quot;#1-3-%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%A7%E8%B5%B7%E5%8B%95&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1-3. ローカルで起動&lt;/h4&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;cd&lt;/span&gt; blog
 &lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; run dev&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;a href=&quot;http://localhost:8000/&quot;&gt;http://localhost:8000&lt;/a&gt;にアクセスするとブログが表示されます。&lt;/p&gt;
@@ -1631,11 +1631,11 @@ GitHub Pagesの独自ドメイン設定がもとに戻ってしまいます。&l
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;h3&gt;2. ブログの記事などを自分仕様にカスタマイズ&lt;/h3&gt;
+&lt;h3 id=&quot;2-ブログの記事などを自分仕様にカスタマイズ&quot;&gt;&lt;a href=&quot;#2-%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AE%E8%A8%98%E4%BA%8B%E3%81%AA%E3%81%A9%E3%82%92%E8%87%AA%E5%88%86%E4%BB%95%E6%A7%98%E3%81%AB%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. ブログの記事などを自分仕様にカスタマイズ&lt;/h3&gt;
 &lt;p&gt;現状だと、ブロガーがKyle Mathews氏(Gatsbyの作者)になっていたり、仮の記事が3つある状態なので、
 自分仕様にカスタマイズします。
 &lt;small&gt;ここでは僕の例を示します。&lt;/small&gt;&lt;/p&gt;
-&lt;h4&gt;2-1. ブラウザタブのタイトル修正&lt;/h4&gt;
+&lt;h4 id=&quot;2-1-ブラウザタブのタイトル修正&quot;&gt;&lt;a href=&quot;#2-1-%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%82%BF%E3%83%96%E3%81%AE%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB%E4%BF%AE%E6%AD%A3&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2-1. ブラウザタブのタイトル修正&lt;/h4&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;gatsby-config.js&lt;/code&gt;の&lt;code class=&quot;language-text&quot;&gt;siteMetadata&lt;/code&gt;を下記のように修正します。
 なお&lt;code class=&quot;language-text&quot;&gt;siteUrl&lt;/code&gt;はGitHub Pagesでの公開を想定したものです。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
@@ -1647,11 +1647,11 @@ GitHub Pagesの独自ドメイン設定がもとに戻ってしまいます。&l
 &lt;/span&gt;  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
   ・・・
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4&gt;2-2. 画面タイトル修正&lt;/h4&gt;
+&lt;h4 id=&quot;2-2-画面タイトル修正&quot;&gt;&lt;a href=&quot;#2-2-%E7%94%BB%E9%9D%A2%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB%E4%BF%AE%E6%AD%A3&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2-2. 画面タイトル修正&lt;/h4&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;src/layouts/index.js&lt;/code&gt;を修正します。
 &lt;code class=&quot;language-text&quot;&gt;Gatsby Starter Blog&lt;/code&gt;となっている部分が2カ所あるので、自分のブログ名に修正します。
 僕は&lt;code class=&quot;language-text&quot;&gt;Takumon Blog&lt;/code&gt;にしました。&lt;/p&gt;
-&lt;h4&gt;2-3. プロフィール修正&lt;/h4&gt;
+&lt;h4 id=&quot;2-3-プロフィール修正&quot;&gt;&lt;a href=&quot;#2-3-%E3%83%97%E3%83%AD%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E4%BF%AE%E6%AD%A3&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2-3. プロフィール修正&lt;/h4&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;src/components/Bio.js&lt;/code&gt;のアバター(imgタグ)と自己紹介文(pタグ)を修正します。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;html&quot;&gt;&lt;pre class=&quot;language-html&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&amp;lt;img
 &lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  src=&quot;https://s.gravatar.com/avatar/37d27f624f8c9c8db6fe6b6581b256f1?s=80&quot;
@@ -1667,7 +1667,7 @@ GitHub Pagesの独自ドメイン設定がもとに戻ってしまいます。&l
 &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  Written by &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;strong&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;Takuto Inoue&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;strong&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt; who lives and works in Tokyo building useful things.
 &lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4&gt;2-4. 余計な記事を削除&lt;/h4&gt;
+&lt;h4 id=&quot;2-4-余計な記事を削除&quot;&gt;&lt;a href=&quot;#2-4-%E4%BD%99%E8%A8%88%E3%81%AA%E8%A8%98%E4%BA%8B%E3%82%92%E5%89%8A%E9%99%A4&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2-4. 余計な記事を削除&lt;/h4&gt;
 &lt;p&gt;記事は&lt;code class=&quot;language-text&quot;&gt;src/page&lt;/code&gt;配下にフォルダ分けされて存在します。
 1つ目以外の記事は不要なのでフォルダごと削除します。
 あと1つ目の記事て使っている画像も削除します。&lt;/p&gt;
@@ -1681,7 +1681,7 @@ GitHub Pagesの独自ドメイン設定がもとに戻ってしまいます。&l
 &lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;│   └── my-second-post    ・・・削除対象
 &lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;│       └── index.md
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4&gt;2-5. 記事を編集&lt;/h4&gt;
+&lt;h4 id=&quot;2-5-記事を編集&quot;&gt;&lt;a href=&quot;#2-5-%E8%A8%98%E4%BA%8B%E3%82%92%E7%B7%A8%E9%9B%86&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2-5. 記事を編集&lt;/h4&gt;
 &lt;p&gt;1つめの記事&lt;code class=&quot;language-text&quot;&gt;src/pages/hello-world/index.md&lt;/code&gt;を編集します。
 マークダウンファイル上部にメタ情報としてタイトルと作成日時を、その下に本文を記載しましょう。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;markup&quot;&gt;&lt;pre class=&quot;language-markup&quot;&gt;&lt;code class=&quot;language-markup&quot;&gt;---
@@ -1691,7 +1691,7 @@ GitHub Pagesの独自ドメイン設定がもとに戻ってしまいます。&l
 
 &lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;Gatsbyでブログ始めました！
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4&gt;2-6. ローカルで起動&lt;/h4&gt;
+&lt;h4 id=&quot;2-6-ローカルで起動&quot;&gt;&lt;a href=&quot;#2-6-%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%A7%E8%B5%B7%E5%8B%95&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2-6. ローカルで起動&lt;/h4&gt;
 &lt;p&gt;この状態で&lt;code class=&quot;language-text&quot;&gt;npm run dev&lt;/code&gt;して&lt;a href=&quot;http://localhost:8000&quot;&gt;http://localhost:8000&lt;/a&gt;を見てみると下記のようになっています。&lt;/p&gt;
 &lt;p&gt;記事一覧
 
@@ -1764,16 +1764,16 @@ GitHub Pagesの独自ドメイン設定がもとに戻ってしまいます。&l
   &lt;/a&gt;
     &lt;/p&gt;
 &lt;p&gt;ここまでで一通り自分のブログをローカルで作ることができました。&lt;/p&gt;
-&lt;h3&gt;3. GitHub Pagesにブログを公開&lt;/h3&gt;
+&lt;h3 id=&quot;3-github-pagesにブログを公開&quot;&gt;&lt;a href=&quot;#3-github-pages%E3%81%AB%E3%83%96%E3%83%AD%E3%82%B0%E3%82%92%E5%85%AC%E9%96%8B&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. GitHub Pagesにブログを公開&lt;/h3&gt;
 &lt;p&gt;Gatsbyを使うとnpmスクリプト一発でGitHub Pageに公開ができます。
 ここではGitHubでのリポジトリ作成などの事前準備も含めて手順を示します。&lt;/p&gt;
-&lt;h4&gt;3-1. GitHubにリポジトリ作成&lt;/h4&gt;
+&lt;h4 id=&quot;3-1-githubにリポジトリ作成&quot;&gt;&lt;a href=&quot;#3-1-github%E3%81%AB%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E4%BD%9C%E6%88%90&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3-1. GitHubにリポジトリ作成&lt;/h4&gt;
 &lt;p&gt;GitHubにリポジトリを作り、手順2で作成した資産をプッシュしてください。&lt;/p&gt;
-&lt;h4&gt;3-2. GitHub Pagesの設定&lt;/h4&gt;
+&lt;h4 id=&quot;3-2-github-pagesの設定&quot;&gt;&lt;a href=&quot;#3-2-github-pages%E3%81%AE%E8%A8%AD%E5%AE%9A&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3-2. GitHub Pagesの設定&lt;/h4&gt;
 &lt;p&gt;GitHubのリポジトリ &gt; settings &gt; GitHub Pages &gt; Source で&lt;code class=&quot;language-text&quot;&gt;gh-pages branch&lt;/code&gt;を選択します。&lt;/p&gt;
-&lt;h4&gt;3-3. メタ情報の修正&lt;/h4&gt;
+&lt;h4 id=&quot;3-3-メタ情報の修正&quot;&gt;&lt;a href=&quot;#3-3-%E3%83%A1%E3%82%BF%E6%83%85%E5%A0%B1%E3%81%AE%E4%BF%AE%E6%AD%A3&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3-3. メタ情報の修正&lt;/h4&gt;
 &lt;p&gt;手順2によりローカルでブログを起動できるようになりましたが、GitHub Pagesに公開するには、まだ少し修正が必要です。&lt;/p&gt;
-&lt;h5&gt;gatsby-config.jsの&lt;code class=&quot;language-text&quot;&gt;pathPrefix&lt;/code&gt;の修正&lt;/h5&gt;
+&lt;h5 id=&quot;gatsby-configjsのpathprefixの修正&quot;&gt;&lt;a href=&quot;#gatsby-configjs%E3%81%AEpathprefix%E3%81%AE%E4%BF%AE%E6%AD%A3&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;gatsby-config.jsのpathPrefixの修正&lt;/h5&gt;
 &lt;p&gt;ブログのコンテキストURLは、現状だとスターターキットの値なので修正します。
 これを指定するとブログのURLが&lt;code class=&quot;language-text&quot;&gt;https://[オーナー名].github.io/[pathPrefixの値]/&lt;/code&gt;のようになります。
 僕の場合は&lt;code class=&quot;language-text&quot;&gt;https://takumon.github.io/blog&lt;/code&gt;のようになります。&lt;/p&gt;
@@ -1782,16 +1782,16 @@ GitHub Pagesの独自ドメイン設定がもとに戻ってしまいます。&l
 &lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  pathPrefix&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;/blog&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
 &lt;/span&gt;  ・・・
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h5&gt;package.json、pacakge-lock.json、README.mdのメタ情報修正&lt;/h5&gt;
+&lt;h5 id=&quot;packagejson、pacakge-lockjson、readmemdのメタ情報修正&quot;&gt;&lt;a href=&quot;#packagejson%E3%80%81pacakge-lockjson%E3%80%81readmemd%E3%81%AE%E3%83%A1%E3%82%BF%E6%83%85%E5%A0%B1%E4%BF%AE%E6%AD%A3&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;package.json、pacakge-lock.json、README.mdのメタ情報修正&lt;/h5&gt;
 &lt;p&gt;上記3ファイルにおいて、プロジェクト名や、管理者、ブログのURLなどが、すべてスターターキットの状態になっているので
 自分仕様に修正します。&lt;/p&gt;
-&lt;h4&gt;3-4. 資産をgh-pagesブランチにプッシュ&lt;/h4&gt;
+&lt;h4 id=&quot;3-4-資産をgh-pagesブランチにプッシュ&quot;&gt;&lt;a href=&quot;#3-4-%E8%B3%87%E7%94%A3%E3%82%92gh-pages%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%AB%E3%83%97%E3%83%83%E3%82%B7%E3%83%A5&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3-4. 資産をgh-pagesブランチにプッシュ&lt;/h4&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;git push origin master&lt;/code&gt;でマスターに最新資産をプッシュします。&lt;/p&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;npm run deploy&lt;/code&gt;を実行します。実態は&lt;code class=&quot;language-text&quot;&gt;gatsby build &amp;amp;&amp;amp; gh-pages -d public&lt;/code&gt;というコマンドです。これを実行するとgatbyコマンドによりビルド資産をgh-pagesブランチにプッシュしてくれます。&lt;/p&gt;
-&lt;h4&gt;3-5. 公開できたことを確認&lt;/h4&gt;
+&lt;h4 id=&quot;3-5-公開できたことを確認&quot;&gt;&lt;a href=&quot;#3-5-%E5%85%AC%E9%96%8B%E3%81%A7%E3%81%8D%E3%81%9F%E3%81%93%E3%81%A8%E3%82%92%E7%A2%BA%E8%AA%8D&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3-5. 公開できたことを確認&lt;/h4&gt;
 &lt;p&gt;GitHub Pagesの公開URLをブラウザでたたき、自分のブログが公開されていることを確認します。&lt;/p&gt;
 &lt;p&gt;以上でブログの公開手順は終了です。&lt;/p&gt;
-&lt;h3&gt;参考記事&lt;/h3&gt;
+&lt;h3 id=&quot;参考記事&quot;&gt;&lt;a href=&quot;#%E5%8F%82%E8%80%83%E8%A8%98%E4%BA%8B&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;参考記事&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;https://qiita.com/jaxx2104/items/5f28915355a85d36e38a&quot;&gt;React.js製の静的サイトジェネレーターGatsbyに移行した&lt;/a&gt;&lt;/p&gt;
@@ -1802,25 +1802,25 @@ GitHub Pagesの独自ドメイン設定がもとに戻ってしまいます。&l
 &lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Gatsbyでブログ始めました。]]></title><description><![CDATA[ブログをやろうと思った理由 Qiita は、誰得な作業メモは載せられないし
  はてなブログ は、見た目が好きじゃない…
 一時期、 WikiHub日報 とかもやっていたんですが、なかなか続かず…
-そのせいか、やったことを…]]></description><link>https://takumon.com//2018/09/09/</link><guid isPermaLink="false">https://takumon.com//2018/09/09/</guid><pubDate>Sun, 09 Sep 2018 22:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;ブログをやろうと思った理由&lt;/h2&gt;
+そのせいか、やったことを…]]></description><link>https://takumon.com//2018/09/09/</link><guid isPermaLink="false">https://takumon.com//2018/09/09/</guid><pubDate>Sun, 09 Sep 2018 22:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;ブログをやろうと思った理由&quot;&gt;&lt;a href=&quot;#%E3%83%96%E3%83%AD%E3%82%B0%E3%82%92%E3%82%84%E3%82%8D%E3%81%86%E3%81%A8%E6%80%9D%E3%81%A3%E3%81%9F%E7%90%86%E7%94%B1&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;ブログをやろうと思った理由&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://qiita.com/&quot;&gt;Qiita&lt;/a&gt;は、誰得な作業メモは載せられないし
 &lt;a href=&quot;http://hatenablog.com/&quot;&gt;はてなブログ&lt;/a&gt;は、見た目が好きじゃない…
 一時期、&lt;a href=&quot;https://nippo.wikihub.io/&quot;&gt;WikiHub日報&lt;/a&gt;とかもやっていたんですが、なかなか続かず…
 そのせいか、やったことを3ヶ月後には忘れてしまう状況がココ半年ほど続きまして、
 コリャなんとかせねばということでオリジナルのブログ始めた次第です。&lt;/p&gt;
-&lt;h2&gt;Gatsbyを使い始めた理由&lt;/h2&gt;
+&lt;h2 id=&quot;gatsbyを使い始めた理由&quot;&gt;&lt;a href=&quot;#gatsby%E3%82%92%E4%BD%BF%E3%81%84%E5%A7%8B%E3%82%81%E3%81%9F%E7%90%86%E7%94%B1&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Gatsbyを使い始めた理由&lt;/h2&gt;
 &lt;p&gt;独自でブログを始めるなら&lt;code class=&quot;language-text&quot;&gt;簡単&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;便利&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;格好いい&lt;/code&gt;、の3つがそろった静的サイトジェネレーターを使おうと考えていました。
 すこし調べただけでも、有名どころでは&lt;a href=&quot;https://jekyllrb-ja.github.io/&quot;&gt;jekyll&lt;/a&gt;、&lt;a href=&quot;https://gohugo.io/&quot;&gt;Hugo&lt;/a&gt;、&lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;、&lt;a href=&quot;https://www.gatsbyjs.org/&quot;&gt;Gatsby&lt;/a&gt;
 などがあり、どれも3つの要素を満たせそうではありましたが、
 その中でも、React、PWA、GraphQLなどのフロントエンドよりの技術構成になっているGastbyに興味を引かれたので採用しました。
 読み方はギャッツビーです（ガッツバイではないし、ヘアワックスでもない）。
 ちょうどいまReactをやり始めたところなので勉強も兼ねてGatsbyのブログを育てていきたいと思っています。&lt;/p&gt;
-&lt;h2&gt;ブログを作ってみた感想&lt;/h2&gt;
+&lt;h2 id=&quot;ブログを作ってみた感想&quot;&gt;&lt;a href=&quot;#%E3%83%96%E3%83%AD%E3%82%B0%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F%E6%84%9F%E6%83%B3&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;ブログを作ってみた感想&lt;/h2&gt;
 &lt;p&gt;Gatsbyってなに？って状態から30分程度でブログを開設できました。
 デフォルトで既に格好いいブログができあがっています。
 他の静的サイトジェネレーターと比較はしていませんが、記事の表示がとにかく爆速です。
 ソースコードのシンタックスハイライトに&lt;a href=&quot;https://prismjs.com/&quot;&gt;Prism&lt;/a&gt;というライブラリを使っており、見た目がきれいな上に指定行をハイライトしたりもできます。またレスポンシブ対応しておりスマホからも見やすいのがうれしいポイントでした。&lt;/p&gt;
-&lt;h2&gt;参考&lt;/h2&gt;
+&lt;h2 id=&quot;参考&quot;&gt;&lt;a href=&quot;#%E5%8F%82%E8%80%83&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;参考&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.gatsbyjs.org/&quot;&gt;Gatsby公式サイト&lt;/a&gt;&lt;/p&gt;
