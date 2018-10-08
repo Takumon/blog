@@ -45,17 +45,15 @@ export default function SNSShare({title, link, twitterUserName}) {
         <a
           href="http://b.hatena.ne.jp/entry/"
           className="hatena-bookmark-button"
-          data-hatena-bookmark-layout="vertical-normal"
-          data-hatena-bookmark-lang="ja"
+          data-hatena-bookmark-layout="touch-counter"
           title="このエントリーをはてなブックマークに追加"
-        >
+          style={{boxShadow: 'none' }}>
           <img
-            src="//b.st-hatena.com/images/entry-button/button-only@2x.png"
+            src="https://b.st-hatena.com/images/entry-button/button-only@2x.png"
             alt="このエントリーをはてなブックマークに追加"
-            width="20"
-            height="20"
-            style={{border: 'none'}}
-          />
+            width="24"
+            height="24"
+            style={{border: 'none'}} />
         </a>
       </li>
     </ul>

@@ -2,8 +2,7 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import Link from 'gatsby-link'
 import get from 'lodash/get'
-import striptags from 'striptags'
-
+import ClassNames from 'classnames';
 
 import config from '../../config/blog-config';
 import SNSShare from '../../components/sns-share'
@@ -13,91 +12,121 @@ import styles from './index.module.scss';
 
 
 class BlogPostTemplate extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isShowSnsShare: false
+    }
+  }
+
+  componentDidMount() {
+    this.stock = this.watchCurrentPosition.bind(this);
+    window.addEventListener('scroll', this.stock, true)
+  }
+
+  componentWillUnmount() {
+      window.removeEventListener('scroll', this.stock, true)
+      this.stock = null;
+  }
+
+  watchCurrentPosition() {
+    this.setState({isShowSnsShare: this.scrollTop() > 400});
+  }
+
+  scrollTop() {
+      return Math.max(
+          window.pageYOffset,
+          document.documentElement.scrollTop,
+          document.body.scrollTop);
+  }
+
+
   render() {
     const post = this.props.data.markdownRemark
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
     const { previous, next, slug } = this.props.pathContext
     const postUrl = `${config.blogUrl}${slug}`;
 
+    const classNameSnsShare = ClassNames({
+      [`${styles.sns_share}`] : true,
+      [`${styles.sns_share_show}`]: this.state.isShowSnsShare,
+      [`${styles.sns_share_hide}`]: !this.state.isShowSnsShare,
+  });
+
     return (
       <article itemScope itemType="http://schema.org/BlogPosting">
-        <div className="headerContainer_post">
-          <div className="headerContainer_post__content">
-
-            <h4 className={styles.blog_title}>
-              <Link
-                className={styles.blog_title__link}
-                to={'/'} >
-                {config.blogTitle}
-                <i className={styles.blog_title__icon}></i>
-              </Link>
-            </h4>
-
-            <a href={postUrl} rel="current" className={styles.post_title}>
-              <h1　itemProp="name" >
-                {post.frontmatter.title}
-              </h1>
-            </a>
-
-            <PostMetaInfo post={post.frontmatter} />
-          </div>
-        </div>
-
-
         <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />
         <Seo
           isRoot={false}
           title={`${post.frontmatter.title} | ${siteTitle}`}
-          description={sumarrize(post.html)}
+          description={post.excerpt}
           postUrl={postUrl}
           postDate={post.frontmatter.date}
           />
 
-        <div className={styles.content} dangerouslySetInnerHTML={{ __html: post.html }} />
+        <div className={styles.header}>
+          <div className={styles.header__inner}>
+            <div className={styles.header__inner__content}>
 
-        <footer className={styles.footer}>
-          <SNSShare
-            title={post.frontmatter.title}
-            link={postUrl}
-            twitterUserName={config.blogAuthorTwitterUserName}
-            />
-          <ul className={styles.footer__paging}>
+              <h4 className={styles.blog_title}>
+                <Link
+                  className={styles.blog_title__link}
+                  to={'/'} >
+                  {config.blogTitle}
+                  <i className={styles.blog_title__icon}></i>
+                </Link>
+              </h4>
+
+              <a href={postUrl} rel="current" className={styles.post_title}>
+                <h1　itemProp="name" >
+                  {post.frontmatter.title}
+                </h1>
+              </a>
+
+              <PostMetaInfo post={post.frontmatter} />
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.container}>
+          <div className={styles.post} dangerouslySetInnerHTML={{ __html: post.html }} />
+          <div className={styles.toc} dangerouslySetInnerHTML={{ __html: post.tableOfContents }}></div>
+          <div className={classNameSnsShare}>
+            <SNSShare
+              title={post.frontmatter.title}
+              link={postUrl}
+              twitterUserName={config.blogAuthorTwitterUserName}
+              />
+          </div>
+          <ul className={styles.paging}>
             <li>
               {
                 previous &&
-                <Link to={previous.fields.slug} rel="prev">
-                  ← {previous.frontmatter.title}
+                <Link className={styles.link_to_previous} to={previous.fields.slug} rel="prev">
+                  ← 古い記事<br/>{previous.frontmatter.title}
                 </Link>
               }
             </li>
             <li>
               {
                 next &&
-                <Link to={next.fields.slug} rel="next">
-                  {next.frontmatter.title} →
+                <Link className={styles.link_to_next} to={next.fields.slug} rel="next">
+                  新しい記事 →<br/>
+                  {next.frontmatter.title}
                 </Link>
               }
             </li>
           </ul>
-        </footer>
+        </div>
+
+
+
 
       </article>
     )
   }
 }
 
-/**
- * ブログ記事から冒頭120字を取得.<br>
- * 120文字以上の場合は末尾に...をつける.
- *
- * @param {*} html ブログ記事(HTML形式)
- */
-function sumarrize(html) {
-  const postContent = striptags(html).replace(/\r?\n/g, '').trim();
-  return postContent.length <= 120
-    ? postContent
-    : postContent.slice(0, 120) + '...';
-}
 
 export default BlogPostTemplate
 
@@ -112,6 +141,8 @@ export const pageQuery = graphql`
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       html
+      excerpt
+      tableOfContents
       frontmatter {
         date(formatString: "YYYY/MM/DD")
         title

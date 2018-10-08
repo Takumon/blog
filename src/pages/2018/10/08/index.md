@@ -34,7 +34,7 @@ Gatsbyは[スターター](https://github.com/gatsbyjs/gatsby-starter-default)�
 PWAで必須の`manifest.webmanifest`を生成してくれるプラグインです。<br>
 サイトに`manifest.webmanifest`を配置することで、スマホでブログを見たときに、ネイティブアプリのようなUXを実現できます。
 
-### `manifest.webmanifest`とは
+### manifest.webmanifestとは
 下記3サイトで概要を理解しました。
 * [W3C ウェブアプリマニフェスト仕様書](https://www.w3.org/TR/appmanifest/)
 * [Google ウェブアプリマニフェスト](https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/?hl=ja)
@@ -46,7 +46,7 @@ PWAで必須の`manifest.webmanifest`を生成してくれるプラグインで�
 `manifest.webmanifest`ではサイズ別アイコンを指定する必要があります。
 プラグインでは1つ大きなアイコンを用意すれば、全サイズ自動生成してくれる...とありますが、僕はビルド時にエラーが出たので、
 やむなく全サイズのアイコンを用意しました。
-ただ全部手動でというわけでななく、[Web App Manifest Generator](https://app-manifest.firebaseapp.com/)というサイト便利なサイトを使いました。アイコンを放り込むと全サイズのアイコンを作ってくれます。
+ただ全部手動でというわけではなく、[Web App Manifest Generator](https://app-manifest.firebaseapp.com/)という便利なサイトを使いました。アイコンを放り込むと全サイズのアイコンを作ってくれます。
 
 参考：[3分でPWAのmanifest.jsonと各サイズのアイコンを作るApp Manifest Generatorの紹介 | Qiita](https://qiita.com/shisama/items/d4d0b24980beaea57231)
 
@@ -67,7 +67,7 @@ PWAで必須の`manifest.webmanifest`を生成してくれるプラグインで�
 ```
 
 
-### `gatsby-config.js`の設定
+### gatsby-config.jsの設定
 下記のようにしました。
 
 ```javascript
@@ -112,12 +112,12 @@ PWAで必須の`manifest.webmanifest`を生成してくれるプラグインで�
 ## gatsby-plugin-offlineの設定
 ネットワークにつながりにくい環境、オフライン環境でもGatsbyのサイトが動くようにServiceWorkerを生成するためのプラグインです。
 `gatsby-plugin-manifest`とあせて使う場合は、必ずこのプラグインを後に定義する必要があります。
-デフォルトは[Workbox](https://developers.google.com/web/tools/workbox/modules/workbox-build)の設定を従っており、必要に応じて`gatsby-config.js`で上書くという感じです。
-Workboxは宣言的な記述だけで最適なServiceWorkerのコードが生成できるライブラリだそうで、詳細は下記にわかりやすく書かれていました。<br>
+このプラグインは[Workbox](https://developers.google.com/web/tools/workbox/modules/workbox-build)の設定を従っており、必要に応じて`gatsby-config.js`で上書くという感じです。
+Workboxは宣言的な記述だけで最適なServiceWorkerのコードが生成できるライブラリで、下記にわかりやすく書かれていました。<br>
 参考：[ServiceWorkerを簡単に書けるworkbox-swの使い方 | Qiita](https://qiita.com/nazonohito51/items/32b61cabdac8b24769bd)
 
 
-### `gatsby-config.js`の設定
+### gatsby-config.jsの設定
 とくに何もいじってません。<br>
 複雑なオフライン処理をするなら修正するかもしれませんが、基本的にWorkboxに従っておけば問題なさそうでした。
 

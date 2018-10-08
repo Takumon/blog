@@ -143,7 +143,7 @@ GitHubのリポジトリ > settings > GitHub Pages > Source で`gh-pages branch`
 #### 3-3. メタ情報の修正
 手順2によりローカルでブログを起動できるようになりましたが、GitHub Pagesに公開するには、まだ少し修正が必要です。
 
-##### gatsby-config.jsの`pathPrefix`の修正
+##### gatsby-config.jsのpathPrefixの修正
 ブログのコンテキストURLは、現状だとスターターキットの値なので修正します。
 これを指定するとブログのURLが`https://[オーナー名].github.io/[pathPrefixの値]/`のようになります。
 僕の場合は`https://takumon.github.io/blog`のようになります。

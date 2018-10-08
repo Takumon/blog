@@ -17,6 +17,14 @@ h1,h2,h3,h4,h5,h6 {
   line-height: 1.75;
 }
 
+// アンカーリンク（gatsby-remark-autolink-headersカスタム）
+h1 .anchor { box-shadow: none }
+h2 .anchor { box-shadow: none }
+h3 .anchor { box-shadow: none }
+h4 .anchor { box-shadow: none }
+h5 .anchor { box-shadow: none }
+h6 .anchor { box-shadow: none }
+
 html,
 body {
   font-weight: 500;
@@ -50,10 +58,14 @@ li > ol {
   margin-left: 0 !important;
 }
 
+// はてブのアイコン幅をカスタム
+.hatena-bookmark-button-frame {
+  width: 32px !important;
+}
 
 // 全体
 .rootContainer {
-  @include full-width();
+  width: 100vw;
   margin: 0;
 }
 
@@ -66,21 +78,6 @@ li > ol {
 
   &__inner {
     animation: fade-in-down .6s both;
-  }
-
-  $parent: &;
-  &_post {
-    @extend #{$parent};
-    min-height: 0vh;
-
-    &__content {
-      @include flex-column();
-      @include full-width();
-      animation: fade-in-down .6s both;
-      max-width: 710px;
-      padding: 1em 1em 0 1em;
-    }
-
   }
 }
 
@@ -96,6 +93,7 @@ li > ol {
   box-shadow: none;
   color: #444;
 }
+
 
 
 @keyframes fade-in-down {
@@ -135,9 +133,5 @@ li > ol {
 
   .headerContainer {
     min-height: 40vh;
-
-    &_post {
-      min-height: 0vh;
-    }
   }
 }
