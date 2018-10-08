@@ -44,7 +44,7 @@
   &__inner {
     display: grid;
     grid-template-columns: 100px calc(100% - 100px - 300px) 300px;
-    max-width: 1120px;
+    max-width: 1100px;
     margin-right: auto;
     margin-left: auto;
 
@@ -52,6 +52,7 @@
       grid-column: 2 / 3;
       animation: fade-in-down .6s both;
       padding: 1em 1em 0 1em;
+      max-width: 720px;
     }
   }
 }
@@ -74,7 +75,7 @@
   .toc {
     grid-column: 3 / 4;
     grid-row: 1 / 2;
-    padding: 12px;
+    padding: 12px 12px 12px 0;
     margin-top: 64px;
     max-height: 100vh;
     position: sticky;
@@ -89,7 +90,7 @@
 
       li {
         margin-bottom: 1px;
-        margin-right: 3px;
+        margin-left: 12px;
 
         p {
           margin-bottom: 1px;
@@ -98,6 +99,7 @@
           display: block;
           box-shadow: none;
           color: #aaa;
+          letter-spacing: 0; // 幅が狭いので詰め詰めにする
 
           &:hover {
             background: #fee;
@@ -213,6 +215,168 @@
     -weebkit-transform: translateY(0);
   }
 }
+
+
+@media screen and (max-width: 1200px) {
+  .header {
+    &__inner {
+      grid-template-columns: minmax(420px, 720px) 1fr;
+
+      &__content {
+        grid-column: 1 / 2;
+      }
+    }
+  }
+
+
+  .container {
+    grid-template-columns: minmax(420px, 720px) 1fr;
+
+    .post {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+    }
+
+    .toc {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+    }
+
+    .sns_share {
+      grid-column: 1 / 2;
+      grid-row: 2/3;
+      height: 64px;
+      margin: 12px 0 64px 0;
+
+      ul {
+        display: flex;
+        flex-direction: row;
+        opacity: 1;
+        filter: grayscale(0%);
+
+        &:hover {
+          opacity: 1;
+          filter: grayscale(0%);
+          transition: filter 0.1s linear, opacity 0.1s linear;
+        }
+
+        li {
+          margin: 0 0 12px 12px;
+        }
+      }
+    }
+
+    .paging {
+      grid-column: 1 / 2;
+      grid-row: 3 / 4;
+    }
+  }
+
+  .sns_share_hide {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .sns_share_show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+}
+
+
+@media screen and (max-width: 940px) {
+  .header {
+    &__inner {
+      grid-template-columns: minmax(0px, 940px);
+
+      &__content {
+        grid-column: 1 / 2;
+        margin-left: auto;
+        margin-right: auto;
+
+      }
+    }
+  }
+
+
+  .container {
+    grid-template-columns: minmax(0px, 940px);
+    margin-left: 0;
+    margin-right: 0;
+    max-width: none;
+
+    .post {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 720px;
+    }
+
+    .toc {
+      display: none;
+    }
+
+    .sns_share {
+      grid-column: 1 / 1;
+      grid-row: 2/3;
+      height: 64px;
+      margin: 12px 0 64px 0;
+
+      ul {
+        display: flex;
+        flex-direction: row;
+        opacity: 1;
+        filter: grayscale(0%);
+
+        &:hover {
+          opacity: 1;
+          filter: grayscale(0%);
+          transition: filter 0.1s linear, opacity 0.1s linear;
+        }
+
+        li {
+          margin: 0 0 12px 12px;
+        }
+      }
+    }
+
+    .paging {
+      grid-column: 1 / 2;
+      grid-row: 3 / 4;
+    }
+  }
+
+  .sns_share_hide {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .sns_share_show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+}
+
+
+@media screen and (max-width: 720px) {
+  .container {
+    grid-template-columns: minmax(0px, 720px);
+    margin-left: 0;
+    margin-right: 0;
+    max-width: none;
+
+    .post {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+}
+
 
 
 @media screen and (max-width: 580px) {
