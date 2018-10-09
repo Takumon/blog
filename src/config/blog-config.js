@@ -2,6 +2,7 @@ module.exports = {
   blogTitle: 'Takumon blog',
   blogDescription: '東京でJavaのSIerやってます。',
   blogUrl: 'https://takumon.com',
+  blogRssUrl: 'https://takumon.com/rss.xml',
   blogImageUrl: 'https://takumon.com/icons/app-sns.png',
   blogAuthorTwitterUserName: 'inouetakumon',
   blogRepositoryUrl: 'https://github.com/Takumon/blog',

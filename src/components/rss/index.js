@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRss } from '@fortawesome/free-solid-svg-icons'
 
+import config from '../../config/blog-config';
 import styles from './index.module.scss';
 
 
@@ -15,14 +16,14 @@ class Rss extends React.Component {
             target='blank'>
             <img
               id='feedlyFollow'
-              src='http://s3.feedly.com/img/follows/feedly-follow-logo-green_2x.png'
+              src='https://s3.feedly.com/img/follows/feedly-follow-logo-green_2x.png'
               alt='follow us in feedly'
               width='36'
               height='36' />
           </a>
           <a
             className={styles.button}
-            href='https://takumon.com/rss.xml'
+            href={config.blogRssUrl}
             target='blank'>
             <FontAwesomeIcon icon={faRss} />
           </a>
