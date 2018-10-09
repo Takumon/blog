@@ -65,7 +65,7 @@ li > ol {
 
 // 全体
 .rootContainer {
-  width: 100vw;
+  width: 100%;
   margin: 0;
 }
 
@@ -75,7 +75,7 @@ li > ol {
   @include gradient-background();
   margin: 0;
   min-height: 50vh;
-
+  position: relative;
   &__inner {
     animation: fade-in-down .6s both;
   }

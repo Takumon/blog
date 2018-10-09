@@ -9,9 +9,8 @@ import Link from 'gatsby-link'
 import {blogTitle} from '../config/blog-config.js';
 import Seo from '../components/seo';
 import Footer from '../components/footer';
-import Bio from '../components/bio'
-
-
+import Bio from '../components/bio';
+import Rss from '../components/rss';
 export default class Template extends React.Component {
 
   render() {
@@ -42,6 +41,7 @@ export default class Template extends React.Component {
             </h1>
             <Bio />
           </div>
+          <Rss />
         </div>
       );
     } else if(isTag) {
@@ -56,6 +56,7 @@ export default class Template extends React.Component {
             </h1>
             <Bio />
           </div>
+          <Rss />
         </div>
       );
     } else {

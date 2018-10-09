@@ -1,0 +1,48 @@
+.content {
+  display: flex;
+  justify-content: flex-end;
+  height: 42px;
+  position: absolute;
+  bottom: 0;
+  right: 24px;
+
+  .button {
+    text-align: center;
+    display: block;
+    box-shadow: none;
+    margin-left: 12px;
+    height: 42px;
+
+    img {
+      margin: 0;
+    }
+    svg {
+      height: 38px;
+      width: 24px !important;
+    }
+  }
+}
+
+
+@media screen and (max-width: 580px) {
+  .content {
+    height: 36px;
+    right: 12px;
+    bottom: -42px;
+
+    .button {
+      margin-left: 12px;
+      height: 36px;
+
+      img {
+        height: 32px;
+        width: 32px;
+      }
+      svg {
+        height: 34px;
+        width: 20px !important;
+      }
+    }
+  }
+
+}
