@@ -22,7 +22,7 @@
     "gatsby-plugin-react-helmet": "^1.0.8",
     "gatsby-plugin-sass": "^1.0.26",
     "gatsby-plugin-sharp": "^1.6.48",
-    "gatsby-plugin-sitemap": "^2.0.1",
+    "gatsby-plugin-sitemap": "^1.2.14-12",
     "gatsby-plugin-twitter": "^2.0.6",
     "gatsby-plugin-typography": "^1.7.19",
     "gatsby-remark-autolink-headers": "^1.4.19",
