@@ -54,7 +54,7 @@ class BlogPostTemplate extends React.Component {
   });
 
     return (
-      <article itemScope itemType="http://schema.org/BlogPosting">
+      <article>
         <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />
         <Seo
           isRoot={false}
@@ -78,7 +78,7 @@ class BlogPostTemplate extends React.Component {
               </h4>
 
               <a href={postUrl} rel="current" className={styles.post_title}>
-                <h1　itemProp="name" >
+                <h1>
                   {post.frontmatter.title}
                 </h1>
               </a>
