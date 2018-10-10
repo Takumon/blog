@@ -1,8 +1,6 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTags, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
-import Link from 'gatsby-link'
-import Tag from '../tag';
+import { Link } from 'gatsby'
+
 import PostMetaInfo from '../post-meta-info';
 import styles from './index.module.scss';
 

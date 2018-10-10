@@ -1,9 +1,11 @@
 import React from 'react'
-import Helmet from 'react-helmet'
+import { graphql } from 'gatsby';
 import get from 'lodash/get'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTags } from '@fortawesome/free-solid-svg-icons'
 
+import Layout from '../../components/layout';
+import Title from '../../components/title';
 import PostList from '../../components/post-list';
 import Tag from '../../components/tag'
 import styles from './index.module.scss';
@@ -12,13 +14,12 @@ import TagList from '../../components/tag-list';
 class TagTemplate extends React.Component {
 
   render() {
-    const siteTitle = get(this, 'props.data.site.siteMetadata.title')
     const posts = get(this, 'props.data.tagRelated.edges')
     const totalCount = get(this, 'props.data.tagRelated.totalCount', 0)
     const allPosts = get(this, 'props.data.all.edges')
 
 
-    const targetTag =  <Tag value={this.props.pathContext.tag} />
+    const targetTag =  <Tag value={this.props.pageContext.tag} />
 
     const tagSearchResult = (
       <div className={styles.tag_search_result}>
@@ -28,17 +29,20 @@ class TagTemplate extends React.Component {
       </div>
     );
 
-    const postlist = (!posts || posts.length === 0)
-        ? <div className={styles.no_post}>指摘したタグの記事はありません。</div>
-        : <PostList posts={posts} / >;
+    let postList = <div className={styles.no_post}>指摘したタグの記事はありません。</div>;
+    if (posts && posts.length > 0) {
+      postList = <PostList posts={posts} / >;
+    }
 
     return (
-      <div>
-        <Helmet title={`${siteTitle} | ${this.props.pathContext.tag}`}/>
-        {tagSearchResult}
-        {postlist}
-        <TagList posts={allPosts} />
-      </div>
+      <Layout location={this.props.location}>
+        <div>
+          <Title tag={this.props.pageContext.tag} />
+          {tagSearchResult}
+          {postList}
+          <TagList posts={allPosts} />
+        </div>
+      </Layout>
     );
   }
 }
@@ -46,12 +50,7 @@ class TagTemplate extends React.Component {
 export default TagTemplate;
 
 export const pageQuery = graphql`
-  query TagPageQuery($tag: String) {
-    site {
-      siteMetadata {
-        title
-      }
-    }
+  query($tag: String) {
     all: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {

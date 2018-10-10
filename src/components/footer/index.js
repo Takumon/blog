@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Link from 'gatsby-link';
+import { Link } from 'gatsby';
 
 import Bio from '../bio'
 import config from '../../config/blog-config';

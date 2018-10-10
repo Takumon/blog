@@ -9,7 +9,7 @@ import styles from './index.module.scss';
 class PostMetaInfo extends React.Component {
   render() {
     const post = this.props.post;
-    const tagList = post.tags.map(tag => <Tag value={tag} />);
+    const tagList = post.tags.map(tag => <Tag key={tag} value={tag} />);
 
     return (
       <small className={styles.content} >
