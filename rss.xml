@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Tue, 09 Oct 2018 13:51:21 GMT</lastBuildDate><item><title><![CDATA[GatsbyでPWA対応]]></title><description><![CDATA[なにこれ スマホでネイティブアプリっぽいUXを実現するため、GatsbyでPWA対応した時のメモです。
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Wed, 10 Oct 2018 13:58:44 GMT</lastBuildDate><item><title><![CDATA[GatsbyでPWA対応]]></title><description><![CDATA[なにこれ スマホでネイティブアプリっぽいUXを実現するため、GatsbyでPWA対応した時のメモです。
 以下の4つが可能になりました。 
  
  前提 ServiceWorkerを利用するため、SSL化が必須です。そのためブログはhttps…]]></description><link>https://takumon.com//2018/10/08/</link><guid isPermaLink="false">https://takumon.com//2018/10/08/</guid><pubDate>Mon, 08 Oct 2018 12:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
@@ -15,7 +15,7 @@
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 417px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 417px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -49,7 +49,7 @@
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 412px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 412px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -83,7 +83,7 @@
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 417px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 417px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -189,7 +189,7 @@
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -316,17 +316,9 @@ z8Kt1gXL&lt;em&gt;2Mの部分が動画のIDに当たります。&lt;br&gt;
 &lt;li&gt;載せたいTwitterの埋め込み用スクリプトをコピーします。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;
-  &lt;a
-    class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/twitterurl-1-bb9d80d7f9e72ed3fcd8387117747dec-bd5b8.png&quot;
-    style=&quot;display: block&quot;
-    target=&quot;_blank&quot;
-    rel=&quot;noopener&quot;
-  &gt;
-  
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -347,20 +339,10 @@ z8Kt1gXL&lt;em&gt;2Mの部分が動画のIDに当たります。&lt;br&gt;
     &lt;/span&gt;
   &lt;/span&gt;
   
-  &lt;/a&gt;
-    
 
-  &lt;a
-    class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/twitterurl-2-464d5d9dc0eed95c42b9a594b72f16eb-fde3e.png&quot;
-    style=&quot;display: block&quot;
-    target=&quot;_blank&quot;
-    rel=&quot;noopener&quot;
-  &gt;
-  
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 530px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 530px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -379,9 +361,7 @@ z8Kt1gXL&lt;em&gt;2Mの部分が動画のIDに当たります。&lt;br&gt;
       /&gt;
     &lt;/span&gt;
   &lt;/span&gt;
-  
-  &lt;/a&gt;
-    &lt;/p&gt;
+  &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;マークダウン記事にペーストします。&lt;strong&gt;ただし最後の行は削除しましょう。&lt;/strong&gt;Twitterウィジェット用スクリプト読み込みであり、プラグインがやってくれるので。&lt;/li&gt;
 &lt;/ul&gt;
@@ -421,7 +401,7 @@ z8Kt1gXL&lt;em&gt;2Mの部分が動画のIDに当たります。&lt;br&gt;
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -492,7 +472,7 @@ z8Kt1gXL&lt;em&gt;2Mの部分が動画のIDに当たります。&lt;br&gt;
 
   &lt;a class=&quot;gatsby-resp-image-link&quot; href=&quot;/static/testtool1-f5bcf368d8b318ce54249629b5c11569-fee8a.png&quot; style=&quot;display: block&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;
   
-  &lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;&gt;
+  &lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;&gt;
     &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 78.1124497991968%; position: relative; bottom: 0; left: 0; background-image: url(&amp;apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAAAsSAAALEgHS3X78AAACxElEQVQ4y42TXU8TQRSG+7ekRhThhl9gojHhL1BL6W4/abcJVozUG7kyxDtrIkEDkdYgCJi2+AE3NpFGCt3utt12uv2CfjCvM2tLRDboJm/O2TMzz7w7e8Zy7/6demT+aSUSiZDIfIQsLCwQt9tNxsfHyfDwTTIycpuMjo6aaIyND5OhISsZvm4t37oxdGq1XrNZdpNJZDIZKIqK41wOOVlGXlGQy8k4Ov79XiyVoGkaSgOVNGjlMn4cHCCVTGBz4xNWPuxhNbbpshTzeRweZs9kWabFYpGqqmqorGlU13VarVYpIcRUul6jjVqV7qa13ouNFrb3FcHi8Xrh9Xqpx+Ph8YJ4zaw+kMvlgtPppF63qxfwiRAFh2jhRSYqCCIcU1Ow2e2wPbDDzqPNdqUcDoexVhTFnsfr4++ixe/3s918NBQKIRp9hdjbJayvLuPtm2W8W1tDLBbDWj8Ocq54PI7FxUWwH0gZoydJEoeLFh8Dutku4XAYJUXG6+8E0XQNaqUGnPVw1ZNKpTA9PW0Ag8EgmFPu0Aenx09D4cdsCsV6AXiZBdTWGTRSRrVRR7vdRqvVQofFXq+HTqdjAHd2to0zvAAMeQTcnYvSsWdJfMsRtKtlNAsKmloJJbWIcqECdJlZpmarw8BdNJocDGxtmQC5Q4E5lB49QePk1Fj5WW0j9LWLlZ8nWNrbxfPER6TVvOGq0+0yh92+wx0zoB8et4vOhR+en02V7b6vAxr7si9yFuuZNNS6fukME4mEOZD/qdnZWShqCcdyGUfZI7RrFbQYpNs6AT1to1lvgDU5KhUCOa9BKeiIxd9DEISLQJ/PBybKoySFDAWDEoI8Z60UZO0QDEksl8Bbi2swLxAIGJeCrb0M/PNmDMTHeANPTEzAbJzX+mvNgf38XPw42BxMTk4a+d/jXNzhfwMHtZmZmfP7+y/gL/UYoypklQgWAAAAAElFTkSuQmCC&amp;apos;); background-size: cover; display: block;&quot;&gt;
       &lt;img class=&quot;gatsby-resp-image-image&quot; style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot; alt=&quot;&amp;#x69CB;&amp;#x9020;&amp;#x5316;&amp;#x30C6;&amp;#x30B9;&amp;#x30C8;&amp;#x30C4;&amp;#x30FC;&amp;#x30EB;&quot; title=&quot;&quot; src=&quot;/static/testtool1-f5bcf368d8b318ce54249629b5c11569-fb8a0.png&quot; srcset=&quot;/static/testtool1-f5bcf368d8b318ce54249629b5c11569-1a291.png 148w,
 /static/testtool1-f5bcf368d8b318ce54249629b5c11569-2bc4a.png 295w,
@@ -510,7 +490,7 @@ z8Kt1gXL&lt;em&gt;2Mの部分が動画のIDに当たります。&lt;br&gt;
 
   &lt;a class=&quot;gatsby-resp-image-link&quot; href=&quot;/static/testtool2-e6948518b55521631f29e685f9755580-468ad.png&quot; style=&quot;display: block&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;
   
-  &lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;&gt;
+  &lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;&gt;
     &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 78.66531850353893%; position: relative; bottom: 0; left: 0; background-image: url(&amp;apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAAAsSAAALEgHS3X78AAADPUlEQVQ4y41U227bRhTUR+XJTmQZSPoPBQrkM5qviBEg+YO+Fy2QIo5dR3FixU7gSLKjGyVKlHi/X0RKpEjt9OzKBtynlsCAuwues3NmRqo93X80+uX5z8ujo1fhy5dHAq9fvwl/ffEifPbsp7BePwgbjcPwoNH4FxqEw8PD8Em9Hu7t7Yf1x3vhwZP9sHZ6cmJ//nSOfn+A2UzBZCJDlqeY0loajzEcSRhJYwG+5pDu9vJ0iu/tNs6bH/Du3Qf8/vYjanlRGZvVCnGcbPN8zcrNhq3Xa1YUBWPbLQPwv3A9Ldmf3xmrmaZhOo4HwzCYaZpQNQ2WbSPLVkgFMqRpiuVyKd4Z7bMHZ1EUwfcDpEmMwHdQo0amrjuYj2VmjYZwpjJcy4Rl2Qh0A7auw3VdJElChT4WiwVUVRNnK5rsvnEQBHxK1GzHMSNDx7zXY8ZggGAsIZor8KhwqavIPBdVVaHYbLBar0URR5pm2NAZSSPeeZ6Ldc22bTPSVMz6fTYjEwxJQqzMECgKAstCTONsy4qKCmRxiHUaA1UhpKuqrWjGmZLuKMuSM7RN1zBgSSNmDYdQZRmRrsGjUR3SkzPNkwjRukJT8nA2sHGlrjAOSixJNyIkxubsOMsaGWDGpJk3HDB30IMvT2CRjhF9GDo2fGJZpAn+UCpca0ucfBugq8VQ4woh6RaGoWh0DzGyz90lhj4xykjgPI6Q0IcrKqADuKst3i62NOYWnm3ejQwx7sOHMbYzZddQYro0gjyZQJ1NYXC3bQdl4OLzLKGmlSgK6KKELuUPd10nuTzPA48cd1s0DMhlo3fL/GEfNhmyJBYciWNAVi2czzO6vhQJ3rm5Y8ajMp/PoWs6z7HIpxhZoRze9GWmTHjGbCiqQ3DhmQ5+6wS4UHNqWIH/cHgelw8YqqoqjInjeKfhwnTMT0MT37pDdnX9A5eta1wRzi87uPjaRftGwvGXWxy32kRyl0UeEe4qb37vMD+7a+iaZ5d9NI9P2cX7M7SO/0brtIkLQvOv9/hy9hGtzgg3ikNmbMS43AwOnjuO+z2HiM18YaPbGbHbroSb9gC3nSH9qywwkVT0fsjQ/BUqEnBDTIr/wD+xY4UzbSqasQAAAABJRU5ErkJggg==&amp;apos;); background-size: cover; display: block;&quot;&gt;
       &lt;img class=&quot;gatsby-resp-image-image&quot; style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot; alt=&quot;&amp;#x69CB;&amp;#x9020;&amp;#x5316;&amp;#x30C6;&amp;#x30B9;&amp;#x30C8;&amp;#x30C4;&amp;#x30FC;&amp;#x30EB;&amp;#x691C;&amp;#x8A3C;&amp;#x7D50;&amp;#x679C;&quot; title=&quot;&quot; src=&quot;/static/testtool2-e6948518b55521631f29e685f9755580-fb8a0.png&quot; srcset=&quot;/static/testtool2-e6948518b55521631f29e685f9755580-1a291.png 148w,
 /static/testtool2-e6948518b55521631f29e685f9755580-2bc4a.png 295w,
@@ -527,7 +507,7 @@ z8Kt1gXL&lt;em&gt;2Mの部分が動画のIDに当たります。&lt;br&gt;
 
   &lt;a class=&quot;gatsby-resp-image-link&quot; href=&quot;/static/testtool3-872e1f5c1902246664756522dbd4081c-fee8a.png&quot; style=&quot;display: block&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;
   
-  &lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;&gt;
+  &lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;&gt;
     &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 78.1124497991968%; position: relative; bottom: 0; left: 0; background-image: url(&amp;apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAAAsSAAALEgHS3X78AAADcklEQVQ4y42TS27cRhCG51xRjMiSN/ERAgTIHbLzRJfQZKVTBIiBZCNnE1g2LCOSMg++hsP3q9lskkNyyCGn/xQpJPAyBApNssivq/6/evb9D9/tF4ufs+vFQlxfL8TNzY24uroS375+Lc7PX4rLy0txcTHGxRdxKS5fvaL8uTg7OxPnL874y2/O2hdff/Xj7OPdHVRNg+t5sCwbtu3AdenetmHurGkdY2c9h0X58TvP86EoKu7ev8e72z/x6+1nvP393U+zrq6Ri/xU17Xs2lY2dSNbWodhkAD+V2hBP7x9AtZO82aWsARhGMgojuD5Psa1bhpUVY39fo9yjLKk5woNvaeNp/d7ei6KApxzWVfl0DUFUhbPZ0Gcw9r5MnSoDXsHxwvg2wFix0HMfAKWEzDLMmy3JsnhTsARPAblJEGH47EfJZjPRJQh1beSkW6uvkOy2SDWLTBNB9sZaA81qH10XTeBxkpJEvTHI/r+OK6jVAO1DlUdgWE8QmREuyeKgoSgsaEhMk0I10FPoBFGVSDPc4L0ONEG1eGIomrAy0pWzTNwoyjzGQ8zMFWRzNTBR6hhI7VNpEGEhjGc5HN1o16jngNVZYoeNu/gFT1c3kg9OQzNCTA1AkZxSq3a0tJCuBsNoaHCWCswtC209RJJxqeWk4QhjOLJWHcP/GUkuKd/jLCQS0cMLWW2E9D2YC4N6elbGI8r+KsldisVDmnor/6G8EcIcJr06vDvlaScDPSR8ExGjH2pIUek7qQg3cLHJ6QEKSwL3LUQ0bAfyQReH7EJS3xUXKhRCZtafTACmrsUTnaQZlgMaSPHAzKfhX4JU09kuHUQGB7CrYvS98DJfRaFkFTVJumQRmSK2KNoTyiPEkWaI49Ho8gUJoagAn67pwq5S9opivSXa3iKA0d1kVG1XCeTVBUtT2GRCb3IQJMLHJqpZUnanmwL8nCQ6JqhoqZv1+F8VkYJgs/3MlqSAasVuGWAUauJFRCMwzV0/PLHPfq8oMgxnE4gQ9FTrs8E+raTENlQkLyfvGo+84OaDPDJFDp2moXUD8hNRmOToTsNdBoqfNi4QJFTdfV/pqDMn6OlCstsqHvgzi7J5aSFZ3HJdt503Cwngr1NEVgMguZwvBTW49OG4VFP8ZRKPHHgYVfgYZvjKRnkg38YlBJwknz+D753gR80zoH3AAAAAElFTkSuQmCC&amp;apos;); background-size: cover; display: block;&quot;&gt;
       &lt;img class=&quot;gatsby-resp-image-image&quot; style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot; alt=&quot;&amp;#x69CB;&amp;#x9020;&amp;#x5316;&amp;#x30C6;&amp;#x30B9;&amp;#x30C8;&amp;#x30C4;&amp;#x30FC;&amp;#x30EB;&amp;#x691C;&amp;#x8A3C;&amp;#x7D50;&amp;#x679C;&amp;#x30A8;&amp;#x30E9;&amp;#x30FC;&amp;#x60C5;&amp;#x5831;&quot; title=&quot;&quot; src=&quot;/static/testtool3-872e1f5c1902246664756522dbd4081c-fb8a0.png&quot; srcset=&quot;/static/testtool3-872e1f5c1902246664756522dbd4081c-1a291.png 148w,
 /static/testtool3-872e1f5c1902246664756522dbd4081c-2bc4a.png 295w,
@@ -685,7 +665,7 @@ z8Kt1gXL&lt;em&gt;2Mの部分が動画のIDに当たります。&lt;br&gt;
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -730,7 +710,7 @@ ReactでJSON+LDを実現する具体例を紹介しました。
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -765,7 +745,7 @@ ReactでJSON+LDを実現する具体例を紹介しました。
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -825,7 +805,7 @@ Twitterアイコンは&lt;code class=&quot;language-text&quot;&gt;via&lt;/code&g
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 205px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 205px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -881,7 +861,7 @@ Twitterアイコンは&lt;code class=&quot;language-text&quot;&gt;via&lt;/code&g
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 384px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 384px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -931,8 +911,7 @@ Twitterアイコンは&lt;code class=&quot;language-text&quot;&gt;via&lt;/code&g
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;Qiita&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;Font Awsomeに用意がないので、
-&lt;strong&gt;代わりに虫眼鏡アイコン使用。背景を黄緑にしてQiitaっぽくする&lt;/strong&gt;&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;Font Awsomeに用意がないので、&lt;strong&gt;代わりに虫眼鏡アイコン使用。背景を黄緑にしてQiitaっぽくする&lt;/strong&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -991,7 +970,7 @@ Twitterアイコンは&lt;code class=&quot;language-text&quot;&gt;via&lt;/code&g
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 333px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 333px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -1077,13 +1056,7 @@ OGPをWebページで設定することでユーザーに対してWEBページ�
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;og:type&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;ページの属性、だいたい
-&lt;code class=&quot;language-text&quot;&gt;website&lt;/code&gt;
-か
-&lt;code class=&quot;language-text&quot;&gt;article&lt;/code&gt;
-を指定します。詳細は
-&lt;a href=&quot;http://ogp.me/#types&quot;&gt;ココ&lt;/a&gt;
-参照&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;ページの属性、だいたい&lt;code class=&quot;language-text&quot;&gt;website&lt;/code&gt;か&lt;code class=&quot;language-text&quot;&gt;article&lt;/code&gt;を指定します。詳細は&lt;a href=&quot;http://ogp.me/#types&quot;&gt;ココ&lt;/a&gt;参照&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;og:site_name&lt;/td&gt;
@@ -1095,15 +1068,11 @@ OGPをWebページで設定することでユーザーに対してWEBページ�
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;fb:app_id&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;FacebookのアプリID。FacebookでOGPを表示させる際に必須。アプリIDの取り方は
-&lt;a href=&quot;https://design-plus1.com/tcd-w/2018/01/facebook_app_id.html&quot;&gt;FacebookのOGP設定に必要なfb:app IDの取得方法&lt;/a&gt;
-参照。&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;FacebookのアプリID。FacebookでOGPを表示させる際に必須。アプリIDの取り方は&lt;a href=&quot;https://design-plus1.com/tcd-w/2018/01/facebook_app_id.html&quot;&gt;FacebookのOGP設定に必要なfb:app IDの取得方法&lt;/a&gt;参照。&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;twitter:card&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;OGPのレイアウトのタイプ。詳細は
-&lt;a href=&quot;https://saruwakakun.com/html-css/reference/twitter-card&quot;&gt;【2018年版】Twitterカードとは？使い方と設定方法まとめ&lt;/a&gt;
-参照。&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;OGPのレイアウトのタイプ。詳細は&lt;a href=&quot;https://saruwakakun.com/html-css/reference/twitter-card&quot;&gt;【2018年版】Twitterカードとは？使い方と設定方法まとめ&lt;/a&gt;参照。&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&quot;left&quot;&gt;twitter:site&lt;/td&gt;
@@ -1147,7 +1116,7 @@ Gatsby製ブログではトップページとブログ議事ページの2カ所�
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -1234,7 +1203,7 @@ Reactだと、かなり簡単に実現できるし、グっと今時のWebサイ
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -1277,7 +1246,7 @@ Reactだと、かなり簡単に実現できるし、グっと今時のWebサイ
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -1315,7 +1284,7 @@ Reactだと、かなり簡単に実現できるし、グっと今時のWebサイ
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -1353,7 +1322,7 @@ Reactだと、かなり簡単に実現できるし、グっと今時のWebサイ
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -1404,7 +1373,7 @@ Reactだと、かなり簡単に実現できるし、グっと今時のWebサイ
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -1439,7 +1408,7 @@ Reactだと、かなり簡単に実現できるし、グっと今時のWebサイ
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -1477,7 +1446,7 @@ Reactだと、かなり簡単に実現できるし、グっと今時のWebサイ
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -1507,17 +1476,9 @@ Reactだと、かなり簡単に実現できるし、グっと今時のWebサイ
 &lt;h3 id=&quot;3-github-pagesの設定を変更するhttps対応も含む&quot;&gt;&lt;a href=&quot;#3-github-pages%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8Bhttps%E5%AF%BE%E5%BF%9C%E3%82%82%E5%90%AB%E3%82%80&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. GitHub Pagesの設定を変更する(Https対応も含む)&lt;/h3&gt;
 &lt;p&gt;いままで &lt;a href=&quot;http://takumon.github.io/&quot;&gt;http://takumon.github.io/&lt;/a&gt; のようはGitHub Pages標準のURLだったところを準備した独自ドメインに変更します。
 
-  &lt;a
-    class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/githubpages_config_1-538c2b5d222286e9a80ffaf3bcfecd1a-a6b5f.png&quot;
-    style=&quot;display: block&quot;
-    target=&quot;_blank&quot;
-    rel=&quot;noopener&quot;
-  &gt;
-  
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -1537,9 +1498,7 @@ Reactだと、かなり簡単に実現できるし、グっと今時のWebサイ
       /&gt;
     &lt;/span&gt;
   &lt;/span&gt;
-  
-  &lt;/a&gt;
-    &lt;/p&gt;
+  &lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;GitHubでブログリポジトリのsettingsタブを開き　GitHub Pages &gt; Custom domain に準備した独自ドメインを入力しSaveボタンをクリックします。&lt;/p&gt;
@@ -1608,7 +1567,7 @@ GitHub Pagesの独自ドメイン設定がもとに戻ってしまいます。&l
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -1705,7 +1664,7 @@ GitHub Pagesの独自ドメイン設定がもとに戻ってしまいます。&l
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
@@ -1740,7 +1699,7 @@ GitHub Pagesの独自ドメイン設定がもとに戻ってしまいます。&l
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
