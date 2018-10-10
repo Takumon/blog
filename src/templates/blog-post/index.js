@@ -1,10 +1,11 @@
 import React from 'react'
-import Helmet from 'react-helmet'
-import Link from 'gatsby-link'
+import { Link, graphql } from 'gatsby'
 import get from 'lodash/get'
 import ClassNames from 'classnames';
 
 import config from '../../config/blog-config';
+import Title from '../../components/title';
+import Layout from '../../components/layout';
 import SNSShare from '../../components/sns-share'
 import PostMetaInfo from '../../components/post-meta-info'
 import Seo from '../../components/seo';
@@ -44,7 +45,7 @@ class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
-    const { previous, next, slug } = this.props.pathContext
+    const { previous, next, slug } = this.props.pageContext
     const postUrl = `${config.blogUrl}${slug}`;
 
     const classNameSnsShare = ClassNames({
@@ -54,75 +55,73 @@ class BlogPostTemplate extends React.Component {
   });
 
     return (
-      <article>
-        <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />
-        <Seo
-          isRoot={false}
-          title={`${post.frontmatter.title} | ${siteTitle}`}
-          description={post.excerpt}
-          postUrl={postUrl}
-          postDate={post.frontmatter.date}
-          />
+      <Layout location={this.props.location}>
+        <article>
+          <Title postTitle={post.frontmatter.title} />
+          <Seo
+            isRoot={false}
+            title={`${post.frontmatter.title} | ${siteTitle}`}
+            description={post.excerpt}
+            postUrl={postUrl}
+            postDate={post.frontmatter.date}
+            />
 
-        <div className={styles.header}>
-          <div className={styles.header__inner}>
-            <div className={styles.header__inner__content}>
+          <div className={styles.header}>
+            <div className={styles.header__inner}>
+              <div className={styles.header__inner__content}>
 
-              <h4 className={styles.blog_title}>
-                <Link
-                  className={styles.blog_title__link}
-                  to={'/'} >
-                  {config.blogTitle}
-                  <i className={styles.blog_title__icon}></i>
-                </Link>
-              </h4>
+                <h4 className={styles.blog_title}>
+                  <Link
+                    className={styles.blog_title__link}
+                    to={'/'} >
+                    {config.blogTitle}
+                    <i className={styles.blog_title__icon}></i>
+                  </Link>
+                </h4>
 
-              <a href={postUrl} rel="current" className={styles.post_title}>
-                <h1>
-                  {post.frontmatter.title}
-                </h1>
-              </a>
+                <a href={postUrl} rel="current" className={styles.post_title}>
+                  <h1>
+                    {post.frontmatter.title}
+                  </h1>
+                </a>
 
-              <PostMetaInfo post={post.frontmatter} />
+                <PostMetaInfo post={post.frontmatter} />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className={styles.container}>
-          <div className={styles.post} dangerouslySetInnerHTML={{ __html: post.html }} />
-          <div className={styles.toc} dangerouslySetInnerHTML={{ __html: post.tableOfContents }}></div>
-          <div className={classNameSnsShare}>
-            <SNSShare
-              title={post.frontmatter.title}
-              link={postUrl}
-              twitterUserName={config.blogAuthorTwitterUserName}
-              />
+          <div className={styles.container}>
+            <div className={styles.post} dangerouslySetInnerHTML={{ __html: post.html }} />
+            <div className={styles.toc} dangerouslySetInnerHTML={{ __html: post.tableOfContents }}></div>
+            <div className={classNameSnsShare}>
+              <SNSShare
+                title={post.frontmatter.title}
+                link={postUrl}
+                twitterUserName={config.blogAuthorTwitterUserName}
+                />
+            </div>
+            <ul className={styles.paging}>
+              <li>
+                {
+                  previous &&
+                  <Link className={styles.link_to_previous} to={previous.fields.slug} rel="prev">
+                    ← 古い記事<br/>{previous.frontmatter.title}
+                  </Link>
+                }
+              </li>
+              <li>
+                {
+                  next &&
+                  <Link className={styles.link_to_next} to={next.fields.slug} rel="next">
+                    新しい記事 →<br/>
+                    {next.frontmatter.title}
+                  </Link>
+                }
+              </li>
+            </ul>
           </div>
-          <ul className={styles.paging}>
-            <li>
-              {
-                previous &&
-                <Link className={styles.link_to_previous} to={previous.fields.slug} rel="prev">
-                  ← 古い記事<br/>{previous.frontmatter.title}
-                </Link>
-              }
-            </li>
-            <li>
-              {
-                next &&
-                <Link className={styles.link_to_next} to={next.fields.slug} rel="next">
-                  新しい記事 →<br/>
-                  {next.frontmatter.title}
-                </Link>
-              }
-            </li>
-          </ul>
-        </div>
-
-
-
-
-      </article>
+        </article>
+      </Layout>
     )
   }
 }
@@ -131,7 +130,7 @@ class BlogPostTemplate extends React.Component {
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
+  query($slug: String!) {
     site {
       siteMetadata {
         title

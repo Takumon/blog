@@ -27,7 +27,7 @@ class TagList extends React.Component {
       <div className={styles.content}>
         <h4 className={styles.title}><FontAwesomeIcon icon={faTags} className={styles.title__icon}/>タグ一覧</h4>
         <div className={styles.list}>
-          {ordered.map(t => <Tag value={t.name} count={t.count} />)}
+          {ordered.map(t => <Tag key={t.name} value={t.name} count={t.count} />)}
         </div>
       </div>
     );

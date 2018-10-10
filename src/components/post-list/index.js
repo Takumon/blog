@@ -22,7 +22,7 @@ class PostList extends React.Component {
   render() {
     return (
       <div className={styles.content}>
-        {this.getPosts().map(post => <PostPreview post={post}></PostPreview>)}
+        {this.getPosts().map(post => <PostPreview key={post.path} post={post}></PostPreview>)}
       </div>
     );
   }

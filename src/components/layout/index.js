@@ -1,20 +1,21 @@
-import '../css/base.scss';
+import React from 'react'
+import { Link } from 'gatsby'
+
+import '../../css/base.scss';
 import 'prismjs/themes/prism-solarizedlight.css';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 
-import React from 'react'
-import Link from 'gatsby-link'
+import config from '../../config/blog-config';
+import Seo from '../seo';
+import Footer from '../footer';
+import Bio from '../bio';
+import Rss from '../rss';
 
 
-import {blogTitle} from '../config/blog-config.js';
-import Seo from '../components/seo';
-import Footer from '../components/footer';
-import Bio from '../components/bio';
-import Rss from '../components/rss';
-export default class Template extends React.Component {
+export default class Layout extends React.Component {
 
   render() {
-    const { location, children, data } = this.props
+    const { location, children } = this.props
 
     let rootPath = `/`;
     if (typeof __PREFIX_PATHS__ !== `undefined` && __PREFIX_PATHS__) {
@@ -37,7 +38,7 @@ export default class Template extends React.Component {
               <Link
                 className="blogTitle"
                 to={'/'}
-              >{blogTitle} </Link>
+              >{config.blogTitle} </Link>
             </h1>
             <Bio />
           </div>
@@ -52,7 +53,7 @@ export default class Template extends React.Component {
               <Link
                 className="blogTitle"
                 to={'/'}
-              >{blogTitle} </Link>
+              >{config.blogTitle} </Link>
             </h1>
             <Bio />
           </div>
@@ -70,7 +71,7 @@ export default class Template extends React.Component {
             return isRoot ? <Seo isRoot={isRoot} /> : '';
         })}
         {header}
-        {children()}
+        {children}
         <Footer isRoot={isRoot} />
       </div>
     )

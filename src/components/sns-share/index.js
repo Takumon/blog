@@ -47,8 +47,8 @@ export default function SNSShare({title, link, twitterUserName}) {
       <li className={styles.share_button}>
         <a
           className={styles.pocket_icon_link}
-          href={`http://getpocket.com/edit?url=${link}&title=${title}`}
-          onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;">
+          href={`https://getpocket.com/edit?url=${link}&title=${title}`}
+          onClick={`window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;`}>
           <FontAwesomeIcon
             color="#fff"
             className={styles.pocket_icon}
