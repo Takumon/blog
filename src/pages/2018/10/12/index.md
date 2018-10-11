@@ -11,7 +11,7 @@ tags:
 
 
 ## Gatsby採用事例
-Gatsbyは、多くのプログラマーが、ブログ、アプリ、マーケッティングサイト、ECサイト、ドキュメントなどを作る際に採用されています。<br>
+Gatsbyは、多くのデベロッパーが、ブログ、アプリ、マーケッティングサイト、ECサイト、ドキュメントなどを作る際に採用しています。<br>
 例をあげると、
 
 * Reactの[公式ドキュメントとブログ](https://reactjs.org/)
@@ -39,8 +39,8 @@ Gatsbyは、多くのプログラマーが、ブログ、アプリ、マーケ�
 * [開発環境時のページレンダリングにおけるメモリ使用量削減](https://github.com/gatsbyjs/gatsby/pull/4912#issuecomment-381407967)
 * webpack 4系アップデートによりJavaScriptとCSSのバンドルの速度向上
 * React 16系アップデートによりサーバーサイドレンダリングのパフォーマンスが3〜4倍に向上
-* 低速アルゴリズムを数多くリファクタリング([参考プルリク](https://github.com/gatsbyjs/gatsby/pull/6226))
-* サーバーサイドレンダリングをマルチプロセス化([参考プルリク](https://github.com/gatsbyjs/gatsby/pull/6417))
+* 低速アルゴリズムを数多くリファクタリング（[参考プルリク](https://github.com/gatsbyjs/gatsby/pull/6226)）
+* サーバーサイドレンダリングをマルチプロセス化（[参考プルリク](https://github.com/gatsbyjs/gatsby/pull/6417)）
 
 ### 2. クライアント側のJavaScriptランタイムを31%削減
 Gatsby製Webサイトに必ず含まれるJavaScriptのランタイムを31%削減（78.5kbから53.9kb）しています。
@@ -59,7 +59,7 @@ Gatsby製Webサイトに必ず含まれるJavaScriptのランタイムを31%削�
 * サーバーサイドレンダリングの改善
 * フィアルファイルサイズ削減
 
-などです。詳細はReact公式サイトのブログ [React v16.0 Rek¥leased](https://reactjs.org/blog/2017/09/26/react-v16.0.html)を参照してください。
+などです。詳細はReact公式サイトのブログ [React v16.0 Released](https://reactjs.org/blog/2017/09/26/react-v16.0.html)を参照してください。
 
 
 ### 4. Webpack 4
@@ -87,7 +87,7 @@ Gatsby製Webサイトに必ず含まれるJavaScriptのランタイムを31%削�
 ### 7. GraphQL stitching
 GraphQL stitchingを実験的にサポートしています。
 GraphQL APIとGraphQLステッチングを提供するサービスがますます増えているなかで、
-GatsbyのWebサイトではソースプラグインでラップすることなく直接APIを使用できます。
+Gatsbyではソースプラグインでラップすることなく直接APIを使用できます。
 
 * [RFC](https://github.com/gatsbyjs/rfcs/blob/master/text/0000-native-graphql-source.md)
 * [gatsby-source-graphql](https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-source-graphql/README.md)
@@ -110,7 +110,7 @@ Gatsby1系のLayout機能は便利な反面、Reactのコンポーネント構�
 
 ### 10. StaticQueryタグ
 「コンポーネントでデータを取得するにはどうすればいいの？」
-という質問が非常に多かったらしく、任意のコンポーネントでデータをGraphQLで取得できるStaticQueryというタグを追加しています。
+という質問が非常に多かったらしく、任意のコンポーネントでデータをGraphQLで取得できるStaticQueryというタグが追加されています。
 
 * [RFC](https://github.com/gatsbyjs/rfcs/blob/master/text/0002-remove-special-layout-components.md#detailed-design)
 * [Gatsbyドキュメント](https://www.gatsbyjs.org/docs/static-query/)
@@ -126,8 +126,8 @@ Gatsby1系のLayout機能は便利な反面、Reactのコンポーネント構�
 
 
 ## まとめ
-記事を読んでみて、Gatsby2系は、ビルド速度が向上して開発環境周りのサポートが充実したなぁという印象です。<br>
-特にLudicrous Mode（爆速ホットリローディング）なんかは、試してみて感動しました。
+記事を読んでみて、Gatsby2系はビルド速度が向上して開発環境周りのサポートが充実したなぁという印象です。<br>
+特にLudicrous Mode（爆速ホットリローディング）は、実際に試してみて感動しました。
 ほんとにマークダウンの編集がリアルタイムにブラウザに反映されるので、今後ますますGatsbyでのWebサイト構築が簡単になるのではないでしょうか。<br>
 ちなみに、[store.gatsbyjs.org](https://store.gatsbyjs.org/)でステッカー、Tシャツ、靴下を販売しているそうです。コレ結構ほしい。
 
