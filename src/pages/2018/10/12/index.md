@@ -70,7 +70,7 @@ Gatsby製Webサイトに必ず含まれるJavaScriptのランタイムを31%削�
 
 
 ### 5. Babel 7
-6から7系へのアップデートに伴い下記改善がされています。
+6から7へのアップデートに伴い下記改善がされています。
 * [ビルド時間短縮](https://babeljs.io/blog/2018/08/27/7.0.0#speed)
 * [自動ポリフィルの実験的サポート](https://babeljs.io/blog/2018/08/27/7.0.0#automatic-polyfilling-experimental)
 * 対応シンタックスの拡大(TypeScriptとJSXなど)
