@@ -1,4 +1,116 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Wed, 10 Oct 2018 13:58:44 GMT</lastBuildDate><item><title><![CDATA[GatsbyでPWA対応]]></title><description><![CDATA[なにこれ スマホでネイティブアプリっぽいUXを実現するため、GatsbyでPWA対応した時のメモです。
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Thu, 11 Oct 2018 15:41:57 GMT</lastBuildDate><item><title><![CDATA[Gatsby2系の新機能]]></title><description><![CDATA[なにこれ Gatsby （React製の静的サイトジェネレーター）が2018年9月に2系にアップデートしたそうです。
+2系の新機能について、公式ブログ( Announcing Gatsby 2.0.0 )を参考に、主要な部分をピックアップして紹介します。 Gatsby…]]></description><link>https://takumon.com//2018/10/12/</link><guid isPermaLink="false">https://takumon.com//2018/10/12/</guid><pubDate>Fri, 12 Oct 2018 12:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.gatsbyjs.org/&quot;&gt;Gatsby&lt;/a&gt;（React製の静的サイトジェネレーター）が2018年9月に2系にアップデートしたそうです。
+2系の新機能について、公式ブログ(&lt;a href=&quot;https://www.gatsbyjs.org/blog/2018-09-17-gatsby-v2/&quot;&gt;Announcing Gatsby 2.0.0&lt;/a&gt;)を参考に、主要な部分をピックアップして紹介します。&lt;/p&gt;
+&lt;h2 id=&quot;gatsby採用事例&quot;&gt;&lt;a href=&quot;#gatsby%E6%8E%A1%E7%94%A8%E4%BA%8B%E4%BE%8B&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Gatsby採用事例&lt;/h2&gt;
+&lt;p&gt;Gatsbyは、多くのプログラマーが、ブログ、アプリ、マーケッティングサイト、ECサイト、ドキュメントなどを作る際に採用されています。&lt;br&gt;
+例をあげると、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Reactの&lt;a href=&quot;https://reactjs.org/&quot;&gt;公式ドキュメントとブログ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Nikeの&lt;a href=&quot;https://justdoit.nike.com/&quot;&gt;Just Do It&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Airbnbの&lt;a href=&quot;https://airbnb.io/&quot;&gt;公式サイト&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;などなど。
+他にもまだまだあるそうで、それらは&lt;a href=&quot;https://www.gatsbyjs.org/showcase/&quot;&gt;Shwcase | Gatsby&lt;/a&gt;で確認できます。&lt;/p&gt;
+&lt;h2 id=&quot;gatsbyの動向&quot;&gt;&lt;a href=&quot;#gatsby%E3%81%AE%E5%8B%95%E5%90%91&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Gatsbyの動向&lt;/h2&gt;
+&lt;p&gt;1系をリリースしてから直近1年で、かなり大きなエコシステムに成長しています。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;コントリビューターが198人から1100人に&lt;/li&gt;
+&lt;li&gt;90プルリク/週ほどをマージ中（1年前は50ほど）&lt;/li&gt;
+&lt;li&gt;400万ダウンロード達成&lt;/li&gt;
+&lt;li&gt;457個のプラグインがnpmで公開されている&lt;/li&gt;
+&lt;li&gt;55万人がGastbyのWebサイトを訪れている&lt;/li&gt;
+&lt;li&gt;GitHubのスター数が10kから22.5kに&lt;/li&gt;
+&lt;li&gt;コントリビューターが&lt;a href=&quot;https://www.gatsbyjs.org/blog/2018-05-24-launching-new-gatsby-company/&quot;&gt;会社を設立&lt;/a&gt;。OSSサポートのため370万ドルを調達し、GatsbyでWebサイトを構築・公開するのを支援するクラウドツールを公開&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;gatsby2系の新機能・改善点&quot;&gt;&lt;a href=&quot;#gatsby2%E7%B3%BB%E3%81%AE%E6%96%B0%E6%A9%9F%E8%83%BD%E3%83%BB%E6%94%B9%E5%96%84%E7%82%B9&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Gatsby2系の新機能・改善点&lt;/h2&gt;
+&lt;h3 id=&quot;1-ビルドの高速化&quot;&gt;&lt;a href=&quot;#1-%E3%83%93%E3%83%AB%E3%83%89%E3%81%AE%E9%AB%98%E9%80%9F%E5%8C%96&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. ビルドの高速化&lt;/h3&gt;
+&lt;p&gt;ビルド時間が75%に短縮されています。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/gatsbyjs/gatsby/pull/4912#issuecomment-381407967&quot;&gt;開発環境時のページレンダリングにおけるメモリ使用量削減&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;webpack 4系アップデートによりJavaScriptとCSSのバンドルの速度向上&lt;/li&gt;
+&lt;li&gt;React 16系アップデートによりサーバーサイドレンダリングのパフォーマンスが3〜4倍に向上&lt;/li&gt;
+&lt;li&gt;低速アルゴリズムを数多くリファクタリング(&lt;a href=&quot;https://github.com/gatsbyjs/gatsby/pull/6226&quot;&gt;参考プルリク&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;サーバーサイドレンダリングをマルチプロセス化(&lt;a href=&quot;https://github.com/gatsbyjs/gatsby/pull/6417&quot;&gt;参考プルリク&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;2-クライアント側のjavascriptランタイムを31削減&quot;&gt;&lt;a href=&quot;#2-%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E5%81%B4%E3%81%AEjavascript%E3%83%A9%E3%83%B3%E3%82%BF%E3%82%A4%E3%83%A0%E3%82%9231%E5%89%8A%E6%B8%9B&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. クライアント側のJavaScriptランタイムを31%削減&lt;/h3&gt;
+&lt;p&gt;Gatsby製Webサイトに必ず含まれるJavaScriptのランタイムを31%削減（78.5kbから53.9kb）しています。
+これはGatsbyが依存しているライブラリの改善が要因としては大きく、その中でも下記2つは大きな削減ポイントです。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;React16へのバージョンアップによるファイルサイズ30%削減（49.8kbから34.8kb）&lt;/li&gt;
+&lt;li&gt;ルーター機能 react-routerから@reach/router移行ともなうルータ部分ファイルサイズ70%削減（18.4kbから6kb）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;3-react-16&quot;&gt;&lt;a href=&quot;#3-react-16&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. React 16&lt;/h3&gt;
+&lt;p&gt;15から16へアップデートしています。
+16ではReactエコシステムが大きく変更されていて、例えば、&lt;br&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Fragment&lt;/li&gt;
+&lt;li&gt;Error Boundary&lt;/li&gt;
+&lt;li&gt;Portals機能の追加&lt;/li&gt;
+&lt;li&gt;カスタムDOM属性のサポート&lt;/li&gt;
+&lt;li&gt;サーバーサイドレンダリングの改善&lt;/li&gt;
+&lt;li&gt;フィアルファイルサイズ削減&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;などです。詳細はReact公式サイトのブログ &lt;a href=&quot;https://reactjs.org/blog/2017/09/26/react-v16.0.html&quot;&gt;React v16.0 Rek¥leased&lt;/a&gt;を参照してください。&lt;/p&gt;
+&lt;h3 id=&quot;4-webpack-4&quot;&gt;&lt;a href=&quot;#4-webpack-4&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;4. Webpack 4&lt;/h3&gt;
+&lt;p&gt;3から4へのアップデートに伴い下記改善がされています。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ビルド時間の短縮　　※詳細：&lt;a href=&quot;https://medium.com/webpack/webpack-4-released-today-6cdb994702d4&quot;&gt;webpack 4 release blog post&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;新しいコード分割アルゴリズム　　※詳細：&lt;a href=&quot;https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366&quot;&gt;Code Splitting optimizations&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;CSS遅延ロードの第一級サポート　　※詳細：&lt;a href=&quot;https://github.com/webpack-contrib/mini-css-extract-plugin&quot;&gt;mini-css-extract-plugin&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;5-babel-7&quot;&gt;&lt;a href=&quot;#5-babel-7&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;5. Babel 7&lt;/h3&gt;
+&lt;p&gt;6から7へのアップデートに伴い下記改善がされています。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://babeljs.io/blog/2018/08/27/7.0.0#speed&quot;&gt;ビルド時間短縮&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://babeljs.io/blog/2018/08/27/7.0.0#automatic-polyfilling-experimental&quot;&gt;自動ポリフィルの実験的サポート&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;対応シンタックスの拡大(TypeScriptとJSXなど)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;詳細はBabel公式サイトのブログ &lt;a href=&quot;https://babeljs.io/blog/2018/08/27/7.0.0&quot;&gt;Babel 7 Released&lt;/a&gt;を参照してください。&lt;/p&gt;
+&lt;h3 id=&quot;6-reachrouter導入によるアクセシビリティ改善&quot;&gt;&lt;a href=&quot;#6-reachrouter%E5%B0%8E%E5%85%A5%E3%81%AB%E3%82%88%E3%82%8B%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B7%E3%83%93%E3%83%AA%E3%83%86%E3%82%A3%E6%94%B9%E5%96%84&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;6. @reach/router導入によるアクセシビリティ改善&lt;/h3&gt;
+&lt;p&gt;ルーター機能を&lt;a href=&quot;https://reacttraining.com/react-router/core/guides/philosophy&quot;&gt;react-router&lt;/a&gt;から&lt;a href=&quot;https://reach.tech/router&quot;&gt;@reach/router&lt;/a&gt;に切り替えています。
+それによってスクリーンリーダーに対応しアクセシビリティが向上しています。
+ちなみに@reach/routerの作者はreact-routerと同じ&lt;code class=&quot;language-text&quot;&gt;Ryan Florence&lt;/code&gt;なので、自分のGatsby製のWebサイトを2系に移行するときも手間なく簡単です。&lt;/p&gt;
+&lt;h3 id=&quot;7-graphql-stitching&quot;&gt;&lt;a href=&quot;#7-graphql-stitching&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;7. GraphQL stitching&lt;/h3&gt;
+&lt;p&gt;GraphQL stitchingを実験的にサポートしています。
+GraphQL APIとGraphQLステッチングを提供するサービスがますます増えているなかで、
+GatsbyのWebサイトではソースプラグインでラップすることなく直接APIを使用できます。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/gatsbyjs/rfcs/blob/master/text/0000-native-graphql-source.md&quot;&gt;RFC&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-source-graphql/README.md&quot;&gt;gatsby-source-graphql&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;8-ludicrous-mode（爆速ホットリローディング）&quot;&gt;&lt;a href=&quot;#8-ludicrous-mode%EF%BC%88%E7%88%86%E9%80%9F%E3%83%9B%E3%83%83%E3%83%88%E3%83%AA%E3%83%AD%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%EF%BC%89&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;8. Ludicrous Mode（爆速ホットリローディング）&lt;/h3&gt;
+&lt;p&gt;ホットリローディングが爆速になっています。
+そのためマークダウン編集がほぼリアルタイムでブラウザに反映されるようになっています。&lt;/p&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;ja&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Coming soon to Gatsby v2: Ludicrous mode data hot reloading ;-)&lt;a href=&quot;https://t.co/by1PyOYXc0&quot;&gt;https://t.co/by1PyOYXc0&lt;/a&gt;&lt;br&gt;&lt;br&gt;(note, this gif is not sped up at all) &lt;a href=&quot;https://t.co/hFIYMbpalN&quot;&gt;pic.twitter.com/hFIYMbpalN&lt;/a&gt;&lt;/p&gt;&amp;mdash; Gatsby (@gatsbyjs) &lt;a href=&quot;https://twitter.com/gatsbyjs/status/974507205121617920?ref_src=twsrc%5Etfw&quot;&gt;2018年3月16日&lt;/a&gt;&lt;/blockquote&gt;
+&lt;h3 id=&quot;9-layoutの廃止&quot;&gt;&lt;a href=&quot;#9-layout%E3%81%AE%E5%BB%83%E6%AD%A2&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;9. Layoutの廃止&lt;/h3&gt;
+&lt;p&gt;Gatsby1系のLayout機能は便利な反面、Reactのコンポーネント構成の規則を破るもので混乱を招く要因だったので2系では廃止されています。
+ただ廃止はされていますが、プラグイン&lt;a href=&quot;https://www.gatsbyjs.org/packages/gatsby-plugin-layout/&quot;&gt;gatsby-plugin-layout&lt;/a&gt;
+を使うことで2系でもLayout機能を使うことが可能です。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/gatsbyjs/rfcs/blob/master/text/0002-remove-special-layout-components.md&quot;&gt;RFC&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.gatsbyjs.org/docs/migrating-from-v1-to-v2/#remove-or-refactor-layout-components&quot;&gt;1系から2系への移行方法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.gatsbyjs.org/blog/2018-06-08-life-after-layouts/&quot;&gt;Jason Lengstorfの記事&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;10-staticqueryタグ&quot;&gt;&lt;a href=&quot;#10-staticquery%E3%82%BF%E3%82%B0&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;10. StaticQueryタグ&lt;/h3&gt;
+&lt;p&gt;「コンポーネントでデータを取得するにはどうすればいいの？」
+という質問が非常に多かったらしく、任意のコンポーネントでデータをGraphQLで取得できるStaticQueryというタグを追加しています。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/gatsbyjs/rfcs/blob/master/text/0002-remove-special-layout-components.md#detailed-design&quot;&gt;RFC&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.gatsbyjs.org/docs/static-query/&quot;&gt;Gatsbyドキュメント&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;11-gatsby-plugin-offline改善&quot;&gt;&lt;a href=&quot;#11-gatsby-plugin-offline%E6%94%B9%E5%96%84&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;11. gatsby-plugin-offline改善&lt;/h3&gt;
+&lt;p&gt;多くのバグフィックスと機能拡張が施されたようです。&lt;/p&gt;
+&lt;h3 id=&quot;12-トレース機能&quot;&gt;&lt;a href=&quot;#12-%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B9%E6%A9%9F%E8%83%BD&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;12. トレース機能&lt;/h3&gt;
+&lt;p&gt;どのプラグインやパーツのビルドに時間がかかっているかを可視化する機能が追加されており、ビルドのボトルネックをデバッグする際にとても便利です。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.gatsbyjs.org/docs/performance-tracing/&quot;&gt;Gatsbyドキュメント&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;まとめ&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ&lt;/h2&gt;
+&lt;p&gt;記事を読んでみて、Gatsby2系は、ビルド速度が向上して開発環境周りのサポートが充実したなぁという印象です。&lt;br&gt;
+特にLudicrous Mode（爆速ホットリローディング）なんかは、試してみて感動しました。
+ほんとにマークダウンの編集がリアルタイムにブラウザに反映されるので、今後ますますGatsbyでのWebサイト構築が簡単になるのではないでしょうか。&lt;br&gt;
+ちなみに、&lt;a href=&quot;https://store.gatsbyjs.org/&quot;&gt;store.gatsbyjs.org&lt;/a&gt;でステッカー、Tシャツ、靴下を販売しているそうです。コレ結構ほしい。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[GatsbyでPWA対応]]></title><description><![CDATA[なにこれ スマホでネイティブアプリっぽいUXを実現するため、GatsbyでPWA対応した時のメモです。
 以下の4つが可能になりました。 
  
  前提 ServiceWorkerを利用するため、SSL化が必須です。そのためブログはhttps…]]></description><link>https://takumon.com//2018/10/08/</link><guid isPermaLink="false">https://takumon.com//2018/10/08/</guid><pubDate>Mon, 08 Oct 2018 12:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
