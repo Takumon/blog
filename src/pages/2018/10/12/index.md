@@ -34,7 +34,7 @@ Gatsbyは、多くのプログラマーが、ブログ、アプリ、マーケ�
 
 ## Gatsby2系の新機能・改善点
 
-### 1. より高速なビルド
+### 1. ビルドの高速化
 ビルド時間が75%に短縮されています。
 * [開発環境時のページレンダリングにおけるメモリ使用量削減](https://github.com/gatsbyjs/gatsby/pull/4912#issuecomment-381407967)
 * webpack 4系アップデートによりJavaScriptとCSSのバンドルの速度向上
@@ -42,15 +42,15 @@ Gatsbyは、多くのプログラマーが、ブログ、アプリ、マーケ�
 * 低速アルゴリズムを数多くリファクタリング([参考プルリク](https://github.com/gatsbyjs/gatsby/pull/6226))
 * サーバーサイドレンダリングをマルチプロセス化([参考プルリク](https://github.com/gatsbyjs/gatsby/pull/6417))
 
-### 2. クライアント側のJavaScript実行基盤を31%削減
-Gatsby製Webサイトに必ず含まれるJavaScriptのコア部分を31%削減(1系で78.5kbだったのが2系では53.9kb)しています。
-これは、一重にGatsbyが依存しているライブラリの改善が要因としては大きく、その中でも下記2つは大きな削減ポイントです。
-* React16へのバージョンアップにより30%削減(49.8kbから34.8kb)
-* ルーター機能をreact-routerから@reach/routerに移行したことによりルータ部分を70%削減(18.4kbから6kb)
+### 2. クライアント側のJavaScriptランタイムを31%削減
+Gatsby製Webサイトに必ず含まれるJavaScriptのランタイムを31%削減（78.5kbから53.9kb）しています。
+これはGatsbyが依存しているライブラリの改善が要因としては大きく、その中でも下記2つは大きな削減ポイントです。
+* React16へのバージョンアップによるファイルサイズ30%削減（49.8kbから34.8kb）
+* ルーター機能 react-routerから@reach/router移行ともなうルータ部分ファイルサイズ70%削減（18.4kbから6kb）
 
 ### 3. React 16
-GatsbyではReactを15から16へのアップデートしています。
-16ではReactエコシステムの大きな変更が加わっていて、例えば、<br>
+15から16へアップデートしています。
+16ではReactエコシステムが大きく変更されていて、例えば、<br>
 
 * Fragment
 * Error Boundary
@@ -59,18 +59,18 @@ GatsbyではReactを15から16へのアップデートしています。
 * サーバーサイドレンダリングの改善
 * フィアルファイルサイズ削減
 
-などなどです。詳細はReact公式サイトのブログ [React v16.0 Rek¥leased](https://reactjs.org/blog/2017/09/26/react-v16.0.html)を参照してください。
+などです。詳細はReact公式サイトのブログ [React v16.0 Rek¥leased](https://reactjs.org/blog/2017/09/26/react-v16.0.html)を参照してください。
 
 
 ### 4. Webpack 4
-webpack4系バージョンアップに伴い下記のような改善がされています。
+3から4へのアップデートに伴い下記改善がされています。
 * ビルド時間の短縮　　※詳細：[webpack 4 release blog post](https://medium.com/webpack/webpack-4-released-today-6cdb994702d4)
 * 新しいコード分割アルゴリズム　　※詳細：[Code Splitting optimizations](https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366)
 * CSS遅延ロードの第一級サポート　　※詳細：[mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin)
 
 
 ### 5. Babel 7
-Babelは7系へのアップデートで下記のような改善がされています。
+6から7系へのアップデートに伴い下記改善がされています。
 * [ビルド時間短縮](https://babeljs.io/blog/2018/08/27/7.0.0#speed)
 * [自動ポリフィルの実験的サポート](https://babeljs.io/blog/2018/08/27/7.0.0#automatic-polyfilling-experimental)
 * 対応シンタックスの拡大(TypeScriptとJSXなど)
@@ -79,7 +79,7 @@ Babelは7系へのアップデートで下記のような改善がされてい�
 
 
 ### 6. @reach/router導入によるアクセシビリティ改善
-2系バージョンアップにともないルーター機能を[react-router](https://reacttraining.com/react-router/core/guides/philosophy)から[@reach/router](https://reach.tech/router)に切り替えています。
+ルーター機能を[react-router](https://reacttraining.com/react-router/core/guides/philosophy)から[@reach/router](https://reach.tech/router)に切り替えています。
 それによってスクリーンリーダーに対応しアクセシビリティが向上しています。
 ちなみに@reach/routerの作者はreact-routerと同じ`Ryan Florence`なので、自分のGatsby製のWebサイトを2系に移行するときも手間なく簡単です。
 
@@ -100,7 +100,7 @@ GatsbyのWebサイトではソースプラグインでラップすることな�
 
 ### 9. Layoutの廃止
 Gatsby1系のLayout機能は便利な反面、Reactのコンポーネント構成の規則を破るもので混乱を招く要因だったので2系では廃止されています。
-廃止はされていますが、プラグイン[gatsby-plugin-layout](https://www.gatsbyjs.org/packages/gatsby-plugin-layout/)
+ただ廃止はされていますが、プラグイン[gatsby-plugin-layout](https://www.gatsbyjs.org/packages/gatsby-plugin-layout/)
 を使うことで2系でもLayout機能を使うことが可能です。
 
 * [RFC](https://github.com/gatsbyjs/rfcs/blob/master/text/0002-remove-special-layout-components.md)
@@ -110,24 +110,24 @@ Gatsby1系のLayout機能は便利な反面、Reactのコンポーネント構�
 
 ### 10. StaticQueryタグ
 「コンポーネントでデータを取得するにはどうすればいいの？」
-という質問が非常に多かったので、任意のコンポーネントでデータをGraphQLで取得できるStaticQueryというタグを追加しました。
+という質問が非常に多かったらしく、任意のコンポーネントでデータをGraphQLで取得できるStaticQueryというタグを追加しています。
 
 * [RFC](https://github.com/gatsbyjs/rfcs/blob/master/text/0002-remove-special-layout-components.md#detailed-design)
 * [Gatsbyドキュメント](https://www.gatsbyjs.org/docs/static-query/)
 
 ### 11. gatsby-plugin-offline改善
-バグフィックスと機能拡張
+多くのバグフィックスと機能拡張が施されたようです。
 
 ### 12. トレース機能
-どのプラグインやパーツのビルドに時間がかかっているかを可視化する機能で、ビルドのボトルネックをデバッグする際にとても便利です。
+どのプラグインやパーツのビルドに時間がかかっているかを可視化する機能が追加されており、ビルドのボトルネックをデバッグする際にとても便利です。
 
 * [Gatsbyドキュメント](https://www.gatsbyjs.org/docs/performance-tracing/)
 
 
 
 ## まとめ
-記事を読んでみて、Gatsby2系は、ビルド速度が向上し開発環境周りのサポートが充実したなぁという印象です。<br>
+記事を読んでみて、Gatsby2系は、ビルド速度が向上して開発環境周りのサポートが充実したなぁという印象です。<br>
 特にLudicrous Mode（爆速ホットリローディング）なんかは、試してみて感動しました。
-ほんとにマークダウンの編集がリアルタイムにブラウザに反映されるので、今後ますますGatsbyでもWebサイト構築が簡単になるのではないでしょうか。<br>
+ほんとにマークダウンの編集がリアルタイムにブラウザに反映されるので、今後ますますGatsbyでのWebサイト構築が簡単になるのではないでしょうか。<br>
 ちなみに、[store.gatsbyjs.org](https://store.gatsbyjs.org/)でステッカー、Tシャツ、靴下を販売しているそうです。コレ結構ほしい。
 
