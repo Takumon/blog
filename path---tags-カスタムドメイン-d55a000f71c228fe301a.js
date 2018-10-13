@@ -1,2 +1,0 @@
-webpackJsonp([0xed268243b7ab],{472:function(t,e){t.exports={data:{site:{siteMetadata:{title:"Takumon Blog"}},allMarkdownRemark:{totalCount:1,edges:[{node:{fields:{slug:"/2018/09/12/"},excerpt:"なにこれ GitHub Pagesでブログを開設した後、\nどうせならURLも短く覚えてもらいやすいものにしようと思い独自ドメインに切り替えました。\nその方法のメモです。　※（注意）独自ドメイン取得はお金がかかります！！！ 手順…",timeToRead:4,frontmatter:{date:"2018/09/12",title:"GitHub Pagesを独自ドメイン化 + Https化",tags:["GithubPages","カスタムドメイン","Https化"]}}}]}},pathContext:{tag:"カスタムドメイン"}}}});
-//# sourceMappingURL=path---tags-カスタムドメイン-d55a000f71c228fe301a.js.map

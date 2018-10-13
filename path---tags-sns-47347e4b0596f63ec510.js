@@ -1,2 +1,0 @@
-webpackJsonp([63317624501658],{470:function(t,e){t.exports={data:{site:{siteMetadata:{title:"Takumon Blog"}},allMarkdownRemark:{totalCount:1,edges:[{node:{fields:{slug:"/2018/10/07/"},excerpt:"なにこれ ブログに良くあるYouTubeやTwitterの埋め込みをGatsbyでやる方法のメモです。 \nこんな感じで埋め込めるようになります。 YouTube Twitter やり方 YouTube 環境設定 公式ページ で紹介されているように,\n gatsby-remark…",timeToRead:3,frontmatter:{date:"2018/10/07",title:"GatsbyでYouTubeとTwitter埋め込み",tags:["Gatsby","SNS"]}}}]}},pathContext:{tag:"SNS"}}}});
-//# sourceMappingURL=path---tags-sns-47347e4b0596f63ec510.js.map

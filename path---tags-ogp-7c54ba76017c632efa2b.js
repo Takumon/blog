@@ -1,2 +1,0 @@
-webpackJsonp([90216018731509],{467:function(t,a){t.exports={data:{site:{siteMetadata:{title:"Takumon Blog"}},allMarkdownRemark:{totalCount:1,edges:[{node:{fields:{slug:"/2018/09/16/"},excerpt:"なにこれ Gatsby製ブログ(Reactアプリ)でSNS対応した時のメモです。 \n (1) SNSシェアボタン と (2) 自分のSNSへのリンク を設置して、ブログの記事をSNSでシェアできるように、、、 \nまた、 (3) OGPタグを設定し 、SNS…",timeToRead:8,frontmatter:{date:"2018/09/16",title:"ReactでSNS対応（Gatsby製ブログでSNSシェアボタン、OGPタグ追加）",tags:["Gatsby","React","OGP"]}}}]}},pathContext:{tag:"OGP"}}}});
-//# sourceMappingURL=path---tags-ogp-7c54ba76017c632efa2b.js.map
