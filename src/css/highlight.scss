@@ -1,15 +1,15 @@
 // ソースコードのタイトル行
 .gatsby-code-title {
-  background: #654b05;
-  border-bottom: 1px solid #faede5;
-  color: #ffffff;
+  background: #f3e3b9;
+  color: #b38383;
   margin-bottom: -0.65em;
-  padding: 1.05rem;
+  padding: 0.7rem 1.05rem;
   font-size: 0.8em;
-  line-height: 0.5;
+  line-height: 0.2;
   font-family: SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
   font-weight: 600;
-  border-radius: 4px 4px 0 0;
+  border-radius: 8px 8px 0 0;
+  display: table;
 }
 
 // For Prism.js
