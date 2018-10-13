@@ -70,7 +70,7 @@ PWAで必須の`manifest.webmanifest`を生成してくれるプラグインで�
 ### gatsby-config.jsの設定
 下記のようにしました。
 
-```javascript
+```javascript:title=gatsby-config.js
   plugins: [
     // ・・・
     {
@@ -121,7 +121,7 @@ Workboxは宣言的な記述だけで最適なServiceWorkerのコードが生成
 とくに何もいじってません。<br>
 複雑なオフライン処理をするなら修正するかもしれませんが、基本的にWorkboxに従っておけば問題なさそうでした。
 
-```javascript
+```javascript:title=gatsby-config.js
   plugins: [
     // ・・・
     `gatsby-plugin-offline`,　// 必ずgatsby-plugin-manifestの後に定義する

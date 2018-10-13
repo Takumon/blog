@@ -227,9 +227,8 @@ Gatsby製ブログではトップページとブログ議事ページの2カ所�
 ```
 
 #### ブログ記事ページでの呼び出し
-**src/templates/blog-post.js**
 
-```html{4}
+```html{4}:title=src/templates/blog-post.js
 <Ogp isRoot={isRoot} />
   isRoot={false}
   title={`${post.frontmatter.title} | ${siteTitle}`}

@@ -48,7 +48,7 @@ npm run dev
 なお`siteUrl`はGitHub Pagesでの公開を想定したものです。
 
 
-```js{3-6}
+```js{3-6}:title=gatsby-config.js
 module.exports = {
   siteMetadata: {
     title: 'Takumon Blog',
@@ -69,7 +69,7 @@ module.exports = {
 #### 2-3. プロフィール修正
 `src/components/Bio.js`のアバター(imgタグ)と自己紹介文(pタグ)を修正します。
 
-```html{2-9,13}
+```html{2-9,13}:title=src/components/Bio.js
 <img
   src="https://s.gravatar.com/avatar/37d27f624f8c9c8db6fe6b6581b256f1?s=80"
   alt={`Takuto Inoue`}
@@ -107,7 +107,7 @@ src/
 1つめの記事`src/pages/hello-world/index.md`を編集します。
 マークダウンファイル上部にメタ情報としてタイトルと作成日時を、その下に本文を記載しましょう。
 
-```markup{2-3,6}
+```markup{2-3,6}:title=src/pages/hello-world/index.md
 ---
 title: Hello World
 date: "2018-09-10T12:00:00.000Z"
@@ -149,7 +149,7 @@ GitHubのリポジトリ > settings > GitHub Pages > Source で`gh-pages branch`
 僕の場合は`https://takumon.github.io/blog`のようになります。
 
 
-```js{3}
+```js{3}:title=gatsby-config.js
 module.exports = {
   ・・・
   pathPrefix: '/blog',

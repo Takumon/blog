@@ -22,10 +22,10 @@ class Title extends React.Component {
 
         render={data =>
           tag
-            ? <Helmet title={`${postTitle} | ${tag}`} />
+            ? <Helmet htmlAttributes={{"lang": "ja"}} title={`${postTitle} | ${tag}`} />
             : postTitle
-              ? <Helmet title={`${postTitle} | ${data.site.siteMetadata.title}`} />
-              : <Helmet title={`${data.site.siteMetadata.title}`} />
+              ? <Helmet htmlAttributes={{"lang": "ja"}} title={`${postTitle} | ${data.site.siteMetadata.title}`} />
+              : <Helmet htmlAttributes={{"lang": "ja"}} title={`${data.site.siteMetadata.title}`} />
         }
       />
     );

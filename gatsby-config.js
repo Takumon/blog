@@ -17,6 +17,7 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
+          `gatsby-remark-code-titles`,
           {
             resolve: `gatsby-remark-images`,
             options: {
@@ -55,12 +56,6 @@ module.exports = {
     },
     `gatsby-plugin-feed`,
     `gatsby-plugin-react-helmet`,
-    {
-      resolve: 'gatsby-plugin-typography',
-      options: {
-        pathToConfigModule: 'src/utils/typography',
-      },
-    },
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
@@ -118,5 +113,11 @@ module.exports = {
     `gatsby-plugin-twitter`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-sitemap`,
+    {
+      resolve: 'gatsby-plugin-typography',
+      options: {
+        pathToConfigModule: 'src/utils/typography',
+      },
+    }
   ],
 }

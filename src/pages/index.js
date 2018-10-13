@@ -3,9 +3,9 @@ import { graphql } from 'gatsby'
 
 import get from 'lodash/get'
 
+import Layout from '../components/layout';
 import PostList from '../components/post-list';
 import TagList from '../components/tag-list';
-import Layout from '../components/layout';
 import Title from '../components/title';
 
 class BlogIndex extends React.Component {

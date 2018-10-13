@@ -14,11 +14,11 @@ class PostMetaInfo extends React.Component {
     return (
       <small className={styles.content} >
         <div className={styles.date}>
-          <FontAwesomeIcon icon={faCalendarAlt}/>
+          <FontAwesomeIcon icon={faCalendarAlt} size="sm" />
           {post.date}
         </div>
         <div className={styles.tags}>
-          <FontAwesomeIcon icon={faTags}/>
+          <FontAwesomeIcon icon={faTags} size="sm"/>
           {tagList}
         </div>
       </small>
