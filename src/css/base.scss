@@ -4,18 +4,6 @@
 @import "base";
 
 
-// 全体
-html,
-body,
-h1,h2,h3,h4,h5,h6 {
-  color: $colorFontSection;
-  font-family: '游ゴシック体', YuGothic, 'YuGothic M', 'Merriweather','Georgia';
-  -webkit-font-smoothing: antialiased;
-  font-kerning: auto;
-  font-variant-ligatures: none;
-  letter-spacing: .05rem;
-  line-height: 1.75;
-}
 
 // アンカーリンク（gatsby-remark-autolink-headersカスタム）
 h1 .anchor { box-shadow: none }
@@ -24,33 +12,6 @@ h3 .anchor { box-shadow: none }
 h4 .anchor { box-shadow: none }
 h5 .anchor { box-shadow: none }
 h6 .anchor { box-shadow: none }
-
-html,
-body {
-  font-weight: 500;
-}
-
-
-a:hover {
-  opacity: 0.7;
-}
-
-// リスト部分
-ul li {
-  margin-left: 1.5rem;
-}
-
-li > ul {
-  margin-left: 0rem;
-}
-
-ol li {
-  margin-left: 1.5rem;
-}
-
-li > ol {
-  margin-left: 0rem;
-}
 
 
 // マークダウンプレビューエリアの画像を左寄せする
@@ -80,20 +41,6 @@ li > ol {
     animation: fade-in-down .6s both;
   }
 }
-
-.blogTitleArea {
-  font-size: 4em;
-  margin-bottom: 0.5em;
-  margin-top: 0;
-  font-family: 'Montserrat';
-  line-height: 1.5;
-}
-
-.blogTitle {
-  box-shadow: none;
-  color: #444;
-}
-
 
 
 @keyframes fade-in-down {
