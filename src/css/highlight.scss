@@ -1,3 +1,17 @@
+// ソースコードのタイトル行
+.gatsby-code-title {
+  background: #654b05;
+  border-bottom: 1px solid #faede5;
+  color: #ffffff;
+  margin-bottom: -0.65em;
+  padding: 1.05rem;
+  font-size: 0.8em;
+  line-height: 0.5;
+  font-family: SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+  font-weight: 600;
+  border-radius: 4px 4px 0 0;
+}
+
 // For Prism.js
 .gatsby-highlight-code-line {
   background-color: #feb;
