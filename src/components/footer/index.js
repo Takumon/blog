@@ -26,6 +26,7 @@ export default function Footer({isRoot}) {
         <div className="copyright">
           Copyright © 2018. {config.blogAuthor}
           <a
+            aria-label="blog_repository"
             href={config.blogRepositoryUrl}
             rel="noopener noreferrer"
             className={styles.github_icon}>

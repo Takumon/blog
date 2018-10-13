@@ -11,6 +11,7 @@ class Rss extends React.Component {
     return (
       <div className={styles.content}>
           <a
+            aria-label="feedly"
             className={styles.button}
             href='https://feedly.com/i/subscription/feed%2Fhttps%3A%2F%2Ftakumon.com%2Frss.xml'
             target='blank'>
@@ -22,6 +23,7 @@ class Rss extends React.Component {
               height='36' />
           </a>
           <a
+            aria-label="rss"
             className={styles.button}
             href={config.blogRssUrl}
             target='blank'>

@@ -20,26 +20,32 @@ class Bio extends React.Component {
           <div>{config.blogDescription}</div>
           <div className={styles.profile}>
             <a
+              aria-label="profile_link_github"
               className={styles.profile__link}
               href={config.blogAuthorGitHubUrl}>
               <FontAwesomeIcon
                 color="#333"
+                size="sm"
                 className={styles.profile__icon}
                 icon={faGithubSquare} />
             </a>
             <a
+              aria-label="profile_link_twitter"
               className={styles.profile__link}
               href={config.blogAuthorTwitterUrl}>
               <FontAwesomeIcon
                 color="#3eaded"
+                size="sm"
                 className={styles.profile__icon}
                 icon={faTwitterSquare} />
             </a>
             <a
+              aria-label="profile_link_qiita"
               className={styles.profile__link}
               href={config.blogAuthorQiitaUrl}>
               <FontAwesomeIcon
                 color="white"
+                size="sm"
                 className={styles.profile__icon_qiita}
                 icon={faSearch} />
             </a>
