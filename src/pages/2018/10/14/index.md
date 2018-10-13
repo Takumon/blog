@@ -1,6 +1,6 @@
 ---
 title: Gatsbyにおけるコンポーネント分割とCSS Module
-date: "2018-10-13T12:00:00.000Z"
+date: "2018-10-14T07:00:00.000Z"
 tags:
   - Gatsby
 ---
@@ -19,18 +19,16 @@ tags:
 * [Using CSS-in-JS library Glamor](https://www.gatsbyjs.org/docs/glamor/)
 * [Using CSS-in-JS library styled components](https://www.gatsbyjs.org/docs/styled-components/)
 
-僕は、スタイルをHTMLやJSの中に書くのを躊躇してしまう人（古い時代の人）なので、スタイルをCSSファイルに書けるCSS Moduleを採用しました。
-流行はStyled Componentなんでしょうか?
+僕はスタイルをHTMLやJSの中に書くのを躊躇してしまう人（古い時代の人）なので、スタイルをCSSファイルに書けるCSS Moduleを採用しました。
+流行はStyled Componentsなんでしょうか?
 
 ### CSS Module
-CSSファイルのクラス名、アニメーション名をローカルスコープで使えるようになる仕組みです。
-CSSファイルは通常のCSSと同じ文法で書くことができて、ICSSまたはInteroperable CSSと呼ばれる形式にコンパイルすることでローカルスコープを実現しています。
-JavaScriptファイルでCSS Moduleを使う時は、通常のCSSとは少し異なった方法をとります。
-ローカル変数名をつけてインポートし、DOMのクラス名は、`変数名.クラス名`のように指定します。
+CSSファイルのクラス名、アニメーション名をローカルスコープで使えるようにする仕組みです。
+CSSファイルは通常のCSSと同じ文法で書くことができて、ICSSまたはInteroperable CSSと呼ばれる形式にコンパイルすることでローカルスコープを実現します。
+JavaScriptファイルでCSS Moduleを使う場合、ローカル変数名をつけてインポートし、DOMのクラス名には`変数名.クラス名`のように指定します。
 
 ```js
 import styles from "./style.css";
-// import { className } from "./style.css";
 
 element.innerHTML = '<div class="' + styles.className + '">';
 ```
@@ -62,8 +60,8 @@ export default ({ children }) => (
 
 ## コンポーネント分割
 CSSがコンポーネントスコープにできたところで、ようやくコンポーネントを分割できるようになります。
-Gatsby特有のものではなく、純粋にReactの作法に従って分割します。<br>
-ここでは、テンプレートから記事部分を分割するケースについて説明しましょう。<br>
+純粋にReactの作法に従って分割します(Gatsbyは特に関係ありません)。<br>
+ここでは、テンプレートから記事部分を分割するケースについて説明しましょう。<br>
 
 **テンプレート(分割前)**
 ```javascript{11-14}:title=src/templates/blog-post.js
@@ -76,7 +74,7 @@ class BlogPostTemplate extends React.Component {
 
     return (
       <Layout>
-        <h1 className={styles.blogTitle}>ほげタイトル</h1>
+        <h1 className={styles.blogTitle}>Takumon Blog</h1>
         <article>
           <h1 className={styles.postTitle}>{post.frontmatter.title}</h1>
           <div className={styles.postContent} dangerouslySetInnerHTML={{ __html: post.html }} />
@@ -134,7 +132,7 @@ class BlogPostTemplate extends React.Component {
 
     return (
       <Layout>
-        <h1 className={styles.blogTitle}>ほげタイトル</h1>
+        <h1 className={styles.blogTitle}>Takumon Blog</h1>
         <Post post={post} />
       </Layout>
     )
