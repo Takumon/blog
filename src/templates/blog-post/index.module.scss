@@ -38,8 +38,10 @@
 }
 
 
+
+
 .header {
-  @include gradient-background();
+  position: relative;
 
   &__inner {
     display: grid;
@@ -49,12 +51,30 @@
     margin-left: auto;
 
     &__content {
+      z-index: 2;
       grid-column: 2 / 3;
       animation: fade-in-down .6s both;
       padding: 1em 1em 0 1em;
       max-width: 720px;
     }
   }
+}
+
+.header:after {
+  -moz-pointer-events: none;
+  -webkit-pointer-events: none;
+  -ms-pointer-events: none;
+  pointer-events: none;
+  background: linear-gradient(25deg,#8A5E5F,#d8bb93);
+  content: "";
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  opacity: 0.5;
 }
 
 

@@ -6,15 +6,22 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  background: -moz-linear-gradient(65deg, #F13F79, #FFC778);
-  background: -webkit-linear-gradient(65deg, #F13F79, #FFC778);
-  background: linear-gradient(25deg, #F13F79, #FFC778);
+  min-height: 300px;
+  background-image: url(../../images/background.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  background-position-x: center;
+
+  & a {
+    color: white;
+  }
 
   &__inner {
     padding: 24px 0 12px;
     margin: auto;
   }
 }
+
 
 .title {
   font-family: Montserrat;

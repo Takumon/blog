@@ -5,6 +5,7 @@ import '../../css/base.scss';
 import 'prismjs/themes/prism-solarizedlight.css';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 
+import styles from './index.module.scss';
 import config from '../../config/blog-config';
 import Seo from '../seo';
 import Footer from '../footer';
@@ -32,9 +33,9 @@ export default class Layout extends React.Component {
 
     if (isRoot) {
       header = (
-        <div className="headerContainer">
+        <div className={`headerContainer ${styles.header_background}`}>
           <Seo isRoot={true} />
-          <div className="headerContainer__inner">
+          <div className={`headerContainer__inner ${styles.header_content}`}>
             <h1 className="blogTitleArea">
               <Link
                 className="blogTitle"
@@ -48,9 +49,9 @@ export default class Layout extends React.Component {
       );
     } else if(isTag) {
       header = (
-        <div className="headerContainer">
+        <div className={`headerContainer ${styles.header_background}`}>
          <Seo isRoot={true} />
-          <div className="headerContainer__inner">
+         <div className={`headerContainer__inner ${styles.header_content}`}>
             <h1 className="blogTitleArea">
               <Link
                 className="blogTitle"

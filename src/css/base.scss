@@ -33,12 +33,11 @@ h6 .anchor { box-shadow: none }
 
 .headerContainer {
   @include flex-column-center();
-  @include gradient-background();
   margin: 0;
-  min-height: 50vh;
+  min-height: 65vh;
   position: relative;
   &__inner {
-    animation: fade-in-down .6s both;
+    animation: fade-in-down .6s both .5s;
   }
 }
 
@@ -80,5 +79,17 @@ h6 .anchor { box-shadow: none }
 
   .headerContainer {
     min-height: 40vh;
+  }
+}
+
+
+@media screen and (max-width: 350px) {
+  .blogTitleArea {
+    font-size: 2em;
+    text-align: center;
+  }
+
+  .headerContainer {
+    min-height: 30vh;
   }
 }

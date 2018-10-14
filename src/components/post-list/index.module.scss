@@ -5,4 +5,36 @@
 .content {
   @include max-content-width();
   padding: 1em;
+  animation: fade-in-down .6s both .5s;
+
+  // animation: fade-in-down .7s both;
+}
+
+
+@keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+    -weebkit-transform: translateY(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    -weebkit-transform: translateY(0);
+  }
+}
+
+@webkit-keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+    -weebkit-transform: translateY(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    -weebkit-transform: translateY(0);
+  }
 }
