@@ -1,2 +1,4 @@
-# [My Blog](https://takumon.com/)
-=> https://takumon.com/
+# My blog powered by Gatsby
+[Click!!](https://takumon.com/)
+
+![blogimage](./blogimage.png)
