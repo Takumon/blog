@@ -33,6 +33,7 @@ export default class Layout extends React.Component {
     if (isRoot) {
       header = (
         <div className="headerContainer">
+          <Seo isRoot={true} />
           <div className="headerContainer__inner">
             <h1 className="blogTitleArea">
               <Link
@@ -48,6 +49,7 @@ export default class Layout extends React.Component {
     } else if(isTag) {
       header = (
         <div className="headerContainer">
+         <Seo isRoot={true} />
           <div className="headerContainer__inner">
             <h1 className="blogTitleArea">
               <Link
@@ -67,9 +69,6 @@ export default class Layout extends React.Component {
 
     return (
       <div className="rootContainer">
-        {(() => {
-            return isRoot ? <Seo isRoot={isRoot} /> : '';
-        })}
         {header}
         {children}
         <Footer isRoot={isRoot} />
