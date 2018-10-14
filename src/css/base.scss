@@ -83,10 +83,13 @@ h6 .anchor { box-shadow: none }
 }
 
 
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 400px) {
   .blogTitleArea {
-    font-size: 2em;
     text-align: center;
+
+    a {
+      font-size: 0.7em;
+    }
   }
 
   .headerContainer {

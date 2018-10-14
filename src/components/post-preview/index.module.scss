@@ -55,3 +55,15 @@
     }
   }
 }
+
+
+@media screen and (max-width: 400px) {
+  .title {
+    line-height: 1.1;
+
+    &_link {
+      font-size: .8em;
+    }
+  }
+
+}

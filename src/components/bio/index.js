@@ -17,7 +17,7 @@ class Bio extends React.Component {
           alt={config.blogAuthor}
           className={styles.avatar} />
         <div className={styles.main}>
-          <div>{config.blogDescription}</div>
+          <div className={styles.description}>{config.blogDescription}</div>
           <div className={styles.profile}>
             <a
               aria-label="profile_link_github"
