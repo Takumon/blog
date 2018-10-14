@@ -24,23 +24,23 @@ export default function SNSShare({title, link, twitterUserName}) {
         <script type="text/javascript" src="//widgets.getpocket.com/v1/j/btn.js?v=1"  charset="utf-8" async="async" />
       </Helmet>
       <li className={styles.share_button}>
-        <FacebookShareButton url={link}>
+        <FacebookShareButton additionalProps={{'aria-label': 'share_facebook'}}  url={link}>
           <FacebookIcon size={32} round />
         </FacebookShareButton>
       </li>
 
       <li className={styles.share_button}>
-        <GooglePlusShareButton url={link}>
+        <GooglePlusShareButton additionalProps={{'aria-label': 'share_googleplus'}}  url={link}>
           <GooglePlusIcon size={32} round />
         </GooglePlusShareButton>
       </li>
       <li className={styles.share_button}>
-        <LinkedinShareButton url={link}>
+        <LinkedinShareButton additionalProps={{'aria-label': 'share_linkedin'}}  url={link}>
           <LinkedinIcon title={title} size={32} round />
         </LinkedinShareButton>
       </li>
       <li className={styles.share_button}>
-        <TwitterShareButton title={title} via={twitterUserName} url={link}>
+        <TwitterShareButton additionalProps={{'aria-label': 'share_twitter'}} title={title} via={twitterUserName} url={link}>
           <TwitterIcon size={32} round />
         </TwitterShareButton>
       </li>
