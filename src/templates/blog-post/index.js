@@ -85,7 +85,7 @@ class BlogPostTemplate extends React.Component {
                   </h1>
                 </a>
 
-                <PostMetaInfo post={post.frontmatter} />
+                <PostMetaInfo color={`#fff`} post={post.frontmatter} />
               </div>
             </div>
           </div>

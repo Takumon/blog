@@ -63,7 +63,7 @@ module.exports = {
         short_name: 'Takumon blog',
         start_url: '/',
         background_color: '#333',
-        theme_color: '#d23d29',
+        theme_color: '#a00130',
         display: 'minimal-ui',
         "icons": [
           {

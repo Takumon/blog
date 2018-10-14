@@ -5,12 +5,13 @@
 .blog_title {
   text-transform: none;
   margin: 0 0 1em;
+  text-align: left;
 
   &__link {
     box-shadow: none;
     text-decoration: none;
-    color: inherit;
     font-family: Montserrat;
+    color: #fee;
   }
 
   &__icon {
@@ -29,8 +30,11 @@
   margin-top: 0.5em;
   margin-bottom: 1em;
   display: block;
+  text-align: left;
 
   h1 {
+    color: white;
+    font-weight: 100;
     font-size: 2.5em;
     line-height: 1.4;
     margin: 0;
@@ -42,9 +46,13 @@
 
 .header {
   position: relative;
+  min-height: 65vh;
+  display: flex;
+  align-items: center;
 
   &__inner {
     display: grid;
+    width: 100%;
     grid-template-columns: 100px calc(100% - 100px - 300px) 300px;
     max-width: 1100px;
     margin-right: auto;
@@ -60,12 +68,22 @@
   }
 }
 
+.header {
+  background-attachment: fixed,	fixed, fixed;
+  background-image: url('../../images/overlay2.png'),	url('../../images/overlay4.svg'), linear-gradient(45deg, #bf002a 25%, #fd5210 70%, #ffa711);
+  background-position: top left,	top left, top left;
+  background-size: auto,	cover,	cover;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+
 .header:after {
   -moz-pointer-events: none;
   -webkit-pointer-events: none;
   -ms-pointer-events: none;
   pointer-events: none;
-  background: linear-gradient(25deg,#8A5E5F,#d8bb93);
+  background: linear-gradient(45deg,#8A5E5F,#d8bb93);
   content: "";
   display: block;
   position: absolute;
@@ -74,7 +92,7 @@
   top: 0;
   left: 0;
   z-index: 1;
-  opacity: 0.5;
+  animation: show-background 1.2s both 1s;
 }
 
 
@@ -405,6 +423,11 @@
       font-size: 1.7em;
     }
   }
+
+  .header {
+    min-height: 40px;
+    background-image: url('../../images/overlay2.png'),	url('../../images/overlay4.svg'), linear-gradient(45deg, #bf002a 30%, #bf002a 60%, #fd5210 90%, #ffa711);
+  }
 }
 
 
@@ -414,6 +437,11 @@
       font-size: 1.4em;
       line-height: 1.3;
     }
+  }
+
+  .header {
+    min-height: 30px;
+    background-image: url('../../images/overlay2.png'),	url('../../images/overlay4.svg'), linear-gradient(45deg, #bf002a 30%, #bf002a 60%, #fd5210 90%, #ffa711);
   }
 
   .container .post {
@@ -441,5 +469,26 @@
       margin-bottom: .1rem;
       font-size: 1rem;
     }
+  }
+}
+
+
+@keyframes show-background {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@webkit-keyframes show-background {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
   }
 }
