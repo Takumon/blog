@@ -14,9 +14,18 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`,
+      },
+    },
+    {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
+          `gatsby-remark-katex`,
+          `gatsby-remark-graphviz`,
           `gatsby-remark-code-titles`,
           {
             resolve: `gatsby-remark-images`,
@@ -33,6 +42,13 @@ module.exports = {
           },
           `gatsby-remark-autolink-headers`,
           {
+            resolve: "gatsby-remark-embed-snippet",
+            options: {
+              classPrefix: "language-",
+              directory: `${__dirname}/examples/`,
+            },
+          },
+          {
             resolve: `gatsby-remark-prismjs`,
             options: {
               classPrefix: "language-",
@@ -42,12 +58,27 @@ module.exports = {
             },
           },
           'gatsby-remark-copy-linked-files',
-          'gatsby-remark-smartypants'
+          'gatsby-remark-smartypants',
+          {
+            resolve: 'gatsby-remark-emojis',
+            options: {
+              active : true,
+              size   : 64,
+              styles : {
+                display      : 'inline',
+                margin       : '0',
+                'margin-top' : '1px',
+                position     : 'relative',
+                top          : '5px',
+                width        : '25px'
+              }
+            }
+          }
         ],
       },
     },
-    `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
@@ -61,9 +92,9 @@ module.exports = {
       options: {
         name: 'Takumon blog',
         short_name: 'Takumon blog',
-        start_url: '/',
+        start_url: '/?utm_source=homescreen',
         background_color: '#333',
-        theme_color: '#d23d29',
+        theme_color: '#a00130',
         display: 'minimal-ui',
         "icons": [
           {
@@ -118,6 +149,22 @@ module.exports = {
       options: {
         pathToConfigModule: 'src/utils/typography',
       },
+    },
+    `gatsby-plugin-catch-links`,
+    {
+      resolve: `gatsby-plugin-nprogress`,
+      options: {
+        color: `blue`,
+        showSpinner: true,
+      },
+    },
+    `gatsby-plugin-no-sourcemaps`,
+    `gatsby-plugin-lodash`,
+    {
+      resolve: `gatsby-plugin-webpack-bundle-analyzer`,
+      options: {
+        openAnalyzer: false
+      }
     }
   ],
 }

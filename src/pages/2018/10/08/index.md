@@ -78,7 +78,7 @@ PWAで必須の`manifest.webmanifest`を生成してくれるプラグインで�
       options: {
         name: 'Takumon blog',
         short_name: 'Takumon blog',
-        start_url: '/',
+        start_url: '/?utm_source=homescreen',
         background_color: '#333', // アプリ起動時の背景色
         theme_color: '#d23d29', // ブラウザツールバーの色
         display: 'minimal-ui',　// アプリのスタイル

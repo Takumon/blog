@@ -1,13 +1,11 @@
 import React from 'react'
 
-import 'typeface-montserrat'
-import 'typeface-merriweather'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithubSquare, faTwitterSquare } from '@fortawesome/free-brands-svg-icons'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import config from '../../config/blog-config.js';
 import styles from './index.module.scss';
-
+/* highlight-range{1-3} */
 class Bio extends React.Component {
   render() {
     return (

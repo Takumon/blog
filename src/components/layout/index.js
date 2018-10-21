@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'gatsby'
 
 import '../../css/base.scss';
-import 'prismjs/themes/prism-solarizedlight.css';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 
 import styles from './index.module.scss';
@@ -33,12 +32,12 @@ export default class Layout extends React.Component {
 
     if (isRoot) {
       header = (
-        <div className={`headerContainer ${styles.header_background}`}>
+        <div className={styles.header_container}>
           <Seo isRoot={true} />
-          <div className={`headerContainer__inner ${styles.header_content}`}>
-            <h1 className="blogTitleArea">
+          <div className={styles.header_container__inner}>
+            <h1 className={styles.blog_title_area}>
               <Link
-                className="blogTitle"
+                className={styles.blog_title}
                 to={'/'}
               >{config.blogTitle} </Link>
             </h1>
@@ -49,12 +48,12 @@ export default class Layout extends React.Component {
       );
     } else if(isTag) {
       header = (
-        <div className={`headerContainer ${styles.header_background}`}>
+        <div className={styles.header_container}>
          <Seo isRoot={true} />
-         <div className={`headerContainer__inner ${styles.header_content}`}>
-            <h1 className="blogTitleArea">
+         <div className={styles.header_container__inner}>
+            <h1 className={styles.blog_title_area}>
               <Link
-                className="blogTitle"
+                className={styles.blog_title}
                 to={'/'}
               >{config.blogTitle} </Link>
             </h1>
@@ -69,7 +68,7 @@ export default class Layout extends React.Component {
 
 
     return (
-      <div className="rootContainer">
+      <div className={styles.root_container}>
         {header}
         {children}
         <Footer isRoot={isRoot} />

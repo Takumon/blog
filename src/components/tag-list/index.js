@@ -1,6 +1,5 @@
 import React from 'react'
-import get from 'lodash/get'
-import _ from 'lodash';
+import { get, countBy, forEach, flatten, orderBy }from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTags } from '@fortawesome/free-solid-svg-icons'
 
@@ -12,16 +11,16 @@ class TagList extends React.Component {
 
     const tags = this.props.posts.map(p => get(p, 'node.frontmatter.tags', []));
 
-    const tagCount = _.countBy(_.flatten(tags));
+    const tagCount = countBy(flatten(tags));
 
     let formatted = [];
-    _.forEach(tagCount, (tag_count, tag_name) => {
+    forEach(tagCount, (tag_count, tag_name) => {
       formatted.push({
         name: tag_name,
         count: tag_count
       });
     })
-    const ordered = _.orderBy(formatted, ['count', 'name'], ['desc', 'asc']);
+    const ordered = orderBy(formatted, ['count', 'name'], ['desc', 'asc']);
 
     return (
       <div className={styles.content}>

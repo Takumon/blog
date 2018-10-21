@@ -3,6 +3,8 @@ title: Gatsbyにおけるコンポーネント分割とCSS Module
 date: "2018-10-14T07:00:00.000Z"
 tags:
   - Gatsby
+  - React
+  - CSSModules
 ---
 
 ## なにこれ
