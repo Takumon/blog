@@ -175,7 +175,7 @@ JavaScriptやReact.jsの機能（ライブラリ）を追加する場合など�
 
 プラグインはGatsby APIをパッケージ化して最低限の設定で済むようにするのが目的です。
 例えば`Styled Components`を使う場合、自分でサーバーサイドレンダリング対応をアプリに組み込むことはできますが、
-`atsby-plugin-styled-components`を使えば設定で簡単に実現できます。
+`Gatsby-plugin-styled-components`を使えば設定で簡単に実現できます。
 
 
 ### Transformer PluginとSource Pluginの関係
@@ -188,8 +188,8 @@ JavaScriptやReact.jsの機能（ライブラリ）を追加する場合など�
 ### Transformer Plugin
 
 
-#### 変換後ノードの型の定義
-`gatsby-node.js`で変換後のノードのスキーマをsetFieldsOnGraphQLNodeTypeに指定します。
+#### 変換後ノードの型定義
+`gatsby-node.js`で変換後ノードの型定義をsetFieldsOnGraphQLNodeTypeに指定します。
 
 ```javascript:title=gatsby-config.jsの一部
 exports.setFieldsOnGraphQLNodeType = require(`./extend-node-type`)
@@ -256,8 +256,7 @@ Transformation relationshipsは、単一のノードから派生する新しい�
 
 
 **(2) Foreign-key relationships**<br>
-記事と著者を例に示します。
-それぞれのオブジェクトは別々のオブジェクト(スキーマも全く別々)です。
+別々のオブジェクト(型定義も全く別々)を紐付ける方法です。
 片方のオブジェクトが削除されても、関係するオブジェクトは削除されません。
 
 
@@ -282,9 +281,9 @@ Transformation relationshipsは、単一のノードから派生する新しい�
 ```
 
 ## まとめ
-Gatsbyはプラグイン機構がしっかりしており、
+Gatsbyはプラグイン機構がしっかりしており、<br>
 機能を追加する時もnpmインストールして`gatsby-config.js`に設定を追加するだけなので
-コードがとてもすっきりするなぁという印象でした。
-またプラグインを公開する時も、npmパッケージでkeywordに`gatsby`と`gatsby-plugin`をつけるだけというシンプルさも見逃せません。
+コードがとてもすっきりするなぁという印象でした。<br>
+またプラグインを公開する時も、npmパッケージでkeywordに`gatsby`と`gatsby-plugin`をつけるだけというシンプルさも見逃せません。<br>
 今回[Source Plugin Tutorial](https://www.gatsbyjs.org/docs/source-plugin-tutorial/)のページは見ていませんが、
 自分でプラグインを作る時はこのページを見てみたいと思います。
