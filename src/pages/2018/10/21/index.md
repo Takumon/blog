@@ -7,16 +7,15 @@ tags:
 ---
 
 ## なにこれ
-[Gatsby](https://www.gatsbyjs.org/)はプラグインが充実しているので、欲しいと思った機能はだいたいプラグインにあります。
-[Gatsbyの公式プラグイン](https://github.com/gatsbyjs/gatsby/tree/master/packages)とコミュニティのプラグインを合わせると
-[公式サイト](https://www.gatsbyjs.org/plugins/)に登録済のプラグインは全部で502個もあるようです。<br>
-今回はその中でおすすめプラグイン46個をユースケース毎にご紹介します。
+[Gatsbyのプラグイン](https://www.gatsbyjs.org/plugins/)は、[公式プラグイン](https://github.com/gatsbyjs/gatsby/tree/master/packages)とコミュニティ提供のものをあわせると、なんと502個もあります。（2018/10/21現在）
+今回はその中でもおすすめプラグイン46個をユースケース別にご紹介します。
+
 
 ## ユースケース別目次
 <small>※クリックすると説明セクションにとべます。</small>
 
 **[マークダウン系](#マークダウン系)**
-* [PrismJsを使ってコードブロックでシンタックスハイライトできるようにする](#gatsby-remark-prismjs)
+* [コードブロックでシンタックスハイライトできるようにする](#gatsby-remark-prismjs)
 * [コードブロックにタイトルを表示できるようにする](#gatsby-remark-code-titles)
 * [見出しにGitHub風ホバーリンクをつける](#gatsby-remark-autolink-headers)
 * [絵文字が使えるようにする](#gatsby-remark-emojis)
@@ -76,18 +75,91 @@ tags:
 
 
 
+## プラグインの使い方
+<small>※知ってる人は読み飛ばしてください。</small>
+
+* プラグインはnpmパッケージで公開されているのでnpmインストールする
+* `gatsby-config.js`のpluginsに定義を追加する
+* オプションも指定できます。下記のようにします。
+
+```javascript:title=gatsby-config.jsの一部
+module.exports = {
+  plugins: [
+    // オプションなしで指定する場合は下記のようにプラグイン名を文字列で指定しましょう。
+    "gatsby-plugin-react-helmet",
+    // オプションありの場合は、オブジェクトで指定します。
+    {
+      resolve: `gatsby-source-filesystem`,
+      // オプションはさらにオブジェクトで指定します。
+      options: {
+        path: `${__dirname}/src/data/`,
+        name: "data",
+      },
+    },
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        // プラグイン自体を拡張するプラグインを指定できます。
+        // その場合はオプションのpluginsにプラグインを定義しましょう。
+        plugins: [`gatsby-remark-smartypants`],
+      },
+    },
+    {
+      resolve: "gatsby-plugin-offline",
+      // 下記のように空オプションの場合は、プラグイン名を文字列で指定した場合と同じです。
+      options: {
+        plugins: [],
+      },
+    },
+  ],
+}
+```
+
+※ 詳細は前回の記事[Gatsbyプラグインの使い方･作り方･公開方法](../20/#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9)を参照してください。
+
+
+
 
 
 <br><hr>
 ## マークダウン系
+ここで紹介するプラグインは[gatsby-transformer-remark](gatsby-transformer-remark)の拡張です。<br>
+そのためプラグインを使う時は、`gatsby-config.js`ではgatsby-transformer-remarkのオプションとして定義します。
+
+```javascript{6-15}:title=gatsby-config.jsの一部
+plugins: [
+  {
+    resolve: `gatsby-transformer-remark`,
+    options: {
+      plugins: [
+        {
+          resolve: `gatsby-remark-prismjs`,
+          options: {
+            classPrefix: "language-",
+            inlineCodeMarker: null,
+            aliases: {},
+            showLineNumbers: true,
+            noInlineHighlight: false,
+          },
+        },
+      ],
+    },
+  },
+]
+```
+
+
+<br><hr>
+
 ### [gatsby-remark-prismjs](https://www.gatsbyjs.org/packages/gatsby-remark-prismjs)
 **マークダウンのコードブロックでシンタックスハイライトできるようにする**
-* PrismJsを使ってシンタックスハイライトしますGatsbyでブログを作るなら、このプラグインが一番重要だと思います。
+* [Prism.js](https://prismjs.com/)を使ってシンタックスハイライトします。他にも行数表示や指定行強調といった機能が使えます。
+* Gatsbyで技術系ブログを作るなら、このプラグインが一番重要でしょう。使い方の詳細も含めてご紹介します。
 
 #### 設定
 
-`gatsby-config.js`に本プラグインを宣言します。
-重要なオプションは`showLineNumbers`だけです。これを`true`にするとコードブロックの行数表示を有効にできます。ただ行数表示するには、これ以外にも設定が必要です。それは後述します。
+`gatsby-config.js`で下記のように定義します。
+オプションが複数ありあますが重要なのは`showLineNumbers`だけです。`true`だとコードブロックの行数表示機能が使えるようになります。
 
 
 ```javascript{12}:title=gatsby-config.jsの一部
@@ -114,14 +186,24 @@ plugins: [
 <br>
 
 若干めんどくさいですが、`gatsby-config.js`以外にもやることがあります。<br>
-`gatsby-browser.js`でPrismJSのテーマを読み込みます
+`gatsby-browser.js`でPrismJSのテーマを読み込みます。<br>
+`gatsby-browser.js`は、なければプロジェクトのルートフォルダ直下に作成してください。
 
 ```javascript:title=gatsby-browser.js
 require("prismjs/themes/prism-solarizedlight.css")
 ```
+
+<br>
+行数を表示するには、専用のCSSを読み込みます。<br>
+
+```js:title=src/components/layout.jsの一部
+import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+
+```
+
 <br>
 
-特定の行を強調表示させるにはCSSで設定が必要です。
+指定行を強調表示させるにはCSSを定義してください。
 
 ```css
 .gatsby-highlight-code-line {
@@ -155,16 +237,12 @@ require("prismjs/themes/prism-solarizedlight.css")
 }
 ```
 
+
 <br>
-行数を表示するには、専用のCSSを読み込みます。
-
-```js:title=src/components/layout.jsの一部
-import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
-
-```
 
 #### 使い方
-##### 通常の場合
+シンタックスハイライトだけなら下記のように記述します。
+
 * 記述方法
 
 ~~~
@@ -183,6 +261,8 @@ plugins: [
 ```
 ~~~
 
+<br>
+
 * 表示結果
 
 ```javascript
@@ -199,7 +279,10 @@ plugins: [
 ]
 ```
 
-##### 行数表示をする場合
+行数表示や指定行強調を使う場合コードブロックの1行目(\`\`\`の部分)にそれらの情報を記載します。以降に詳細を示します。
+
+##### 行数表示する場合
+
 * 記述方法
 
 ~~~
@@ -218,6 +301,9 @@ plugins: [
 ```
 ~~~
 
+<br>
+
+
 * 表示結果
 
 ```javascript{numberLines: true}
@@ -234,7 +320,9 @@ plugins: [
 ]
 ```
 
-##### 開始行数を指定して行数表示をする場合
+##### 行数表示する場合（開始行数指定あり）
+
+
 * 記述方法
 
 ~~~
@@ -253,6 +341,8 @@ plugins: [
 ```
 ~~~
 
+<br>
+
 * 表示結果
 
 ```javascript{numberLines: 5}
@@ -269,7 +359,7 @@ plugins: [
 ]
 ```
 
-##### 指定した行数を強調して表示をする場合
+##### 指定行数を強調する場合
 * 記述方法
 
 ~~~
@@ -288,6 +378,8 @@ plugins: [
 ```
 ~~~
 
+<br>
+
 * 表示結果
 
 ```javascript{1,5-9}
@@ -304,11 +396,12 @@ plugins: [
 ]
 ```
 
-##### 全部の組み合わせ
-* 記述方法（1つの括弧の中にカンマ区切りで指定します。）
+##### 全部の組み合わせ（指定行数を強調かつ行数表示）
+
+* 記述方法（2つの括弧を定義します）
 
 ~~~
-```javascript{1,5-9,numberLines: 5}
+```javascript{numberLines: 5}{1,5-9}
 // In your gatsby-config.js
 plugins: [
   {
@@ -322,10 +415,12 @@ plugins: [
 ]
 ```
 ~~~
+
+<br>
 
 * 表示結果
 
-```javascript{1,5-9,numberLines: 5}
+```javascript{numberLines: 5}{1,5-9}
 // In your gatsby-config.js
 plugins: [
   {
@@ -338,6 +433,9 @@ plugins: [
   }
 ]
 ```
+
+
+
 
 
 
@@ -373,7 +471,8 @@ plugins: [
   ]
 ```
 
-さらにCSSでスタイルを指定します。
+<br>
+さらにCSSでスタイルを追加しましょう。
 
 ```css
 .gatsby-code-title {
@@ -392,7 +491,6 @@ plugins: [
 
 #### 使い方
 
-##### 通常の場合
 * マークダウンでコードブロックの一行目に`:title=タイトル名`と記述します。
 
 ~~~
@@ -411,6 +509,8 @@ plugins: [
 ```
 ~~~
 
+<br>
+
 * 表示結果
 
 ```javascript:title=gatsby-config.js
@@ -428,6 +528,7 @@ plugins: [
 ```
 
 ##### 強調行指定との組み合わせ
+
 * 強調行の後にタイトルを記述します。
 
 ~~~
@@ -445,6 +546,8 @@ plugins: [
 ]
 ```
 ~~~
+
+<br>
 
 * 表示結果
 
@@ -467,33 +570,18 @@ plugins: [
 
 
 
-
 <br><hr>
 ### [gatsby-remark-autolink-headers](https://www.gatsbyjs.org/packages/gatsby-remark-autolink-headers)
 **マークダウンで見出しにGitHub風ホバーリンクをつける**
 
-見出しにマウスをあわせると下記のように鎖アイコンリンクが表示されます。<br>
-このリンクを指定すると、初期表示時に対象の見出しまでスクロースしてくれるので便利です。
+見出しホバー時に鎖アイコンリンクが表示されます。<br>
+リンクを指定して初期表示すると見出しまでスクロースしてくれるので便利です。
 
 ![hoverlink](./hoverlink.png)
 
 
 #### 設定
-gatsby-transformer-remarkとあわせて使います。
-
-```javascript{5}:title=gatsby-config.jsの一部
-  plugins: [
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        plugins: [`gatsby-remark-autolink-headers`],
-      },
-    },
-  ],
-```
-
-<br>
-アイコン、アイコンの位置、アイコンのクラス名を指定できます。
+オプションでアイコン、アイコンの位置、アイコンのクラス名を指定できます。
 
 ```javascript{9-11}:title=gatsby-config.jsの一部
   plugins: [
@@ -529,7 +617,7 @@ gatsby-transformer-remarkとあわせて使います。
 ### [gatsby-remark-emojis](https://www.gatsbyjs.org/packages/gatsby-remark-emojis)
 **マークダウンで絵文字が使えるようにする**<br>
 
-* 絵文字は画像ファイルではなく、base64形式で埋め込みます。
+* 絵文字は画像ファイルではなく、base64形式で埋め込みます。全ての絵文字をドカッとインポートするわけではないのでデプロイ資産のサイズが最小限で済むのがメリットです。
 
 ```html{5}:title=HTMLファイル中に埋め込まれる絵文字
 <img
@@ -544,7 +632,11 @@ gatsby-transformer-remarkとあわせて使います。
 
 #### 設定
 
-```javascript{5-20}:title=gatsby-config.jsの一部
+
+オプションで色々指定できます。
+
+```javascript{8-24}:title=gatsby-config.jsの一部
+  plugins: [
     {
       resolve: `gatsby-transformer-remark`,
       options: {
@@ -552,8 +644,13 @@ gatsby-transformer-remarkとあわせて使います。
           {
             resolve: 'gatsby-remark-emojis',
             options: {
+              // falseにすると絵文字機能をオフにできます
               active : true,
+              // サイズは16, 24, 32, 64から選べます
               size   : 64,
+              // 独自クラスを追加できます
+              class  : 'emoji-icon',
+              // 独自スタイルを追加できます
               styles : {
                 display      : 'inline',
                 margin       : '0',
@@ -567,6 +664,7 @@ gatsby-transformer-remarkとあわせて使います。
         ]
       }
     }
+  }
 ```
 
 
@@ -584,7 +682,7 @@ gatsby-transformer-remarkとあわせて使います。
 
 #### 設定
 
-`gatsby-remark-prismjs`のようなコードブロックを編集するプラグインよりは先に定義してください。
+`gatsby-remark-prismjs`のようなコードブロックを編集するプラグインより先に定義してください。
 
 ```javascript:title=gatsby-config.jsの一部
 plugins: [
@@ -632,8 +730,6 @@ digraph graphname {
 
 #### 設定
 
-`gatsby-config.js`に宣言を追加します。
-
 ```javascript:title=gatsby-config.jsの一部
   plugins: [
     {
@@ -647,7 +743,8 @@ digraph graphname {
   ],
 ```
 
-CSSをテンプレートで読み込みます。
+<br>
+追加でCSSをテンプレートで読み込んでください。
 
 ```javascript:title=テンプレート
 import 'katex/dist/katex.min.css';
@@ -677,8 +774,8 @@ $
 **マークダウンでJavaSriptファイルなどを読み込んでコードブロックに埋め込む**<br>
 
 #### 設定
-`directory`は読み込み対象ファイルがあるディレクトリを指摘します。
-`gatsby-remark-prismjs`よりも前に指定します。
+`directory`は読み込み対象資産のフォルダを指定します。<br>
+必ず`gatsby-remark-prismjs`より前に指定してください。
 
 
 ```javascript{6-12,14}:title=gatsby-config.jsの一部
@@ -711,10 +808,10 @@ $
 
 #### 使い方
 マークダウンで\`embed:設定で指定したディレクトリからの相対パス\`のように指定します。
-指定行の強調は、ファイル中にコメントで記述します。
+指定行を強調したい場合は、読み込み対象ファイルにコメントで記述します。
 
-#### JavaScriptファイル
-##### 読み込むファイル
+#### JavaScriptファイルの場合
+##### 読み込み対象ファイル
 ```javascript:title=examples/2018/10/21/sample.js
 import React from "react"
 import ReactDOM from "react-dom"
@@ -737,8 +834,9 @@ ReactDOM.render(
 ##### 表示結果
 `embed:2018/10/21/sample.js`
 
-#### CSSファイル
-##### 読み込むファイル
+#### CSSファイルの場合
+##### 読み込み対象ファイル
+
 ```javascript:title=examples/2018/10/21/sample.css
 html {
   /* highlight-range{1-2} */
@@ -759,8 +857,8 @@ html {
 ##### 表示結果
 `embed:2018/10/21/sample.css`
 
-#### HTMLファイル
-##### 読み込むファイル
+#### HTMLファイルの場合
+##### 読み込み対象ファイル
 ```html:title=examples/2018/10/21/sample.html
 <html>
   <body>
@@ -781,8 +879,9 @@ html {
 `embed:2018/10/21/sample.html`
 
 
-#### YAML
-##### 読み込むファイル
+#### YAMLの場合
+##### 読み込み対象ファイル
+
 ```yaml:title=examples/2018/10/21/sample.yaml
 foo: "highlighted" # highlight-line
 bar: "not highlighted"
@@ -808,7 +907,6 @@ quz: "highlighted"
 **マークダウンのリンクや画像で使われているPDFや動画などをビルド時にpublicフォルダにコピーする**
 
 #### 設定
-`gatsby-config.js`に下記のように設定します。
 
 ```javascript{5}:title=gatsby-config.jsの一部
   plugins: [
@@ -822,7 +920,7 @@ quz: "highlighted"
 ```
 
 <br>
-コピー先をpublic以外にしたい場合
+コピー先をpublic以外にしたい場合はオプションを指定します。
 
 ```javascript{9}:title=gatsby-config.jsの一部
   plugins: [
@@ -844,10 +942,10 @@ quz: "highlighted"
 
 <br>
 
-コピー対象外ファイルを変更したい場合は`ignoreFileExtensions`を設定します。
-このプロパティのデフォルト値は[`png`, `jpg`, `jpeg`, `bmp`, `tiff`]です。
-これらのファイルはgatsby-remark-imagesを使って自動的にレスポンシブな画像が生成されることを前提にしています。
-もしgatsby-remark-imagesを使わずにpublicファイルへの単純コピーにしたい場合は下記のように設定してください。
+コピー対象外ファイル指定することもできます。その場合は`ignoreFileExtensions`を設定します。
+このプロパティは`["png", "jpg", "jpeg", "bmp", "tiff"]`がデフォルトです。
+というのも、これらのファイルはgatsby-remark-imagesを使って自動的にレスポンシブな画像が生成されることを前提にしているからです。
+もしgatsby-remark-imagesを使わずにpublicファイルへの単純コピーにしたい場合は下記のようにします。
 
 ```javascript{9}:title=gatsby-config.jsの一部
   plugins: [
@@ -872,15 +970,15 @@ quz: "highlighted"
 <br><hr>
 ### [gatsby-remark-images](https://www.gatsbyjs.org/packages/gatsby-remark-images)
 **マークダウンで画像をスマートに表示できるようにする**<br>
-* 画像ロード後に高さが画像分だけずれるなどのレイアウト変更が発生しないように、ロード中に画像の大きさ分の空要素を表示しておく
+* 画像ロード後にレイアウトがガタっとずれないように、画像の大きさ分の空要素を確保しておく
 * ブラウザ幅別に画像を生成し`img`タグの`srcset`属性と`sizes`属性を設定します
-* 画像を20px幅に小さくしたものを、画像ロードが終わるまで、プレースホルダーとしてほかして表示します。これはMediumとFacebookで使われているテクニックです。
+* 画像を20px幅に小さくしたものを、画像ロード中にプレースホルダーとして表示します。これはMediumとFacebookで使われているテクニックです。
 
 #### 設定・使い方
-`gatsby-remark-images`、`gatsby-plugin-sharp`とあわせて使います。
-プラグインはmaxWidthの指定に従って、色々なサイズの画像を生成します。
+`gatsby-remark-images`、`gatsby-plugin-sharp`とあわせて使いましょう。
+オプションに指定したmaxWidthにあわせて、プラグインがいい感じの色々サイズの画像を複数生成してくれます。
 
-```javascript:title=gatsby-config.jsの一部
+```javascript{10}:title=gatsby-config.jsの一部
   plugins: [
     `gatsby-plugin-sharp`,
     {
@@ -906,7 +1004,8 @@ quz: "highlighted"
 **マークダウンでiframeタグを縦横比固定でレスポンシブにする**
 
 #### 使い方
-縦横比を明確にするためマークダウン中のiframeにはwidthとheigth属性を必ず指定してください。
+`gatsby-config.js`の設定は特に変わったところはありません。<br>
+ただし縦横比を明確にするためマークダウン中のiframeにはwidthとheigth属性を必ず指定してください。
 
 ```markdown{3}:tile=マークダウンサンプル
 This is a beautiful iframe:
@@ -922,7 +1021,7 @@ This is a beautiful iframe:
 **マークダウンでYoutubeを埋め込めるようにする**
 
 #### 設定
-`gatsby-transformer-remark`とあせて使います。
+オプションに高さと幅を指定できます。
 
 ```javascript{6-12}:title=gatsby-config.jsの一部
   plugins: [
@@ -945,7 +1044,7 @@ This is a beautiful iframe:
 
 <br>
 
-`gatsby-remark-responsive-iframe`をあわせて使う場合は必ずその前に定義してください。
+一注意があって、`gatsby-remark-responsive-iframe`をあわせて使う場合は必ずその前に定義してください。
 
 ```javascript{2-3}:title=gatsby-config.jsの一部
         plugins: [
@@ -955,13 +1054,20 @@ This is a beautiful iframe:
 ```
 
 #### 使い方
-マークダウンで下記のように記載します。URLの最後は動画のIDです。
+マークダウンで下記のように記載します。URLの最後(embed/2Xc9gXyf2G4)は動画のIDです。
 
 ```markdown{3}:tile=マークダウンサンプル
 # Look at this Video:
 
 `youtube:https://www.youtube.com/embed/2Xc9gXyf2G4`
 ```
+
+<br>
+* 表示結果
+
+`youtube:https://www.youtube.com/embed/2Xc9gXyf2G4`
+
+
 
 
 
@@ -973,6 +1079,18 @@ This is a beautiful iframe:
 使い方は過去記事[GatsbyでYouTubeとTwitter埋め込み | Takumon Blog](2018/10/07/#twitter)を参照してください。
 
 
+#### 使い方
+マークダウンには下記のように記載します。
+
+```html
+<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">最近忙しかったのでアレですが、ブログ更新しました。<br><br>Reactで構造化データマークアップ（JSON-LD対応） <a href="https://t.co/7V49VqH9WI">https://t.co/7V49VqH9WI</a> <a href="https://twitter.com/inouetakumon?ref_src=twsrc%5Etfw">@inouetakumon</a>さんから</p>&mdash; takumontakumon (@inouetakumon) <a href="https://twitter.com/inouetakumon/status/1046062825037344770?ref_src=twsrc%5Etfw">2018年9月29日</a></blockquote>
+```
+
+<br>
+
+* 表示結果
+
+<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">最近忙しかったのでアレですが、ブログ更新しました。<br><br>Reactで構造化データマークアップ（JSON-LD対応） <a href="https://t.co/7V49VqH9WI">https://t.co/7V49VqH9WI</a> <a href="https://twitter.com/inouetakumon?ref_src=twsrc%5Etfw">@inouetakumon</a>さんから</p>&mdash; takumontakumon (@inouetakumon) <a href="https://twitter.com/inouetakumon/status/1046062825037344770?ref_src=twsrc%5Etfw">2018年9月29日</a></blockquote>
 
 
 
@@ -991,11 +1109,11 @@ This is a beautiful iframe:
 ## UI系
 ### [gatsby-plugin-nprogress](https://www.gatsbyjs.org/packages/gatsby-plugin-nprogress)
 **ローディングに時間がかかっている時にプログレスバーを表示する**<br>
-* [NProgress](http://ricostacruz.com/nprogress/)を使って、リンククリックから1秒たってもローディング中の時にプログレスバーを表示します。
+* [NProgress](http://ricostacruz.com/nprogress/)を使って、リンククリックから1秒たってもローディング中の場合にプログレスバーを表示します。
 
 #### 設定・使い方
-下記のように設定します。`color`でバーの色を変えれます。
-また[NProgress](https://github.com/rstacruz/nprogress#configuration)のオプションは全てココで指定できるようになっています。
+下記のように設定します。`color`でバーの色が変更可能です。
+またオプションには[NProgress](https://github.com/rstacruz/nprogress#configuration)のオプションが全て指定できるようになっています。
 
 ```javascript:title=gatsby-config.jsの一部
   plugins: [
@@ -1014,13 +1132,13 @@ This is a beautiful iframe:
 
 <br><hr>
 ### [gatsby-plugin-catch-links](https://www.gatsbyjs.org/packages/gatsby-plugin-catch-links)
-**aタグでローカル遷移する時にリロードを抑止してヒストリーAPIでSPAっぽく遷移できるようにする**
+**aタグでローカル遷移する時にリロードを抑止してヒストリーAPIで遷移できるようにする**
 
 Gatsby(React製)はSPAなので、ローカル遷移はブラウザのヒストリーAPIを使うべきで、リロードは避けたいところですが、
 `<a href="tags/react" >ローカル遷移のリンク</a>`のような**a**タグの場合、クリック時に（ブラウザのでフォルの挙動により）リロードしてしまいます。<br>
 
-このプラグインを使えば、**a**タグの場合でもローカル遷移であればリロードを抑止し、ヒストリーAPIを使ってSPAのように遷移できるようになります。<br>
-リンクに[Gatsby-Link](https://www.gatsbyjs.org/docs/gatsby-link/#programmatic-navigation)を使っていればヒストリーAPIでの遷移になるの問題ないのですが、どうしても**a**タグしか使えない場合は、このプラグインが役立つでしょう。
+このプラグインを使えば、**a**タグの場合でもローカル遷移であればリロードを抑止し、ヒストリーAPIを使った遷移が可能です。<br>
+[Gatsby-Link](https://www.gatsbyjs.org/docs/gatsby-link/#programmatic-navigation)を使っていれば問題ないのですが、どうしても**a**タグしか使えない場合は、このプラグインが役立つでしょう。
 
 
 
@@ -1033,7 +1151,8 @@ Gatsby(React製)はSPAなので、ローカル遷移はブラウザのヒスト�
 * 1系から2系に移行したときに、レイアウト機能(2系では削除された機能)をそのまま使えるようにするために使います。
 
 #### 設定・使い方
-* レイアウト用ファイル`src/layouts/index.js`を作成し`gatsby-config.js`に追加します
+`gatsby-config.js`の設定は特に変わったところはありません。<br>
+レイアウト用ファイルは`src/layouts/index.js`を作成しましょう。
 
 
 
@@ -1075,8 +1194,7 @@ Gatsby(React製)はSPAなので、ローカル遷移はブラウザのヒスト�
 ### [gatsby-plugin-react-helmet](https://www.gatsbyjs.org/packages/gatsby-plugin-react-helmet)
 **React HelmetをGatsbyビルド時使えるようにする**<br>
 
-* 実用例は[Reactで構造化データマークアップ（JSON-LD対応](../../09/29)を参照してください。
-* ※gatsby-starter-blogインストール済
+* 実用例は[Reactで構造化データマークアップ（JSON-LD対応)](../../09/29)を参照してください。
 
 
 
@@ -1122,7 +1240,7 @@ Gatsby(React製)はSPAなので、ローカル遷移はブラウザのヒスト�
   plugins: [`gatsby-plugin-sitemap`]
 ```
 <br>
-これだけでサイトマップが生成できます。
+これだけで下記のようなサイトマップが生成できます。
 
 ```xml
 <urlset
@@ -1161,7 +1279,7 @@ Gatsby(React製)はSPAなので、ローカル遷移はブラウザのヒスト�
 <br><hr>
 ### [gatsby-plugin-canonical-urls](https://www.gatsbyjs.org/packages/gatsby-plugin-canonical-urls)
 **canonical linksを追加する**<br>
-* canonical linksは検索エンジンに対して、プロコトルが違ったりクエリストリングがついていても同一のサイトのURLだということを宣言するためのリンクです。それを生成してくれます。
+* canonical linksは検索エンジンに対して、プロコトルが違ったりクエリストリングがついていても同一のサイトのURLだということを宣言するためのリンクです。
 
 #### 設定・使い方
 オプションとしてsiteUrlを指定します。
@@ -1194,7 +1312,6 @@ Gatsby(React製)はSPAなので、ローカル遷移はブラウザのヒスト�
 
 #### 設定
 `gatsby-config.js`でsiteMetadataを設定しプラグインを定義するだけでOKです。
-するとビルド時にpublic配下にrss.xmlが生成されます。
 
 
 ```javascript:title=gatsby-config.jsの一部
@@ -1210,7 +1327,8 @@ Gatsby(React製)はSPAなので、ローカル遷移はブラウザのヒスト�
   ]
 ```
 
-rss.xmlのURLをユーザに伝えることで、ユーザは自分のRSSフィードにWebサイトを登録できます。<br>
+<br>
+このプラグインを使うと、ビルドでpublic配下にrss.xmlが生成されます。<br>
 自分の場合はFeedlyの登録ボタンと、rss.xmlへのリンクをブログのトップに設けています。
 
 ![RSSフィード](./rssfeed.png)
@@ -1379,7 +1497,7 @@ Sitemap: https://takumon.com/sitemap.xml
 ### 設定
 
 このプラグインは内部webpack-bundle-analyzerというライブラリを使っており、
-[webpack-bundle-analyzerのオプション(https://github.com/webpack-contrib/webpack-bundle-analyzer#options-for-plugin)なら何でも指定できます。<br>
+[webpack-bundle-analyzerのオプション](https://github.com/webpack-contrib/webpack-bundle-analyzer#options-for-plugin)なら何でも指定できます。<br>
 
 デフォルトだと`gatsby develop`するたびにブラウザが開くので、
 それがいやなら下記のようにすると良いでしょう。
@@ -1395,6 +1513,7 @@ Sitemap: https://takumon.com/sitemap.xml
 
 ### 使い方
 `gatsby develop`して`http://localhost:8888`にアクセスします。
+すると下記のようにコンポーネント毎のサイズをグラフィカルに示してくれます。
 
 ![webpack-bundle-analyzerの結果](./bundlesize.png)
 
@@ -1556,6 +1675,8 @@ module.exports = {
 }
 ```
 
+<br>
+
 * 読み取ったファイルノードはGraphQLで取得できます。
 
 ```graphql
@@ -1571,6 +1692,8 @@ module.exports = {
   }
 }
 ```
+
+<br>
 
 * JavaScriptの関数 `createFilePath` を用意しています。実際`gatsby-config.js`ではマークダウン読み込みで使っています。
 
@@ -1600,7 +1723,6 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 ### [gatsby-transformer-remark](https://www.gatsbyjs.org/packages/gatsby-transformer-remark)
 **マークダウンファイルをパースする（MarkdownRemarkノードに変換する）**<br>
 
-* ※gatsby-starter-blogインストール済
 
 #### 使い方
 * MarkdownRemarkノードはGraphQLで取得可能です。
@@ -1625,6 +1747,8 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 }
 ```
 
+<br>
+
 * 目次も取得できます。目次のURLは`slug`ですが`pathToSlugField`でカスタム可能です。
 
 ```graphql{6}
@@ -1643,6 +1767,8 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   }
 }
 ```
+
+<br>
 
 * 要約も取得できます。デフォルト120文字ですが、`pruneLength`でカスタム可能です。
 ```graphql{6}
@@ -1726,7 +1852,7 @@ export const query = graphql`
 ### [gatsby-transformer-sharp](https://www.gatsbyjs.org/packages/gatsby-transformer-sharp)
 **画像読み込みでImageSharpノードを生成する**<br>
 
-* `gatsby-plugin-sharp`と併用する。
+* `gatsby-plugin-sharp`と併用します。
 
 
 
@@ -1737,7 +1863,7 @@ export const query = graphql`
 ### [gatsby-plugin-sharp](https://www.gatsbyjs.org/packages/gatsby-plugin-sharp)
 **[Sharp](https://github.com/lovell/sharp)(画像圧縮ライブラリ)を使えるようにする**<br>
 
-* Gatsbyエンドユーザーが使うというよりは、プラグインの一部で使う低レイヤーのプラグイン
+* Gatsbyエンドユーザーが使うというよりは、プラグインの一部で使う低レイヤーのプラグイン。
 
 
 
@@ -1799,7 +1925,7 @@ export { rhythm, scale, typography as default };
 
 JavaScriptでテーマの設定を上書くこともできます。
 
-```javascript{4-15}:title=src/utils/typography.js
+```javascript{5-20}:title=src/utils/typography.js
 import Typography from "typography"
 import grandViewTheme from "typography-theme-grand-view"
 
@@ -1880,7 +2006,7 @@ export { rhythm, scale, typography as default };
 * [gatsby-source-medium](https://www.gatsbyjs.org/packages/gatsby-source-medium)
   * [Medium](https://medium.com/)の記事を引っ張ってきてGraphQLで扱えるようにする
 * [gatsby-source-wordpres](https://www.gatsbyjs.org/packages/gatsby-source-wordpres)
-  * WordPress](https://ja.wordpress.org/)の記事を引っ張ってきてGraphQLで扱えるようにする
+  * [WordPress](https://ja.wordpress.org/)の記事を引っ張ってきてGraphQLで扱えるようにする
 * [gatsby-source-contentful](https://www.gatsbyjs.org/packages/gatsby-source-contentful)
   * [contentful](https://www.contentful.com/)からデータを引っ張ってきてGraphQLで扱えるようにする
 
