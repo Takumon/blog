@@ -349,7 +349,7 @@ plugins: [
 #### 設定
 * 前述のgatsby-remark-prismjsとあわせて使います。
 
-`gatsby-config.js`で`gatsby-transformer-remark`オプションとして一番最初に定義する必要があります。
+`gatsby-config.js`で`gatsby-transformer-remark`オプションとして一番最初に定義する必要があります。
 
 ```javascript{6}:title=gatsby-config.jsの一部
   plugins: [
@@ -872,7 +872,7 @@ quz: "highlighted"
 <br><hr>
 ### [gatsby-remark-images](https://www.gatsbyjs.org/packages/gatsby-remark-images)
 **マークダウンで画像をスマートに表示できるようにする**<br>
-* 画像ロード後に高さが画像分だけずれるなどのレイアウト変更が発生しないように、ロード中に画像の大きさ分の空要素を表示しておく
+* 画像ロード後に高さが画像分だけずれるなどのレイアウト変更が発生しないように、ロード中に画像の大きさ分の空要素を表示しておく
 * ブラウザ幅別に画像を生成し`img`タグの`srcset`属性と`sizes`属性を設定します
 * 画像を20px幅に小さくしたものを、画像ロードが終わるまで、プレースホルダーとしてほかして表示します。これはMediumとFacebookで使われているテクニックです。
 
@@ -1382,7 +1382,7 @@ Sitemap: https://takumon.com/sitemap.xml
 [webpack-bundle-analyzerのオプション(https://github.com/webpack-contrib/webpack-bundle-analyzer#options-for-plugin)なら何でも指定できます。<br>
 
 デフォルトだと`gatsby develop`するたびにブラウザが開くので、
-それがいやなら下記のようにすると良いでしょう。
+それがいやなら下記のようにすると良いでしょう。
 
 ```javascript{4}:title=gatsby-config.jsの一部
     {
