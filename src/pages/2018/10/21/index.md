@@ -1,5 +1,5 @@
 ---
-title: Gatsbyおすすめプラグイン46選
+title: Gatsbyプラグイン46選
 date: "2018-10-21T15:00:00.000Z"
 tags:
   - Gatsby
