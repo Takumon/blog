@@ -1,4 +1,5 @@
-const _ = require('lodash')
+const _each = require('lodash/each')
+const _kebabCase = require('lodash/kebabCase')
 const Promise = require('bluebird')
 const path = require('path')
 const { createFilePath } = require('gatsby-source-filesystem')
@@ -38,7 +39,7 @@ exports.createPages = ({ graphql, actions }) => {
         const posts = result.data.allMarkdownRemark.edges;
 
         const tagSet = new Set();
-        _.each(posts, (post, index) => {
+        _each(posts, (post, index) => {
           if (post.node.frontmatter.tags) {
             post.node.frontmatter.tags.forEach(tag => tagSet.add(tag));
           }
@@ -60,7 +61,7 @@ exports.createPages = ({ graphql, actions }) => {
 
         Array.from(tagSet).forEach(tag => {
           createPage({
-            path: `/tags/${_.kebabCase(tag)}/`,
+            path: `/tags/${_kebabCase(tag)}/`,
             component: tagPage,
             context: {
               tag

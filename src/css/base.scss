@@ -1,18 +1,18 @@
 @import "node_modules/normalize-scss/sass/normalize";
-
 @import "./highlight.scss";
 @import "base";
 
 
 
 // アンカーリンク（gatsby-remark-autolink-headersカスタム）
-h1 .anchor { box-shadow: none }
-h2 .anchor { box-shadow: none }
-h3 .anchor { box-shadow: none }
-h4 .anchor { box-shadow: none }
-h5 .anchor { box-shadow: none }
-h6 .anchor { box-shadow: none }
-
+h1 .anchor,
+h2 .anchor,
+h3 .anchor,
+h4 .anchor,
+h5 .anchor,
+h6 .anchor {
+  box-shadow: none
+}
 
 // マークダウンプレビューエリアの画像を左寄せする
 .gatsby-resp-image-wrapper {
@@ -24,83 +24,7 @@ h6 .anchor { box-shadow: none }
   width: 32px !important;
 }
 
-// 全体
-.rootContainer {
-  width: 100%;
-  margin: 0;
-}
-
-
-.headerContainer {
-  @include flex-column-center();
-  margin: 0;
-  min-height: 65vh;
-  position: relative;
-  &__inner {
-    animation: fade-in-down .6s both .5s;
-  }
-}
-
-
-@keyframes fade-in-down {
-  0% {
-    opacity: 0;
-    transform: translateY(-10px);
-    -weebkit-transform: translateY(-10px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    -weebkit-transform: translateY(0);
-  }
-}
-
-@webkit-keyframes fade-in-down {
-  0% {
-    opacity: 0;
-    transform: translateY(-10px);
-    -weebkit-transform: translateY(-10px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    -weebkit-transform: translateY(0);
-  }
-}
-
-
-@media screen and (max-width: 600px) {
-  .blogTitleArea {
-    text-align: center;
-
-    a {
-      font-size: 36px;
-    }
-  }
-
-  .headerContainer {
-    min-height: 40vh;
-  }
-}
-
-
-@media screen and (max-width: 500px) {
-  .blogTitleArea {
-    text-align: center;
-
-    a {
-      font-size: 28px;
-    }
-  }
-
-  .headerContainer {
-    min-height: 30vh;
-  }
-}
-
-
+// font-awsome初期表示時にアイコンが大きくなるのを防止
 .svg-inline--fa {
   height: 1em;
 }

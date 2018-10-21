@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
-import get from 'lodash/get'
+import { get } from 'lodash'
 import ClassNames from 'classnames';
-
+import 'katex/dist/katex.min.css';
 import config from '../../config/blog-config';
 import Title from '../../components/title';
 import Layout from '../../components/layout';
@@ -85,7 +85,7 @@ class BlogPostTemplate extends React.Component {
                   </h1>
                 </a>
 
-                <PostMetaInfo color={`#fff`} post={post.frontmatter} />
+                <PostMetaInfo color={`#fff`} frontmatter={post.frontmatter} />
               </div>
             </div>
           </div>
@@ -141,6 +141,7 @@ export const pageQuery = graphql`
       id
       html
       excerpt
+      timeToRead
       tableOfContents
       frontmatter {
         date(formatString: "YYYY/MM/DD")

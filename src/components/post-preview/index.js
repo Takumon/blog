@@ -18,7 +18,7 @@ class PostPreview extends React.Component {
           </Link>
         </h3>
         <p dangerouslySetInnerHTML={{ __html: post.excerpt }} />
-        <PostMetaInfo post={post} />
+        <PostMetaInfo frontmatter={post} />
       </article>
     );
   }
