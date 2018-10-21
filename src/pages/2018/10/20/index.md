@@ -21,8 +21,8 @@ Gatsbyプラグインは、Gatsbyの全処理を拡張および修正可能で�
 またnpmパッケージでモジュール化されているため、巨大で複雑なWebサイトでも簡潔に機能追加･管理が可能です。
 
 ### 公開プラグインを検索する
-プラグイン一覧と個別仕様は [Plugins | Gatsby](https://www.gatsbyjs.org/plugins/)で確認できます。
-[公式プラグイン](https://github.com/gatsbyjs/gatsby/tree/master/packages)とコミュニティ提供のものをあわせると、なんと502個もあるのです。（2018/10/20現在）
+プラグイン一覧と個別仕様は [GatsbyのPlugins](https://www.gatsbyjs.org/plugins/)で確認できます。
+[公式プラグイン](https://github.com/gatsbyjs/gatsby/tree/master/packages)とコミュニティ提供のものをあわせると、なんと502個もあるようです。（2018/10/20現在）
 
 
 ## プラグインの使い方
@@ -115,8 +115,20 @@ module.exports = {
 
 ## プラグインの作り方
 * npmパッケージ、ローカルプラグインどちらの形式もOKです。
-* `package.json`はどちらも作る必要があります。
+* `package.json`と`gatsby-config.js`が必要です。
 * Gatsby API([Node](https://www.gatsbyjs.org/docs/node-apis/)、[サーバーサイドレンダリング](https://www.gatsbyjs.org/docs/ssr-apis/)、[ブラウザ](https://www.gatsbyjs.org/docs/browser-apis/)の3種類)を必要に応じて実装しましょう。
+
+### 作成するファイル
+<small>※[必須]と記載がないものについては任意です。</small>
+
+* **package.json** --- [必須]ローカルプラグインの場合は空オブジェクトでも可。
+  * **name**  GraphQLのデータ構造におけるプラグインの識別子です。未指定の時はプラグインのフォルダ名になります。
+  * **version**  キャッシュ管理用です。これが変わるとキャッシュがクリアされます。未指定の時は、gatsby- *ファイルの内容のMD5ハッシュになります。ローカルプラグインを開発中の場合は、不用意なキャッシュを避けるため指定しないほうが良いでしょう。
+  * **keywords**  検索用に指定してください。ここで`gatsby`と`gatsby-plugin`の2つを指定してnpm公開すると、[Plugins | Gatsby](https://www.gatsbyjs.org/plugins/)のリストに追加できます。
+* 以下3ファイルはプラグインが拡張･修正したい機能に応じて作成してください。
+  * **gatsby-browser.js** -- [ブラウザAPI](https://www.gatsbyjs.org/docs/browser-apis/)の実装を定義します。
+  * **gatsby-node.js** -- [ノードAPI](https://www.gatsbyjs.org/docs/node-apis/)の実装を定義します。
+  * **gatsby-ssr.js** -- [サーバーサイドレンダリングAPI](https://www.gatsbyjs.org/docs/ssr-apis/)の実装を定義します。
 
 ### 命名規約
 タイプごとに推奨する命名規約があります。
@@ -131,17 +143,6 @@ module.exports = {
 * `gatsby-plugin-*` --- 上記以外の場合
   * 例：　[gatsby-plugin-sharp](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-sharp)
 
-### 作成するファイル
-<small>※[必須]と記載がないものについては任意です。</small>
-
-* **package.json** --- [必須]ローカルプラグインの場合は空オブジェクトでも可。
-  * **name**  GraphQLのデータ構造におけるプラグインの識別子です。未指定の時はプラグインのフォルダ名になります。
-  * **version**  キャッシュ管理用です。これが変わるとキャッシュがクリアされます。未指定の時は、gatsby- *ファイルの内容のMD5ハッシュになります。ローカルプラグインを開発中の場合は、不用意なキャッシュを避けるため指定しないほうが良いでしょう。
-  * **keywords**  検索用に指定してください。ここで`gatsby`と`gatsby-plugin`の2つを指定してnpm公開すると、[Plugins | Gatsby](https://www.gatsbyjs.org/plugins/)のリストに追加できます。
-* 以下3ファイルはプラグインが拡張･修正したい機能に応じて作成してください。
-  * **gatsby-browser.js** -- [ブラウザAPI](https://www.gatsbyjs.org/docs/browser-apis/)の実装を定義します。
-  * **gatsby-node.js** -- [ノードAPI](https://www.gatsbyjs.org/docs/node-apis/)の実装を定義します。
-  * **gatsby-ssr.js** -- [サーバーサイドレンダリングAPI](https://www.gatsbyjs.org/docs/ssr-apis/)の実装を定義します。
 
 ### ローカルプラグイン
 `plugins`配下にプラグイン名のフォルダを作ります。
@@ -152,7 +153,7 @@ plugins
     └── package.json
 ```
 
-この状態ではプラグイン用の`gatsby-config.js`を定義していない、プロジェクトはプラグインを自動認識できません。<br>
+この状態ではプラグイン用の`gatsby-config.js`を定義していないので、プロジェクトはプラグインを自動認識できません。<br>
 
 プロジェクトの`gatsby-config.js`にプラグイン名（フォルダ名）を指定しましょう。
 
@@ -183,15 +184,15 @@ JavaScriptやReact.jsの機能（ライブラリ）を追加する場合など�
 ### Source PluginとTransformer Plugin
 主要なプラグインのタイプの2つにSource PluginとTransformer Pluginがあり両者は連携して機能します。
 例えばマークダウンファイルの場合、
-Source Pluginである[gatsby-source-filesystem](https://www.gatsbyjs.org/packages/gatsby-source-filesystem/)はファイルから`File`型のノード（ファイルシステムに関するデータ）を供給し、そのFileノードをTransformer Pluginである[gatsby-transformer-remark](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-transformer-remark)がMarkdownRemarkノードに変換します。<br>
+Source Pluginの[gatsby-source-filesystem](https://www.gatsbyjs.org/packages/gatsby-source-filesystem/)がファイルからFileノードを供給し、Transformer Pluginの[gatsby-transformer-remark](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-transformer-remark)がFileノードをMarkdownRemarkノードに変換します。<br>
 
 なおFileノードはファイルの生の内容と**メディアタイプ**を含みます。
-メディアタイプは必須項目ではありませんが、Source Pluginで生成したノードが生データ(Transformer Pluginにまだ処理されていないデータ)であることを示す手段です。
-メディアタイプでSource PluginとTransformer Pluginの橋渡しを行い、データ読み込みと加工を分離することで、それぞれのプラグインを小さく保つことができるのです。
+メディアタイプは必須項目ではありませんが、Source Pluginで生成したノードが生データ(Transformer Plugin未処理のデータ)であることを示す手段です。
+メディアタイプでSource PluginとTransformer Pluginの橋渡しを行い、データ読み込みと加工を分離することで、各プラグインを小さく保つことができるのです。
 
 
 ### Source Pluginの作り方
-通常のNPMパッケージとして作成します。`package.json`と`gatsby-node.js`を作りましょう。
+npmパッケージとして作成します。`package.json`と`gatsby-node.js`を作りましょう。
 `gatsby-node.js`は下記のような感じです。
 
 
@@ -269,9 +270,10 @@ cache.set(htmlCacheKey(markdownNode), html)
 
 
 ## プラグインの公開方法
-作ったプラグインのpackage.jsonのkeywordに`gatsby`と`gatsby-plugin`をつけてnpmに公開すれば、
+プラグインのpackage.jsonのkeywordに`gatsby`と`gatsby-plugin`をつけてnpm公開すれば、
 最大12時間後にライブラリ一覧のインデックスにいったん追加されます。
-その後[公式サイト](https://gatsbyjs.org)のデイリービルドが走れば、ようやくプラグインが一覧に追加されるのです。
+その後[公式サイト](https://gatsbyjs.org)のデイリービルドが走ると、ようやくプラグインが一覧に追加され、
+[GatsbyのPlugins](https://www.gatsbyjs.org/plugins/)で見れるようになります。
 
 *NOTE:* せっかく公開するなら検索しやすいように`gatsby`と`gatsby-plugin`以外にもキーワードを指定しましょう。例えばMarkdown MathJax transformerは下記のように指定しています。
 
