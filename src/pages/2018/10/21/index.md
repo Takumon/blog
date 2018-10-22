@@ -1,5 +1,5 @@
 ---
-title: Gatsbyプラグイン46選
+title: Gatsbyプラグイン45選
 date: "2018-10-21T15:00:00.000Z"
 tags:
   - Gatsby
@@ -8,71 +8,79 @@ tags:
 
 ## なにこれ
 [Gatsbyのプラグイン](https://www.gatsbyjs.org/plugins/)は、[公式プラグイン](https://github.com/gatsbyjs/gatsby/tree/master/packages)とコミュニティ提供のものをあわせると、なんと502個もあります。（2018/10/21現在）
-今回はその中でもおすすめプラグイン46個をユースケース別にご紹介します。
+今回はその中でもおすすめプラグイン45個をユースケース別にご紹介します。
+
 
 
 ## ユースケース別目次
 <small>※クリックすると説明セクションにとべます。</small>
 
 **[マークダウン系](#マークダウン系)**
-* [コードブロックでシンタックスハイライトできるようにする](#gatsby-remark-prismjs)
-* [コードブロックにタイトルを表示できるようにする](#gatsby-remark-code-titles)
-* [見出しにGitHub風ホバーリンクをつける](#gatsby-remark-autolink-headers)
-* [絵文字が使えるようにする](#gatsby-remark-emojis)
-* [Graphviz(dot言語で記述されたグラフ構造を任意のフォーマットの画像ファイルへ出力するツール)を使えるようにする](#gatsby-remark-graphviz)
-* [数式が使えるようにする](#gatsby-remark-katex)
-* [JavaSriptファイルなどを読み込んでコードブロックに埋め込む](#gatsby-remark-embed-snippet)
-* [リンクや画像で使われているPDFや動画などをビルド時にpublicフォルダにコピーする](#gatsby-remark-copy-linked-files)
-* [画像をスマートに表示できるようにする](#gatsby-remark-images)
-* [iframeタグを縦横比固定でレスポンシブにする](#gatsby-remark-responsive-iframe)
-* [Youtubeを埋め込めるようにする](#gatsby-remark-embed-youtube)
-* [Twitterの埋め込み用スクリプトを記述できるようにする](#gatsby-plugin-twitter)
 
-**[UI系](#ui系)**
-* [ローディングに時間がかかっている時にプログレスバーを表示する](#gatsby-plugin-nprogress)
-* [aタグでローカル遷移する時にリロードを抑止してヒストリーAPIで遷移できるようにする](#gatsby-plugin-catch-links)
-* [1系のレイアウト機能を2系でも使えるようにする](#gatsby-plugin-layout)
+* [コードブロックでシンタックスハイライトする](#gatsby-remark-prismjs)
+* [コードブロックにタイトルを追加する](#gatsby-remark-code-titles)
+* [見出しにGitHub風ホバーリンクをつける](#gatsby-remark-autolink-headers)
+* [絵文字を使う](#gatsby-remark-emojis)
+* [Graphvizでグラフを描画する](#gatsby-remark-graphviz)
+* [数式を使う](#gatsby-remark-katex)
+* [コードブロックにJavaSriptファイルなどを埋め込む](#gatsby-remark-embed-snippet)
+* [リンクされているPDFや動画などをビルド時にpublicフォルダにコピーする](#gatsby-remark-copy-linked-files)
+* [画像をスマートに表示する](#gatsby-remark-images)
+* [iframeタグを縦横比固定でレスポンシブ化する](#gatsby-remark-responsive-iframe)
+* [Youtubeを埋め込む](#gatsby-remark-embed-youtube)
+* [Twitterの埋め込む](#gatsby-plugin-twitter)
+
 
 **[SEO系](#seo系)**
-* [React Helmetを使えるようにする](#gatsby-plugin-react-helmet)
-* [低速ネットワーク環境やオフライン環境でもWebサイトをスムーズに見れるようにする](#gatsby-plugin-offline)
-* [アプリをPWA対応にする（manifest.webmanifestを生成する）](#gatsby-plugin-manifest)
+
+* [React Helmetを使う](#gatsby-plugin-react-helmet)
+* [オフライン環境でもWebサイトをスムーズに見れるようにする](#gatsby-plugin-offline)
+* [PWA対応する（manifest.webmanifestを生成する）](#gatsby-plugin-manifest)
 * [サイトマップを生成する](#gatsby-plugin-sitemap)
 * [canonical linksを追加する](#gatsby-plugin-canonical-urls)
 * [RSSフィードを生成する](#gatsby-plugin-feed)
 * [robots.txtを生成する](#gatsby-plugin-robots-txt)
 
 **[開補補助系](#開補補助系)**
-* [ビルド時のlodashのサイズを小さくする](#gatsby-plugin-lodash)
-* [webpack-bundle-analyzerを使ってbundle.jsの中身のサイズを可視化する](#gatsby-plugin-webpack-bundle-analyzer)
-* [Google Analyticsを使えるようにする](#gatsby-plugin-google-analytics)
-* [Facebook Analyticsを使えるようにする](#gatsby-plugin-facebook-analytics)
+
+* [ビルド資産（bundle.js）のlodashのサイズ削減する](#gatsby-plugin-lodash)
+* [ビルド資産（bundle.js）の中身のサイズを可視化する](#gatsby-plugin-webpack-bundle-analyzer)
+* [Google Analyticsを使う](#gatsby-plugin-google-analytics)
+* [Facebook Analyticsを使う](#gatsby-plugin-facebook-analytics)
+
+**[UI系](#ui系)**
+
+* [ローディング中にプログレスバー表示](#gatsby-plugin-nprogress)
+* [aタグでローカル遷移時にリロードではなくヒストリーAPIで遷移](#gatsby-plugin-catch-links)
+* [1系のレイアウト機能を2系で使う](#gatsby-plugin-layout)
 
 **[ファイル系](#ファイル系)**
+
 * [JSONファイルをパースする](#ファイル系)
 * [XMLファイルをパースする](#ファイル系)
 * [Yamlファイルをパースする](#ファイル系)
 * [CSVファイルをパースする](#ファイル系)
-* [ファイルを読み取りGatsby上で扱えるFileノードを生成する](#gatsby-source-filesystem)
-* [マークダウンファイルをパースする（MarkdownRemarkノードに変換する）](#gatsby-transformer-remark)
+* [ファイルを読み取んでノードを生成する](#gatsby-source-filesystem)
+* [Markdownファイルをパースする](#gatsby-transformer-remark)
 * [画像読み込みを最適化する](#gatsby-image)
 * [画像読み込みでImageSharpノードを生成する](#gatsby-transformer-sharp)
-* [Sharp(画像圧縮ライブラリ)を使えるようにする](#gatsby-plugin-sharp)
+* [Sharp(画像圧縮ライブラリ)を使う](#gatsby-plugin-sharp)
 
 **[CSS系](#css系)**
-* SASS/SCSSを使えるようにする
-* Styled Componentsを使えるようにする
-* Glamorとglamorousを使えるようにする
-* Emotionを使えるようにする
-* PostCSSを使えるようにする
-* [Typography.js(文章のスタイルを設定するライブラリ)を使えるようにする](#gatsby-plugin-typography)
 
-**[外部連携系](#外部連携系)**<br>
-* Mediumのデータを引っ張ってくる
-* WordPressのデータを引っ張ってくる
-* contentfulのデータを引っ張ってくる
-* [esa.ioのデータを引っ張ってくる](#gatsby-source-esa)
+* SASS/SCSSを使う
+* Styled Componentsを使う
+* Glamorとglamorousを使う
+* Emotionを使う
+* PostCSSを使う
+* [Typography.js(文章のスタイルを設定するライブラリ)を使う](#gatsby-plugin-typography)
 
+**[外部連携系](#外部連携系)**
+
+* Mediumのデータを取得する
+* WordPressのデータを取得する
+* contentfulのデータを取得する
+* [esa.ioのデータを取得する](#gatsby-source-esa)
 
 
 ## プラグインの使い方
@@ -1105,69 +1113,6 @@ This is a beautiful iframe:
 
 
 
-<br><hr>
-## UI系
-### [gatsby-plugin-nprogress](https://www.gatsbyjs.org/packages/gatsby-plugin-nprogress)
-**ローディングに時間がかかっている時にプログレスバーを表示する**<br>
-* [NProgress](http://ricostacruz.com/nprogress/)を使って、リンククリックから1秒たってもローディング中の場合にプログレスバーを表示します。
-
-#### 設定・使い方
-下記のように設定します。`color`でバーの色が変更可能です。
-またオプションには[NProgress](https://github.com/rstacruz/nprogress#configuration)のオプションが全て指定できるようになっています。
-
-```javascript:title=gatsby-config.jsの一部
-  plugins: [
-    {
-      resolve: `gatsby-plugin-nprogress`,
-      options: {
-        color: `#444`,
-        showSpinner: false,
-      },
-    },
-  ]
-```
-
-
-
-
-<br><hr>
-### [gatsby-plugin-catch-links](https://www.gatsbyjs.org/packages/gatsby-plugin-catch-links)
-**aタグでローカル遷移する時にリロードを抑止してヒストリーAPIで遷移できるようにする**
-
-Gatsby(React製)はSPAなので、ローカル遷移はブラウザのヒストリーAPIを使うべきで、リロードは避けたいところですが、
-`<a href="tags/react" >ローカル遷移のリンク</a>`のような**a**タグの場合、クリック時に（ブラウザのでフォルの挙動により）リロードしてしまいます。<br>
-
-このプラグインを使えば、**a**タグの場合でもローカル遷移であればリロードを抑止し、ヒストリーAPIを使った遷移が可能です。<br>
-[Gatsby-Link](https://www.gatsbyjs.org/docs/gatsby-link/#programmatic-navigation)を使っていれば問題ないのですが、どうしても**a**タグしか使えない場合は、このプラグインが役立つでしょう。
-
-
-
-
-
-<br><hr>
-### [gatsby-plugin-layout](https://www.gatsbyjs.org/packages/gatsby-plugin-layout)
-**1系のレイアウト機能を2系でも使えるようにする**<br>
-
-* 1系から2系に移行したときに、レイアウト機能(2系では削除された機能)をそのまま使えるようにするために使います。
-
-#### 設定・使い方
-`gatsby-config.js`の設定は特に変わったところはありません。<br>
-レイアウト用ファイルは`src/layouts/index.js`を作成しましょう。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1604,6 +1549,69 @@ gatsby-starter-blogの時点ではコメントアウトされているので、G
 
 
 
+<br><hr>
+## UI系
+### [gatsby-plugin-nprogress](https://www.gatsbyjs.org/packages/gatsby-plugin-nprogress)
+**ローディングに時間がかかっている時にプログレスバーを表示する**<br>
+* [NProgress](http://ricostacruz.com/nprogress/)を使って、リンククリックから1秒たってもローディング中の場合にプログレスバーを表示します。
+
+#### 設定・使い方
+下記のように設定します。`color`でバーの色が変更可能です。
+またオプションには[NProgress](https://github.com/rstacruz/nprogress#configuration)のオプションが全て指定できるようになっています。
+
+```javascript:title=gatsby-config.jsの一部
+  plugins: [
+    {
+      resolve: `gatsby-plugin-nprogress`,
+      options: {
+        color: `#444`,
+        showSpinner: false,
+      },
+    },
+  ]
+```
+
+
+
+
+<br><hr>
+### [gatsby-plugin-catch-links](https://www.gatsbyjs.org/packages/gatsby-plugin-catch-links)
+**aタグでローカル遷移する時にリロードを抑止してヒストリーAPIで遷移できるようにする**
+
+Gatsby(React製)はSPAなので、ローカル遷移はブラウザのヒストリーAPIを使うべきで、リロードは避けたいところですが、
+`<a href="tags/react" >ローカル遷移のリンク</a>`のような**a**タグの場合、クリック時に（ブラウザのでフォルの挙動により）リロードしてしまいます。<br>
+
+このプラグインを使えば、**a**タグの場合でもローカル遷移であればリロードを抑止し、ヒストリーAPIを使った遷移が可能です。<br>
+[Gatsby-Link](https://www.gatsbyjs.org/docs/gatsby-link/#programmatic-navigation)を使っていれば問題ないのですが、どうしても**a**タグしか使えない場合は、このプラグインが役立つでしょう。
+
+
+
+
+
+<br><hr>
+### [gatsby-plugin-layout](https://www.gatsbyjs.org/packages/gatsby-plugin-layout)
+**1系のレイアウト機能を2系でも使えるようにする**<br>
+
+* 1系から2系に移行したときに、レイアウト機能(2系では削除された機能)をそのまま使えるようにするために使います。
+
+#### 設定・使い方
+`gatsby-config.js`の設定は特に変わったところはありません。<br>
+レイアウト用ファイルは`src/layouts/index.js`を作成しましょう。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1713,8 +1721,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 }
 ```
 
-* 同じく関数`createRemoteFileNode`を用意しています。こちらは名前の通り、リモートのファイル読み込みで使用します。コレについては[]()で詳細を説明します。
-
+* 同じく関数`createRemoteFileNode`を用意しています。こちらは名前の通り、リモートのファイル読み込みで使用します。
 
 
 
