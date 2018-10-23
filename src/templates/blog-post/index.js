@@ -9,6 +9,7 @@ import Layout from '../../components/layout';
 import SNSShare from '../../components/sns-share'
 import PostMetaInfo from '../../components/post-meta-info'
 import Seo from '../../components/seo';
+import Toc from '../../components/toc';
 import styles from './index.module.scss';
 
 
@@ -92,7 +93,7 @@ class BlogPostTemplate extends React.Component {
 
           <div className={styles.container}>
             <div className={styles.post} dangerouslySetInnerHTML={{ __html: post.html }} />
-            <div className={styles.toc} dangerouslySetInnerHTML={{ __html: post.tableOfContents }}></div>
+            <Toc className={styles.toc} tableOfContents={post.tableOfContents} />
             <div className={classNameSnsShare}>
               <SNSShare
                 title={post.frontmatter.title}

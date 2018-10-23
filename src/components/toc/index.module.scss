@@ -1,0 +1,37 @@
+.content {
+  padding: 12px 12px 12px 0;
+  margin-top: 64px;
+  max-height: 100vh;
+  overflow-y: auto;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 12px;
+  will-change: transform;
+  font-size: 14px;
+
+  ul {
+    list-style: none;
+    margin-top: 0;
+
+    li {
+      margin-bottom: 1px;
+      margin-left: 12px;
+
+      p {
+        margin-bottom: 1px;
+      }
+      a {
+        display: block;
+        box-shadow: none;
+        color: #aaa;
+        letter-spacing: 0; // 幅が狭いので詰め詰めにする
+
+        &:hover {
+          background: #fee;
+          text-decoration: underline #cbb;
+          color: #000;
+        }
+      }
+    }
+  }
+}
