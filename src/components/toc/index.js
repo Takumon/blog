@@ -12,7 +12,7 @@ class Toc extends React.Component {
     const reflected = _reflectActiveHash(tableOfContents, activeHash);
 
     return (
-      <div className={`${styles.content} toc-content`} dangerouslySetInnerHTML={{ __html: reflected }}></div>
+      <div className={styles.content} dangerouslySetInnerHTML={{ __html: reflected }}></div>
     );
   }
 }
@@ -22,7 +22,7 @@ function _reflectActiveHash(tableOfContents, activeHash) {
   visit(tree, 'element', node => {
     if (node.tagName && node.tagName === 'a') {
       const hash = decodeURI(node.properties.href.split('#')[1]);
-      node.properties.className = hash === activeHash ? 'active' : ''
+      node.properties.className = hash === activeHash ? styles.active : ''
     }
   })
   return toHTML(tree);

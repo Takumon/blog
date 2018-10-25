@@ -24,12 +24,20 @@
         display: block;
         box-shadow: none;
         color: #aaa;
+        border-radius: 4px;
+        background-color: white;
         letter-spacing: 0; // 幅が狭いので詰め詰めにする
 
         &:hover {
           background: #fee;
           text-decoration: underline #cbb;
           color: #000;
+          transition: background-color 0.2s ease-out;
+        }
+
+        &.active {
+          background-color: #fdf6e3;
+          transition: background-color 0.2s ease-out;
         }
       }
     }
