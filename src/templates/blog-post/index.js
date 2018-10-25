@@ -3,13 +3,17 @@ import { Link, graphql } from 'gatsby'
 import { get } from 'lodash'
 import ClassNames from 'classnames';
 import 'katex/dist/katex.min.css';
+import rehype from 'rehype'
+import visit from 'unist-util-visit'
+
+
 import config from '../../config/blog-config';
 import Title from '../../components/title';
 import Layout from '../../components/layout';
 import SNSShare from '../../components/sns-share'
 import PostMetaInfo from '../../components/post-meta-info'
 import Seo from '../../components/seo';
-import Toc from '../../components/toc';
+import ScrollSyncToc from '../../components/toc/scroll-sync-toc';
 import styles from './index.module.scss';
 
 
@@ -53,8 +57,9 @@ class BlogPostTemplate extends React.Component {
       [`${styles.sns_share}`] : true,
       [`${styles.sns_share_show}`]: this.state.isShowSnsShare,
       [`${styles.sns_share_hide}`]: !this.state.isShowSnsShare,
-  });
+    });
 
+    const headerIds = _getHeaderIds(slug, post.tableOfContents);
     return (
       <Layout location={this.props.location}>
         <article>
@@ -93,7 +98,7 @@ class BlogPostTemplate extends React.Component {
 
           <div className={styles.container}>
             <div className={styles.post} dangerouslySetInnerHTML={{ __html: post.html }} />
-            <Toc className={styles.toc} tableOfContents={post.tableOfContents} />
+            <ScrollSyncToc className={styles.toc} tableOfContents={post.tableOfContents} headerIds={headerIds} />
             <div className={classNameSnsShare}>
               <SNSShare
                 title={post.frontmatter.title}
@@ -127,6 +132,16 @@ class BlogPostTemplate extends React.Component {
   }
 }
 
+function _getHeaderIds(slug, tableOfContents) { // 目次のHTML文字列
+  const tree = rehype().parse(tableOfContents)
+  const result = [];
+  visit(tree, 'element', node => {
+    if (node.tagName && node.tagName === 'a') {
+      result.push(decodeURI(node.properties.href.split('#')[1]));
+    }
+  })
+  return result;
+}
 
 export default BlogPostTemplate
 

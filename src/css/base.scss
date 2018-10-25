@@ -28,3 +28,15 @@ h6 .anchor {
 .svg-inline--fa {
   height: 1em;
 }
+
+// 目次ハイライト用
+.toc-content {
+  a {
+    border-radius: 4px;
+    background-color: white;
+    &.active {
+      background-color: #fdf6e3;
+      transition: background-color 0.2s ease-out;
+    }
+  }
+}
