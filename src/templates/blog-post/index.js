@@ -3,10 +3,6 @@ import { Link, graphql } from 'gatsby'
 import { get, throttle } from 'lodash'
 import ClassNames from 'classnames';
 import 'katex/dist/katex.min.css';
-import remark from 'remark'
-import visit from 'unist-util-visit'
-import mdastToToc from 'mdast-util-toc'
-import mdastToHast from 'mdast-util-to-hast'
 
 
 import config from '../../config/blog-config';
@@ -62,8 +58,6 @@ class BlogPostTemplate extends React.Component {
       [`${styles.sns_share_hide}`]: !this.state.isShowSnsShare,
     });
 
-
-    const toc = _getToc(JSON.parse(JSON.stringify(post.headings)), post.rawMarkdownBody)
     return (
       <Layout location={this.props.location}>
         <article>
@@ -102,7 +96,7 @@ class BlogPostTemplate extends React.Component {
 
           <div className={styles.container}>
             <div className={styles.post} dangerouslySetInnerHTML={{ __html: post.html }} />
-            <ScrollSyncToc className={styles.toc} tableOfContents={post.tableOfContents} headerIds={toc} />
+            <ScrollSyncToc className={styles.toc} tableOfContents={post.tableOfContents} rawMarkdownBody={post.rawMarkdownBody} />
             <div className={classNameSnsShare}>
               <SNSShare
                 title={post.frontmatter.title}
@@ -136,64 +130,6 @@ class BlogPostTemplate extends React.Component {
   }
 }
 
-function _getToc(headings, rawMarkdownBody) {
-  const headerIds = _getHeaderIds(rawMarkdownBody);
-
-  const headingsWithId = headings.map((h, index) => {
-    h.id = headerIds[index]
-    return h
-  })
-
-  // いったん逆にする
-  // 下から操作して、子に親の参照を持たせる
-  headingsWithId.reverse()
-  const headingsWithParents = headingsWithId.map((h, i) => {
-    const lastIndex = headingsWithId.length -1
-    if (i === lastIndex) {
-      return h;
-    }
-
-    let currentDepth = h.depth
-
-    for (let targetIndex = i + 1; targetIndex <= lastIndex; targetIndex++) {
-      const targetH = headingsWithId[targetIndex]
-      // 同じであれば兄弟なので捜査継続
-      if(currentDepth === targetH.depth) {
-      // 今よりも深ければ親子関係はないので終了
-      } else if (currentDepth < targetH.depth) {
-        break
-      // 今よりも浅ければ親なので親配列に追加
-      } else if (currentDepth > targetH.depth) {
-        if (h.parents) {
-          h.parents.push(targetH)
-        } else {
-          h.parents = [targetH]
-        }
-        // 深さに親の深さを設定に捜査継続
-        currentDepth = targetH.depth
-      }
-    }
-    return h
-  });
-
-  // 逆なので戻してからreturn
-  return headingsWithParents.reverse()
-}
-
-function _getHeaderIds(rawMarkdownBody) {
-  const ast = remark().parse(rawMarkdownBody);
-  const tocAst = mdastToHast(mdastToToc(ast).map)
-  const result = [];
-  visit(tocAst, 'element', node => {
-    if (node.tagName && node.tagName === 'a') {
-      const headerName = node.children[0].value
-      const headerId = decodeURI(node.properties.href.split('#')[1])
-      result.push(headerId)
-    }
-  })
-  return result;
-}
-
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
@@ -209,10 +145,6 @@ export const pageQuery = graphql`
       html
       excerpt
       rawMarkdownBody
-      headings {
-        depth
-        value
-      }
       tableOfContents
       frontmatter {
         date(formatString: "YYYY/MM/DD")
