@@ -1,18 +1,25 @@
 import React from 'react';
 import Toc from './index';
+import { throttle } from 'lodash';
+
+/**
+ * アクティブなヘッダーの判定用オフセット
+ * ヘッダーが画面上部にくるよりちょっと前に目次も変更したい
+ */
+const OFFSET_ACTIVE_IMTE = 64;
 
 class ScrollSyncToc extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      activeItemHash: `NONE`,
+      activeItemIds: [],
       itemTopOffsets: [],
     };
 
     this.calculateItemTopOffsets = this.calculateItemTopOffsets.bind(this);
-    this.handleResize = this.handleResize.bind(this)
-    this.handleScroll = this.handleScroll.bind(this)
+    this.handleResize = throttle(this.handleResize.bind(this), 500) // 負荷軽減のため間引く
+    this.handleScroll = throttle(this.handleScroll.bind(this), 100) // 負荷軽減のため間引く
   }
 
   componentDidMount() {
@@ -45,31 +52,37 @@ class ScrollSyncToc extends React.Component {
       const next = itemTopOffsets[i + 1]
 
       return next
-        ? window.scrollY >= current.offsetTop &&
-            window.scrollY < next.offsetTop
-        : window.scrollY >= current.offsetTop;
+        ? window.scrollY + OFFSET_ACTIVE_IMTE >= current.offsetTop &&
+            window.scrollY + OFFSET_ACTIVE_IMTE < next.offsetTop
+        : window.scrollY + OFFSET_ACTIVE_IMTE >= current.offsetTop;
     })
 
-    this.setState({
-      activeItemHash: item ? item.hash : `NONE`,
-    });
+    const activeItemIds =
+      item
+        ? item.parents
+          ? [item.id, ...item.parents.map(i => i.id)]
+          : [item.id]
+        : [];
+
+    this.setState({activeItemIds});
   }
 
   render() {
-    const { activeItemHash } = this.state;
-    return <Toc activeHash={activeItemHash} {...this.props} />;
+    const { activeItemIds } = this.state;
+    return <Toc activeItemIds={activeItemIds} {...this.props} />;
   }
 }
 
 
 const _getElementTopOffsetsById = ids => {
   return ids
-    .map(hash => {
-      const element = document.getElementById(hash);
+    .map(({value, id, parents}) => {
+      const element = document.getElementById(id);
       return element
         ? {
-          hash,
-          offsetTop: element.offsetTop
+          id,
+          offsetTop: element.offsetTop,
+          parents
         }
         : null
     })

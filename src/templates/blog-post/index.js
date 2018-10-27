@@ -1,10 +1,12 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
-import { get } from 'lodash'
+import { get, throttle } from 'lodash'
 import ClassNames from 'classnames';
 import 'katex/dist/katex.min.css';
-import rehype from 'rehype'
+import remark from 'remark'
 import visit from 'unist-util-visit'
+import mdastToToc from 'mdast-util-toc'
+import mdastToHast from 'mdast-util-to-hast'
 
 
 import config from '../../config/blog-config';
@@ -27,7 +29,7 @@ class BlogPostTemplate extends React.Component {
 
   componentDidMount() {
     this.stock = this.watchCurrentPosition.bind(this);
-    window.addEventListener('scroll', this.stock, true)
+    window.addEventListener('scroll', throttle(this.stock, 500), true) // 負荷軽減のため50msecごとにまびく
   }
 
   componentWillUnmount() {
@@ -53,13 +55,15 @@ class BlogPostTemplate extends React.Component {
     const { previous, next, slug } = this.props.pageContext
     const postUrl = `${config.blogUrl}${slug}`;
 
+
     const classNameSnsShare = ClassNames({
       [`${styles.sns_share}`] : true,
       [`${styles.sns_share_show}`]: this.state.isShowSnsShare,
       [`${styles.sns_share_hide}`]: !this.state.isShowSnsShare,
     });
 
-    const headerIds = _getHeaderIds(slug, post.tableOfContents);
+
+    const toc = _getToc(JSON.parse(JSON.stringify(post.headings)), post.rawMarkdownBody)
     return (
       <Layout location={this.props.location}>
         <article>
@@ -98,7 +102,7 @@ class BlogPostTemplate extends React.Component {
 
           <div className={styles.container}>
             <div className={styles.post} dangerouslySetInnerHTML={{ __html: post.html }} />
-            <ScrollSyncToc className={styles.toc} tableOfContents={post.tableOfContents} headerIds={headerIds} />
+            <ScrollSyncToc className={styles.toc} tableOfContents={post.tableOfContents} headerIds={toc} />
             <div className={classNameSnsShare}>
               <SNSShare
                 title={post.frontmatter.title}
@@ -132,12 +136,59 @@ class BlogPostTemplate extends React.Component {
   }
 }
 
-function _getHeaderIds(slug, tableOfContents) { // 目次のHTML文字列
-  const tree = rehype().parse(tableOfContents)
+function _getToc(headings, rawMarkdownBody) {
+  const headerIds = _getHeaderIds(rawMarkdownBody);
+
+  const headingsWithId = headings.map((h, index) => {
+    h.id = headerIds[index]
+    return h
+  })
+
+  // いったん逆にする
+  // 下から操作して、子に親の参照を持たせる
+  headingsWithId.reverse()
+  const headingsWithParents = headingsWithId.map((h, i) => {
+    const lastIndex = headingsWithId.length -1
+    if (i === lastIndex) {
+      return h;
+    }
+
+    let currentDepth = h.depth
+
+    for (let targetIndex = i + 1; targetIndex <= lastIndex; targetIndex++) {
+      const targetH = headingsWithId[targetIndex]
+      // 同じであれば兄弟なので捜査継続
+      if(currentDepth === targetH.depth) {
+      // 今よりも深ければ親子関係はないので終了
+      } else if (currentDepth < targetH.depth) {
+        break
+      // 今よりも浅ければ親なので親配列に追加
+      } else if (currentDepth > targetH.depth) {
+        if (h.parents) {
+          h.parents.push(targetH)
+        } else {
+          h.parents = [targetH]
+        }
+        // 深さに親の深さを設定に捜査継続
+        currentDepth = targetH.depth
+      }
+    }
+    return h
+  });
+
+  // 逆なので戻してからreturn
+  return headingsWithParents.reverse()
+}
+
+function _getHeaderIds(rawMarkdownBody) {
+  const ast = remark().parse(rawMarkdownBody);
+  const tocAst = mdastToHast(mdastToToc(ast).map)
   const result = [];
-  visit(tree, 'element', node => {
+  visit(tocAst, 'element', node => {
     if (node.tagName && node.tagName === 'a') {
-      result.push(decodeURI(node.properties.href.split('#')[1]));
+      const headerName = node.children[0].value
+      const headerId = decodeURI(node.properties.href.split('#')[1])
+      result.push(headerId)
     }
   })
   return result;
@@ -157,7 +208,11 @@ export const pageQuery = graphql`
       id
       html
       excerpt
-      timeToRead
+      rawMarkdownBody
+      headings {
+        depth
+        value
+      }
       tableOfContents
       frontmatter {
         date(formatString: "YYYY/MM/DD")

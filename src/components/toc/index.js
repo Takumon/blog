@@ -8,8 +8,8 @@ import toHTML from 'hast-util-to-html'
 
 class Toc extends React.Component {
   render() {
-    const {tableOfContents, activeHash} = this.props;
-    const reflected = _reflectActiveHash(tableOfContents, activeHash);
+    const {tableOfContents, activeItemIds} = this.props;
+    const reflected = _reflectActiveHash(tableOfContents, activeItemIds);
 
     return (
       <div className={styles.content} dangerouslySetInnerHTML={{ __html: reflected }}></div>
@@ -17,12 +17,12 @@ class Toc extends React.Component {
   }
 }
 
-function _reflectActiveHash(tableOfContents, activeHash) {
+function _reflectActiveHash(tableOfContents, activeItemIds) {
   const tree = rehype().parse(tableOfContents)
-  visit(tree, 'element', node => {
+  visit(tree, 'element', (node) => {
     if (node.tagName && node.tagName === 'a') {
-      const hash = decodeURI(node.properties.href.split('#')[1]);
-      node.properties.className = hash === activeHash ? styles.active : ''
+      const id = decodeURI(node.properties.href.split('#')[1]);
+      node.properties.className = activeItemIds.includes(id) ? styles.active : ''
     }
   })
   return toHTML(tree);
