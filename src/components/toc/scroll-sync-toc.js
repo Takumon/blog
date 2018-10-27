@@ -13,6 +13,12 @@ const githubSlugger = new GithubSlugger()
  */
 const OFFSET_ACTIVE_IMTE = 64;
 
+/** ヘッダーの要素名 */
+const HEADING = 'heading';
+
+/** ヘッダーにおける最小の深さ（h2タグの時） */
+const MIN_HEADER_DEPTH = 2
+
 class ScrollSyncToc extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -86,7 +92,6 @@ function _getToc(rawMarkdownBody) {
   return _attachParents(headings)
 }
 
-const HEADING = 'heading';
 // マークダウン文字列から目次情報を抽出する
 function _extractToc(rawMarkdownBody) {
   githubSlugger.reset();
@@ -111,6 +116,8 @@ function _extractToc(rawMarkdownBody) {
 }
 
 
+
+
 // ヘッダーに親ヘッダーの参照配列をつける
 function _attachParents(headings) {
   // いったん逆にする
@@ -125,14 +132,15 @@ function _attachParents(headings) {
     let currentDepth = h.depth
 
     for (let targetIndex = i + 1; targetIndex <= lastIndex; targetIndex++) {
+      // 最も大きいヘッダの場合は、親は存在しないので捜査終了
+      if (currentDepth === MIN_HEADER_DEPTH) {
+        break;
+      }
+
       const targetH = headings[targetIndex]
-      // 同じであれば兄弟なので捜査継続
-      if(currentDepth === targetH.depth) {
-      // 今よりも深ければ親子関係はないので終了
-      } else if (currentDepth < targetH.depth) {
-        break
-      // 今よりも浅ければ親なので親配列に追加
-      } else if (currentDepth > targetH.depth) {
+
+      // (パターン1)今よりも小さければ親なので親配列に追加
+      if (currentDepth > targetH.depth) {
         if (h.parents) {
           h.parents.push(targetH)
         } else {
@@ -140,6 +148,12 @@ function _attachParents(headings) {
         }
         // 深さに親の深さを設定に捜査継続
         currentDepth = targetH.depth
+      } else {
+        // (パターン2)今よりも大きければ、その先に親がある可能性があるので
+        // 深さはそのままで捜査継続
+
+        // (パターン3)同じであれば兄弟なので、その先に親がある可能性があるので
+        // 深さはそのままで捜査継続
       }
     }
     return h
