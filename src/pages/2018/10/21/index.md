@@ -1965,7 +1965,7 @@ export { rhythm, scale, typography as default };
 
 作ったスタイル指定用のJavaScriptを`gatsby-config.js`で指定します。
 
-```javascript{5}:title=gatsby-config.jsの中
+```javascript{5}:title=gatsby-config.jsの中
   plugins: [
     {
       resolve: `gatsby-plugin-typography`,
