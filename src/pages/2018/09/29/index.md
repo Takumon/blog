@@ -124,7 +124,7 @@ export default function createJSONLDTag({
     }
   ];
 
-  // ブログ発行者（自分）
+  // ブログ発行者（自分）
   const publisher = {
     '@type': 'Organization',
     name: config.blogAuthor,
