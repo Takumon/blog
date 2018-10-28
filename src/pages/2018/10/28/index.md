@@ -9,8 +9,8 @@ tags:
 ---
 
 ## なにこれ
-自分のブログの目次をQiitaっぽくしたい。現在表示中の章をハイライトする目次を作りたい。ということで作りました。
-マークダウンをHTMLに変換するために[unified](https://unified.js.org/)という構文解析ライブラリを使っています。<br>
+自分のブログの目次をQiitaっぽくしたい...現在表示中の章をハイライトする目次を作りたい...ということで作りました。
+マークダウンをHTMLに変換するのに[unified](https://unified.js.org/)という構文解析ライブラリを使っています。<br>
 メモ用にReactサンプルアプリも作りました ⇒ [ソース](https://github.com/Takumon/react-markdown-sync-toc)と[デモ](https://takumon.github.io/react-markdown-sync-toc/)
 
 ![scroll](./scroll-sync-toc.gif)
@@ -18,7 +18,7 @@ tags:
 ## ポイント
 * マークダウンのHTML化と目次抽出には[unified](https://unified.js.org/)を使いました。
 * スクロールの度に現在表示中の章をチェックして目次ハイライトを更新します。
-  * スクロール処理は高負荷なので負荷軽減のためにLodashのthrottleを使いました。
+  * スクロール処理は高負荷なので負荷軽減のために[Lodashのthrottle](https://lodash.com/docs/4.17.10#throttle)を使いました。
   * 表示中の章が切り替わるごとに再描画するためにReactのstateを使いました。
 
 以下で詳細を説明していきます。
@@ -26,18 +26,18 @@ tags:
 
 ## unified
 アプリの実装を説明する前にマークダウンの構文解析に使っているunifiedについて説明します。<br>
-unified自体はただのインターフェースです。構文解析ロジックはもっておらず、構文木を使ってテキストを処理するための下記フローを提供します。
-* `parse`: 文字列をパーサーで構文木に変換
-* `run`: 必要に応じて構文木をトランスフォーマーで変換
-* `stringfy`: 構文木をコンパイラーで文字列に出力
+unified自体はただのインターフェースです。構文解析ロジックはもっておらず、構文木を使ってテキストを処理するフローを提供します。
+1. `parse`: 文字列をパーサーで構文木に変換
+2. `run`: 必要に応じて構文木をトランスフォーマーで変換
+3. `stringfy`: 構文木をコンパイラーで文字列に出力
 
 ![unifiedの処理の流れ](./unified-process.png)
 
 
 ### ライブラリ群
-unifiedが提供するインターフェースを実際に処理するプロセッサーは、マークダウン用、HTML用、テキスト用の3種類があります。
-そしてそれぞれのプロセッサーは、構文定義、パーサー、コンパイラーが用意されています。
-構文定義の方法は3種類の間で統一されており、マークダウンからHTMLなど相互変換が可能になっています。
+unifiedが提供するインターフェースの実装（プロセッサー）は、マークダウン用、HTML用、テキスト用の3種類があります。
+プロセッサーごとに、構文定義、パーサー、コンパイラーが用意されています。
+構文定義の方法は3種類の間で統一されており、マークダウンからHTMLなど相互変換が可能です。
 
 |解析対象|プロセッサー|構文定義|パーサー|コンパイラー|
 |-|-|-|-|-|
@@ -52,7 +52,7 @@ unifiedが提供するインターフェースを実際に処理するプロセ�
 ### 使い方
 unifiedがパイプラインになっていて必要なライブラリをメソッドチェーンで順番に設定していきます。
 パーサーとコンパイラーは1個つずつ、トランスフォーマーは任意の個数を指定してください。
-パーサーとコンパイラー未指定だと実行時にエラーになるので気をつけましょう。
+パーサーとコンパイラー未指定だと実行時エラーになるので気をつけましょう。
 
 
 
@@ -104,7 +104,10 @@ Qiitaっぽい目次作成には少々難ありです。<br>
 
 マークダウン文字列を読み込んでHTML文字列に変換します。
 現在画面に表示中の章を判定するために[remark-slug](https://github.com/remarkjs/remark-slug)を使って章にidを付与しています。
-ちなみにこの[remark-slug](https://github.com/remarkjs/remark-slug)は[mdast-util-to-string](https://github.com/syntax-tree/mdast-util-to-string)と[github-slugger](https://github.com/Flet/github-slugger)を使ってidを付与しています。
+ちなみにこの[remark-slug](https://github.com/remarkjs/remark-slug)は[mdast-util-to-string](https://github.com/syntax-tree/mdast-util-to-string)と[github-slugger](https://github.com/Flet/github-slugger)を使ってidを付与しています。<br>
+
+*※実際はReactコンポーネントですが簡単のためソースコードを一部省略しています。*
+
 
 ```javascript
 import unified from 'unified'
@@ -157,9 +160,11 @@ HTML文字列
 
 ### マークダウンから目次情報を抽出する
 remarkのparseメソッドを使うと簡単にマークダウン構文木を取得できます。
-そして構文木をもとに独自ロジックで目次情報を抽出します。
+そして取得した構文木から独自ロジックで目次情報を抽出します。
 具体的には構文木を再帰的に捜査できるプラグイン[unist-util-visit](https://github.com/syntax-tree/unist-util-visit)を使って目次情報を抽出しました。<br>
 id付与のロジックはマークダウン生成時のロジック(remark-slugのロジック）とあわせています。<br>
+
+*※実際はReactコンポーネントですが簡単のためソースコードを一部省略しています。*
 
 
 ```javascript{12-22}
@@ -191,7 +196,7 @@ function _extractToc(rawMarkdownBody) {
 ```
 
 
-そしてこの後さらに目次情報を加工していきますが、説明が長くなるので省略します。詳細は[ソースコード](https://github.com/Takumon/react-markdown-sync-toc/blob/master/src/scroll-sync-toc.js#L87-L169)をご覧ください。
+この後さらに目次情報を加工していきますが説明が長くなるので省略します。詳細は[ソースコード](https://github.com/Takumon/react-markdown-sync-toc/blob/master/src/scroll-sync-toc.js#L87-L169)をご覧ください。
 
 ### スクロール毎に表示中の章を判定する
 Reactのコンポーネントで実装します。
@@ -200,7 +205,7 @@ Reactのコンポーネントで実装します。
 現在表示中の章の情報はsetStateでstateに格納しています。これにより表示中の章が切り替わった時にReactが再描画してくれます。
 
 
-```javascript{20,23-26,28-30,38-64}
+```javascript{20,23-26,28-30,38-66}
 import React from 'react';
 import { throttle } from 'lodash';
 import Toc from './toc';
@@ -245,7 +250,7 @@ class ScrollSyncToc extends React.Component {
       const next = itemTopOffsets[i + 1]
 
       // 自章よりもスクロールしている
-      // かつ 次の章まではスクロールしていない 場合は
+      // かつ 次章まではスクロールしていない 場合は
       // 自章が表示されているとみなす
       return next
         ? window.scrollY >= current.offsetTop &&
@@ -253,8 +258,9 @@ class ScrollSyncToc extends React.Component {
         : window.scrollY >= current.offsetTop;
     })
 
-    // Qiitaっぽく自章と親章をハイライトさせたいので
-    // itemTopOffsetsでは親章の参照も持たせています。
+    // Qiitaっぽく自章とあわせて親章をハイライトさせたいので
+    // itemTopOffsetsでは親章の参照も持たせておき
+    // ここでactiveItemIdsに格納しています。
     const activeItemIds =
       item
         ? item.parents
@@ -262,7 +268,8 @@ class ScrollSyncToc extends React.Component {
           : [item.id]
         : [];
 
-    // 表示中章をsetStateすることで値に変更があったらすぐに画面に反映されます。
+    // setStateを介してstateを変更することで
+    // 表示中の章に変更があった場合にのみ再描画が走ります。
     this.setState({activeItemIds});
   }
 
@@ -315,6 +322,6 @@ export default Toc;
 
 
 ## まとめ
-目次を作ったということよりも[unified](https://unified.js.org/)の便利さに驚きました。
+Qiitaっぽい目次を作れたことよりも[unified](https://unified.js.org/)の便利さに驚きました。
 これを使えば解析ツールなども簡単に実装できそうなので踏み込んで調べてみたいです。
 
