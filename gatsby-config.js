@@ -58,7 +58,6 @@ module.exports = {
             },
           },
           'gatsby-remark-copy-linked-files',
-          'gatsby-remark-smartypants',
           {
             resolve: 'gatsby-remark-emojis',
             options: {
@@ -73,10 +72,11 @@ module.exports = {
                 width        : '25px'
               }
             }
-          }
+          },
         ],
       },
     },
+    `gatsby-remark-headings-detail`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     {

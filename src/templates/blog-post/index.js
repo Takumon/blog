@@ -96,7 +96,7 @@ class BlogPostTemplate extends React.Component {
 
           <div className={styles.container}>
             <div className={styles.post} dangerouslySetInnerHTML={{ __html: post.html }} />
-            <ScrollSyncToc className={styles.toc} tableOfContents={post.tableOfContents} rawMarkdownBody={post.rawMarkdownBody} />
+            <ScrollSyncToc className={styles.toc} tableOfContents={post.tableOfContents} headingsDetail={post.headingsDetail} />
             <div className={classNameSnsShare}>
               <SNSShare
                 title={post.frontmatter.title}
@@ -146,6 +146,16 @@ export const pageQuery = graphql`
       excerpt
       rawMarkdownBody
       tableOfContents
+      headingsDetail {
+        id
+        value
+        depth
+        parents {
+          id
+          value
+          depth
+        }
+      }
       frontmatter {
         date(formatString: "YYYY/MM/DD")
         title
