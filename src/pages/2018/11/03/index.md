@@ -2,7 +2,8 @@
 title: Gatsby PluginでGraphQLデータ追加
 date: '2018-11-03T09:00:00.000Z'
 tags:
-- Gatsby
+  - Gatsby
+  - GatsbyPlugin
 ---
 
 ## なにこれ
