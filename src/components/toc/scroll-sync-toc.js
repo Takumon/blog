@@ -74,8 +74,8 @@ class ScrollSyncToc extends React.Component {
   }
 }
 
-const _getElementTopOffsetsById = ids => {
-  return ids
+const _getElementTopOffsetsById = headings => {
+  return headings
     .map(({value, id, parents}) => {
       const element = document.getElementById(id);
       return element
