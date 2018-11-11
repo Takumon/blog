@@ -14,6 +14,15 @@ h6 .anchor {
   box-shadow: none
 }
 
+// 引用
+blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  font-size: 1rem;
+  padding-left: 1rem;
+  border-left: 0.32813rem solid hsla(0,0%,0%,0.5);
+}
+
 // マークダウンプレビューエリアの画像を左寄せする
 .gatsby-resp-image-wrapper {
   margin-left: 0 !important;
