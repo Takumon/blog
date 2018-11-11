@@ -2,7 +2,6 @@ const {
   GraphQLString,
   GraphQLInt,
   GraphQLObjectType,
-  GraphQLEnumType,
   GraphQLList,
  } = require('gatsby/graphql')
  const remark = require('remark')
@@ -17,22 +16,8 @@ exports.setFieldsOnGraphQLNodeType = ({ type }) => {
     return {}
   }
 
-
-
-  const HeadingLevels = new GraphQLEnumType({
-    name: `LinkHeadingLevels`,
-    values: {
-      h1: { value: 1 },
-      h2: { value: 2 },
-      h3: { value: 3 },
-      h4: { value: 4 },
-      h5: { value: 5 },
-      h6: { value: 6 },
-    },
-  })
-
   const ParentHeadingType = new GraphQLObjectType({
-    name: `MarkdownParentLinkHeadings`,
+    name: `MarkdownParentHeadingDetail`,
     fields: {
       value: {
         type: GraphQLString,
@@ -51,31 +36,23 @@ exports.setFieldsOnGraphQLNodeType = ({ type }) => {
 
 
   const HeadingType = new GraphQLObjectType({
-    name: `MarkdownLinkHeading`,
+    name: `MarkdownHeadingDetail`,
     fields: {
       value: {
         type: GraphQLString,
-        resolve(heading) {
-          return heading.value
-        },
+        resolve: ({value}) => value,
       },
       id: {
         type: GraphQLString,
-        resolve(heading) {
-          return heading.id
-        },
+        resolve: ({id}) => id,
       },
       depth: {
         type: GraphQLInt,
-        resolve(heading) {
-          return heading.depth
-        },
+        resolve: ({depth}) => depth,
       },
       parents: {
         type: new GraphQLList(ParentHeadingType),
-        resolve(heading) {
-          return heading.parents
-        },
+        resolve: ({parents}) => parents,
       },
     },
   })
@@ -84,39 +61,38 @@ exports.setFieldsOnGraphQLNodeType = ({ type }) => {
   return {
     headingsDetail : {
       type: new GraphQLList(HeadingType),
-      args: {
-        depth: {
-          type: HeadingLevels,
-        },
-      },
-      resolve(markdownNode, { depth }) {
-        const result = _attachParents(_getHeaders(markdownNode))
-        return result
-      },
-    },
+      resolve: ({ rawMarkdownBody }) =>  _attachParents(_getHeaders(rawMarkdownBody)),
+    }
   }
 }
 
+
 /** ヘッダーの要素名 */
-const HEADING = 'heading';
+const HEADING = 'heading'
 
 /** ヘッダーにおける最小の深さ（h2タグの時） */
 const MIN_HEADER_DEPTH = 2
 
 
-function _getHeaders(markdownNode) {
-  githubSlugger.reset();
+/**
+ * マークダウン文字列からヘッダー情報を抽出する.
+ *
+ * @param {String} markdownStr マークダウン文字列
+ */
+function _getHeaders(markdownStr) {
+  githubSlugger.reset()
 
   const result = []
-  const ast = remark().parse(markdownNode.rawMarkdownBody);
+  const ast = remark().parse(markdownStr);
   visit(ast, HEADING, child => {
-    const value = child.children[0].value
-    const id = githubSlugger.slug(value || mdastToString(child))
+    const value = mdastToString(child)
+    const id = githubSlugger.slug(value)
     const depth = child.depth
+
     result.push({
       value,
       id,
-      depth
+      depth,
     })
   })
 
@@ -124,9 +100,11 @@ function _getHeaders(markdownNode) {
 }
 
 
-
-
-// ヘッダーに親ヘッダーの参照配列をつける
+/**
+ * ヘッダー情報に親ヘッダーの参照を追加
+ *
+ * @param {*} headers ヘッダー情報
+ */
 function _attachParents(headers) {
   // いったん逆にする
   // 下から操作して、子に親の参照を持たせる
@@ -137,7 +115,7 @@ function _attachParents(headers) {
 
     const lastIndex = headers.length -1
     if (i === lastIndex) {
-      return h;
+      return h
     }
 
     let currentDepth = h.depth
@@ -145,7 +123,7 @@ function _attachParents(headers) {
     for (let targetIndex = i + 1; targetIndex <= lastIndex; targetIndex++) {
       // 最も大きいヘッダの場合は、親は存在しないので捜査終了
       if (currentDepth === MIN_HEADER_DEPTH) {
-        break;
+        break
       }
 
       const targetH = headers[targetIndex]
@@ -164,7 +142,7 @@ function _attachParents(headers) {
       }
     }
     return h
-  });
+  })
 
   // 逆なので戻してからreturn
   return result.reverse()

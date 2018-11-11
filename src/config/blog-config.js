@@ -14,4 +14,5 @@ module.exports = {
   blogAuthor: 'Takumon',
   blogAuthorDescription: '東京でJavaのSIerやってます。',
   blogAuthorAvatarUrl: 'https://s.gravatar.com/avatar/37d27f624f8c9c8db6fe6b6581b256f1',
+  dateFormat: 'YYYY/MM/DD',
 };

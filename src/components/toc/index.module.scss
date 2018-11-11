@@ -1,5 +1,5 @@
 .content {
-  padding: 12px 12px 12px 0;
+  padding: 12px;
   margin-top: 64px;
   max-height: 100vh;
   overflow-y: auto;
@@ -17,9 +17,6 @@
       margin-bottom: 1px;
       margin-left: 12px;
 
-      p {
-        margin-bottom: 1px;
-      }
       a {
         display: block;
         padding-left: 2px;

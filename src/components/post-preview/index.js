@@ -8,17 +8,20 @@ import styles from './index.module.scss';
 
 class PostPreview extends React.Component {
   render() {
-    const post = this.props.post;
+    const {slug, title, excerpt, date, tags} = this.props.postField;
 
     return (
-      <article key={post.path} className={styles.content}>
+      <article key={slug} className={styles.content}>
         <h3 className={styles.title} >
-          <Link className={styles.title_link} to={post.path}>
-            {post.title}
+          <Link className={styles.title_link} to={slug}>
+            {title}
           </Link>
         </h3>
-        <p dangerouslySetInnerHTML={{ __html: post.excerpt }} />
-        <PostMetaInfo frontmatter={post} />
+        <p dangerouslySetInnerHTML={{ __html: excerpt }} />
+        <PostMetaInfo
+          tags={tags}
+          date={date}
+          />
       </article>
     );
   }

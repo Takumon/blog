@@ -1,32 +1,34 @@
 import React from 'react'
+import { Location } from '@reach/router';
+import { Link } from 'gatsby'
+
 
 import styles from './index.module.scss';
 
-import rehype from 'rehype'
-import visit from 'unist-util-visit'
-import toHTML from 'hast-util-to-html'
-
 class Toc extends React.Component {
   render() {
-    const {tableOfContents, activeItemIds} = this.props;
-    const reflected = _reflectActiveHash(tableOfContents, activeItemIds);
+    const { headings, activeItemIds } = this.props
 
     return (
-      <div className={styles.content} dangerouslySetInnerHTML={{ __html: reflected }}></div>
-    );
+      <Location>
+        {({ navigate, location }) =>
+          <div className={styles.content} >
+            <ul>
+              {
+                headings.map(item =>
+                  <li key={item.id} style={{marginLeft: `${(item.depth - 2) * 12}px`}}>
+                    <Link
+                      to={`${location.pathname}#${item.id}`}
+                      className={activeItemIds.includes(item.id) ? styles.active : ''}>{item.value}</Link>
+                  </li>
+                )
+              }
+            </ul>
+          </div>
+        }
+      </Location>
+    )
   }
 }
-
-function _reflectActiveHash(tableOfContents, activeItemIds) {
-  const tree = rehype().parse(tableOfContents)
-  visit(tree, 'element', (node) => {
-    if (node.tagName && node.tagName === 'a') {
-      const id = decodeURI(node.properties.href.split('#')[1]);
-      node.properties.className = activeItemIds.includes(id) ? styles.active : ''
-    }
-  })
-  return toHTML(tree);
-}
-
 
 export default Toc;

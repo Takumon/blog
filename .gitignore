@@ -4,4 +4,5 @@ public
 .DS_Store
 .intermediate-representation/
 .cache/
+.env
 yarn.lock
