@@ -1,0 +1,11 @@
+{
+  "name": "gatsby-remark-and-qiita",
+  "version": "0.0.1",
+  "dependencies": {
+    "rehype-stringify": "^4.0.0",
+    "remark-parse": "^6.0.2",
+    "remark-rehype": "^3.0.1",
+    "striptags": "^3.1.1",
+    "unified": "^7.0.1"
+  }
+}

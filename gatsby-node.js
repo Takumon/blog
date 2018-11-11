@@ -1,29 +1,63 @@
-const _each = require('lodash/each')
-const _kebabCase = require('lodash/kebabCase')
+const _ = require('lodash')
 const Promise = require('bluebird')
 const path = require('path')
-const { createFilePath } = require('gatsby-source-filesystem')
+const _flow = require('lodash/fp/flow')
+const _forEach = require('lodash/fp/forEach')
+const _uniq = require('lodash/fp/uniq')
+const _flatMap = require('lodash/fp/flatMap')
 
+
+
+const POST_TYPE = {
+  ORIGINAL: 'original',
+  QIITA: 'qiita'
+}
+
+
+// onCreateNodeより後に実行される
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
   return new Promise((resolve, reject) => {
-    const blogPost = path.resolve('./src/templates/blog-post/index.js');
-    const tagPage =  path.resolve('./src/templates/tag/index.js');
+    const blogPost = path.resolve('./src/templates/blog-post.js');
+    const qiitaPost = path.resolve('./src/templates/qiita-post.js');
+    const tagPage =  path.resolve('./src/templates/tags.js');
+
     resolve(
       graphql(
         `
           {
-            allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, limit: 1000) {
+            allMarkdownRemark(sort: { fields: [fields___date], order: DESC }, limit: 1000) {
               edges {
                 node {
                   fields {
                     slug
-                  }
-                  frontmatter {
                     title
+                    date
+                    excerpt
                     tags
                   }
+                }
+              }
+            }
+            allQiitaPost(sort: { fields: [fields___date], order: DESC }, limit: 1000) {
+              edges {
+                node {
+                  fields {
+                    slug
+                    title
+                    date
+                    excerpt
+                    tags
+                  }
+                  id
+                  title
+                  rendered_body
+                  body
+                  comments_count
+                  created_at
+                  likes_count
+                  reactions_count
                 }
               }
             }
@@ -35,53 +69,89 @@ exports.createPages = ({ graphql, actions }) => {
           reject(result.errors)
         }
 
-        // Create blog posts pages.
-        const posts = result.data.allMarkdownRemark.edges;
 
-        const tagSet = new Set();
-        _each(posts, (post, index) => {
-          if (post.node.frontmatter.tags) {
-            post.node.frontmatter.tags.forEach(tag => tagSet.add(tag));
+        // オリジナル記事とQiitaの記事を1つのリストにする
+        const originalPosts = result.data.allMarkdownRemark.edges.map(p => {
+          return {
+            type: POST_TYPE.ORIGINAL,
+            date: new Date(p.node.fields.date),
+            node: p.node
           }
+        })
+
+        const qiitaPosts = result.data.allQiitaPost.edges.map(p => {
+          return {
+            type: POST_TYPE.QIITA,
+            date: new Date(p.node.fields.date),
+            node: p.node
+          }
+        })
+
+        const posts = [...originalPosts, ...qiitaPosts].sort((a,b) => {
+          if( a.date < b.date ) return 1
+          if( a.date > b.date ) return -1
+          return 0
+        })
 
 
-          const previous = index === posts.length - 1 ? null : posts[index + 1].node;
-          const next = index === 0 ? null : posts[index - 1].node;
+        // 記事詳細ページ生成
+        _.each(posts, ({type, node}, index) => {
 
-          createPage({
-            path: post.node.fields.slug,
-            component: blogPost,
-            context: {
-              slug: post.node.fields.slug,
-              previous,
-              next,
-            },
+          if (type === POST_TYPE.ORIGINAL) {
+            createPage({
+              path: node.fields.slug,
+              component: blogPost,
+              context: {
+                slug: node.fields.slug,
+                ...previouseAndNext(posts, index)
+              },
+            })
+
+          } else if (type === POST_TYPE.QIITA) {
+            createPage({
+              path: node.fields.slug,
+              component: qiitaPost,
+              context: {
+                slug: node.fields.slug,
+                ...previouseAndNext(posts, index)
+              },
+            })
+
+          } else {
+            throw new Error(`Unexpected post type = ${type}`)
+          }
+        })
+
+
+        // タグ別一覧ページ生成
+        _flow(
+          _flatMap(post => post.node.fields.tags),
+          _uniq(),
+          _forEach(tag => {
+            createPage({
+              path: `/tags/${_.kebabCase(tag)}/`,
+              component: tagPage,
+              context: {
+                tag
+              },
+            })
           })
-        });
-
-        Array.from(tagSet).forEach(tag => {
-          createPage({
-            path: `/tags/${_kebabCase(tag)}/`,
-            component: tagPage,
-            context: {
-              tag
-            },
-          })
-        });
+        )(posts)
       })
     )
   })
 }
 
-exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
 
-  if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode })
-    createNodeField({
-      name: `slug`,
-      node,
-      value,
-    })
+/**
+ * 指定したインデックスの記事の前後の記事を取得する.
+ *
+ * @param {Array} posts 記事一覧
+ * @param {int} index 対象記事のインデックス
+ */
+function previouseAndNext(posts, index) {
+  return {
+    previous: index === posts.length - 1 ? null : posts[index + 1].node,
+    next: index === 0 ? null : posts[index - 1].node
   }
 }

@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
   siteMetadata: {
     title: 'Takumon Blog',
@@ -76,7 +78,16 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: `gatsby-source-qiita`,
+      options: {
+        accessToken: process.env.ACCESS_TOKEN,
+        userName: process.env.USER_NAME,
+        excludedPostIds: process.env.EXCLUDED_POST_IDS.split(',')
+      }
+    },
     `gatsby-remark-headings-detail`,
+    `gatsby-remark-and-qiita`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     {

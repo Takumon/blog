@@ -35,10 +35,10 @@ class ScrollSyncToc extends React.Component {
   }
 
   calculateItemTopOffsets() {
-    const { headingsDetail } = this.props;
+    const { headings } = this.props;
 
     this.setState({
-      itemTopOffsets: _getElementTopOffsetsById(headingsDetail),
+      itemTopOffsets: _getElementTopOffsetsById(headings),
     });
   }
 
