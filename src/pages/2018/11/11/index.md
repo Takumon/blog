@@ -8,7 +8,7 @@ tags:
 ---
 
 ## なにこれ
-GatsbyにQiitaの記事を取り込めるプラグイン([gatsby-source-qiita](https://www.gatsbyjs.org/packages/gatsby-source-qiita/))を作って、自分のブログに適用しました。
+GatsbyにQiitaの記事を取り込めるプラグイン([gatsby-source-qiita](https://www.gatsbyjs.org/packages/gatsby-source-qiita/))を作りました
 QiitaからGatsbyに乗り換えようと考えている方で、Qiitaの記事を引き継ぎたい場合に便利なプラグインです。サンプル([gatsby-starter-qiita](https://takumon.github.io/gatsby-starter-qiita/))も用意してます。
 今回はこのプラグインとサンプルについて紹介します。
 
@@ -39,7 +39,7 @@ QiitaからGatsbyに乗り換えようと考えている方で、Qiitaの記事�
 1つぐらい[Gatsby公式サイト](https://www.gatsbyjs.org/plugins/)で公開してみたいという思いから作りました。
 大枠は[mottox2](https://github.com/mottox2)さんの[gatsby-source-esa](https://www.gatsbyjs.org/packages/gatsby-source-esa/)を参考にして、
 [gatsby-transform-remark](https://www.gatsbyjs.org/packages/gatsby-transformer-remark)
-、[Qiita APIドキュメント](https://qiita.com/api/v2/docs)を見ながら実装してます。
+、[Qiita APIドキュメント](https://qiita.com/api/v2/docs)を見ながら実装してます。<br>
 
 
 余談ですが、最近のQiitaはポエムが乱立していて、変な方向に向かっていますね。<br>
@@ -301,8 +301,8 @@ Github-rebbonsで紹介されているコードを少しReactベースに修正�
 
 ## まとめ
 今回はQiitaから記事を取得するGatsbyプラグインを作りました。
-自分のプラグインが[Gatsbyのサイト](https://www.gatsbyjs.org/packages/gatsby-source-qiita/)で検索できるようになったときは、ちょっと感動しました。(まぁ審査とか無しで登録できるので全然すごくないんですけどね)
-
+自分のプラグインが[Gatsbyのサイト](https://www.gatsbyjs.org/packages/gatsby-source-qiita/)で検索できるようになったときは少し感動しました。
+また自分のブログに[gatsby-source-qiita](https://www.gatsbyjs.org/packages/gatsby-source-qiita/)を適用したことにより記事数とバリエーションが増えてので、なんとなく満足してます。<br>
 
 
 
