@@ -39,7 +39,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         node.title,
         node.created_at,
         _excerptHtml(node.rendered_body, 120),
-        [...(node.tags.map(tag => tag.name) || []), 'qiita'] // Qiitaタグを追加
+        [...(node.tags.map(tag => tag.name) || []), 'Qiita'] // Qiitaタグを追加
       ]
 
 
