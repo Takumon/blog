@@ -1,4 +1,1099 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 11 Nov 2018 13:12:10 GMT</lastBuildDate><item><title><![CDATA[GatsbyでQiitaから記事を取得する(gatsby-source-qiita)]]></title><description><![CDATA[なにこれ GatsbyにQiitaの記事を取り込めるプラグイン( gatsby-source-qiita )を作りました
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 18 Nov 2018 01:52:34 GMT</lastBuildDate><item><title><![CDATA[ファイル名を指定して実行（windws + r）をランチャーとして使う]]></title><description><![CDATA[なにこれ 便利なランチャーは色々ありますが、Windows PCだと僕はファイル名を指定して実行（ ）をランチャー代わりにしています。
+この方法は、どんなWindows PCでもすぐに使えるというのが最大の利点です。
+PC…]]></description><link>https://takumon.com//2018/11/18/</link><guid isPermaLink="false">https://takumon.com//2018/11/18/</guid><pubDate>Sun, 18 Nov 2018 03:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
+&lt;p&gt;便利なランチャーは色々ありますが、Windows PCだと僕はファイル名を指定して実行（&lt;code class=&quot;language-text&quot;&gt;windows + r&lt;/code&gt;）をランチャー代わりにしています。
+この方法は、どんなWindows PCでもすぐに使えるというのが最大の利点です。
+PCリプレースしたときや、ネットにつながらない環境でアプリをインストールできない場合でも適用できます。
+ただこのやり方、会社の同僚などで使ってる人に遭遇したことはありません。マイナーなんですかね&lt;img null=&quot;&quot; data-icon=&quot;emoji-cry&quot; style=&quot;display: inline; margin: 0; margin-top: 1px; position: relative; top: 5px; width: 25px&quot; src=&quot;data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAVv0lEQVR4Ae2bBZAcR5aGv5dVTUOaGQ0JTUKzLTIzs5d3bd8eMzMzMy3GLTObacHMeLtitkayaBiaqirfdXZnxFRMSPKKjjP0ojo0Cf/358usypoe4f94Mf9vwP8b8H+7hBzn8odg7ryTk0PlDAynibBAoM8E0o7SBIBQtImOKOxRZTOWNbHwvc9+lq2A5TgW+cPjAy3b7mKlCrdkAq4xGTk1yJgmkzWYrCBGIBBIl0RRq9iqC0sS2aKNdG2U8Kgo9570GV4E9JgbwDEsL99M08x23mUCfjibNxcGBWNMU4DJOXBFjEUCrYWATBtaFU1cCGoNtirYisUWE5KStdWyfcYmfHxwhC8DRY5RMTXRHG08dhlhbcZ/sLdbXmhqCz7R3Je7ODcnZ3KzQ3LdSrY7INvXRX7B2eROv5bcsh8gf95PUbjgF+rhPrv/cz9zdVxd18a1dX24vlyfrm83Rs3kHxwfJ6wFRxtSE39UZfZsVuYz/Hm+JbgynBEStgVILsHkQ8L2eZi+czC9y5CWBUi+E8ImkACEVEYLKKAJxEW0PIRObMbufQW75zXikX5sOUYrAfFYQjwaU55Ivl2O+G3gRY6iyIb3cURl8eeRrXfwy/km+aNsR6Y5aM/U2CymKSTsPYPghGsw3Suh0OnhYsCCemhJ86c/C2BAQhCgNITd/yLJG48S7/0ethgTFw3JSER1OJosF/UPTv4cfw/of9YeIC+/k7buAv+abw3uzHRlCWcEBIWEsGcRwYK3Y3rOgzAPWgVNEDEcSVG1PluyEJex+54n2fw14n0bSUoB8WhCNFClPJ58dn+Jn13+FcYAPZ4GyKu3MKuzk881zQgvy/TW4FuFsKV2PeVazIlvR3LtYMsIgMiRjaZMdwIFMHm0MoLdXjNhyyPEE1XicSXaW6U4Gj8+NMQd597L7sMxITxc+K5O7s7PzKzIdecIWiHs6CBc+l5M78WgERKPgsihwA6/qPcurkAQECy4A2mdj6z7AmKGMSYPYeUyQ3R3TeNtKROOmQHy8LV01OC/UIfvc/BCpmMm4Wk/gnQsRZJRQKav7WNS0iiiAEVMz0oymVZkzccgGCQX5ABWdBF9oab19useYRjQY2GAAGZJH/+c7wgvyfXkCNpMDb6dcOldmLYTIRoGMSn442VAKiOSElIbOzz1Llj3KZARcjYHVi9ZovE/A+8HLKBHboCH33gnv1xoC+7I9GQJ2wPC1tr15BuRlnkQjzTg9bCBj96QuFzX4LSw8asIVazNUoj1jo13Jv++6LP8/VuZIG8F/+w7WXZih3wnPyffnO3OEbZBOO8izJyrgBhEEF/7P7Wop1IFQuyubxH3P008BtX9Fcq7ypPbh/WKC77CK4cyITwU/F295Oe08je5mZnmTEeGsMUQdPRhus4BOwko4un/KwwQtMGP1DUFE1vB7kHjDFpOmufE1b+pMdzwmb2U8SYclgG/cxXvLrQEl4Q1+KAlgykYzMzTITCQFBvwMo3cCIQGjKuTQGQ5qpIxEARgLcQWrJIuot6EIMTMPAMt7ieIhbAjoTCZXPI7VyXv/szn+Ayg358BHv63VtLWnJNfr8O31iIvmJYupKkPkglEFFRAUuC5kGSiwo6twwwPF5nV11aLGaBHflTbvWOU3XvG6OhoYv6cDoKWHFRib0QqE6wgTb11jUG0H9uaqZvQPGF//bdW6j1/8SKjKRMOaYABgvcu4O25tmBx2BZiCrXIGaRlDogitpie+Tp4tRTxrQfX8+i317Fz1yB790csPrWPD/zN28llAHuYLhihUoXf+/P72bB2D73dGebOmck1Vy7lqiuXkC1kGkakM0HCukZTHKxrdtpzbfHi9y6I314z4FMePjnUGyFxsaqTXGtefsQdbExzSJA3SC6H5GcgtgS2ArbciFzC9k27+L0/vJuPfewx9vfvoUDEldev4Od+64fJZYGo6OsfRkRF19b14fpyfbq+3RhuLDemGzvVpuK0NTTmck5zXbtjcCyOCc93qAwQIPjLSzi30CTLg5YQkw8wWYNkC4gJISmBKADkQ777Uj//+MFnSEpF+lqgY3YvN/7QOzj/ggUwth1Gho78FlEuc9aJIWf95ft47tmVPPCJrzL85l72vLGbP/7zh/jFn76QM8+ZBWWfCSpOY12ryUZ17Y6h0BQt/8tL9NzL7+a56ZtheKD0720xt2RagvrLjCAbIKGBMAfEoBEokAvYtG4v//CBZ8gkVZpzsGTl6bz7Z26lq2kS3ngKbAIScFRlcDsM93P+ufNZuORH+dIH7mH9i6upxOXa2E/x279yIQsXdUIlAQDEaXWa69qTGoNj6W3hFrAvAglgD2SAAObkDjKFvF4u9Tc5AZIxSCiYIGykPhYCYXwo5kMfewUTVShkYNWN5/HO919AZnQj9I9CEPi7QQKRgurhnYZEICNgFeIq9K+lq20GP/5r1/CVT7XwwgMvkESVuoY/+o1VtLaEkChg6lptKE57ncGxFPLx5Y5t6zBx+gBuphvwB8s4OZeXxUEhQLIBxhngYEgaBiS1CCLufXATe3aNkA/gottX8N4fPJPM3jUwOghiIYwZ2DvG5g0D2KgIlCCegHgcojGIRiAaduE/jzV+5upQqrdxbV0fri/Eur7dGG4sN6Yb22lwWpwmp81PUoIEXns2wLE4JsfmmeVgGRDMa+WMMGcK9fd4oYB/f4e6zosQGIb3VHn6hd3kDKy6/jTe8e5TkJ3rIIoBB2957PFhPvz5nYxPRCw7vYVf++Eu2loEYnuQB3zxigxjI8rffHyAV1ZP0NqS4SffN5fLL+qA2EDJ1MdyY5aKRR67e3Vdyw2Xd9PRkYXENrRKQ7tjcCyOaV6rPQPY6AfjgBnQXjCnBjlBMrUIDGKkHmjUmCETsXbzKLt2lliyYjbvuWM+0r8OivsgGgAdYOfWPXzsC9tpNjGn9BjWrB3nM3cPgklDy7Twxair69q4tq4P15fr0/XtxnBjuTHd2E6D0+I0OW2NDNLI6/YMGcExObZDZYBxkQv1FAkNErgQMAbE148nIY6ZKJfoWdDKD/7oLLIDm6EUgfF1jOGpV4tkFE7sDsgEUAjhu+tK7N+X0N0VQqwcsIRSqxPX6y7oC+hoNkQtsK3WzvX53nk50ARIoFStjV2sa9i0Y5yJSgliA3HF+9vQLoE3ITTkwvgUPOf0DBAfQUbowae+iIfHgAooUCxz4fnN/NXfLKZXijARgzFTXVhhx5sRM1uE1nwtclIHIbHsqMERcPAS0KiT2Hob19b14fpyfWIF8CEGxmN6KfJXf7uYC89rrmtDAfWaxTMEgmOqs0GQ4p2+B5AJQtrFr3uC1HapioiAQktSpWU0gnIC/v/SG3gcKfmM6wwCA9kQApRKpN7Qg2SASL1OgDbaeKn5TL1PDzft3DFWYaZ/NMZXSZ3NPa7gmBwbkDnUJmiMkBfjwbURogoC6q4wdc8V/zNSXQZC64yQ4mDaFMhmDC1tAdjk4AZYrddxddNVVKn3SaBThytNXUqxHz9lrnfDS0cMOLaD7AGpI42A+sbeAVQt+Mnzig7+6isQTllYYMf6CayCUahGSnNbyPx5WYijg58/Y+p1XN1qFFPIClahUqXeJ4EFtR5vmgk6TUhKPzSYvP7UekVD0n6CSSxlEjx0gqogGqQTy/P7rJjOUbasWlXg+WcyDI9ENDcZBoYtF9zaRntHAiMxmIO9NNVaHcO5F7Xx7D0DZAJhsmgpdGbqfVKuopKm9nzQ0DllhteZNMJaSKDOBgZvzwHPArFlzDXQJK6FgHozBED8iDrlhvjRvK9qla62mPf+bAf3fHqEkcGEc25s46ZbsjA4CYEe+t1UMarVzVOK21j/bJHm2Vne+QPtdLUU0bR5Fk8uqaQXF1Ou1MEjz2JxbId6H6AAlZiBumPWuWdQaxDslOOiUyaQstvvm19+9QTGSxl+9PZtnPzHrY6HzpzCnjEUfcujgSrkxqrceWeOoXe105SB/EQZ3e/vIAiqaeOEuiQvApWpLcBqLRLPYutsgBzoMKQ+GK3KG7MjRRNtOKgxWEH9xuh3RdQ3kdSWsnusiR///O1MVLJctPhDLJk/RD4DRBZVgQwHLxbAM8Qguyp0Zg1EQFQ3zkP6Sgam5kVgmgGNOWowaKxopHU2UA62BBSI3xizWxZXA2yiWGsxahBSaZ4+TQbqb7mKCHzqhWWMNZ8NLYYPPXMh/zTv6w2A4Pt4cWo8WrpelIACoUlJBqw3gMbsk8hUQ2PA+mqKY2iwVMGxAcnBjsMWiJ/ZzdYrF9oykc1rYlBrAfEzrSAWnwVg1F9hoprl46tvhhPngxG+sPlmfnPiUWa1jzXqvZUBesDnAg9uUwZI2gRQmQpSRiSg1mdybEkqtuzYgAiwBzMg+vQadv7yCrbkK3qaxj6FMAgggXr4RmgtpBagfO21c9icPYefveNEOpoMf/LRmE89fx6/ecPDh22Ar+fBvDL10Fbx+z2KHKBf9f9oaI8UW1EmSmxxbIcyQIHKZES0d0yen+kM8FXT6zO9DMVHZAM+9OrNzDqzh1+7sJ3WrPCVV3v4t2du42eveoyWQsW30e/v17RWpv8MVKaqqI+UT9PrkwAxqIuS4pgmozpRBdCDGRABpW/126cXzTM/FJbVJFUweW0ImGaAN4HvbFjES/H5/OjyDlSFkTLctqydv3zpDL7+2tn8wIXPQ7otekgX/Lbug+l1fBYeyKRGU6tAoiQOvqzEZbWOCSgB0aFeiVmg+Pcvsf49p+nq3k57ZlAVbGQIcuIhUiKN1K8fePFGCid2ceOCZkaqSmLh6hOa+PDCLj744q2874IXCY1NmSff3zLQadM7zf3UMvETJKgFErCxohVLUrIMjepqxwQUPSOHMqA0FlF6/U29+5pue6aWDTQB/ilUQjeQnwGjvNI/n0eGr+SCizs4pT1TMwBUYVZzwGVndHD3+gv51tolXHfWWjBedxYIAJtiqabmRpgGhzcbQFKJktoQLaD+mvjUryg6bnEsjgnqYQ/1Wlx9pbHfeZonRofs9mS84aJWLcRekIg3QPjAc9dg5/Rx66ltVCyUE6FqhbEYblvSQv6kLv7l2VsgEMgLhLD634VPf0z4678w/N1fG772RaF/Bw2jcwd6SZLKvqAxLkHqsw8FNJG6VluyOO2jw3a7YwHGPNtb/mIkBsa3jDL+XL9++rp2+/tBs8EWwOSAjEAAGFizp5cv776RUy/t4NzeDENlb6/AcAUWdmZYtqSdRx65mqfe+ConZLfwiU8EdQOMhWwIqvD8U/C1ryqXXKbccafS2gaUp2WApB6BvfnYRghTnzUCW4ZkQklGLI7BsUA9YoC3MkCBCWDkp77NE8/Psq/Oak3OlSbBOBMyBgJBAvjrx64n7pvLshOaCUxAJRYCAygkVkgUzpnbxCvzuvnNz72NhVv+AVuEk7ugKSeEni9OYLysPP4wbNlk+ZVfV/rmAKW0CQJ4eEnf9z24ixj8uiceTdg7YF91DMAIMHE4vxytACOjZWZ85HX9wG+0JR+QgslLTsiEFhMYtox08o1dV9Gzoo3ulhylBDR9OgPKCXQ0ZZjV18rzWy9nlv0aZ/b1kwshSJ/oMpAPheY89Pcb/vrPLb/3x0pHh0DVGwDToL0JiaAKmoAtW6JJrcFbykNJ2WmvMYx5AyqH82Vp9Wtm8B9fZssL2+RjyWCCHbHYycbu+vTGk4hae5g1M48VQ9Wml2Tjc6SClYC+zjz5rnYGg0UkEWgImQ5onluL2RC2eZ4qNTNhf7/w0Q8arBUw6a/OpQygEWpBI9ByQ5sdtTitTrPT7hg8ix7uN0SqwBDQdNs37D0vtcrCBZn4GjIhiGH74EwKrVk6m0MSNe6gQVc+/V4EhqtQTkytTkBzW5bMvC5u+0HD7JOUGTOUIPBLIILBAaF/I3z3aSi+BE98W1mxAq643kAx/RicWu9xwzRbAjuuRCOW6v6YLf320du+ofcAA56hCnC4Bigw4Tso3HW/fvTut9ue3iA5G4G4rHUv8gEUQmWwAs1hLTIAUIxhoAy5QOt1MgGccqbhnBUWSlqLqfWSFaGpS5k3T7jgasO61cKXP2nZsN1yhU2lvmUq7atAVdCiYscs0XAt9iXs22Vfd1qBYa/dr/3DNwAg8esns36I3I8+rH/9sRuT3+uBpTOTQZK4ik1iAhRRZSQSIj/UZAyqSohF44S4VKa7dT8MHOApDoEIGFcQy9KTDX/wVyHlEWeUBSU96xAJWgFbsm7mG/B7HXyyzmmsad0D7PPak6P9lljJu5l9up/wRx7QP/nItcmvndG86ZxkcB+jo7MpVarY5hBVQyURoAGv1lKqxIxNlCgOjLJy+SZQkzq0pA8zDUAAhhVIyBv/f4m7+rUeC1oCLVricSUZtUR7Yt7st6/9xMP6t0/vZBew12suHavvCY77ukHNBG77iv7Zv1y792cuqD50+YYdc5nb1URbLiAkRy5jAKjElpHJiH0jk/TvHOLs3GOcO29nA2j6ywFNXac/2cWgiZ/5qmLLFp1QYn+fj/YnbN5hv/m++/TfNjdm3sUgMH6svyk64lWzaRS97sv6kZ+/5IGx11cvv2VNS1ZQy+TMFlpzAQCT1YQ3h4qs3bKfobXr+Nurv0w+IJUBgEw3wEeMP8/jNzptPNaWIJm0JGNKPJRQGkzKz26RT7z96/qQ17cX2O8/c6wNUN+xAhaQf35y94PnnvHRob0a3fH86LLs/PkdzGjNAzA+UanN/CiTW1fzF+f8Iwta95EXg1YB0dTtDVD1Mz6V6vjXWK6+Lfv17u/xyZBl9x776kde0U/+8yu6FRjy4IPAKKDH9dviQCswE1gEzA5nzJm94Ozr3jPZefaSqHVOaI3QVN7DqvzT3LX0cU7qGKSpRZgzS5AQxKQPN3hL1Z/kvAEVJak2zvK2qCQTtr7eRwbstse36dd/5mGeLSWM+7U+mEp7/c/6k5kWb8JSoANoac/R9JPLOP38uXJxb6csCppETEHIFAxzZxnyTSD+LOHCGACwHhz1J7hq45oUbR0+nrA6OKTfe26nPvK7j/PyrgkmwD/hwbCf9Yn/ir8ZygFdwAKgE2gGmoDg1gXMvfIkOWNpN6ct6GPOjDaTMzmBTCMLTJjOAH9+jwH/CqtaspWJcbZvG5aXH9hkX6491W0DYg867uHH/OfKf+UfTRm/JOYCPcAMIO8jCaB48yJmXjKPOYtnmnldTTq7KUNnLqQlE5DzL38rlZiJYsTQQFHe3DBo+5/sZ9d9G9mXgPWAk0DRA/tIn+//6wxIb6gFoDmVCQVvRNZH4MPirykTE/zVR9VH2YMWgUkfpelH2/9qA6YbkUtlQcHDp00w/pouCWDT8D5KQNlHJQ3+39WAdN+ZaRH6qzcgtQtMGRB5yGha6PES+Z9VPDTGx/SxFbA+vBnHv/wHR9sVi/1sdagAAAAASUVORK5CYII=&quot;&gt;
+つい最近Surface Pro 6を買ったついでに、今回は&lt;code class=&quot;language-text&quot;&gt;windows + r&lt;/code&gt;ランチャーの設定方法・使い方を紹介します。&lt;/p&gt;
+&lt;h2 id=&quot;余談&quot;&gt;&lt;a href=&quot;#%E4%BD%99%E8%AB%87&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;余談&lt;/h2&gt;
+&lt;p&gt;Surface Pro 6買いました。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/38d91eb15e599e585710f6ad5e08e861/6a73d/pc-open.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 75%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAPABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAwAB/8QAFgEBAQEAAAAAAAAAAAAAAAAAAgAB/9oADAMBAAIQAxAAAAEm1LAkiv/EABwQAAEFAAMAAAAAAAAAAAAAAAIAAxESEwEUIv/aAAgBAQABBQK/IELvhkLD1VgMZQv/xAAVEQEBAAAAAAAAAAAAAAAAAAAQEf/aAAgBAwEBPwGH/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAGxAAAwACAwAAAAAAAAAAAAAAAAEhEVEyYXH/2gAIAQEABj8Ca12VX0bezmYdIf/EABsQAQACAgMAAAAAAAAAAAAAAAEAESExQVGR/9oACAEBAAE/ISgx0NZg1PdjBHapRbV5KyFjllMKBP/aAAwDAQACAAMAAAAQSO//xAAWEQEBAQAAAAAAAAAAAAAAAAABIRD/2gAIAQMBAT8QKpn/xAAXEQADAQAAAAAAAAAAAAAAAAAAAREx/9oACAECAQE/ELMZT//EAB0QAQACAgIDAAAAAAAAAAAAAAEAESExQVFxofD/2gAIAQEAAT8QSgU2Ll5+qMA0vYNuu5kvXMDWJYIK29/co4JRid3xC+O1Qs//2Q==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Surface Pro 6 その１&quot;
+        title=&quot;&quot;
+        src=&quot;/static/38d91eb15e599e585710f6ad5e08e861/f8fb9/pc-open.jpg&quot;
+        srcset=&quot;/static/38d91eb15e599e585710f6ad5e08e861/e8976/pc-open.jpg 148w,
+/static/38d91eb15e599e585710f6ad5e08e861/63df2/pc-open.jpg 295w,
+/static/38d91eb15e599e585710f6ad5e08e861/f8fb9/pc-open.jpg 590w,
+/static/38d91eb15e599e585710f6ad5e08e861/85e3d/pc-open.jpg 885w,
+/static/38d91eb15e599e585710f6ad5e08e861/d1924/pc-open.jpg 1180w,
+/static/38d91eb15e599e585710f6ad5e08e861/9452e/pc-open.jpg 1770w,
+/static/38d91eb15e599e585710f6ad5e08e861/6a73d/pc-open.jpg 4160w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/d58e60b44184ee6f71c9725c316bb31f/6a73d/pc-close.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 75%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAPABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAEDAgT/xAAWAQEBAQAAAAAAAAAAAAAAAAABAAL/2gAMAwEAAhADEAAAAbLaLlJhr//EABsQAAEEAwAAAAAAAAAAAAAAAAEAAhEhAzFB/9oACAEBAAEFAumYGRA07Vr/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAUEAEAAAAAAAAAAAAAAAAAAAAg/9oACAEBAAY/Al//xAAZEAEBAQEBAQAAAAAAAAAAAAABABFBITH/2gAIAQEAAT8h9V9uTZgdNiQzHPZAuF//2gAMAwEAAgADAAAAEAvP/8QAFREBAQAAAAAAAAAAAAAAAAAAEBH/2gAIAQMBAT8Qh//EABYRAQEBAAAAAAAAAAAAAAAAABEAAf/aAAgBAgEBPxBwi//EABsQAQEBAAIDAAAAAAAAAAAAAAERACExQVGR/9oACAEBAAE/EFKET5oWqr5wgzHtx0FEtwEe3G6uVvZv/9k=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Surface Pro 6 その２&quot;
+        title=&quot;&quot;
+        src=&quot;/static/d58e60b44184ee6f71c9725c316bb31f/f8fb9/pc-close.jpg&quot;
+        srcset=&quot;/static/d58e60b44184ee6f71c9725c316bb31f/e8976/pc-close.jpg 148w,
+/static/d58e60b44184ee6f71c9725c316bb31f/63df2/pc-close.jpg 295w,
+/static/d58e60b44184ee6f71c9725c316bb31f/f8fb9/pc-close.jpg 590w,
+/static/d58e60b44184ee6f71c9725c316bb31f/85e3d/pc-close.jpg 885w,
+/static/d58e60b44184ee6f71c9725c316bb31f/d1924/pc-close.jpg 1180w,
+/static/d58e60b44184ee6f71c9725c316bb31f/9452e/pc-close.jpg 1770w,
+/static/d58e60b44184ee6f71c9725c316bb31f/6a73d/pc-close.jpg 4160w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;4年前くらいのMBA（リンゴが光る世代のやつ）を今は使っていて、ちょうど&lt;a href=&quot;https://www.apple.com/jp/macbook-air/&quot;&gt;MBAの新型が発表されたし&lt;/a&gt;購入を迷っていたんですが、会社のリモートワーク用端末としてはWindowsが良さそうだし、IEとEdgeの検証環境ほしいってことで&lt;a href=&quot;https://www.microsoft.com/ja-jp/p/surface-pro-6/8zcnc665slq5?activetab=pivot%3aoverviewtab&quot;&gt;Surface Pro 6&lt;/a&gt;を買いました。基本リモート接続で使うので最低スペックのやつです。
+一週間使ってみたところ、サブPCとしてはとてもいい感じです！&lt;/p&gt;
+&lt;h3 id=&quot;メリット&quot;&gt;&lt;a href=&quot;#%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;メリット&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;軽い（784g 自分のMBA(1350g)に比べるとかなり軽い）&lt;/li&gt;
+&lt;li&gt;電源コードがマグセーフ形式で脱着が容易&lt;/li&gt;
+&lt;li&gt;顔認証ログインができるのでログインが簡単&lt;/li&gt;
+&lt;li&gt;タブレットとしても使用可能（家で漫画やYouTube見るのに最適）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;デメリット&quot;&gt;&lt;a href=&quot;#%E3%83%87%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;デメリット&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;別売りキーボードは２万円とお高め（東プレのREALFORCE並み）&lt;/li&gt;
+&lt;li&gt;ベゼルが大きい（最近のPCならもうちょっとベゼルレスにしてほしい&lt;/li&gt;
+&lt;li&gt;Cortanaが邪魔&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;cortanaを消す&quot;&gt;&lt;a href=&quot;#cortana%E3%82%92%E6%B6%88%E3%81%99&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Cortanaを消す&lt;/h3&gt;
+&lt;p&gt;購入して真っ先にCortanaを消しました。
+ただ設定とかでは消せなくてレジストリをいじる必要がありました。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.pasoble.jp/windows/10/cortana-mukouka.html&quot;&gt;Windows 10 Cortana を停止して無効化する | Pasoble&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下本題です。&lt;/p&gt;
+&lt;h2 id=&quot;windows--rランチャーの仕組み・初期設定&quot;&gt;&lt;a href=&quot;#windows--r%E3%83%A9%E3%83%B3%E3%83%81%E3%83%A3%E3%83%BC%E3%81%AE%E4%BB%95%E7%B5%84%E3%81%BF%E3%83%BB%E5%88%9D%E6%9C%9F%E8%A8%AD%E5%AE%9A&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;windows + rランチャーの仕組み・初期設定&lt;/h2&gt;
+&lt;p&gt;パスの通ったランチャー専用のフォルダをつくって、
+そこにフォルダショートカット、アプリショートカット、バッチを配置します。
+そうすると&lt;code class=&quot;language-text&quot;&gt;windows + r&lt;/code&gt;で呼び出せるという仕組みです。&lt;/p&gt;
+&lt;p&gt;まずはランチャー専用のフォルダを作成します。自分は&lt;code class=&quot;language-text&quot;&gt;C:\shrotcut&lt;/code&gt;としました。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/a014f5f185056aa809657ef1f6929ea1/108ba/setting-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 93.71428571428571%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAYAAACQjC21AAAACXBIWXMAAA6cAAAOnAEHlFPdAAACGklEQVQ4y+1US2/aQBD2D+65/SdVT+mlhwglsZWkbSrRJiUKAsIrxLyxUR6AMcY2YMPau/Z0vOAQUtJGbY8d6fPMeme+2ZlZrbCzd/wmV7z6UixdHqRzeenr9wvpIluQKrWWVJYbUrn6DOQlitc1KVMoi/kr+WPyLPVOeLWTOXxfBfAD+GvJt/v3wmlO3nWRzPM8omoWO+/YzJgRDtP1UXsckW06PtMshzmOy2azGbPtCbMsixFC/Iiwod7WhetaIxEtFgtCgyAE4lMIggAYIghDsOwpGKYNjDGYLwiMrQlQSjlcdw6+70d7vD5tqDeFhnrHCceGTj3P/6kMQhYwmUww4YInwpOB4zgbPiEAJxzoo6ZQqXeQ0IVWs04VRYVev8+D4sDRSIfBYIDZh2AjsaahrWkwnU65T6TxlMsT6kZTKMmtBJtrULjM0vteD0zThPF4zDX2B+5ub6Dd6UC32wVd10FRFFBVFRMZfD/yxf6vCRvKDS957jp02+Si3mEA71Ukvr+2H0oOVyUPseRaS02sftIQP0+xGRhu2DFwmOse1tpLQmw4jQMek21LsmV/C2EY0qcEvyKMa135PE/4J/KfMJ5yGE35QZZ+L5ZH97Dd3V1lIahoDFy/GHgYftOHI6MuVFvqEfwj6fa0nvBh7+j1yWn65Cyd30+mMqL46ZuYPM+K+BKL+bIcvcS/RalSPRBTheOd/c9vfwCvAp//xoDqAAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;ランチャー専用フォルダ作成&quot;
+        title=&quot;&quot;
+        src=&quot;/static/a014f5f185056aa809657ef1f6929ea1/fb8a0/setting-1.png&quot;
+        srcset=&quot;/static/a014f5f185056aa809657ef1f6929ea1/1a291/setting-1.png 148w,
+/static/a014f5f185056aa809657ef1f6929ea1/2bc4a/setting-1.png 295w,
+/static/a014f5f185056aa809657ef1f6929ea1/fb8a0/setting-1.png 590w,
+/static/a014f5f185056aa809657ef1f6929ea1/108ba/setting-1.png 700w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;次に「システムのプロパティ」 &gt; 環境変数 &gt; ユーザー環境変数　&gt; Path を選択して編集で&lt;br&gt;
+ランチャー専用フォルダのパスを追加します。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/6f2097b2ce53ecd881aff5c5483d91b6/ed992/setting-3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 109.79228486646883%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAYAAADAQbwGAAAACXBIWXMAAA6cAAAOnAEHlFPdAAADAUlEQVQ4y6VUa2/aMBTlr07apm3Svkz7NO0f7Fd0VExr6apqj7ZDdFq1vngkECjQ8AppGkhCCI8AAZvc3Rtoq2oV3YalIzsGH59zfezQ2ofoy/jPX9sHh0frsR+HkYQgRfKlSiRXlBHlByBHpMJFJHteWsfx1tf92JtQQshEAdtoOIQhYpXWaCiHoZOksDbxPND1ptdqGUzTNKZeXjK702Gj0YgNXJe59wA3Z23bZoqisHw+j2tbIAjCNyQUw4N+D+RymZXLFbBMM1A6Ho9hNpstVdTr9UkVFAoF3m63QRTFvdBpSgwPXRfKSFitVqFWq+GfGthXoV6vQ7fbw4U9cBwHuth76Mb3/YCQvlEhpFIpbpoWiIJAhEKY6nchy0yWZahUKgGI/HpsGAYSO+B0uwHhrcI5YbFY5LShQIRn6UyYLJLlutIABdU1Gioq6sJ0ymAymcJCUNBoyLEUNBcQoovzwjnvdJy55YSQDU9HA9BVhWn1CjTV+mLZw83F2lNZJEnihmHeKqwaLuwnZRYTqvDltAT7Qg0SNQfyLQ9yzfEfyCOkpgcNowuW0QJVVflwOIJcLrcXSqbFcLTI4PWOxl7tXMGTTQ0eb6jwNKrB8+0mPPukI5p38ALnH23qsJszoGcboF3pnMqGSvcoh+GFA/avQaa4USJKpRKe8sLyNeHM9xnljs/8ALMlCA4F19CpEyGdMiVhTphIB4SYLUb5+ltQ6/cHYFkWoDo+mUzmNbxW+D+ElD26KXgZMDad1Qlt2ya7kMlkuIIZDiwfr2AZH4ngPg8GA07fSL6aQiQCsorgdKD4SBBh+iY2vr/8hvjzje8QOkiIteQ0NydcWGbzBsvAETPO50BFRNjF6OCdvmP5PbGj7AnttAyW3eFay+KXuhn0TbNNgea6rk/ppuAp74ZSGekjsXveGDjuzDm7F/6Mg+N6oBodkOsaKM026HYf2pZJb2mgNpvNHITWN7bfpjPSCb6L389SYnwZ8DGOHyfFOL7yN/3it1hSzB5t7Xx+9xsSGlXr0HJ0HQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;ランチャー専用フォルダ作成&quot;
+        title=&quot;&quot;
+        src=&quot;/static/6f2097b2ce53ecd881aff5c5483d91b6/fb8a0/setting-3.png&quot;
+        srcset=&quot;/static/6f2097b2ce53ecd881aff5c5483d91b6/1a291/setting-3.png 148w,
+/static/6f2097b2ce53ecd881aff5c5483d91b6/2bc4a/setting-3.png 295w,
+/static/6f2097b2ce53ecd881aff5c5483d91b6/fb8a0/setting-3.png 590w,
+/static/6f2097b2ce53ecd881aff5c5483d91b6/ed992/setting-3.png 674w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;これで設定は完了です。あとはどんどんショートカットをランチャー専用フォルダに追加していきましょう。
+ショートカットのファイル名がそのままコマンド名になるのでファイル名は自分の好きなようにしてください（例えばよく使うコマンドはファイル名を短くするなど）。&lt;/p&gt;
+&lt;h2 id=&quot;windows--rランチャーの使いどころ&quot;&gt;&lt;a href=&quot;#windows--r%E3%83%A9%E3%83%B3%E3%83%81%E3%83%A3%E3%83%BC%E3%81%AE%E4%BD%BF%E3%81%84%E3%81%A9%E3%81%93%E3%82%8D&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;windows + rランチャーの使いどころ&lt;/h2&gt;
+&lt;h3 id=&quot;フォルダ・ファイルを開く&quot;&gt;&lt;a href=&quot;#%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80%E3%83%BB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E9%96%8B%E3%81%8F&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;フォルダ・ファイルを開く&lt;/h3&gt;
+&lt;p&gt;試しに「ランチャー専用フォルダ」自身のショートカットを配置してみましょう。ショートカット名は&lt;code class=&quot;language-text&quot;&gt;shortcut&lt;/code&gt;にします。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/2b5a6bb9176061c81b7912d2682c0166/d5231/setting-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 93.4379457917261%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAYAAACQjC21AAAACXBIWXMAAA6cAAAOnAEHlFPdAAABiklEQVQ4y+2UTU/CQBCG+685+UvUqyFNhCqYCAcvxKhEASnS0pbypYmCbbfY0m1323W7FGywfuHFg5O8yczbzTMzSTOccFLKyYpSkWSx0Gh3hOtmW9BHE0EdTARFH3+uwViQ+0NBlNVip6eVr25a+9wO3zw+0AmZw5DEgSJCltnPQxxOn7laQ8oHtIA+gsA2cbFt4t2LGZ7aCwwWCJtusJbhBMyfOy52XRdbloUXCw8HAYoRZHj/qHMtscvHheM4CGNMfBQSz0cEh+FaIVUQBORpZpAXxyXxu1ix7/s+MUzAljJMa8SJcp8BAbAQjQ/XiaKIQOgRz/MYLO1TjwFNYFOgpPLJN7R6kKWsBil/OaGVAtLx0epBGpD2shokdQIEKWAUoU3Yd+MNaL8HbhMroPkP/DXQ+PNAM+PH3jZSE8pqPmkEqfA2okB2bYA917l6Uywtj4NNL4rPrsdXghBmrq6NHgzu6PQsV6vfVi4bnUNJGxTvlP6G9My8S/OuqjOvp+mF6o1U5qvne6+KGq6u+8xMGwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;ランチャー専用フォルダ作成&quot;
+        title=&quot;&quot;
+        src=&quot;/static/2b5a6bb9176061c81b7912d2682c0166/fb8a0/setting-2.png&quot;
+        srcset=&quot;/static/2b5a6bb9176061c81b7912d2682c0166/1a291/setting-2.png 148w,
+/static/2b5a6bb9176061c81b7912d2682c0166/2bc4a/setting-2.png 295w,
+/static/2b5a6bb9176061c81b7912d2682c0166/fb8a0/setting-2.png 590w,
+/static/2b5a6bb9176061c81b7912d2682c0166/d5231/setting-2.png 701w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;windows + r&lt;/code&gt; → &lt;code class=&quot;language-text&quot;&gt;shortcut&lt;/code&gt;と入力 →　&lt;code class=&quot;language-text&quot;&gt;Enter&lt;/code&gt;キー　でショートカット専用フォルダが開けば設定成功です。&lt;/p&gt;
+&lt;p&gt;この要領でショートカットやバッチを追加していくと、いろんなことが&lt;code class=&quot;language-text&quot;&gt;windows + r&lt;/code&gt;で実行できるようになります。&lt;/p&gt;
+&lt;h3 id=&quot;アプリを起動する&quot;&gt;&lt;a href=&quot;#%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;アプリを起動する&lt;/h3&gt;
+&lt;p&gt;exeファイルへのショートカットを作成すればアプリを起動できます。
+例えばサクラエディタの場合、exeファイルを右クリック → ショートカットの作成　を選択し、
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/6ee6409a2bb80dfca5df85f96b234ef9/e7ea1/sakura-setting-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 95.36082474226805%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAYAAACQjC21AAAACXBIWXMAAA6cAAAOnAEHlFPdAAAC10lEQVQ4y5WU23LaMBCGefFc5ll6k9BpS5KrUtrptKRNZqApGHzAxtjgs/EBG9uC7a6wE1Iy01QzO8LS6tP++oVal1cfzu5Ho4+iNH4/0xcdzdA7sqR3+ldC5/ZK7Nx/Eju/xiMcNzoqzqu6zmNW9zQmq9o7/O5+/tY/a529ub3umnDaSoAqxn4Hr24/Bf2mNZ6IF3x9kRd5FrMkTVkYhizLNyyMQuYFPkvrsTzP2X6/Z2VZYlS8z7KMJUmyJcZc1y9bmqq0qYx1FFd/77jJclivI6jKEvJtAUmSQlEUwBgDBALCm1S+1rJWb1u6Pm/Tx8IwKqyEz+52h0TcHbAySDcbVEDABGIMAhEYK67zdxy4WhFwriJwC6ulWW2ztN7wAKQFYRBAmiZQVSXEUQQb/E3zrCxgWwNxgyegKMttFxMHU61ykxIiNCMtdpCXOwjiDZi2B04QQZTipq4PSy+CIN/Dwo3Bix4VPQGnstom0J2gVtIyBDvdgb60YTSZgoUAxw8hjBLwwxgjQmAMToZHFGQI3JwCFwudn6E2Uyrfc7B+BsZyCYPBAITxGEzTgCDwudxDrDmEJOd4xieSVVXlwCAIqgLdpOZhNZqmgaIoMJvNKBHdXkNEwCThOWQKOX0C1OcHlxvrcRYeVBtUbQ6mYcASq7UsC3zfPwDj+NnVIsefAec1kKyvJ8F1XaxOBpwDQRDAcRx+ZQiY1BU2uScVNsBmkJJoIUkmqaZpgud5XHJTZZN3VOW/gZIkcQjdRZJJcSz5v4AkURRFbgjJpkrpHOk80bzXA5skSZFgOByCLMtgoDG2bfMgKP0Vj8/wJVMualMKekkobMdm0+mU4TkylMlQOg96ceibrmGTS4FrtzXwsoUVXL/0th1Lem2zbPum9fV7/1yQ1R/KXO/+nsq9h4nUmyhqTzdXPTfwe7br9mzPw96re7dnOc5jrDBs1+kOVfPu5kv//A/V35ZW9Xdy1wAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;サクラエディタのショートカット作成１&quot;
+        title=&quot;&quot;
+        src=&quot;/static/6ee6409a2bb80dfca5df85f96b234ef9/fb8a0/sakura-setting-1.png&quot;
+        srcset=&quot;/static/6ee6409a2bb80dfca5df85f96b234ef9/1a291/sakura-setting-1.png 148w,
+/static/6ee6409a2bb80dfca5df85f96b234ef9/2bc4a/sakura-setting-1.png 295w,
+/static/6ee6409a2bb80dfca5df85f96b234ef9/fb8a0/sakura-setting-1.png 590w,
+/static/6ee6409a2bb80dfca5df85f96b234ef9/e7ea1/sakura-setting-1.png 776w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;ランチャー専用フォルダに配置します。ここの例ではショートカット名を&lt;code class=&quot;language-text&quot;&gt;sakura&lt;/code&gt;にしています。
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/c6760a2f8d1c0ce0c972150245c42c13/e5998/sakura-setting-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 72.12475633528264%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAAA6cAAAOnAEHlFPdAAACDUlEQVQ4y61Ta47TQAzutRAnQOJKXACt9hgUqUcg0sIifgBC4gcSKrttkrbLtk22k9c8MnHmw5O0ScVDSAhLjmOP54vtz5k8e/nxbRCDpcUoDmhqkCp7t+lDf5M3n+fvJ5s4fNXdscbWRpKUirIsI6UNlZUk21iilkgZTa1rqW3ZOUrFuVprttJ6jPnNt9eTRRgHqSR4oD99ua4tDkL4HDBg34NzKKsKxhgf6+7ehOH1JI7joMgFtrsd+SSv7Zn1Yq1FmqYdaEN0BASKokCeF1BKjYCr1SqQliAOKcG14wwH5Sc1qIocSlY4zzFKwmgJsnUHuIwYcL6IgyjV+BJuKVFAIl2v/L4/2vvCYnEvsNzl2JbUxRLlEO0LREmJjTDEIXz4yoCLMAr2osTtXUo5j/aBEw8aR3UQhoE94F2CeJchqQgH05/F+wyrJMd3oalmwE9zP8NoGegyxTqOqNbqrOXRto2FeEhRZIIdGs60LKFV5Z2x5SgKA+caFGVJpq4HBv3Q3UBKAyEyJqEEb0s/XT6TSnlC4PeqI2XJgOv1OvBJzCKdAE5sn/ymaZAxw55VGlh2ne+15GJ87DaMriebzSbwDlviKpzrUdxJ/DsDOr7opJSOd25YAQbqtKqqcW18hTj7wX4nP+3RL3GWsWWu7Ar/Sbjld5PLy8tHs9ns6XQ6ffKv+oLVYzy/uHj8Aw4FFuqhNvzUAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;サクラエディタのショートカット作成２&quot;
+        title=&quot;&quot;
+        src=&quot;/static/c6760a2f8d1c0ce0c972150245c42c13/fb8a0/sakura-setting-2.png&quot;
+        srcset=&quot;/static/c6760a2f8d1c0ce0c972150245c42c13/1a291/sakura-setting-2.png 148w,
+/static/c6760a2f8d1c0ce0c972150245c42c13/2bc4a/sakura-setting-2.png 295w,
+/static/c6760a2f8d1c0ce0c972150245c42c13/fb8a0/sakura-setting-2.png 590w,
+/static/c6760a2f8d1c0ce0c972150245c42c13/526de/sakura-setting-2.png 885w,
+/static/c6760a2f8d1c0ce0c972150245c42c13/e5998/sakura-setting-2.png 1026w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;windows + r&lt;/code&gt; → &lt;code class=&quot;language-text&quot;&gt;sakura&lt;/code&gt;と入力 → &lt;code class=&quot;language-text&quot;&gt;Enter&lt;/code&gt;キー でサクラエディタが開けば設定成功です。
+ちょっとしたメモの時に、素早くサクラエディタが開けるようになります。&lt;/p&gt;
+&lt;p&gt;なおWindows10なら「スタートメニュー」→「すべてのアプリ」からアプリを選択し、アプリアイコンをドラッグ＆ドロップでショートカットを簡単に作成できます。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;参考：　&lt;a href=&quot;http://tanweb.net/2015/08/17/4715/&quot;&gt;Windows 10 アプリのショートカットをデスクトップに表示したい！ | Tanweb.net&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;アプリを引数付きで起動する&quot;&gt;&lt;a href=&quot;#%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E5%BC%95%E6%95%B0%E4%BB%98%E3%81%8D%E3%81%A7%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;アプリを引数付きで起動する&lt;/h3&gt;
+&lt;p&gt;例えばVisual Studio Codeで特定のフォルダを開きたい場合は、ショートカットにアプリ引数を指定します。
+アプリのパスの後にスペース区切りで指定できます。具体的には下記のような感じです。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;txt&quot;&gt;&lt;pre class=&quot;language-txt&quot;&gt;&lt;code class=&quot;language-txt&quot;&gt;&amp;quot;C:\Users\xxx\AppData\Local\Programs\Microsoft vS code\Code.exe&amp;quot; C:\Users\xxx\workspace\memo&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Chromeで特定のサイトを開きたいときも同様です。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;txt&quot;&gt;&lt;pre class=&quot;language-txt&quot;&gt;&lt;code class=&quot;language-txt&quot;&gt;&amp;quot;C:\Program Files (x86)\Google\Chrome\Application\chrome.exe&amp;quot; https://soundcloud.com&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;作成したショートカットをランチャー専用フォルダに格納すればVSCodeやChromeなどが&lt;code class=&quot;language-text&quot;&gt;windows + r&lt;/code&gt;で呼び出せるようになります。&lt;/p&gt;
+&lt;h3 id=&quot;コントロールパネルの設定を起動する&quot;&gt;&lt;a href=&quot;#%E3%82%B3%E3%83%B3%E3%83%88%E3%83%AD%E3%83%BC%E3%83%AB%E3%83%91%E3%83%8D%E3%83%AB%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;コントロールパネルの設定を起動する&lt;/h3&gt;
+&lt;p&gt;コントロールパネルを開いてドラック＆ドロップでショートカットが作れます。
+作成したショートカットを好きな名前にリネームしてランチャー専用フォルダに格納すればサウンド設定などが&lt;code class=&quot;language-text&quot;&gt;windows + r&lt;/code&gt;で呼び出せるようになります。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/f839b3554f85654d3b8e1c7e11d94b90/75ec9/controlpannel.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 46.75%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABcRAAAXEQHKJvM/AAAB10lEQVQoz22RW2/TQBBG/RMRF0GqqoKHNEkT+F+889QH4AlaJEC0gcbOjTQhtRMHJ7bXbuzdHMabSlzEyJ92tDt7/M2O8204pQpdlpgdyEcp+Y0fEMeKotCyqYnShHWesTVQaGPr/o3BcIjT8zw2cfzXQZqmDMcTvk99UcDox5Kr6YLZShFnmo0qiPOSbFv9bIc2xt7ruR6O67nkmbIbSaLwFyt6wznvPo9482HM+4s5n1yfs6sxQz8VyI70VstqUALU5jfQFXPOZDIizTLbwuUg4PT8mrOuz+tzj5m/kbNCLmhGfsgs2hDEmQUVese2NOSFQes90KuAL08v+Oj5jIMNvVnMeJETKs31fI7Rxd37an7GKQuBJdJqnGvWqhSwsdCi3AP7FfDV2y7Tm4jZfEkg7Zpyaw/9ICDLc5sXRYG/ilgmOca2uFc1nFJXDvV+KH0XJ96s+F+E4dKCqhCDBOuMRZKJOyPaIUapjOk/xj0Z9XEuu19ZhiHzG58oWstgElKlcPsD1uuIPL8VZdatUpWk7VSh5N2zOympL8Wl2/2Cc+/BI2qHRzx8csDR02fUG8fUm03uP65xXK/TkrzRaFg9b5/wQtQ5adFpNWlbtWxNp93m8KDGL8zhjsBroj8mAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;コントロールパネルのショートカット設定&quot;
+        title=&quot;&quot;
+        src=&quot;/static/f839b3554f85654d3b8e1c7e11d94b90/fb8a0/controlpannel.png&quot;
+        srcset=&quot;/static/f839b3554f85654d3b8e1c7e11d94b90/1a291/controlpannel.png 148w,
+/static/f839b3554f85654d3b8e1c7e11d94b90/2bc4a/controlpannel.png 295w,
+/static/f839b3554f85654d3b8e1c7e11d94b90/fb8a0/controlpannel.png 590w,
+/static/f839b3554f85654d3b8e1c7e11d94b90/526de/controlpannel.png 885w,
+/static/f839b3554f85654d3b8e1c7e11d94b90/fa2eb/controlpannel.png 1180w,
+/static/f839b3554f85654d3b8e1c7e11d94b90/08f6a/controlpannel.png 1770w,
+/static/f839b3554f85654d3b8e1c7e11d94b90/75ec9/controlpannel.png 2000w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3 id=&quot;デフォルトで用意されているコマンドを使う&quot;&gt;&lt;a href=&quot;#%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88%E3%81%A7%E7%94%A8%E6%84%8F%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%82%92%E4%BD%BF%E3%81%86&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;デフォルトで用意されているコマンドを使う&lt;/h3&gt;
+&lt;p&gt;デフォルトでいくつかコマンドが用意されています。
+使いそうなものだけ下記に列挙します。&lt;br&gt;
+※電卓、メモ帳、ペイントあたりは列挙していません。&lt;/p&gt;
+&lt;h4 id=&quot;ファイル系&quot;&gt;&lt;a href=&quot;#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E7%B3%BB&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;ファイル系&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;\&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Cドライブを開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;.&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ログインユーザのフォルダを開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;shell:desktop&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;デスクトップを開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;shell:recent&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;最近使ったファイル一覧を開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;オフィス系&quot;&gt;&lt;a href=&quot;#%E3%82%AA%E3%83%95%E3%82%A3%E3%82%B9%E7%B3%BB&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;オフィス系&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;excel&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Excelを起動します。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;winword&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Wordを起動します。&lt;code class=&quot;language-text&quot;&gt;word&lt;/code&gt;ではなく &lt;code class=&quot;language-text&quot;&gt;win&lt;/code&gt;を頭に付けます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;explore&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Internet Explorerを起動します。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;powerpnt&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PowerPointを開きます。なぜか後半略語です。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;その他&quot;&gt;&lt;a href=&quot;#%E3%81%9D%E3%81%AE%E4%BB%96&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;その他&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;cmd&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;コマンドプロンプトを起動します。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;control&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;コントロールパネルを開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;mstsc&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;リモートデスクトップ接続を開きます。これは使用頻度高です。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;winver&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Windowsのバージョン情報を開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;desk.cpl&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;画面のプロパティを開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;sysdm.cpl&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;システムのプロパティを開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;msconfig&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;システム構成を開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;netstat&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ネットワークのアクティブな接続をコマンドプロンプトで確認します。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;regedit&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;レジストリエディタを開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;ms-settingsでシステム設定などを起動する&quot;&gt;&lt;a href=&quot;#ms-settings%E3%81%A7%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E8%A8%AD%E5%AE%9A%E3%81%AA%E3%81%A9%E3%82%92%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;ms-settingsでシステム設定などを起動する&lt;/h3&gt;
+&lt;p&gt;Windowsの設定は&lt;code class=&quot;language-text&quot;&gt;ms-settings:URL&lt;/code&gt;コマンドで開けます。
+例えば下記のようなバッチファイルを作成してランチャー専用フォルダに配置します。ここではファイル名を&lt;code class=&quot;language-text&quot;&gt;blue.bat&lt;/code&gt;とします。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;blue.bat&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;batch&quot;&gt;&lt;pre class=&quot;language-batch&quot;&gt;&lt;code class=&quot;language-batch&quot;&gt;&lt;span class=&quot;token command&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;start&lt;/span&gt; ms-settings:bluetooth&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;これで&lt;code class=&quot;language-text&quot;&gt;windows + r&lt;/code&gt; → &lt;code class=&quot;language-text&quot;&gt;blue&lt;/code&gt;と入力 → &lt;code class=&quot;language-text&quot;&gt;Enterキー&lt;/code&gt; でブルートゥース設定が開けます。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/4a7d5d5e52171ea7bc8711d5d4177053/bd555/mssettings-setting-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 78.16091954022988%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAAA7DAAAOwwHHb6hkAAACnElEQVQ4y31U227TQBRce32Jb3HcJHYSJ75VIk2KyksF70gW8D99g18D1+IB9ZOAlQ9ztkkQpenD6Jw48ezMmbMRm6p+yIuyy8uy39RNn8znvTBlLyyrN227NwDuhTwAvaGfO70QohfL/F7cfb437r58N95/eCf2ux2VZalRVRUtFwtarVaU5znlqPyM+zAIyJKSpGkSiDRMwyDTsskcxyTiCYkw/Ciur6+pKIpfm81GlVWl6rpWRZ6rNE1VlmWn6geBsm1HBaggUyPXVRCh1vhtma9UhAPhqBVvbm5ot9+r/X5PNdSkUDV7tSXXdclgBVDEsG1bP7MsS6sbjUa0Wq9pmqYD3hmiJCHb91vxGgpBxsqogu1pllFcN5RMJuT5PsWo4/H4ZPMEHCDCiMTIG0QQDjKKyAuCVuyurtiyKjYbPa90PqcLEExnM00keW7AU0LbcSjBb0wpB3weJJR747gV2+2WLi8v1TEYzIzmAFfP8/5XdoCBQ6zkgpD4I6HtgHDcitvbW22Z1TFmOJWJ4jjWsztHKPi76Yxt/1UYQ+EVLHPCsH0iZDIe+lkyBtZFTBIS0XgQfjBIiPCiqBWcLMfPhEfLWBNaLpc61bOWQSg9/9Gy4w4SAXph2ApWVRwIuZ8jFAcDZ7yk0ELKk2zB6/RvKM8RTrAq0+lU3xhWy6oXuEF6DNhNrdCU5IYhz3vAFgxY6ucJj6H4sBDiBSY5LjVX40CIdSEfoQSz+WBb1mAeQ+FlBtlP3kUQKhAqvKxAqmBbIWl91V7Ab4aEda2waRo6rgz3bI/D4R77SWtcLx4BJ8/13GxBSKMo+iSKuvmBv7Cv66rqiqbpLtKssz2/c3y/c4Ogk67bIcnOcBxUR/dYmSewvhmu2xsj7+0fKdpeqmP/PugAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;ブルートゥース設定画面&quot;
+        title=&quot;&quot;
+        src=&quot;/static/4a7d5d5e52171ea7bc8711d5d4177053/fb8a0/mssettings-setting-1.png&quot;
+        srcset=&quot;/static/4a7d5d5e52171ea7bc8711d5d4177053/1a291/mssettings-setting-1.png 148w,
+/static/4a7d5d5e52171ea7bc8711d5d4177053/2bc4a/mssettings-setting-1.png 295w,
+/static/4a7d5d5e52171ea7bc8711d5d4177053/fb8a0/mssettings-setting-1.png 590w,
+/static/4a7d5d5e52171ea7bc8711d5d4177053/526de/mssettings-setting-1.png 885w,
+/static/4a7d5d5e52171ea7bc8711d5d4177053/bd555/mssettings-setting-1.png 957w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h4 id=&quot;ms-settingsコマンド一覧&quot;&gt;&lt;a href=&quot;#ms-settings%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E4%B8%80%E8%A6%A7&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;ms-settingsコマンド一覧&lt;/h4&gt;
+&lt;p&gt;ms-setttings:URLはsystemsettings.dllに定義されています。Stringsコマンドで確認できます。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;batch&quot;&gt;&lt;pre class=&quot;language-batch&quot;&gt;&lt;code class=&quot;language-batch&quot;&gt;&lt;span class=&quot;token command&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;strings&lt;/span&gt; C:\Windows\ImmersiveControlPanel\systemsettings.dll | Find &lt;span class=&quot;token parameter attr-name&quot;&gt;/I&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;ms-settings:&quot;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Stringsはファイルから表示可能な文字だけ出力するコマンドです。Linux環境ではインストールされています。
+マイクロソフトがWindows向けのStringコマンドを配布しています。以下のサイトからインストール可能です。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://technet.microsoft.com/ja-jp/sysinternals/strings.aspx&quot;&gt;https://technet.microsoft.com/ja-jp/sysinternals/strings.aspx&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;主要なものを下記に列挙します。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;ms-settings:URI&lt;/th&gt;
+&lt;th&gt;設定の場所&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:about&lt;/td&gt;
+&lt;td&gt;システム・バージョン情報&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:activation&lt;/td&gt;
+&lt;td&gt;更新とセキュリティ・ライセンス認証&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:appsfeatures&lt;/td&gt;
+&lt;td&gt;アプリ・アプリと機能&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:appsforwebsites&lt;/td&gt;
+&lt;td&gt;アプリ・Web サイト用のアプリ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:backup&lt;/td&gt;
+&lt;td&gt;更新とセキュリティ・バックアップ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:batterysaver&lt;/td&gt;
+&lt;td&gt;システム・バッテリー&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:batterysaver-settings&lt;/td&gt;
+&lt;td&gt;システム・バッテリー&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:batterysaver-usagedetails&lt;/td&gt;
+&lt;td&gt;システム・バッテリー・アプリによるバッテリーの使用&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:bluetooth&lt;/td&gt;
+&lt;td&gt;デバイス・Bluetoothとその他のデバイス&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:colors&lt;/td&gt;
+&lt;td&gt;個人用設定・色&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:connecteddevices&lt;/td&gt;
+&lt;td&gt;デバイス・Bluetoothとその他のデバイス&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:crossdevice&lt;/td&gt;
+&lt;td&gt;システム・共有エクスペリエンス&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:datausage&lt;/td&gt;
+&lt;td&gt;ネットワークとインターネット・データ使用状況&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:dateandtime&lt;/td&gt;
+&lt;td&gt;時刻と言語・日付と時刻&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:defaultapps&lt;/td&gt;
+&lt;td&gt;アプリ・既定のアプリ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:developers&lt;/td&gt;
+&lt;td&gt;更新とセキュリティ・開発者向け&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:deviceencryption&lt;/td&gt;
+&lt;td&gt;システム・バージョン情報（デバイスの暗号化）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:devices-touchpad&lt;/td&gt;
+&lt;td&gt;デバイス・タッチパッド&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:display&lt;/td&gt;
+&lt;td&gt;システム・ディスプレイ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:easeofaccess-closedcaptioning&lt;/td&gt;
+&lt;td&gt;簡単操作・字幕&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:easeofaccess-highcontrast&lt;/td&gt;
+&lt;td&gt;簡単操作・ハイコントラスト&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:easeofaccess-keyboard&lt;/td&gt;
+&lt;td&gt;簡単操作・キーボード&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:easeofaccess-magnifier&lt;/td&gt;
+&lt;td&gt;簡単操作・拡大鏡&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:easeofaccess-mouse&lt;/td&gt;
+&lt;td&gt;簡単操作・マウス&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:easeofaccess-narrator&lt;/td&gt;
+&lt;td&gt;簡単操作・ナレーター&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:easeofaccess-otheroptions&lt;/td&gt;
+&lt;td&gt;簡単操作・その他のオプション&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:emailandaccounts&lt;/td&gt;
+&lt;td&gt;アカウント・メール＆アプリのアカウント&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:findmydevice&lt;/td&gt;
+&lt;td&gt;更新とセキュリティ・デバイスの検索&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:gaming-broadcasting&lt;/td&gt;
+&lt;td&gt;ゲーム・ブロードキャスト&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:gaming-gamebar&lt;/td&gt;
+&lt;td&gt;ゲーム・ゲーム バー&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:gaming-gamedvr&lt;/td&gt;
+&lt;td&gt;ゲーム・ゲーム DVR&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:gaming-gamemode&lt;/td&gt;
+&lt;td&gt;ゲーム・ゲーム モード&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:lockscreen&lt;/td&gt;
+&lt;td&gt;個人用設定・ロック画面&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:maps&lt;/td&gt;
+&lt;td&gt;アプリ・オフライン マップ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:maps-downloadmaps&lt;/td&gt;
+&lt;td&gt;アプリ・オフライン マップ・地図のダウンロード&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:mousetouchpad&lt;/td&gt;
+&lt;td&gt;デバイス・マウス&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:multitasking&lt;/td&gt;
+&lt;td&gt;システム・マルチタスク&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:network&lt;/td&gt;
+&lt;td&gt;ネットワークとインターネット（・状態）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:network-airplanemode&lt;/td&gt;
+&lt;td&gt;ネットワークとインターネット・機内モード&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:network-cellular&lt;/td&gt;
+&lt;td&gt;ネットワークとインターネット・携帯ネットワーク&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:network-dialup&lt;/td&gt;
+&lt;td&gt;ネットワークとインターネット・ダイヤルアップ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:network-directaccess&lt;/td&gt;
+&lt;td&gt;ネットワークとインターネット・DirectAccess&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:network-ethernet&lt;/td&gt;
+&lt;td&gt;ネットワークとインターネット・イーサネット&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:network-mobilehotspot&lt;/td&gt;
+&lt;td&gt;ネットワークとインターネット・モバイル ホットスポット&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:network-proxy&lt;/td&gt;
+&lt;td&gt;ネットワークとインターネット・プロキシ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:network-status&lt;/td&gt;
+&lt;td&gt;ネットワークとインターネット・状態&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:network-vpn&lt;/td&gt;
+&lt;td&gt;ネットワークとインターネット・VPN&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:network-wifi&lt;/td&gt;
+&lt;td&gt;ネットワークとインターネット・Wi-Fi&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:network-wifisettings&lt;/td&gt;
+&lt;td&gt;ネットワークとインターネット・Wi-Fi・既知のネットワークの管理&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:notifications&lt;/td&gt;
+&lt;td&gt;システム・通知とアクション&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:optionalfeatures&lt;/td&gt;
+&lt;td&gt;アプリ・アプリと機能・オプション機能の管理&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:otherusers&lt;/td&gt;
+&lt;td&gt;アカウント・家族とその他のユーザー&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:pen&lt;/td&gt;
+&lt;td&gt;デバイス・ペンと Windows Ink&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:personalization&lt;/td&gt;
+&lt;td&gt;個人設定（・背景）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:personalization-background&lt;/td&gt;
+&lt;td&gt;個人用設定・背景&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:personalization-colors&lt;/td&gt;
+&lt;td&gt;個人用設定・色&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:personalization-start&lt;/td&gt;
+&lt;td&gt;個人用設定・スタート&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:powersleep&lt;/td&gt;
+&lt;td&gt;システム・電源とスリープ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:printers&lt;/td&gt;
+&lt;td&gt;デバイス・プリンターとスキャナー&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy&lt;/td&gt;
+&lt;td&gt;プライバシー（・全般）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-accountinfo&lt;/td&gt;
+&lt;td&gt;プライバシー・アカウント情報&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-appdiagnostics&lt;/td&gt;
+&lt;td&gt;プライバシー・アプリの診断&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-backgroundapps&lt;/td&gt;
+&lt;td&gt;プライバシー・バックグラウンド アプリ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-calendar&lt;/td&gt;
+&lt;td&gt;プライバシー・カレンダー&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-callhistory&lt;/td&gt;
+&lt;td&gt;プライバシー・通話履歴&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-contacts&lt;/td&gt;
+&lt;td&gt;プライバシー・連絡先&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-customdevices&lt;/td&gt;
+&lt;td&gt;プライバシー・他のデバイス&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-email&lt;/td&gt;
+&lt;td&gt;プライバシー・メール&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-feedback&lt;/td&gt;
+&lt;td&gt;プライバシー・フィードバックと診断&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-general&lt;/td&gt;
+&lt;td&gt;プライバシー・全般&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-location&lt;/td&gt;
+&lt;td&gt;プライバシー・位置情報&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-messaging&lt;/td&gt;
+&lt;td&gt;プライバシー・メッセージング&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-microphone&lt;/td&gt;
+&lt;td&gt;プライバシー・マイク&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-notifications&lt;/td&gt;
+&lt;td&gt;プライバシー・通知&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-radios&lt;/td&gt;
+&lt;td&gt;プライバシー・無線&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-speechtyping&lt;/td&gt;
+&lt;td&gt;プライバシー・音声認識、手書き入力、入力の設定&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-tasks&lt;/td&gt;
+&lt;td&gt;プライバシー・タスク&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:privacy-webcam&lt;/td&gt;
+&lt;td&gt;プライバシー・カメラ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:project&lt;/td&gt;
+&lt;td&gt;システム・このPCへのプロジェクション&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:proximity&lt;/td&gt;
+&lt;td&gt;ネットワークとインターネット・機内モード&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:recovery&lt;/td&gt;
+&lt;td&gt;更新とセキュリティ・回復&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:regionlanguage&lt;/td&gt;
+&lt;td&gt;時刻と言語・地域と言語&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:regionlanguage-chsime-pinyin&lt;/td&gt;
+&lt;td&gt;時刻と言語・地域と言語&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:regionlanguage-chsime-wubi&lt;/td&gt;
+&lt;td&gt;時刻と言語・地域と言語&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:screenrotation&lt;/td&gt;
+&lt;td&gt;システム・ディスプレイ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:signinoptions&lt;/td&gt;
+&lt;td&gt;アカウント・サインイン オプション&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:signinoptions-launchfaceenrollment&lt;/td&gt;
+&lt;td&gt;アカウント・サインイン オプション・Windows Hello セットアップ（顔認証）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:signinoptions-launchfingerprintenrollment&lt;/td&gt;
+&lt;td&gt;アカウント・サインイン オプション・Windows Hello セットアップ（指紋認証）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:speech&lt;/td&gt;
+&lt;td&gt;時刻と言語・音声認識&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:storagepolicies&lt;/td&gt;
+&lt;td&gt;システム・ストレージ（ストレージセンサー）・空き領域を増やす方法を変更する&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:storagesense&lt;/td&gt;
+&lt;td&gt;システム・ストレージ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:sync&lt;/td&gt;
+&lt;td&gt;アカウント・同期&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:tabletmode&lt;/td&gt;
+&lt;td&gt;システム・タブレット モード&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:taskbar&lt;/td&gt;
+&lt;td&gt;個人用設定・タスク バー&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:themes&lt;/td&gt;
+&lt;td&gt;個人用設定・テーマ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:troubleshoot&lt;/td&gt;
+&lt;td&gt;更新とセキュリティ・トラブルシューティング&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:typing&lt;/td&gt;
+&lt;td&gt;デバイス・入力&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:usb&lt;/td&gt;
+&lt;td&gt;デバイス・USB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:windowsdefender&lt;/td&gt;
+&lt;td&gt;更新とセキュリティ・Windows Defender&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:windowsinsider&lt;/td&gt;
+&lt;td&gt;更新とセキュリティ・Windows Insider Program&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:windowsupdate&lt;/td&gt;
+&lt;td&gt;更新とセキュリティ・Windows Update&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:windowsupdate-action&lt;/td&gt;
+&lt;td&gt;更新とセキュリティ・Windows Update・更新プログラムのチェック&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:windowsupdate-history&lt;/td&gt;
+&lt;td&gt;更新とセキュリティ・Windows Update・更新の履歴&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:windowsupdate-options&lt;/td&gt;
+&lt;td&gt;更新とセキュリティ・Windows Update・詳細オプション&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:windowsupdate-restartoptions&lt;/td&gt;
+&lt;td&gt;更新とセキュリティ・Windows Update・再起動のオプション&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:workplace&lt;/td&gt;
+&lt;td&gt;アカウント・職場または学校にアクセスする&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ms-settings:yourinfo&lt;/td&gt;
+&lt;td&gt;アカウント・ユーザーの情報&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;その他（シャットダウンなど）&quot;&gt;&lt;a href=&quot;#%E3%81%9D%E3%81%AE%E4%BB%96%EF%BC%88%E3%82%B7%E3%83%A3%E3%83%83%E3%83%88%E3%83%80%E3%82%A6%E3%83%B3%E3%81%AA%E3%81%A9%EF%BC%89&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;その他（シャットダウンなど）&lt;/h3&gt;
+&lt;p&gt;バッチファイルやパワーシェルファイルをランチャー専用フォルダに配置すれなんでもできます。
+例えばshutdownコマンドでシャットダウンや再起動ができます。下記のようなバッチを作ってランチャー専用フォルダに配置しましょう。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;sd.bat&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bat&quot;&gt;&lt;pre class=&quot;language-bat&quot;&gt;&lt;code class=&quot;language-bat&quot;&gt;shutdown -s -t 0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;restart.bat&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bat&quot;&gt;&lt;pre class=&quot;language-bat&quot;&gt;&lt;code class=&quot;language-bat&quot;&gt;shutdown -r -t 0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br&gt;
+&lt;p&gt;これで&lt;code class=&quot;language-text&quot;&gt;windows + r&lt;/code&gt; → &lt;code class=&quot;language-text&quot;&gt;sb&lt;/code&gt;と入力 → &lt;code class=&quot;language-text&quot;&gt;Enterキー&lt;/code&gt; でPCが即シャットダウンできます。
+気軽にシャットダウンできる反面、誤爆も増えます。間違ってシャットダウンしてしまって、いままで作業していたエクセルがパー...のようになりかねないので、会社のPCでは設定していません。&lt;/p&gt;
+&lt;h3 id=&quot;管理者権限で実行&quot;&gt;&lt;a href=&quot;#%E7%AE%A1%E7%90%86%E8%80%85%E6%A8%A9%E9%99%90%E3%81%A7%E5%AE%9F%E8%A1%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;管理者権限で実行&lt;/h3&gt;
+&lt;p&gt;管理者権限で実行したい場合、&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;windows + r&lt;/code&gt; → コマンド入力 → &lt;code class=&quot;language-text&quot;&gt;Enter&lt;/code&gt; の代わりに&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;windows + r&lt;/code&gt; → コマンド入力 → &lt;code class=&quot;language-text&quot;&gt;ctrl + shift + Enter&lt;/code&gt; で実行できます。&lt;br&gt;
+コマンドプロンプト実行などで使う機会があるかと。&lt;/p&gt;
+&lt;h2 id=&quot;自分の設定&quot;&gt;&lt;a href=&quot;#%E8%87%AA%E5%88%86%E3%81%AE%E8%A8%AD%E5%AE%9A&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;自分の設定&lt;/h2&gt;
+&lt;p&gt;Surface Pro 6では下記のように設定しました。&lt;/p&gt;
+&lt;h3 id=&quot;フォルダショートカット系&quot;&gt;&lt;a href=&quot;#%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%88%E3%82%AB%E3%83%83%E3%83%88%E7%B3%BB&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;フォルダショートカット系&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;shortcut&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ランチャー専用フォルダを開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;w&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;作業フォルダを開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;アプリ起動系&quot;&gt;&lt;a href=&quot;#%E3%82%A2%E3%83%97%E3%83%AA%E8%B5%B7%E5%8B%95%E7%B3%BB&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;アプリ起動系&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;chrome&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;クロームを開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;sakura&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;サクラエディタを開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;アプリ起動系（起動引数付き）&quot;&gt;&lt;a href=&quot;#%E3%82%A2%E3%83%97%E3%83%AA%E8%B5%B7%E5%8B%95%E7%B3%BB%EF%BC%88%E8%B5%B7%E5%8B%95%E5%BC%95%E6%95%B0%E4%BB%98%E3%81%8D%EF%BC%89&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;アプリ起動系（起動引数付き）&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;soundcloud&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;サウンドクラウドをクロームで開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;blog&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ブログをVSCodeで開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;memo&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;メモ用フォルダをVSCodeで開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;ms-settings系&quot;&gt;&lt;a href=&quot;#ms-settings%E7%B3%BB&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;ms-settings系&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;blue&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ブルートゥース設定を開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;display&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ディスプレイ設定を開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;proxy&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;プロキシ設定を開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;soundsetting&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;サウンド設定を開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;wifi&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;WiFi設定を開きます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;wuapp&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Windows update画面を開きます。&lt;code class=&quot;language-text&quot;&gt;ms-settings:windowsupdate&lt;/code&gt;をバッチでたたいています。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;wuappaction&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Windows updateで更新ファイルがないかチェックします。&lt;code class=&quot;language-text&quot;&gt;ms-settings:windowsupdate-action&lt;/code&gt;をバッチでたたいています。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;バッチ系&quot;&gt;&lt;a href=&quot;#%E3%83%90%E3%83%83%E3%83%81%E7%B3%BB&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;バッチ系&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;sd&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;シャットダウンします。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;restart&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;再起動します。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;まとめ&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ&lt;/h2&gt;
+&lt;p&gt;今回は&lt;code class=&quot;language-text&quot;&gt;windows + r&lt;/code&gt;をランチャーとして使う方法を紹介しました。
+Windows10からは&lt;code class=&quot;language-text&quot;&gt;ms-settins&lt;/code&gt;も加わって用途が拡大されているので、ますます便利になりました。
+バッチファイル起動もできるので、ちょっと込み入ったことをするならPowerShellでスクリプトを書けばなんでもできそうですね。&lt;/p&gt;
+&lt;h2 id=&quot;参考&quot;&gt;&lt;a href=&quot;#%E5%8F%82%E8%80%83&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://imanyu.blog86.fc2.com/blog-entry-308.html&quot;&gt;Winキー＋R をもっと活用しよう！| 平凡かつフツーな日記&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://honda-consulting.com/win-r/&quot;&gt;良く使うWindowsのファイル名を指定して実行コマンドのまとめ | 本多コンサルティング&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://azby.fmworld.net/usage/closeup/20150325/&quot;&gt;この人デキる…！一目置かれるキー操作&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.kamomer.com/entry/windows10-run-filename&quot;&gt;Windows の「ファイル名を指定して実行」を使いこなす！ ～ 知ってるとはかどるよく使う機能の呼び出し方を紹介します。 【Windows10 対応】 | カモメのリズム&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://rhodium.co.jp/%E3%80%8C%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%97%E3%81%A6%E5%AE%9F%E8%A1%8C%E3%80%8D%E3%81%AE%E6%84%8F%E5%A4%96%E3%81%AB%E4%BE%BF%E5%88%A9%E3%81%AA%E4%BD%BF/&quot;&gt;「ファイル名を指定して実行」の意外に便利な使い方 | ロジウム株式会社&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://d.hatena.ne.jp/hiboma/20070311/1173592731&quot;&gt;Windowsの「ファイル名を指定して実行」を256倍快適にする | hibomaのはてなダイアリ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://bizlog.tech/windows10-wuapp/&quot;&gt;Windows10で「ファイル名を指定して実行」からWindows Updateを実行する方法 | BIZLOG.TECH&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.atmarkit.co.jp/ait/articles/1707/11/news009_2.html&quot;&gt;ms-setting:UIL一覧&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.atmarkit.co.jp/ait/articles/1707/11/news009.html&quot;&gt;Windows 10のショートカット「ms-settings:URI」は使い始めると止められない| @IT&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://i-bitzedge.com/tips/ms-settings-command&quot;&gt;Windows10「Fall Creators Update」で使える「ms-settings」コマンド一覧 | iBitzEdge&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://news.mynavi.jp/article/win10tips-283/&quot;&gt;管理者権限で「ファイル名を指定して実行」するには&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://linuxfan.info/strings-on-windows&quot;&gt;Stringsコマンドのインストール&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[GatsbyでQiitaから記事を取得する(gatsby-source-qiita)]]></title><description><![CDATA[なにこれ GatsbyにQiitaの記事を取り込めるプラグイン( gatsby-source-qiita )を作りました
 QiitaからGatsbyに乗り換えようと考えている方で、Qiitaの記事を引き継ぎたい場合に便利なプラグインです。サンプル( gatsby-starter…]]></description><link>https://takumon.com//2018/11/11/</link><guid isPermaLink="false">https://takumon.com//2018/11/11/</guid><pubDate>Sun, 11 Nov 2018 12:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;GatsbyにQiitaの記事を取り込めるプラグイン(&lt;a href=&quot;https://www.gatsbyjs.org/packages/gatsby-source-qiita/&quot;&gt;gatsby-source-qiita&lt;/a&gt;)を作りました
 QiitaからGatsbyに乗り換えようと考えている方で、Qiitaの記事を引き継ぎたい場合に便利なプラグインです。サンプル(&lt;a href=&quot;https://takumon.github.io/gatsby-starter-qiita/&quot;&gt;gatsby-starter-qiita&lt;/a&gt;)も用意してます。
