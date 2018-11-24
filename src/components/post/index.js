@@ -103,7 +103,9 @@ class Post extends React.Component {
 
         <div className={styles.container}>
           <div className={styles.post} dangerouslySetInnerHTML={{ __html: html }} />
-          <ScrollSyncToc className={styles.toc} headings={headings} />
+          <div className={styles.toc}>
+            <ScrollSyncToc headings={headings} />
+          </div>
           <div className={classNameSnsShare}>
             <SNSShare
               title={fields.title}
