@@ -15,13 +15,14 @@
 .link {
   box-shadow: none;
   color: #4a4a4a;
-  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 
 
   .tag_name {
     display: inline-block;
+    word-break: keep-all;
   }
 
   .tag_count {

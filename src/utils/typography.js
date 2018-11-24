@@ -68,14 +68,22 @@ Wordpress2016.overrideThemeStyles = () => ({
       fontFamily: 'Verdana, Meiryo, sans-serif'
     }
   },
+  'h1,h2,h3,h4,h5,h6': {
+    textTransform: 'none'
+  },
   'h1 a,h2 a,h3 a,h4 a,h5 a,h6 a': {
-    color: '#444'
+    color: '#444',
+  },
+  'h2': {
+    fontSize: '1.6rem',
+    borderBottom: '1px solid #ddd'
   },
   'html, body': {
     fontWeight: '500'
   },
   'a': {
-    boxShadow: 'none'
+    boxShadow: 'none',
+    color: '#c85740'
   },
   'a:hover': {
     opacity: '0.7',
@@ -84,21 +92,8 @@ Wordpress2016.overrideThemeStyles = () => ({
   'a.gatsby-resp-image-link': {
     boxShadow: 'none',
   },
-
-
-  'ul li': {
-    marginLeft: '1.5rem'
-  },
-  'li > ul': {
-    marginLeft: '0rem'
-  },
-  'ol li': {
-    marginLeft: '1.5rem'
-  },
-  'li > ol': {
-    marginLeft: '0rem'
-  },
 })
+
 
 
 delete Wordpress2016.googleFonts

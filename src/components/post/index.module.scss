@@ -54,7 +54,7 @@
     display: grid;
     width: 100%;
     grid-template-columns: 100px calc(100% - 100px - 300px) 300px;
-    max-width: 1100px;
+    max-width: 1200px;
     margin-right: auto;
     margin-left: auto;
 
@@ -99,7 +99,7 @@
 .container {
   display: grid;
   grid-template-columns: 100px calc(100% - 100px - 300px) 300px;
-  max-width: 1100px;
+  max-width: 1200px;
   margin-right: auto;
   margin-left: auto;
 
@@ -107,10 +107,52 @@
     grid-column: 2 / 3;
     grid-row: 1 / 2;
     padding: 1em;
-    max-width: 720px;
+
+    > ul {
+      margin-left: 0;
+    }
+    > ol {
+      margin-left: 0;
+    }
+
+    > ul > li {
+      margin-left: 0;
+    }
+    > ol > li {
+      margin-left: 0;
+    }
+
+    ul > li {
+      margin-left: 1.5rem;
+      margin-bottom: 0.3rem;
+    }
+    ul > li > p {
+      margin-bottom: 0.3rem;
+    }
+    li > ul {
+      margin-top: 0rem;
+      margin-left: 0rem;
+    }
+    ol > li {
+      margin-left: 1.5rem;
+      margin-bottom: 0.3rem;
+    }
+    li > ol {
+      margin-left: 0rem;
+    }
   }
 
   .toc {
+    position: sticky;
+    position: -webkit-sticky;
+    max-height: 100vh;
+    overflow-y: auto;
+    will-change: transform;
+    top: 12px;
+    padding: 12px;
+    margin-top: 64px;
+
+
     grid-column: 3 / 4;
     grid-row: 1 / 2;
   }
@@ -187,7 +229,7 @@
 @media screen and (max-width: 1200px) {
   .header {
     &__inner {
-      grid-template-columns: minmax(420px, 720px) 1fr;
+      grid-template-columns: minmax(420px, 820px) 1fr;
 
       &__content {
         grid-column: 1 / 2;
@@ -197,7 +239,7 @@
 
 
   .container {
-    grid-template-columns: minmax(420px, 720px) 1fr;
+    grid-template-columns: minmax(420px, 820px) 1fr;
 
     .post {
       grid-column: 1 / 2;
@@ -255,7 +297,7 @@
 @media screen and (max-width: 940px) {
   .header {
     &__inner {
-      grid-template-columns: minmax(0px, 940px);
+      grid-template-columns: minmax(0px, 900px);
 
       &__content {
         grid-column: 1 / 2;
@@ -268,17 +310,17 @@
 
 
   .container {
-    grid-template-columns: minmax(0px, 940px);
+    overflow-x: hidden;
+    grid-template-columns: minmax(0px, 900px);
     margin-left: 0;
     margin-right: 0;
-    max-width: none;
 
     .post {
+      width: 100vw;
       grid-column: 1 / 2;
       grid-row: 1 / 2;
       margin-left: auto;
       margin-right: auto;
-      max-width: 720px;
     }
 
     .toc {
@@ -356,6 +398,15 @@
   .header {
     min-height: 40px;
     background-image: url('../../images/overlay2.png'),	url('../../images/overlay4.svg'), linear-gradient(45deg, #bf002a 30%, #bf002a 60%, #fd5210 90%, #ffa711);
+  }
+
+  .post {
+    ul > li {
+      margin-left: 0.75rem;
+    }
+    ol li {
+      margin-left: 0.75rem;
+    }
   }
 }
 
