@@ -435,9 +435,9 @@ Gatsby themeは発展途上の機能なので、パス設定などは自力で�
 ## 参考
 * [Gatsby theme | Gatsby blog](https://www.gatsbyjs.org/blog/2018-11-11-introd ucing-gatsby-themes/)
     * [ChristopherBiscardi](https://github.com/ChristopherBiscardi)さんが書いたGastby themeの紹介ブログです。
-* [サンプル](https://github.com/ChristopherBiscardi/gatsby-theme-examples)
+* [gatsby-theme-examples | GitHub](https://github.com/ChristopherBiscardi/gatsby-theme-examples)
     * [Gatsby-starter-blog](https://github.com/gatsbyjs/gatsby-starter-blog)をtheme化したサンプルです。
-* [npm](https://www.npmjs.com/package/gatsby-theme-blog)
+* [gatsby-theme-blog | npm](https://www.npmjs.com/package/gatsby-theme-blog)
     * 上記サンプルのthemeがnpmライブラリとして公開されています。
 * [gatsby-themes | spectrum](https://spectrum.chat/gatsby-themes)
     * 最新情報はspectrumで入手できます。
