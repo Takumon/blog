@@ -30,7 +30,7 @@ Slit Animationは何個かのコマ画像を合成した画像とカバーから
 それぞれのコマ画像を縞々にして１つの画像に合成します。
 ![description_image-mix](./description_image-mix.png)
 
-#### カバー
+### カバー
 カバーには等間隔で隙間があります。隙間幅は`縞々１個分`で間隔は`縞々１個分×コマ数`です。 
 ![description_cover-slit](./description_cover-slit.png)
 
