@@ -1,6 +1,6 @@
 ---
 title: CSSのclip-pathでSlit Animationを実現する
-date: '2018-11-24T23:40:00.000+09:00'
+date: '2018-12-02T16:00:00.000+09:00'
 tags:
   - CSS
   - clip-path
@@ -9,11 +9,12 @@ tags:
 
 ## なにこれ
 
-Slit Animation(スリットアニメーション)とはこういうのです。コマを縞々に合成した画像に、スリットを持つカバーを横にスライドさせることでパラパラ漫画のようなアニメーションを実現します。
-今回は、コマ画像を指定したらSlit Animation化してくれるReactコンポーネントを作りました。その時のメモ。
+Slit Animationを実現するReactコンポーネントをCSSのclip-pathを使って作りました。
+Slit Animation(スリットアニメーション)は下記のようなものです。
+コマ画像を縞々にして合成した画像に、スリットを持つカバーを被せて横にスライドさせることでパラパラ漫画のようなアニメーションを実現します。
 
 デモはこちら ⇒ https://takumon.github.io/react-slit-animation/ <br>
-コンポーネントはnpm公開してます ⇒ [@takumon/react-slit-animation](https://www.npmjs.com/package/@takumon/react-slit-animation)
+コンポーネントはnpmから落とせます ⇒ [@takumon/react-slit-animation](https://www.npmjs.com/package/@takumon/react-slit-animation)
 
 ![animatino](./animation.gif)
 
@@ -23,21 +24,28 @@ Slit Animation(スリットアニメーション)とはこういうのです。�
 
 ## Slit Animationの原理
 CSSやReactコンポーネントなどの説明の前に、純粋にSlit Animationの原理を説明します。
-Slit Animationでは何個かのコマ画像を用意します。以下では簡単のため４コマで説明します。
+Slit Animationは何個かのコマ画像を合成した画像とカバーから成り立ちます。以下では簡単のため４コマで説明します。
 
-* コマを縞々模様にして１つの画像に合成します。
+### コマ画像
+それぞれのコマ画像を縞々にして１つの画像に合成します。
 ![description_image-mix](./description_image-mix.png)
-* 次に等間隔に隙間があるカバーを用意します。隙間幅は`縞々１個分`で間隔は`縞々１個分×コマ数`です。 
+
+#### カバー
+カバーには等間隔で隙間があります。隙間幅は`縞々１個分`で間隔は`縞々１個分×コマ数`です。 
 ![description_cover-slit](./description_cover-slit.png)
-* この状態で合成画像にカバーを被せて横にスライドさせます。すると、カバーの隙間部分から`1→2→3→4→1→2→3→4→...`のようにコマが順番に繰り返し見えることになります。これによってパラパラ漫画のように見えるのです。
+
+### アニメーション
+合成画像にカバーを被せて横にスライドさせます。すると、カバーの隙間部分から`1→2→3→4→1→2→3→4→...`のようにコマが順番に繰り返し見えることになります。これによってパラパラ漫画のように見えるのです。
 ![description_slit-animation](./description_slit-animation.png)
-* 実例として最初にお見せしたRreactのロゴがくるくる回るSlit Animationの作成手順は下記のようになります。コマを縞々模様にして合成、隙間のあるカバーを作成し上に被せています。
+
+### 例
+最初にお見せしたRreactのロゴがくるくる回るSlit Animationは下記のような構成になっています。コマを縞々にして合成、隙間のあるカバーを作成し上に被せています。
 ![description_image](./description_image.png)
 
 
-## 縞々の実現方法
+## 縞々をclip-pathで実現する
 今回コンポーネント化にともない「画像を縞々にする」という課題がありました。
-最初は、画像要素に白い長方形のdivタグをたくさん並べて縞々化にトライしましたが、それだとコマ合成時に下の画像ごと隠れてしまいます。
+最初は、画像要素に白い長方形のdivタグをたくさん並べてトライしましたが、それだとコマ合成時に下の画像ごと隠れてしまいます。
 ![description_mask-pattern](./description_mask-pattern.png)
 
 
@@ -48,7 +56,7 @@ CSSの[clip-path](https://developer.mozilla.org/ja/docs/Web/CSS/clip-path)はま
 
 
 今回は任意の形にトリミングできる`polygon`を使って
-`clip-path: polygon(5px 0px,5px 800px,6px 800px,6px 0px,11px 0px,11px 800px,...)`のように縞々化を実現しました。
+`clip-path: polygon(5px 0px,5px 800px,6px 800px,6px 0px,11px 0px,11px 800px,...)`のようにして縞々化を実現しました。
 これについても最初は、複数の長方形を指定しようとしましたが、polygonは１つの閉じた図形でなければならないという制約があり困りました。
 ちょっと悩んだ末、ハック的に櫛型の図形を指定することで解決しました。
 
@@ -59,7 +67,7 @@ CSSの[clip-path](https://developer.mozilla.org/ja/docs/Web/CSS/clip-path)はま
 ## Reactコンポーネント
 
 ### 実装
-コマとなる縞々化の`polygon`を組み立てロジックは、Slit Animationの原理で説明したようなロジックをもとに実装しました。
+縞々化の`polygon`を組み立てロジックは、Slit Animationの原理で説明したようなロジックをもとに、先に説明したCSSのclip-pathで実現しました。
 
 
 ```javascript:title=縞々生成ロジック
@@ -229,7 +237,9 @@ const SlitAnimationCover = (props) => {
 ```
 
 <br>
-全体を取りまとめるコンポーネントで縞々画像とカバーを重ねて、ホバー時にカバーを横スライドするようにしました。
+最後に全体を取りまとめるコンポーネント。<br>
+縞々画像とカバーを重ねて表示します。<br>
+ホバー時にカバーを横スライドするようにしました。
 
 ```javascript
 import React, { Component } from 'react';
@@ -335,9 +345,9 @@ import parrot10 from './images/parrot/10.png'
 
 
 ### いけてないところ
-スリット幅、カバーの色、カバーのスライド速度など調整できるようにはしていますが、実は色々と難点があります。
+スリット幅、カバーの色、カバーのスライド速度など調整できるようにはしていますが色々と難点があります。
 * 使う画像ごとに、うまく調整しないとなかなか動いているように見えない
-* ピクセル幅に非表示にシビアなのでサイズをレスポンシブにできない
+* ピクセル幅にシビアなのでサイズをレスポンシブにできない
 * モバイルで見ると固まる（レンダリングがかなり高負荷）
 
 などなど実用的なコンポーネントとは程遠いです:cold_sweat:
