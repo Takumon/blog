@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url> <loc>https://takumon.com//2018/12/02/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//2018/11/24/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//2018/11/18/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//2018/11/11/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -27,12 +28,14 @@
 <url> <loc>https://takumon.com//386efa75-7773-5424-94a8-1a2b3ae52a6b/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//4bf6ffd5-8640-508e-ab47-1a55df05d72e/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//e6e81f10-e1df-58fa-ad49-6da5d018abc4/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://takumon.com//tags/css/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://takumon.com//tags/clip-path/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://takumon.com//tags/react/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/gatsby/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/gatsby-theme/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/windows/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/gatsby-plugin/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/qiita/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://takumon.com//tags/react/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/unified/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/remark/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/rehype/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
