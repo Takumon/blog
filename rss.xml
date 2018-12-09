@@ -1,4 +1,215 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 02 Dec 2018 06:33:53 GMT</lastBuildDate><item><title><![CDATA[CSSのclip-pathでSlit Animationを実現する]]></title><description><![CDATA[なにこれ Slit Animationを実現するReactコンポーネントをCSSのclip-pathを使って作りました。
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 09 Dec 2018 09:37:24 GMT</lastBuildDate><item><title><![CDATA[Vimを始める時に取り組んだ４つのこと]]></title><description><![CDATA[なにこれ 最近DockerまわりをやっていてLinux上でDockerfileなどを編集するのがつらいので、ちゃんとVimを覚えようと思い立ち、
+とっかかりとして下記４点取り組みました。整理もかねて本記事にまとめます。 vimtutor実施 Vim…]]></description><link>https://takumon.com//2018/12/09/</link><guid isPermaLink="false">https://takumon.com//2018/12/09/</guid><pubDate>Sun, 09 Dec 2018 12:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
+&lt;p&gt;最近DockerまわりをやっていてLinux上でDockerfileなどを編集するのがつらいので、ちゃんとVimを覚えようと思い立ち、
+とっかかりとして下記４点取り組みました。整理もかねて本記事にまとめます。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;vimtutor実施&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://vim-jp.org/vimdoc-ja/&quot;&gt;Vim日本語ドキュメント&lt;/a&gt;読む&lt;/li&gt;
+&lt;li&gt;Qiitaの主要記事を読む&lt;/li&gt;
+&lt;li&gt;Chromeに&lt;a href=&quot;https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb/related&quot;&gt;Vimium&lt;/a&gt;導入&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;1-vimtutor実施&quot;&gt;&lt;a href=&quot;#1-vimtutor%E5%AE%9F%E6%96%BD&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. vimtutor実施&lt;/h2&gt;
+&lt;p&gt;Vimをインストールすると&lt;code class=&quot;language-text&quot;&gt;:vimtutor&lt;/code&gt;で開くチュートリアルです。
+実際に手を動かしながら説明を上から下に読み進めると、最低限の操作を覚えられます。
+Vimを始めたらまずコレをやるのがVimを理解する一番の近道だと思います。&lt;br /&gt;
+1回チュートリアルを実践してみたら、後述する&lt;a href=&quot;#2-vim%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%E8%AA%AD%E3%82%80&quot;&gt;Vim日本語ドキュメント&lt;/a&gt;や&lt;a href=&quot;#4-chrome%E3%81%ABvimium%E5%B0%8E%E5%85%A5&quot;&gt;Vimium&lt;/a&gt;を一通り使ってから再度挑戦すると良いです。
+私も初回はおぼつかなかったですが、再度試した時はだいぶ直感通りに操作することができVimが少しできるようになったことを実感しました。&lt;/p&gt;
+&lt;h3 id=&quot;要約&quot;&gt;&lt;a href=&quot;#%E8%A6%81%E7%B4%84&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;要約&lt;/h3&gt;
+&lt;p&gt;章末に要約があってとても分かりやすいです。各章だいたいこんな感じでした。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;【1章】上下左右の移動、保存して終了、破棄して終了、削除、ノーマルモードと挿入モードの切り替え&lt;/li&gt;
+&lt;li&gt;【2章】行先頭、末尾への移動、単語ごとの移動、モーションと組み合わせた削除、アンドゥ、リドゥ&lt;/li&gt;
+&lt;li&gt;【3章】ペースト、置換、変更 &lt;/li&gt;
+&lt;li&gt;【4章】ファイル先頭、末尾への移動、括弧間の移動、検索・置換&lt;/li&gt;
+&lt;li&gt;【5章】外部コマンド実行、外部ファイル読み込み、ビジュアルモード&lt;/li&gt;
+&lt;li&gt;【6章】行挿入、コピペ、置換モード、検索時のオプション&lt;/li&gt;
+&lt;li&gt;【7章】ヘルプの使い方、vimrc設定方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;2-vim日本語ドキュメント読む&quot;&gt;&lt;a href=&quot;#2-vim%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%E8%AA%AD%E3%82%80&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. Vim日本語ドキュメント読む&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://vim-jp.org/vimdoc-ja/&quot;&gt;参考&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;vimtutorで概要を掴み、実践的な操作を学習するためのサイトです。
+初級者編が12章分、上級者編が13章分、その他もろもろ章があって充実しています。
+自分は初心者編12章を読みました。時間があるときに上級者のほうも読みたいです。&lt;/p&gt;
+&lt;h2 id=&quot;3-qiitaの主要記事を読む&quot;&gt;&lt;a href=&quot;#3-qiita%E3%81%AE%E4%B8%BB%E8%A6%81%E8%A8%98%E4%BA%8B%E3%82%92%E8%AA%AD%E3%82%80&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. Qiitaの主要記事を読む&lt;/h2&gt;
+&lt;p&gt;ささーっと下記記事を読みました。記事を見てるとフォローしている人の中に、大抵の記事にイイねしている人が何人かいて「この人はVim派なんだな～」というのが見えてちょっと面白かったです。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://qiita.com/nyantera/items/4bf29ca6f11bc797a9cb&quot;&gt;新人達を1ヶ月でガチvimmerにした方法&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;行末移動は編集する場合がほとんどだから&lt;code class=&quot;language-text&quot;&gt;g $&lt;/code&gt;よりも断然楽な&lt;code class=&quot;language-text&quot;&gt;A&lt;/code&gt;でよいというのが目から鱗でした。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://qiita.com/hachi8833/items/7beeee825c11f7437f54&quot;&gt;Vim幼稚園からVim小学校へ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://qiita.com/tekkoc/items/98adcadfa4bdc8b5a6ca&quot;&gt;Vimの便利な画面分割＆タブページと、それを更に便利にする方法&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Vimにもこんなリッチな機能があることにびっくりしました。VSCodeさながらです。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://qiita.com/takeharu/items/9d1c3577f8868f7b07b5&quot;&gt;【入門】Vimで高速で移動 プラグインなしでの移動まとめ&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;{&lt;/code&gt;と&lt;code class=&quot;language-text&quot;&gt;}&lt;/code&gt;で段落ごとの移動、&lt;code class=&quot;language-text&quot;&gt;zz&lt;/code&gt;カーソルの位置をウィンドウの中心に移動、&lt;code class=&quot;language-text&quot;&gt;z Enter&lt;/code&gt;カーソルの位置をウィンドウの最上部に移動という便利コマンドが勉強にまりました。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;4-chromeにvimium導入&quot;&gt;&lt;a href=&quot;#4-chrome%E3%81%ABvimium%E5%B0%8E%E5%85%A5&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;4. ChromeにVimium導入&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb/related&quot;&gt;参考&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;後輩に「Vim始めた」と言ったら、めちゃめちゃ勧められたのがこのChromeエクステンションでブラウザ操作をVim化できるという優れものです。
+ネットサーフィンで日頃からVim操作に慣れておけば、いざLinuxでファイル編集する時も手が動くようにするためでもあります。
+早速2～3日ってみたところ、ネットサーフィンでほとんどマウスを触らなくなりました。
+スクロール、タブ移動、履歴移動などなど、ありとあらゆる操作を、ホームポジションから手を動かすことなく実現できます。&lt;/p&gt;
+&lt;h3 id=&quot;リンククリック&quot;&gt;&lt;a href=&quot;#%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%AF%E3%83%AA%E3%83%83%E3%82%AF&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;リンククリック&lt;/h3&gt;
+&lt;p&gt;めっちゃ便利です。
+&lt;code class=&quot;language-text&quot;&gt;f&lt;/code&gt;を押すと下記のように全リンクにショートカットキーが割り当てられ
+キー入力でリンククリックができます。
+&lt;code class=&quot;language-text&quot;&gt;f&lt;/code&gt;で自タブ遷移、&lt;code class=&quot;language-text&quot;&gt;F&lt;/code&gt;で新規タブ遷移です。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/7ecd36efa5156707d4a52f3c00bb05f6/4f59c/vimium-link.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 64.74820143884892%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAAA7DAAAOwwHHb6hkAAACM0lEQVQ4y3VT7W7TMBTNC22j3aTxKNtAvBXwBmPlDXgIBBI/pgm1I2nTJnHsfDgfjh37cJO00Gpg6ejY1/HJvb7H3scP77F4eMCn+3t8Xixwd3uD87MzXM7nmM9mR3i1xxxXl1dTbD7DxcU5rq9f483dLd69vYGXlwWKXKCpa0iZI8tLQvGCRZZDEKcpQxwF4JlAXkx762CFx+Ua3x/X8OLNVxRpDN02kCWH7TvAmQmwcFbT3BEPa0DVHFXJcDycFvixEvjyrYFXVdOmsQAr7SjaVCm6NofuKqhGwBgF1RbQuoPMQxjdwlpHsBPcJGxUBU/Tx8OwtkdZCtSNQdv26ChRrR2xG9e9PcmJkj5gKGDarKoaXu/cXtAgCX9ivdkg2MbYRDtEjBEnCHYJYsEhKrpjST+VU1Vuf/bAxhgStPZPsFOK0FKpHdQ4V2OZfW+I9RgfWZsTscO873t4Zi9o6fJZtETKSySpxC4uwEVFWdKaS9QkrnoNRffqbPfPDE8Eh2CWRojjEIzKSzgDI3CylCjIImQpUQ7WScliEpOG+3+GjpoiqSlSairV0CFDPDVFtZauwO5F8CK7F4JDYGhKuPPhhxGCYEnm3ZKJqWxOjcgkhChRFJI6WaFpmqMu/8UoeGwGowfLtAQ1NqWlg03dUFyP5Q0HBt85e+Khk+ExIagRAgmLsFo+IVgzsk6E5+ctfJ9hu+MItynCMKV5iijmKOi5/vJ9LFcr+EFAzzKjJ5iPz/M3tVbIMiP3i+gAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;リンク&quot;
+        title=&quot;&quot;
+        src=&quot;/static/7ecd36efa5156707d4a52f3c00bb05f6/fb8a0/vimium-link.png&quot;
+        srcset=&quot;/static/7ecd36efa5156707d4a52f3c00bb05f6/1a291/vimium-link.png 148w,
+/static/7ecd36efa5156707d4a52f3c00bb05f6/2bc4a/vimium-link.png 295w,
+/static/7ecd36efa5156707d4a52f3c00bb05f6/fb8a0/vimium-link.png 590w,
+/static/7ecd36efa5156707d4a52f3c00bb05f6/526de/vimium-link.png 885w,
+/static/7ecd36efa5156707d4a52f3c00bb05f6/4f59c/vimium-link.png 1112w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3 id=&quot;スクロール&quot;&gt;&lt;a href=&quot;#%E3%82%B9%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%AB&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;スクロール&lt;/h3&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/17912e3caceb6eb54aba1b9fc78c52cd/fdfa6/vimium-scroll.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 82.5543120473996%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAABcRAAAXEQHKJvM/AAAEHElEQVQ4y21UW29UVRSeN9R63nxATIymLwhqGO2gKSQ1SsqTfwHSOpqYmJCApCSmwSpi0pHaaKydmrYCll5GSaElFGYIZW7pBSm9zAU617Pn3Kada5sYeuacz7VPbdDEhy9r7+y1v7PWt759bHa7/dnGxkbB4Tj4vMPhECw0NAgNDW8L9gMHBDoXmpqahKPNRwS747Dw4fF2AYDw7dkTwon+0nO77cdOvbTnxb/q6+tRV1fXbhseHnb7/f5SMBjMENgOQuEwm56eZkNDQ8ztdrPen3tYT28/O3aql33w/nvszJk2sa//ovT51wPmJx9/ZLS0tKKjo6NgW1hYuLq5uQmRMSiKAlVV/wNRFJFMppBOp5ARZXT0+PDuOwdx6dJlyLKMRDJpSsp2biaTMW0rKytjhWIJybS4lRWZwRgzKNGKWVE08vm8Ua1uGJqmGqlMzhiciBuqIhuKohpEYiiyYuZyOZOTM5bb4oSecrmCbDarr62to1KpQpJkUBL43uv1weVyUZUJZJmCwclH0FSFzqVtSFYkQoU4RN0WiUQ8lXKZDnL6+Pg4urq6eOlIplLQ8nl8d+ECXn/jTdy/P09dMAxORKFpCjgBl+gfmLxlSZJ0WzQa9VQqFUhaTj/ZdhL79+239JQpUVNlLEbT+MMbQZ7WnHDo5iOoisQv/xsmJyaZdKtl0gNyLq0/WE5g6MZDlNYlpNIZaEoOD6Mifr+TwFpeBmmIsduP/5dwW0MiHB+/5nE0vIUvzv2oh5dUhB+kqKIlHDp0GOe/OQdRLuDe3CpVKyEST6FvbN7qgDEJjDTkRISnLYdCYU939/e4NnlLn1tR4J1l+HNpFadPt2F05AoiqxImp2NQZYbVZBYjUzFIOUZ2YpalOGi6Jh8krXVbPB73kPNRLq7pdwOzGBy5hXUtB26lSrmAlccyvPMKigWNfChh5PYq8ppqabwzlJ0KyRnbU15fX0exVNJbW1vw6isvg/yIRCJpDeWmN4Dz3ZeQEzNIpERcvBGn1p5Wx+3Ffci1FLmGnHBjY4N/SZ+bn4fPd8cSmnyJEtnpq44vafJ7EYtGrZcycD0GJmatcxqCRciHYlXINSTCMf70uLFVVTOpWpO+bIH7KxaLmTOzs6ZMl8g25sBE3NzcqFp5nIibmoh55LoSYTQyWq1WubBPyOk1erc1HmlvgSxVy+fXanShRoQ199Xl2tjoSM3vD9SogBq9GqNYLBn0wqhK7YlteXn5uq7XLOdrWt6KO2tKsCIRgussqQX8MLqIfa/tRXt7O7Z0E4GZRfT1udHZ6YLX54NtamrqyMzMzKeBQLA1GAw56dflDAQCTqqA4Hf6aR0KhZzhcMh5917Q+dNlr9PV2em88tuvraEF8bOjx10Te3a/EN+165l8c3PzL38D1ZNEhh/sZzkAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;スクロール&quot;
+        title=&quot;&quot;
+        src=&quot;/static/17912e3caceb6eb54aba1b9fc78c52cd/fb8a0/vimium-scroll.png&quot;
+        srcset=&quot;/static/17912e3caceb6eb54aba1b9fc78c52cd/1a291/vimium-scroll.png 148w,
+/static/17912e3caceb6eb54aba1b9fc78c52cd/2bc4a/vimium-scroll.png 295w,
+/static/17912e3caceb6eb54aba1b9fc78c52cd/fb8a0/vimium-scroll.png 590w,
+/static/17912e3caceb6eb54aba1b9fc78c52cd/526de/vimium-scroll.png 885w,
+/static/17912e3caceb6eb54aba1b9fc78c52cd/fa2eb/vimium-scroll.png 1180w,
+/static/17912e3caceb6eb54aba1b9fc78c52cd/fdfa6/vimium-scroll.png 1519w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;k&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;j&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;h&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;l&lt;/code&gt;で上下左右にスクロール&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;2k&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;2j&lt;/code&gt; など数字指定で大きくスクロール可能&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;u&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;d&lt;/code&gt;で画面半分スクロール&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;gg&lt;/code&gt;で最上部へスクロール&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;ctrl + g&lt;/code&gt;で最下部へスクロール&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;タブ移動&quot;&gt;&lt;a href=&quot;#%E3%82%BF%E3%83%96%E7%A7%BB%E5%8B%95&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;タブ移動&lt;/h3&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/854bd8d2fd398f943113898fb4829fe2/412c4/vimium-tab.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 36.51238896680692%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAABcRAAAXEQHKJvM/AAAB40lEQVQoz12OzWsTQRyG9z/yaMUaEmwSCQFvJhehgk1Jc4hp0npTBClYiKggeBBEPOnF3oQmsR9pPprSYLQh6ZrWtrtpts3nrpvdzaYzr7NbenHg4eF9Z+Y3w9Xr9S/9fv+k2+3ua5rGWxiGYXs4HNrWdZ03zRHrdd7QNds662VZ4RVZts+xOweCIOS4ZDJZ8vl8CAYDaAgy6qKJ6pGKw9YIvb8UA5Xg6MxE7VjFvjhiGPjdIqjUThAM3IPf70e1WoW12u32OcfCVqvVwp/DxpiMx+RYOCUup5N8/pomUm9Mzjoa+Z7bIw6Hk2zvlAkFiKqbRJEH5NfPCqlUfpChyl69HChykiTlrfBuhb8IL+cRfZmHe+Y97j9NIbM0h9SzB5h+noU39AGhpTXEXpcQe1XA7IsCUjuS/TNNH1PL3U6nyYliM2eF8PLWxbXpb3QynKau6Ca9FclQ/8wn6nv4kU7OZezuJtubmF2lNxjXQ6vU8yhNA0+y9O7jDNk76EFTByLXbJ4WrYELb8twRAu4s7gNd6IAT6KI24u7jDI8C8XLjtnLuPJUvADXfBET4XVUGjIMTZY4QRDTbJ4Zf1MaTEbWFE98U5mKbdi4Y+s2V/l/3PMbijeRVRyRtLxbO1c1tc//AxDir4qEXYyJAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;タブ&quot;
+        title=&quot;&quot;
+        src=&quot;/static/854bd8d2fd398f943113898fb4829fe2/fb8a0/vimium-tab.png&quot;
+        srcset=&quot;/static/854bd8d2fd398f943113898fb4829fe2/1a291/vimium-tab.png 148w,
+/static/854bd8d2fd398f943113898fb4829fe2/2bc4a/vimium-tab.png 295w,
+/static/854bd8d2fd398f943113898fb4829fe2/fb8a0/vimium-tab.png 590w,
+/static/854bd8d2fd398f943113898fb4829fe2/526de/vimium-tab.png 885w,
+/static/854bd8d2fd398f943113898fb4829fe2/fa2eb/vimium-tab.png 1180w,
+/static/854bd8d2fd398f943113898fb4829fe2/08f6a/vimium-tab.png 1770w,
+/static/854bd8d2fd398f943113898fb4829fe2/412c4/vimium-tab.png 2139w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;J&lt;/code&gt;で左隣に移動&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;K&lt;/code&gt;で右隣に移動&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;g 0&lt;/code&gt;で最左に移動&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;g $&lt;/code&gt;で最右に移動&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;タブ操作&quot;&gt;&lt;a href=&quot;#%E3%82%BF%E3%83%96%E6%93%8D%E4%BD%9C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;タブ操作&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;t&lt;/code&gt;で新規タブ開く&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;x&lt;/code&gt;で現在のタブを閉じる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;更新・戻る・進む&quot;&gt;&lt;a href=&quot;#%E6%9B%B4%E6%96%B0%E3%83%BB%E6%88%BB%E3%82%8B%E3%83%BB%E9%80%B2%E3%82%80&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;更新・戻る・進む&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;r&lt;/code&gt;で更新&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;H&lt;/code&gt;で戻る&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;L&lt;/code&gt;で戻る&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;注意点&quot;&gt;&lt;a href=&quot;#%E6%B3%A8%E6%84%8F%E7%82%B9&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;注意点&lt;/h3&gt;
+&lt;p&gt;たまに入力項目にフォーカスが当たっている場合などは、操作が効かなくなるので、その時はブラウザのデフォルトショートカットを使うことをお勧めします。&lt;/p&gt;
+&lt;h2 id=&quot;その他&quot;&gt;&lt;a href=&quot;#%E3%81%9D%E3%81%AE%E4%BB%96&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;その他&lt;/h2&gt;
+&lt;p&gt;最低限マークダウンを編集できるように&lt;a href=&quot;https://github.com/plasticboy/vim-markdown&quot;&gt;plasticboy/vim-markdown&lt;/a&gt;を導入しました。&lt;br /&gt;
+デフォルトのVimだとマークダウンのシンタックスハイライトは効きますがVSCodeに比べると若干編集しづらかったのですが、
+導入後は箇条書きリストで改行したときにインデントを保ったまま&lt;code class=&quot;language-text&quot;&gt;*&lt;/code&gt;を付けてくれたりと軽快に編集できるようになりました。&lt;br /&gt;
+プラグインはGitHubからZIPでダウンロードして解凍したものをvimフォルダ配下の&lt;code class=&quot;language-text&quot;&gt;plugins&lt;/code&gt;に突っ込めば普通に動きました。
+※&lt;code class=&quot;language-text&quot;&gt;vimrc&lt;/code&gt;で&lt;code class=&quot;language-text&quot;&gt;plugins&lt;/code&gt;配下を全部読み込むような設定になっているようですね。&lt;/p&gt;
+&lt;h2 id=&quot;まとめ&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ&lt;/h2&gt;
+&lt;p&gt;昔、同期が「Vim最高！！」とか言ってて当時は全く理解できませんでしたが、今ならわかるような気がします。
+そこまで使いこなせていませんが、Vimの考え方などは非常に共感できるし、基本操作さえ覚えてしまえば、あとは組み合せで対応できる点が大変気に入っています。カーソル移動がとにかく楽ですね。&lt;br /&gt;
+Vimiumを日頃から使っていれば操作は忘れないし、今後はLinux上で恐れることなくVimを使っていけそうな気がしました。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[CSSのclip-pathでSlit Animationを実現する]]></title><description><![CDATA[なにこれ Slit Animationを実現するReactコンポーネントをCSSのclip-pathを使って作りました。
 Slit Animation…]]></description><link>https://takumon.com//2018/12/02/</link><guid isPermaLink="false">https://takumon.com//2018/12/02/</guid><pubDate>Sun, 02 Dec 2018 07:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;Slit Animationを実現するReactコンポーネントをCSSのclip-pathを使って作りました。
 Slit Animation(スリットアニメーション)は下記のようなものです。
