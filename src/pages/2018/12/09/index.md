@@ -7,21 +7,21 @@ tags:
 
 ## なにこれ
 
-最近Dockerまわりをやっていて、Linux上でファイル編集するのがつらいので、ちゃんとVimを覚えようと思い立ち、
+最近DockerまわりをやっていてLinux上でDockerfileなどを編集するのがつらいので、ちゃんとVimを覚えようと思い立ち、
 とっかかりとして下記４点取り組みました。整理もかねて本記事にまとめます。
 
-* vimtutorやる
-* [Vim日本語ドキュメント](https://vim-jp.org/vimdoc-ja/)読む
-* 主要なQiita記事読む 
-* Chromeに[Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb/related)導入
+1. vimtutor実施
+2. [Vim日本語ドキュメント](https://vim-jp.org/vimdoc-ja/)読む
+3. Qiitaの主要記事を読む
+4. Chromeに[Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb/related)導入
 
 
-## 1. vimtutor
+## 1. vimtutor実施
 
 Vimをインストールすると`:vimtutor`で開くチュートリアルです。
 実際に手を動かしながら説明を上から下に読み進めると、最低限の操作を覚えられます。
 Vimを始めたらまずコレをやるのがVimを理解する一番の近道だと思います。<br />
-1回チュートリアルを実践してみたら、後述する[Vim日本語ドキュメント](#vim日本語ドキュメント)や[vimium](#vimium)を一通り使ってから再度挑戦すると良いです。
+1回チュートリアルを実践してみたら、後述する[Vim日本語ドキュメント](#2-vim日本語ドキュメント読む)や[Vimium](#4-chromeにvimium導入)を一通り使ってから再度挑戦すると良いです。
 私も初回はおぼつかなかったですが、再度試した時はだいぶ直感通りに操作することができVimが少しできるようになったことを実感しました。
 
 
@@ -40,7 +40,7 @@ Vimを始めたらまずコレをやるのがVimを理解する一番の近道�
 
 
 
-## 2. Vim日本語ドキュメント
+## 2. Vim日本語ドキュメント読む
 
 [参考](https://vim-jp.org/vimdoc-ja/)<br />
 
@@ -48,7 +48,7 @@ vimtutorで概要を掴み、実践的な操作を学習するためのサイト
 初級者編が12章分、上級者編が13章分、その他もろもろ章があって充実しています。
 自分は初心者編12章を読みました。時間があるときに上級者のほうも読みたいです。
 
-## 3. 主要Qiita記事読む
+## 3. Qiitaの主要記事を読む
 
 ささーっと下記記事を読みました。記事を見てるとフォローしている人の中に、大抵の記事にイイねしている人が何人かいて「この人はVim派なんだな～」というのが見えてちょっと面白かったです。
 
@@ -61,7 +61,7 @@ vimtutorで概要を掴み、実践的な操作を学習するためのサイト
   * `{`と`}`で段落ごとの移動、`zz`カーソルの位置をウィンドウの中心に移動、`z Enter`カーソルの位置をウィンドウの最上部に移動という便利コマンドが勉強にまりました。
 
 
-## 4. Vimium
+## 4. ChromeにVimium導入
 
 [参考](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb/related)<br />
 
@@ -120,9 +120,9 @@ vimtutorで概要を掴み、実践的な操作を学習するためのサイト
 
 
 
-## 追加したプラグイン
+## その他
 
-[plasticboy/vim-markdown](https://github.com/plasticboy/vim-markdown)を導入しました。<br />
+最低限マークダウンを編集できるように[plasticboy/vim-markdown](https://github.com/plasticboy/vim-markdown)を導入しました。<br />
 デフォルトのVimだとマークダウンのシンタックスハイライトは効きますがVSCodeに比べると若干編集しづらかったのですが、
 導入後は箇条書きリストで改行したときにインデントを保ったまま`* `を付けてくれたりと軽快に編集できるようになりました。<br />
 プラグインはGitHubからZIPでダウンロードして解凍したものをvimフォルダ配下の`plugins`に突っ込めば普通に動きました。
@@ -131,6 +131,6 @@ vimtutorで概要を掴み、実践的な操作を学習するためのサイト
 
 ## まとめ
 
-昔、同期が「Vim最高！！」とか言ってて当時は全く理解できませんでしたが、今ならわかるような気がします。<br />
+昔、同期が「Vim最高！！」とか言ってて当時は全く理解できませんでしたが、今ならわかるような気がします。
 そこまで使いこなせていませんが、Vimの考え方などは非常に共感できるし、基本操作さえ覚えてしまえば、あとは組み合せで対応できる点が大変気に入っています。カーソル移動がとにかく楽ですね。<br />
-vimiumを日頃から使っていれば操作は忘れないし、今後はLinux上で恐れることなくVimを使っていけそうな気がしました。
+Vimiumを日頃から使っていれば操作は忘れないし、今後はLinux上で恐れることなくVimを使っていけそうな気がしました。
