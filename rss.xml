@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 09 Dec 2018 09:37:24 GMT</lastBuildDate><item><title><![CDATA[Vimを始める時に取り組んだ４つのこと]]></title><description><![CDATA[なにこれ 最近DockerまわりをやっていてLinux上でDockerfileなどを編集するのがつらいので、ちゃんとVimを覚えようと思い立ち、
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 09 Dec 2018 09:56:01 GMT</lastBuildDate><item><title><![CDATA[Vimを始める時に取り組んだ４つのこと]]></title><description><![CDATA[なにこれ 最近DockerまわりをやっていてLinux上でDockerfileなどを編集するのがつらいので、ちゃんとVimを覚えようと思い立ち、
 とっかかりとして下記４点取り組みました。整理もかねて本記事にまとめます。 vimtutor実施 Vim…]]></description><link>https://takumon.com//2018/12/09/</link><guid isPermaLink="false">https://takumon.com//2018/12/09/</guid><pubDate>Sun, 09 Dec 2018 12:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;最近DockerまわりをやっていてLinux上でDockerfileなどを編集するのがつらいので、ちゃんとVimを覚えようと思い立ち、
 とっかかりとして下記４点取り組みました。整理もかねて本記事にまとめます。&lt;/p&gt;
@@ -26,7 +26,7 @@ Vimを始めたらまずコレをやるのがVimを理解する一番の近道�
 &lt;li&gt;【7章】ヘルプの使い方、vimrc設定方法&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&quot;2-vim日本語ドキュメント読む&quot;&gt;&lt;a href=&quot;#2-vim%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%E8%AA%AD%E3%82%80&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. Vim日本語ドキュメント読む&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://vim-jp.org/vimdoc-ja/&quot;&gt;参考&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://vim-jp.org/vimdoc-ja/&quot;&gt;Vim日本語ドキュメント&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p&gt;vimtutorで概要を掴み、実践的な操作を学習するためのサイトです。
 初級者編が12章分、上級者編が13章分、その他もろもろ章があって充実しています。
 自分は初心者編12章を読みました。時間があるときに上級者のほうも読みたいです。&lt;/p&gt;
@@ -36,29 +36,29 @@ Vimを始めたらまずコレをやるのがVimを理解する一番の近道�
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;https://qiita.com/nyantera/items/4bf29ca6f11bc797a9cb&quot;&gt;新人達を1ヶ月でガチvimmerにした方法&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;行末移動は編集する場合がほとんどだから&lt;code class=&quot;language-text&quot;&gt;g $&lt;/code&gt;よりも断然楽な&lt;code class=&quot;language-text&quot;&gt;A&lt;/code&gt;でよいというのが目から鱗でした。&lt;/li&gt;
+&lt;li&gt;行末移動は編集する場合がほとんどだから&lt;code class=&quot;language-text&quot;&gt;g $&lt;/code&gt;よりも&lt;code class=&quot;language-text&quot;&gt;A&lt;/code&gt;を使ったほうが断然楽というのが目から鱗でした。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://qiita.com/hachi8833/items/7beeee825c11f7437f54&quot;&gt;Vim幼稚園からVim小学校へ&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;https://qiita.com/tekkoc/items/98adcadfa4bdc8b5a6ca&quot;&gt;Vimの便利な画面分割＆タブページと、それを更に便利にする方法&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Vimにもこんなリッチな機能があることにびっくりしました。VSCodeさながらです。&lt;/li&gt;
+&lt;li&gt;こんなリッチな機能があることにびっくりしました。VSCodeさながらです。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;https://qiita.com/takeharu/items/9d1c3577f8868f7b07b5&quot;&gt;【入門】Vimで高速で移動 プラグインなしでの移動まとめ&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;{&lt;/code&gt;と&lt;code class=&quot;language-text&quot;&gt;}&lt;/code&gt;で段落ごとの移動、&lt;code class=&quot;language-text&quot;&gt;zz&lt;/code&gt;カーソルの位置をウィンドウの中心に移動、&lt;code class=&quot;language-text&quot;&gt;z Enter&lt;/code&gt;カーソルの位置をウィンドウの最上部に移動という便利コマンドが勉強にまりました。&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;{&lt;/code&gt;と&lt;code class=&quot;language-text&quot;&gt;}&lt;/code&gt;で段落ごとの移動、&lt;code class=&quot;language-text&quot;&gt;zz&lt;/code&gt;カーソルの位置をウィンドウの中心に移動、&lt;code class=&quot;language-text&quot;&gt;z Enter&lt;/code&gt;カーソルの位置をウィンドウの最上部に移動という便利コマンドが勉強になりました。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&quot;4-chromeにvimium導入&quot;&gt;&lt;a href=&quot;#4-chrome%E3%81%ABvimium%E5%B0%8E%E5%85%A5&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;4. ChromeにVimium導入&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb/related&quot;&gt;参考&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p&gt;後輩に「Vim始めた」と言ったら、めちゃめちゃ勧められたのがこのChromeエクステンションでブラウザ操作をVim化できるという優れものです。
+&lt;p&gt;&lt;a href=&quot;https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb/related&quot;&gt;Vimium | Chrome Web Store&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;後輩に「Vim始めた」と言ったら、めちゃめちゃ勧められたのがこのChromeエクステンションです。ブラウザ操作をVim化できるという優れものです。
 ネットサーフィンで日頃からVim操作に慣れておけば、いざLinuxでファイル編集する時も手が動くようにするためでもあります。
 早速2～3日ってみたところ、ネットサーフィンでほとんどマウスを触らなくなりました。
-スクロール、タブ移動、履歴移動などなど、ありとあらゆる操作を、ホームポジションから手を動かすことなく実現できます。&lt;/p&gt;
+スクロール、タブ移動、履歴移動などの操作一通りを、ホームポジションから手を動かすことなく実現できます。&lt;/p&gt;
 &lt;h3 id=&quot;リンククリック&quot;&gt;&lt;a href=&quot;#%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%AF%E3%83%AA%E3%83%83%E3%82%AF&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;リンククリック&lt;/h3&gt;
 &lt;p&gt;めっちゃ便利です。
 &lt;code class=&quot;language-text&quot;&gt;f&lt;/code&gt;を押すと下記のように全リンクにショートカットキーが割り当てられ
@@ -202,7 +202,7 @@ Vimを始めたらまずコレをやるのがVimを理解する一番の近道�
 &lt;p&gt;たまに入力項目にフォーカスが当たっている場合などは、操作が効かなくなるので、その時はブラウザのデフォルトショートカットを使うことをお勧めします。&lt;/p&gt;
 &lt;h2 id=&quot;その他&quot;&gt;&lt;a href=&quot;#%E3%81%9D%E3%81%AE%E4%BB%96&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;その他&lt;/h2&gt;
 &lt;p&gt;最低限マークダウンを編集できるように&lt;a href=&quot;https://github.com/plasticboy/vim-markdown&quot;&gt;plasticboy/vim-markdown&lt;/a&gt;を導入しました。&lt;br /&gt;
-デフォルトのVimだとマークダウンのシンタックスハイライトは効きますがVSCodeに比べると若干編集しづらかったのですが、
+デフォルトのVimだとマークダウンのシンタックスハイライトは効きますがVSCodeに比べると若干編集しづらいところがありました。
 導入後は箇条書きリストで改行したときにインデントを保ったまま&lt;code class=&quot;language-text&quot;&gt;*&lt;/code&gt;を付けてくれたりと軽快に編集できるようになりました。&lt;br /&gt;
 プラグインはGitHubからZIPでダウンロードして解凍したものをvimフォルダ配下の&lt;code class=&quot;language-text&quot;&gt;plugins&lt;/code&gt;に突っ込めば普通に動きました。
 ※&lt;code class=&quot;language-text&quot;&gt;vimrc&lt;/code&gt;で&lt;code class=&quot;language-text&quot;&gt;plugins&lt;/code&gt;配下を全部読み込むような設定になっているようですね。&lt;/p&gt;
