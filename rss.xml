@@ -1,4 +1,430 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Wed, 12 Dec 2018 23:47:02 GMT</lastBuildDate><item><title><![CDATA[Vimを始める時に取り組んだ４つのこと]]></title><description><![CDATA[なにこれ 最近DockerまわりをやっていてLinux上でDockerfileなどを編集するのがつらいので、ちゃんとVimを覚えようと思い立ち、
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 16 Dec 2018 12:53:22 GMT</lastBuildDate><item><title><![CDATA[JJUG CCC 2018 Fallに行ってきました]]></title><description><![CDATA[なにこれ Java CCC 2018 Fallに参加してきました。
+見てきたセッションは以下の通りです。 【JJUG基調講演】Javaの未来を考えよう  セッション概要 #ccc_e1 マネーフォワードのアカウントアグリゲーションの現状と課題点について／Selenium…]]></description><link>https://takumon.com//2018/12/16/</link><guid isPermaLink="false">https://takumon.com//2018/12/16/</guid><pubDate>Sun, 16 Dec 2018 12:50:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 133.33333333333331%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,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&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;jjug&quot;
+        title=&quot;&quot;
+        src=&quot;/static/f007bb42cf8b1fea5b9c8267547bc3f7/fb8a0/jjug.png&quot;
+        srcset=&quot;/static/f007bb42cf8b1fea5b9c8267547bc3f7/1a291/jjug.png 148w,
+/static/f007bb42cf8b1fea5b9c8267547bc3f7/2bc4a/jjug.png 295w,
+/static/f007bb42cf8b1fea5b9c8267547bc3f7/fb8a0/jjug.png 590w,
+/static/f007bb42cf8b1fea5b9c8267547bc3f7/526de/jjug.png 885w,
+/static/f007bb42cf8b1fea5b9c8267547bc3f7/fa2eb/jjug.png 1180w,
+/static/f007bb42cf8b1fea5b9c8267547bc3f7/08f6a/jjug.png 1770w,
+/static/f007bb42cf8b1fea5b9c8267547bc3f7/7e026/jjug.png 3024w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/p&gt;
+&lt;p&gt;Java CCC 2018 Fallに参加してきました。
+見てきたセッションは以下の通りです。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;【JJUG基調講演】Javaの未来を考えよう &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.java-users.jp/ccc2018fall/#/sessions/e1dbadf5-158a-4138-a3fa-f139329b2cdf&quot;&gt;セッション概要&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://twitter.com/search?q=%23ccc_e1&quot;&gt;#ccc_e1&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;マネーフォワードのアカウントアグリゲーションの現状と課題点について／Selenium WebDriverとヘッドレスChromeを用いたスクレイピング&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.java-users.jp/ccc2018fall/#/sessions/2f1cc228-b536-4775-8dad-5cbafffab39e&quot;&gt;セッション概要&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://twitter.com/search?q=%23ccc_g2&quot;&gt;#ccc_g2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;思考停止しないアーキテクチャ設計&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.java-users.jp/ccc2018fall/#/sessions/d4cbd28c-0028-46d7-9589-5883af93825c&quot;&gt;セッション概要&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.slideshare.net/kawasima/jjug-ccc-2018-fall&quot;&gt;スライド&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://twitter.com/search?q=%23ccc_e3&quot;&gt;#ccc_e3&lt;/a&gt; &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;エムスリーでのKotlinへの取り組み&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.java-users.jp/ccc2018fall/#/sessions/331c1102-be76-4e17-bf7c-43f55dbc73da&quot;&gt;セッション概要&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://speakerdeck.com/m3_engineering/jjug-ccc-2018fall-kotlin-in-m3?slide=69&quot;&gt;スライド&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://twitter.com/search?q=%23ccc_a4&quot;&gt;#ccc_a4&lt;/a&gt; &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;既存アプリケーションでKotlinを導入してみた&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.java-users.jp/ccc2018fall/#/sessions/9f265f00-8a25-40e2-9ca3-c701bb5154e4&quot;&gt;セッション概要&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.google.com/presentation/d/1wTm_eSbsM2ihfz27QpSHzuRcCIhcRYKom-Vx_-FfUts&quot;&gt;スライド&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://twitter.com/search?q=%23ccc_c5&quot;&gt;#ccc_c5&lt;/a&gt; &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;コードをどまんなかに据えた設計アプローチ(irof)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.java-users.jp/ccc2018fall/#/sessions/536c5e49-1730-430c-811e-c38a77cedd45&quot;&gt;セッション概要&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://speakerdeck.com/irof/kodowodomannakaniju-etashe-ji-apuroti&quot;&gt;スライド&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://twitter.com/search?q=%23ccc_e6&quot;&gt;#ccc_e6&lt;/a&gt; &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;「マイクロソフト牛尾さん渡米直前記念」外資系企業で働くエンジニアの生産性向上物語(日本マイクロソフト株式会社)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.java-users.jp/ccc2018fall/#/sessions/b0657145-4de3-4a64-b02b-83fbc2fdc6b9&quot;&gt;セッション概要&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://twitter.com/search?q=%23ccc_g7&quot;&gt;#ccc_g7&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;それぞれの感想を下記に示します。&lt;/p&gt;
+&lt;h2 id=&quot;イベント概要&quot;&gt;&lt;a href=&quot;#%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E6%A6%82%E8%A6%81&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;イベント概要&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;公式サイト&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.java-users.jp/ccc2018fall&quot;&gt;JJUG CCC 2018 Fall&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;開催日時&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;2018/012/15(土) 09:30 - 21:00&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;開催場所&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.bellesalle.co.jp/shisetsu/shinjuku/bs_shinjukugrand/&quot;&gt;ベルサール新宿グランド　コンファレンスセンター &lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ハッシュタグ&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://twitter.com/search?q=%23jjug_ccc&quot;&gt;#jjug_ccc&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;【jjug基調講演】javaの未来を考えよう&quot;&gt;&lt;a href=&quot;#%E3%80%90jjug%E5%9F%BA%E8%AA%BF%E8%AC%9B%E6%BC%94%E3%80%91java%E3%81%AE%E6%9C%AA%E6%9D%A5%E3%82%92%E8%80%83%E3%81%88%E3%82%88%E3%81%86&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;【JJUG基調講演】Javaの未来を考えよう&lt;/h2&gt;
+&lt;p&gt;※スライドなし（いまのところ）&lt;/p&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 75%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAIAAABr+ngCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAADnklEQVQozwGTA2z8AKCVkpmOip+VkLWwrMnFw8K9uqWfmaOdlqOdmKWfma6rqL25ua+qp6Odl6OclJ+WjJ6Vi6GWjqSZlLOopACglZGTiISSioSTjomjnpqhm5WalI6empSfmpSfm5SjoJuin5uyr6qrp6GclYuakoebkoejmpHJwr/NxsMAiX97iYF8o5yYop2Zi4WBhH54nJeTwr+8n5uWko+ImJWPo6CZv724qaWfl5CHlo6Fl4+Fp6Gbtq+rpJqTAIZ+eX93cpeSjpaTkHd0cY6Lh4iFgIyJg5yZk52bloaEfomHgKKemKSemYmDfIqCepOLhLCqppeQin52bgBxa2d9eHSKhYFrZ2RoZ2N/f3twc29kaWRxeHR0e3dna2hpamdubmtoZ2NhXllfXFdfXFheW1dNTEdgW1YAOzo6hX96gXt1fHdwg392UlJNWmJegZaQfpSOfpOOYmpnTk9LUFFLTExGTUtFS0pER0ZARkQ/KiwqaWRcACAgIrWrn8i9r7uwpL+2qXdyanqCdsrj0OX/8N7/6o6cj1pZUV1dVWFfVmJfVl5bU1dUTFZTSy8uLHdwZwAoJiVzbWWVjIOMhHpbWFJpZV5yc2uwvreJm5WQopqDi4JTUUtmZl5zcGhDQj49PThgXVRTT0clIyJ6cmgAJyQiREFDdW9yQEBCODk4Qz49RDw7RERDY15YTD89eG1oiYZ8SEhDWFdPNS4tMCcoW1NMaGJgMjZEV0VBADIpJU1MTVVSUVpYVmJfW15bVkdFQ2djXIB6cFZUTjMzMT89Ojg4NS0vLSIjIx4bHCknJ3BsaGliYzIkJgBDPz0VFRZhXViOi4OWkoqHhH2cmJCwraOKhn09PDgmJyQgICAlJiUZGhwlJygjJicWGRojJCRVUExnYVwAvLCkW1ZRGhscICEiJycoICAhJSUlQD88MTEvFRYWFBUWNjYyQUA5JSUlGBkcHB0fICAiHyAhiYJ5j4d/AK+glcK0ptXKv/Ds3r25rTk4NgUHCQwODxkZGRITFCQkIlxbU3p5cT08PCwsLSIjJBobHhcYGgcIDAIFCQA/ODVrYVmrn5KUj4Q/PDcfHh0REhIUFhYqKicbGxo3NjHIx8D////8+uzv59nYzsPDuq+7s6mnn5eOhX4ABQUGGhgWJiQgEhEQIR8dHx4cGBgWHh4cMjEuKSckcW1n///8/v77/v/1//7u//vr//3t///y///x//zrho6EI/vUBXkAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;基調講演&quot;
+        title=&quot;&quot;
+        src=&quot;/static/ca454f13bf9c03896b1c0d2bdc85a252/fb8a0/kityokoen.png&quot;
+        srcset=&quot;/static/ca454f13bf9c03896b1c0d2bdc85a252/1a291/kityokoen.png 148w,
+/static/ca454f13bf9c03896b1c0d2bdc85a252/2bc4a/kityokoen.png 295w,
+/static/ca454f13bf9c03896b1c0d2bdc85a252/fb8a0/kityokoen.png 590w,
+/static/ca454f13bf9c03896b1c0d2bdc85a252/526de/kityokoen.png 885w,
+/static/ca454f13bf9c03896b1c0d2bdc85a252/fa2eb/kityokoen.png 1180w,
+/static/ca454f13bf9c03896b1c0d2bdc85a252/08f6a/kityokoen.png 1770w,
+/static/ca454f13bf9c03896b1c0d2bdc85a252/285f8/kityokoen.png 4032w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/p&gt;
+&lt;br /&gt;
+&lt;p&gt;CCCには過去4回ほど午後からグダグダ参加でしたが、今回初めて朝一で基調講演を聞きに行きました。
+前半は、鈴木会長(withお子様)のお話で、後半は、せろさん、じゅくちょーさん、きしださんのによるパネルディスカッションでした。&lt;/p&gt;
+&lt;p&gt;ところで毎回JJUGで思うのですが、@nakayama_san さんの絵がすごいです。これを見るとJJUG来たなーって感じます。&lt;/p&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;ja&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;Javaの未来を考えよう を聞いてきたメモ&lt;a href=&quot;https://twitter.com/hashtag/ccc_e1?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#ccc_e1&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/jjug_ccc?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#jjug_ccc&lt;/a&gt; &lt;a href=&quot;https://t.co/rc8m8EmUvT&quot;&gt;pic.twitter.com/rc8m8EmUvT&lt;/a&gt;&lt;/p&gt;&amp;mdash; Nakayama san (@nakayama_san) &lt;a href=&quot;https://twitter.com/nakayama_san/status/1073756080910430209?ref_src=twsrc%5Etfw&quot;&gt;2018年12月15日&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;h4 id=&quot;javaの歴史&quot;&gt;&lt;a href=&quot;#java%E3%81%AE%E6%AD%B4%E5%8F%B2&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Javaの歴史&lt;/h4&gt;
+&lt;p&gt;正直Sun時代のJavaの歴史などは、自分の中で曖昧だったので、サクッと知れ良かったです。
+Javaのサポートについては、Oracleから配布されているJDK使っていればOKという状況ではなくなっているので、
+有償サポート・無償サポートなどの状況を正確に把握する必要があるなぁと感じました。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;Javaの歴史&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;markdown&quot;&gt;&lt;pre class=&quot;language-markdown&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 1999年
+&lt;span class=&quot;token code keyword&quot;&gt;    * Apatch Jakarta ProjectからTomcatがリリース&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * Java OSSの受け皿としてApack Jakarta Project開始&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;        * 今のJavaの技術の基礎を作った&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * 2011年に役目を終えた（全プロジェクトがトップレベルに移行）&lt;/span&gt;
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 2004年
+&lt;span class=&quot;token code keyword&quot;&gt;    * Eclipse Foundation が非営利団体として設立&lt;/span&gt;
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 2006年
+&lt;span class=&quot;token code keyword&quot;&gt;    * SunがOpen JDKを公開（GPLv2ライセンス）&lt;/span&gt;
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 2010年
+&lt;span class=&quot;token code keyword&quot;&gt;    * OracleがSunを74億ドルで買収&lt;/span&gt;
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 2016年
+&lt;span class=&quot;token code keyword&quot;&gt;    Java EE Guardians&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * OracleのJava EE仕様策定遅延を懸念し、Java EEを守ろうとする団体が発足&lt;/span&gt;
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 2017年9月
+&lt;span class=&quot;token code keyword&quot;&gt;    * Java EE オープンソース化しEclipse Foundationへ移管&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * EE4J(Eclipse Enterprise for Java)発足&lt;/span&gt;
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 2017年9月以降～現在
+&lt;span class=&quot;token code keyword&quot;&gt;    * Eclipse MicroProfile発足&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * Java SEリリースモデル変更&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;        * 半年に一回のバージョンアップ&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;        * サポートは次バージョンが出るまで&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;        * 3年置おきの長期間サポートバージョンの提供&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * 有償・無償など&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;        * 有償：Oracle, IBM, RedHat, Azul&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;        * 無償：AdoptOpenJDK HotSpot/OpenJ9, Amazon Corretto&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;        * 条件付き無償：Azure上の Azul Systems Zulu Enterprise&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * 買収&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;        * IBMがRedHat買収&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;        * MicrosoftがGitHub買収 などなど&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4 id=&quot;パネルディスカッション&quot;&gt;&lt;a href=&quot;#%E3%83%91%E3%83%8D%E3%83%AB%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;パネルディスカッション&lt;/h4&gt;
+&lt;p&gt;コミュニティ活性化への熱い思いを感じました。
+確かに、フリーライドするだけでなく、コミュニティに貢献したり、プルリク出したりと、自分から積極的に関わることが重要だと思います。
+またブログの重要性についても触れていて、きしださんの「ブログ書くと他人に影響を与えられて、自分の都合のいい世界になっていく」という言葉が印象的でした。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;パネルディスカッション&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;markdown&quot;&gt;&lt;pre class=&quot;language-markdown&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 「Java有償化」というワードの一人歩き
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; VM
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; JVM実行環境が変わってきている。GraalVM登場、動的型付け言語をサポート
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; Project Metropolis
+&lt;span class=&quot;token code keyword&quot;&gt;    * C++で書かれているJVMをJavaで書き換えようというプロジェクト&lt;/span&gt;
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 個人で作るときはJavaは配布がめんどい、Nativeコンパイルが流行ってくれていれば
+&lt;span class=&quot;token code keyword&quot;&gt;      * Javaもそうなろうとしている&lt;/span&gt;
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; AWS Lamdaなどのファンクションとして起動するものが増えてきた。Javaもそれに合わせて変わってきている
+&lt;span class=&quot;token code keyword&quot;&gt;    * JITコンパイル時にNativeコードに変換するから起動が早くなってる&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * Javaのコアモジュールの分割&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;      * モジュール分割されて　必要最低限のコアモジュールだけ取り込むことが可能&lt;/span&gt;
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; Javaコミュニティ
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; Javaライフサイクル短縮により、情報をより頻繁に取り入れる必要が出てくるため。コミュニティ活性化につながる。国際交流の機会が増える。
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 日本の新元号がJava11で組み込まれているけど　メーリングリストではあまり話題にならなかったなぁ。日本の人が声を上げないと不都合な変更がそのままになる
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; StrutsのEOL
+&lt;span class=&quot;token code keyword&quot;&gt;    * 日本人でコミッターがいれば日本で引き継げたのかも&lt;/span&gt;
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; フリーライドするだけでもいいが、積極的に貢献することも重要
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; ブログを書く
+&lt;span class=&quot;token code keyword&quot;&gt;    * 自分から情報を公開すると自分の都合のいい世界に変わっていく&lt;/span&gt;
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 積極的にコミュニティにかかわっていってください
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; QA
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 各人のNextStepは何ですか
+&lt;span class=&quot;token code keyword&quot;&gt;    * きしださん&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;      * 朝起きれる人になりたい&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * じゅくちょーさん&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;      * JVMになりたい&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;      * 読むだけではなくコントリビュートしたい&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * せろさん&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;      * エンターテイメントに関わっていきたい。を盛り上げたい&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;マネーフォワードのアカウントアグリゲーションの現状と課題点について／selenium-webdriverとヘッドレスchromeを用いたスクレイピング&quot;&gt;&lt;a href=&quot;#%E3%83%9E%E3%83%8D%E3%83%BC%E3%83%95%E3%82%A9%E3%83%AF%E3%83%BC%E3%83%89%E3%81%AE%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E3%82%A2%E3%82%B0%E3%83%AA%E3%82%B2%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E7%8F%BE%E7%8A%B6%E3%81%A8%E8%AA%B2%E9%A1%8C%E7%82%B9%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%EF%BC%8Fselenium-webdriver%E3%81%A8%E3%83%98%E3%83%83%E3%83%89%E3%83%AC%E3%82%B9chrome%E3%82%92%E7%94%A8%E3%81%84%E3%81%9F%E3%82%B9%E3%82%AF%E3%83%AC%E3%82%A4%E3%83%94%E3%83%B3%E3%82%B0&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;マネーフォワードのアカウントアグリゲーションの現状と課題点について／Selenium WebDriverとヘッドレスChromeを用いたスクレイピング&lt;/h2&gt;
+&lt;p&gt;※スライドなし(いまのところ)&lt;/p&gt;
+&lt;p&gt;マネーフォワードさんではお金に関する４つのサービスを提供しているそうです。
+今回はそのうちの１つ「Money Forword Home」のアプリについてのお話でした。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;会社概要&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;markdown&quot;&gt;&lt;pre class=&quot;language-markdown&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; マネーフォワードが提供しているサービス
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; Money Forword Home
+&lt;span class=&quot;token code keyword&quot;&gt;    * 個人向け　家計簿　スマホアプリ&lt;/span&gt;
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; Noney Forword Business
+&lt;span class=&quot;token code keyword&quot;&gt;    * 法人向け お金の状態を可視化するアプリ&lt;/span&gt;
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; Money Forword X
+&lt;span class=&quot;token code keyword&quot;&gt;    * パートナーとともにサービスを提供する&lt;/span&gt;
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; Money Forward Finance&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br /&gt;
+&lt;p&gt;HtmlUnitってテストライブラリじゃないの!?と思いましたが、マネーフォワードさんではスクレイピングに使用しているそうです。
+確かにそんな使い方もできないことはないけれど...ちょっとびっくりです。
+最新ブラウザとの挙動を合わせるためにHtmlUnitにコミットしたり、スクレイピング対象のサイトがリニューアルしたら、スクレイピングのロジックを変えたりと、地道な努力が伝わってきました。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;現状のスクレイピング&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;markdown&quot;&gt;&lt;pre class=&quot;language-markdown&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 自動家計簿
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; インターネットサービス上に散らばったお金のやり取りの情報を集約・自動分類して家計簿を出力するサービス
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; Java8で動いている
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; HtmlUnitでスクレイピングしてお金のやり取り情報を収集する
+
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; HtmlUnitでのスクレイピング
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; HtmlUnitはUnitテストで使うことが多いが、マネーフォワードでは、スクレイピングに使っている
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; HtmlUnitを拡張してスクレイピングに特化した機能を追加している
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; メリット
+&lt;span class=&quot;token code keyword&quot;&gt;    * 通常のスクレイピングと違い、ブラウザ操作と同じ仕組みでスクレイピングできるので、Webブラウジングの根っこの部分からハンドリングできる&lt;/span&gt;
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; デメリット
+&lt;span class=&quot;token code keyword&quot;&gt;    * HtmlUnitは独自ブラウザを使っているので、最新のChromeと挙動が違ったりする&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;      * 特にJavaScriptで動的にレンダリングする部分&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;      * 挙動が違う場合、HTMLUnitにコミットして最新のブラウザに仕様を追従させる必要がある&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br /&gt;
+&lt;p&gt;後半は、「HtmlUnitだとつらいのでSelenium WebDriverかヘッドレスChromeを検討中」というお話でした。
+コチラも、Selenium WebDriverを使う場合に、ファイルダウンロード完了通知の仕組みを自分たちで考えたりと、地道な努力が伝わってきました。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;Selenium WebDriverとヘッドレスChromeを用いたスクレイピング&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;markdown&quot;&gt;&lt;pre class=&quot;language-markdown&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 脱HtmlUnit計画
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; HtmlUnitだと最新ブラウザのAPIに追従していないのでスクレイピング時にエラーが発生する。つらい。
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; Selenimu WebDriverかヘッドレスChromeを検討
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; ヘッドレスChroem(Chrome DevTools Protocol)
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 仕組み
+&lt;span class=&quot;token code keyword&quot;&gt;    * |App| ====CDP====&gt; |Chrome|&lt;/span&gt;
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 検証した感じ
+&lt;span class=&quot;token code keyword&quot;&gt;    * 結構ローレベルなAPIしかないので処理が煩雑になる&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * 学習コスト高&lt;/span&gt;
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; Selenium WebDriver
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 仕組み
+&lt;span class=&quot;token code keyword&quot;&gt;    * |App| ====HTTP====&gt; |ChromeDriver| =====CDP====&gt; |Chrome|&lt;/span&gt;
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 検証した感じ
+&lt;span class=&quot;token code keyword&quot;&gt;    * マルチデバイスでスクレイピングできていいね&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * WebDriver標準API以外にもいろんなエンドポイントを受け付けることが可能&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * APIの粒度はCDP程細かくなくイイ感じ&lt;/span&gt;
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 業務要件にマッチしているか
+&lt;span class=&quot;token code keyword&quot;&gt;    * プロキシ設定できるか ⇒ 〇&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * Cookie使えるか ⇒ 〇&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * ファイルダウンロード使えるか ⇒ △ ファイルダウンロードはできるがアプリ側にダウンロード完了を伝える仕組みがない&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;      * ⇒ 自分たちで実装&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;        * Seleniumの場合、アプリとは別プロセスでブラウザが起動しているため、ファイルシステムを介してやり取りすることにした&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;        * ダウンロード中のファイル名を決めておき、それがファイルがなくなったら、ダウンロード完了とみなす&lt;/span&gt;
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 残課題
+&lt;span class=&quot;token code keyword&quot;&gt;    * WebDriverのバージョンアップ対応&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * Chromeバージョンアップへの対応&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br /&gt;
+&lt;p&gt;技術的に突出して新しいものを使っているわけではありませんが、開発現場のリアルな試行錯誤が聞けて大変楽しいセッションでした。&lt;/p&gt;
+&lt;h2 id=&quot;思考停止しないアーキテクチャ設計&quot;&gt;&lt;a href=&quot;#%E6%80%9D%E8%80%83%E5%81%9C%E6%AD%A2%E3%81%97%E3%81%AA%E3%81%84%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E8%A8%AD%E8%A8%88&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;思考停止しないアーキテクチャ設計&lt;/h2&gt;
+&lt;div&gt;
+          &lt;div
+            class=&quot;gatsby-resp-iframe-wrapper&quot;
+            style=&quot;padding-bottom: 81.5126050420168%; position: relative; height: 0; overflow: hidden;margin-bottom: 1.0725rem&quot;
+          &gt;
+            &lt;iframe src=&quot;//www.slideshare.net/slideshow/embed_code/key/il0sIDu2XdnYo6&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot; style=&quot;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+          &quot; allowfullscreen&gt; &lt;/iframe&gt;
+&lt;div style=&quot;margin-bottom:5px&quot;&gt;
+	&lt;strong&gt;
+		&lt;a href=&quot;//www.slideshare.net/kawasima/jjug-ccc-2018-fall&quot; title=&quot;&amp;#x601D;&amp;#x8003;&amp;#x505C;&amp;#x6B62;&amp;#x3057;&amp;#x306A;&amp;#x3044;&amp;#x30A2;&amp;#x30FC;&amp;#x30AD;&amp;#x30C6;&amp;#x30AF;&amp;#x30C1;&amp;#x30E3;&amp;#x8A2D;&amp;#x8A08; &amp;#x2796; JJUG CCC 2018 Fall&quot; target=&quot;_blank&quot;&gt;&amp;#x601D;&amp;#x8003;&amp;#x505C;&amp;#x6B62;&amp;#x3057;&amp;#x306A;&amp;#x3044;&amp;#x30A2;&amp;#x30FC;&amp;#x30AD;&amp;#x30C6;&amp;#x30AF;&amp;#x30C1;&amp;#x30E3;&amp;#x8A2D;&amp;#x8A08; &amp;#x2796; JJUG CCC 2018 Fall&lt;/a&gt;
+		&lt;/strong&gt; from &lt;strong&gt;
+		&lt;a href=&quot;https://www.slideshare.net/kawasima&quot; target=&quot;_blank&quot;&gt;Yoshitaka Kawashima&lt;/a&gt;
+	&lt;/strong&gt;
+&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;/div&gt;
+&lt;br /&gt;
+&lt;p&gt;元T社の川島さんのセッション。一番広い部屋でしたが、立ち見が出るほど人気でした。
+お話の内容はかなり抽象度が高く上級者向けで、わからない単語もチラホラ出てきました。
+川島さんは、応募時点で無職、現在は&lt;a href=&quot;https://www.wolfchief.jp/about/&quot;&gt;ウルフチーフ&lt;/a&gt;という個人の会社を設立されています。
+セッション冒頭紹介があった「企業クエスト」やってみましたが確かに企業はめんどくさそうですね（したことないからわかりませんが...）&lt;/p&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; data-partner=&quot;tweetdeck&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;吉祥寺.pm16で発表した「起業クエスト」を公開しました！&lt;br&gt;かなりの難度のゲームです。&lt;a href=&quot;https://t.co/JMARTHIHxU&quot;&gt;https://t.co/JMARTHIHxU&lt;/a&gt;&lt;br&gt;回線容量喰うので、おうちでお試しください！&lt;/p&gt;&amp;mdash; :craftsman/kawasima (@kawasima) &lt;a href=&quot;https://twitter.com/kawasima/status/1073595586199187457?ref_src=twsrc%5Etfw&quot;&gt;December 14, 2018&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;p&gt;セッション中の「The Patterns of Stop Thinking」は&lt;a href=&quot;https://anond.hatelabo.jp/20150805115616&quot;&gt;思考停止の分類 | はてな匿名ダイアリー&lt;/a&gt;に詳細が記載されています。
+自分も無意識のうちに思考停止になってないか、チェックする時にコレを使ってみようと思います。&lt;/p&gt;
+&lt;h2 id=&quot;エムスリーでのkotlinへの取り組み&quot;&gt;&lt;a href=&quot;#%E3%82%A8%E3%83%A0%E3%82%B9%E3%83%AA%E3%83%BC%E3%81%A7%E3%81%AEkotlin%E3%81%B8%E3%81%AE%E5%8F%96%E3%82%8A%E7%B5%84%E3%81%BF&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;エムスリーでのKotlinへの取り組み&lt;/h2&gt;
+&lt;div style=&quot;left: 0; width: 100%; height: 0; position: relative; padding-bottom: 74.9288%;&quot;&gt;&lt;iframe src=&quot;//speakerdeck.com/player/e2d72cafdacd458280575d5cd4838863&quot; style=&quot;border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;&quot; allowfullscreen scrolling=&quot;no&quot; allow=&quot;autoplay; encrypted-media&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;br /&gt;
+&lt;p&gt;エムスリーさんではAndriod、サーバーサイドの両方で、積極的にJavaからKotlinへ移行しているようです。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;Kotlinとエムスリー&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;markdown&quot;&gt;&lt;pre class=&quot;language-markdown&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; だんだんとKotlinの導入が進んでいる(約6グループ)
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; Andriod、サーバーサイドともに導入が進んでいる
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; Kotlin導入理由
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; Better Javaとして
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; エンジニアとして新しいものに挑戦したい欲求
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; Andriodで導入済なのでサーバサイドに導入してオールKotlinにしたい
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 他プロジェクトでの導入成功事例があるため
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 技術選定はチームごとに自由
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 自分のチームはKotolin, Go, React が主流&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br /&gt;
+&lt;p&gt;移行方法は大きく3パターンあり、刷新する方法について詳しく説明されていました。
+テストコードはJavaのまま。リグレッションテストはGolden file testingを使用するなど素早く移行するためのノウハウを聞くことができました。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;【サーバーサイド】JavaからKotolinの移行方法&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;markdown&quot;&gt;&lt;pre class=&quot;language-markdown&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 移行方法
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 段階的
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; なかったことにする
+  &lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; 刷新
+&lt;span class=&quot;token code keyword&quot;&gt;    * IntelliJで自動コンバートして、なんとかする&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;      * 他機能開発と調整が必要&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;        * `xxx.java`から`xxx.kt`になるためGitで差分が見づらい&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;          * 差分が見づらいゆえ、他で同時に機能開発が走っている場合、デグレの可能性がある&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * リグレッションテストをたくさん作っておく&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;      * テストコードはJavaのまま&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * 自動コンバートをレビューしても仕方がない&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * Golden file testingを用いたリグレッションテスト&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;      * APIのレスポンスとGolden fileと比較してレスポンスがかわらないことを確認する&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;        * assert地獄から解放される&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;    * Swagger Codege, UI (Open API)&lt;/span&gt;
+&lt;span class=&quot;token code keyword&quot;&gt;      * ソースコードからクライアントライブラリとドキュメント生成&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br /&gt;
+&lt;p&gt;発表者の方が「エムスリー社内Slackの&lt;code class=&quot;language-text&quot;&gt;#spring-boot&lt;/code&gt;チャンネルに質問したら、有識者が回答がかえってきてすぐに解決した。」と言っていて、
+こういう風に社内で横断的にコミュニケーションがとれる文化は素晴らしいなぁと思いました。&lt;/p&gt;
+&lt;h2 id=&quot;既存アプリケーションでkotlinを導入してみた&quot;&gt;&lt;a href=&quot;#%E6%97%A2%E5%AD%98%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%A7kotlin%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;既存アプリケーションでKotlinを導入してみた&lt;/h2&gt;
+&lt;div style=&quot;left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.2493%; padding-top: 30px;&quot;&gt;&lt;iframe src=&quot;https://docs.google.com/presentation/d/1wTm_eSbsM2ihfz27QpSHzuRcCIhcRYKom-Vx_-FfUts/preview?usp=embed_googleplus&quot; style=&quot;border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;&quot; allowfullscreen scrolling=&quot;no&quot; allow=&quot;autoplay; encrypted-media&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;br /&gt;
+&lt;p&gt;フリューさんのピクトリンクをJavaからKotolinに移行したというお話でした。
+ピクトリンクとはプリ画のSNSだそう。僕が高校生の頃はプリクラ手帳とかで物理的にやっていましたが、今はWebでSNSでできちゃうんですね。
+JavaとKotolinのソースコードの比較と、デモを織り交ぜながら、初心者にも非常にわかりやすい説明でした！&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;markdown:メモ&quot;&gt;&lt;pre class=&quot;language-markdown:メモ&quot;&gt;&lt;code class=&quot;language-markdown:メモ&quot;&gt;* 使う理由
+  * Javaから移行簡単
+  * SpringでもKotlinサポートしている
+* 便利な書き方
+  * 用法要領をまもろう
+    * みじかくかける != わかりやすい
+    * it多様すると記述量は少なくなるけど、可読性が落ちる場合がある
+  * 分割宣言はpublicAPIでは使いにくいので気を付けよう
+  * alsoというスコープ関数便利
+  * DataClass
+    * cloneやtoStringメソッドがあらかじめある。Lombokみたいな感じ
+  * 拡張関数
+    * 既存クラスに対して　関数を追加できる
+    * Nullableクラスに対しても追加できる
+    * 注意点
+      * mixinのようとでガンガン追加するとオレオレになってしまう
+      * カオスになる要因なので、ルールを決めて使いましょう
+  * Smart Cast
+    * このパターンだったらコレで大丈夫的なやつをDSLで定義する
+    * これもカオスになる要因。できればインターフェース設計とかで解決したい
+* ツールサポート
+  * IntelliJ IDEA を使ったJava to Kotolinの自動変換が便利
+  * Gralde Kotolin DSL
+    * GradleをKotlinでかける、既存Gradleファイルと共存可能
+* 注意点
+  * Java側がNullを返すパターンがややこしい
+    * コンパイルは通るが実行時例外になるケースがある
+  * バージョンアップが激しい
+    * 結構非互換ある
+    * チームのスキルセットと相談&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;コードをど真ん中に据えた設計アプローチ&quot;&gt;&lt;a href=&quot;#%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E3%81%A9%E7%9C%9F%E3%82%93%E4%B8%AD%E3%81%AB%E6%8D%AE%E3%81%88%E3%81%9F%E8%A8%AD%E8%A8%88%E3%82%A2%E3%83%97%E3%83%AD%E3%83%BC%E3%83%81&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;コードをど真ん中に据えた設計アプローチ&lt;/h2&gt;
+&lt;div style=&quot;left: 0; width: 100%; height: 0; position: relative; padding-bottom: 74.9288%;&quot;&gt;&lt;iframe src=&quot;//speakerdeck.com/player/a8bb0866f87c4c1da18793db49f5b9e0&quot; style=&quot;border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;&quot; allowfullscreen scrolling=&quot;no&quot; allow=&quot;autoplay; encrypted-media&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;br /&gt;
+&lt;p&gt;「ソースコードを読むときに、だいたいIDEを使う。IDEのおかげで括弧の強調表示や、メソッドにジャンプが可能になる。
+この発展系で、コードをドキュメントのように見せることができれば、コードをど真ん中に見据えた設計ができるのではないか」
+この仮説のもと、コードをど真ん中に見据えた設定を実現を補助するツール、&lt;a href=&quot;https://github.com/dddjava/Jig&quot;&gt;JIG&lt;/a&gt;(Java Instant-document Gazer)の紹介という流れでした。&lt;/p&gt;
+&lt;p&gt;※このセッションのメモはありません。疲れてきたからメモを取らなかったとかいう理由では決してありません。&lt;/p&gt;
+&lt;h2 id=&quot;「マイクロソフト牛尾さん渡米直前記念」外資系企業で働くエンジニアの生産性向上物語&quot;&gt;&lt;a href=&quot;#%E3%80%8C%E3%83%9E%E3%82%A4%E3%82%AF%E3%83%AD%E3%82%BD%E3%83%95%E3%83%88%E7%89%9B%E5%B0%BE%E3%81%95%E3%82%93%E6%B8%A1%E7%B1%B3%E7%9B%B4%E5%89%8D%E8%A8%98%E5%BF%B5%E3%80%8D%E5%A4%96%E8%B3%87%E7%B3%BB%E4%BC%81%E6%A5%AD%E3%81%A7%E5%83%8D%E3%81%8F%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E3%81%AE%E7%94%9F%E7%94%A3%E6%80%A7%E5%90%91%E4%B8%8A%E7%89%A9%E8%AA%9E&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;「マイクロソフト牛尾さん渡米直前記念」外資系企業で働くエンジニアの生産性向上物語&lt;/h2&gt;
+&lt;p&gt;最後のセッション。当初はScalaの話でも聞こうかと思っていましたが、疲れ切っていたのでこのセッションを見ることにしました。
+寺田さんと牛尾さんの掛け合いで、とても面白い話を聞くことができました。&lt;/p&gt;
+&lt;p&gt;「外資はいいぞ」という話をしていたのですが、そんなに変わるものなんでしょうか？
+僕は日本企業しか経験がないので、ぜひ外資の知り合いに聞いてみたいですね。
+あとは&lt;br /&gt;
+(1) 英語力を身に着けてインプットを加速させる&lt;br /&gt;
+(2) ブログを書いてアウトプットする&lt;br /&gt;
+この２点の重要性について語られていました。&lt;br /&gt;
+僕もブログは書いているのですが、英語に関してはサッパリ...なので英語やらねばならんですね。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;markdown:メモ&quot;&gt;&lt;pre class=&quot;language-markdown:メモ&quot;&gt;&lt;code class=&quot;language-markdown:メモ&quot;&gt;* 外資はいいよ
+  * 上司が技術にたけているので上司説得の場面がない。
+  * 無駄なやり取りが少ない
+  * スピードが速い
+* ブログを書く
+  * 面白いとおもったことを共有したい
+  * 自分の学んだことをメモする
+  * プログラミングをうまくなるコツはブログを書くこと
+  * 世界にシェアしたいものを英語でブログ書く
+* 英語力
+  * 英語力は必須
+    * 最新の技術動向はだいたい英語
+  * 英語力が技術力に直結する
+  * しゃべれるようになるには大阪のおばちゃんみたいになる&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;おわりに&quot;&gt;&lt;a href=&quot;#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;おわりに&lt;/h2&gt;
+&lt;p&gt;久しぶりに前職の人と再開でき、今の職場の人にも会えてとても楽しい時間を過ごすことができました。
+懇親会ではお寿司も大量に食べれて（お寿司は結構余ってた）、色んな方と話せたので満足です。&lt;/p&gt;
+&lt;p&gt;こんな素敵なJJUGを支えてくれるスタッフ、ボランティア、登壇者の皆様、本当にありがとうございました。
+JJUG CCC 2019 Springも楽しみにしています。&lt;/p&gt;
+&lt;h2 id=&quot;参考&quot;&gt;&lt;a href=&quot;#%E5%8F%82%E8%80%83&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://d.hatena.ne.jp/chiheisen/20181215/1544897520&quot;&gt;JJUG CCC 2018 Fall( #jjug_ccc ) - セッション資料の一覧 | 地平線に行く&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://qiita.com/ryuichi1208/items/1ed16c162c0205d1514e&quot;&gt;JJUG CCC Fall 2018 資料まとめ| Qiita&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Vimを始める時に取り組んだ４つのこと]]></title><description><![CDATA[なにこれ 最近DockerまわりをやっていてLinux上でDockerfileなどを編集するのがつらいので、ちゃんとVimを覚えようと思い立ち、
 とっかかりとして下記４点取り組みました。整理もかねて本記事にまとめます。 vimtutor実施 Vim…]]></description><link>https://takumon.com//2018/12/09/</link><guid isPermaLink="false">https://takumon.com//2018/12/09/</guid><pubDate>Sun, 09 Dec 2018 12:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;最近DockerまわりをやっていてLinux上でDockerfileなどを編集するのがつらいので、ちゃんとVimを覚えようと思い立ち、
 とっかかりとして下記４点取り組みました。整理もかねて本記事にまとめます。&lt;/p&gt;
