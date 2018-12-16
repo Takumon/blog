@@ -1,6 +1,6 @@
 ---
-title: JJUG CCC 2018 Fallに行ってきました。
-date: '2018-12-16T21:40:00.000+09:00'
+title: JJUG CCC 2018 Fallに行ってきました
+date: '2018-12-16T21:50:00.000+09:00'
 tags:
   - Java
   - Kotlin
