@@ -103,10 +103,10 @@ mdx-deckはMDXベースというのが特徴です。<br>
   ```
 * 起動
   ```
-  cd mdx-deck-samplemy
+  cd mdx-deck-sample
   npm start
   ```
-* 勝手にブラウザで`http://127.0.0.1:8080/#0`が開かれてスライドショーが見れます！
+* 勝手にブラウザで`http://127.0.0.1:8080`が開かれてスライドショーが見れます！
   ![mdx-deck-start](./mdx-deck-sample.gif)
 
 
@@ -123,7 +123,7 @@ code-surferは言葉で説明するよりも実際のスライドを見たほう
 ## mdx-deckを調べたきっかけ
 
 もともとブログとスライドが一元管理できれば楽かなと思い、
-自分のブログ(Gatsby製)でスライドショーが作れる方法があるかを調べていたところ、
+自分のブログ(Gatsby製)でスライドショーが作れる方法をあるかを調べていたところ、
 @chrisbiscardi さんのつぶやきを見つけました。
 
 <blockquote class="twitter-tweet" data-lang="ja">
@@ -135,14 +135,14 @@ code-surferは言葉で説明するよりも実際のスライドを見たほう
 * [デモページ](https://deploy-preview-43--gatsby-mdx-kitchen-sink.netlify.com/)
 * [リポジトリ](https://github.com/ChristopherBiscardi/gatsby-mdx/tree/master/examples/kitchen-sink)
 
-ただ上記は未完成らしくビルドなどが一部うまくいかないようです。
-残念だと思いつつ、gatsby-deckの要素技術として使っていたのがmdx-deckだったので、将来に備えmdx-deckを調べてみることにしました。
+ただ上記は未完成らしくビルドが一部うまくいかないようです。
+ちょっと残念だと思いつつ、gatsby-deckの要素技術として使っていたのがmdx-deckだったので、将来に備えmdx-deckを調べてみることにしました。
 
 
 ## まとめ
 
-mdx-deck自体まだ新しいライブラリなので、現状だとビルドエラーが起きたり、コンポーネントがまだ少なかったりと、これから整備が進んでいくかと思われます。
-スライド用のReactコンポーネントが増えてきて、コンポーネントが充実してGUIで作れるようなツールが出てきて...みたいになると楽しそうですね！
+mdx-deckは比較的新しいライブラリなので、現状だとビルドエラーが起きたり、コンポーネントの種類が少なかったりしますが、これから整備がすすんでいくものと思われます。
+スライド用のReactコンポーネントが増えてきて、GUIで作れるようなツールが出てきて...みたいになると楽しそうですね！
 
 
 ## 参考
@@ -152,11 +152,9 @@ mdx-deck自体まだ新しいライブラリなので、現状だとビルドエ
 * [mdx-deckのサンプル](https://github.com/kentcdodds/simply-react)
 * [mdx-deck: slide decks powered by markdown and react](https://blog.kentcdodds.com/mdx-deck-slide-decks-powered-by-markdown-and-react-bfc6d6af20da)
 * [code-surfer](https://github.com/pomber/code-surfer)
-* 調べ途中でいいなと思ったスライド作成ライブラリ
+* スライド作成ライブラリ
     * [spectalc](https://github.com/FormidableLabs/spectacle)
     * fusuma
         * [Markdownだけで綺麗なスライドを作るCLIを作っている](https://blog.hiroppy.me/entry/fusuma)
         * [Introducing Fusuma: A helper for creating slides with markdown](https://dev.to/abouthiroppy/introduce-fusuma-that-is-a-helper-for-creating-a-slide-536)
-    * [reveal.js](https://revealjs.com/#/)
-    * [remark.js](https://github.com/gnab/remark)
 
