@@ -10,6 +10,7 @@ import Seo from '../seo';
 import Footer from '../footer';
 import Bio from '../bio';
 import Rss from '../rss';
+import Iframely from '../iframely';
 
 
 export default class Layout extends React.Component {
@@ -69,6 +70,7 @@ export default class Layout extends React.Component {
 
     return (
       <div className={styles.root_container}>
+        <Iframely />
         {header}
         {children}
         <Footer isRoot={isRoot} />
