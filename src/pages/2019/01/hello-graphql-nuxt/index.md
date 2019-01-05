@@ -1,6 +1,6 @@
 ---
 title: Nuxt.js＋GraphQLをサクッと学べた /「Hello, GraphQL for client-side!」を読んだ
-date: '2019-01-07T09:00:00.000+09:00'
+date: '2019-01-07T00:05:00.000+09:00'
 tags:
   - Nuxt.js
   - GraphQL
