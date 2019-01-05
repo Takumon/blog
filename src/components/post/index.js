@@ -9,6 +9,7 @@ import Title from '../title';
 import SNSShare from '../sns-share'
 import PostMetaInfo from '../post-meta-info'
 import Seo from '../seo';
+import Iframely from '../iframely';
 import ScrollSyncToc from '../toc/scroll-sync-toc';
 import Paging from '..//paging';
 import styles from './index.module.scss';
@@ -65,6 +66,7 @@ class Post extends React.Component {
     return (
       <article>
         <Title postTitle={fields.title} />
+        <Iframely />
         <Seo
           isRoot={false}
           title={`${fields.title} | ${siteTitle}`}
