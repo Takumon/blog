@@ -63,6 +63,11 @@ class Post extends React.Component {
       [`${styles.sns_share_hide}`]: !this.state.isShowSnsShare,
     })
 
+    const largeImage = 
+      fields.thumbnail 
+      ? config.blogUrl + fields.thumbnail
+      : undefined
+
     return (
       <article>
         <Title postTitle={fields.title} />
@@ -73,6 +78,7 @@ class Post extends React.Component {
           description={fields.excerpt}
           postUrl={postUrl}
           postDate={fields.date}
+          largeImage={largeImage}
           />
 
         <div className={styles.header}>
