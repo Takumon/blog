@@ -25,6 +25,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     date,
     excerpt,
     tags,
+    thumbnail,
   ] =
     node.internal.type === `MarkdownRemark`
       ? [
@@ -32,14 +33,16 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         node.frontmatter.title,
         node.frontmatter.date,
         _excerptMarkdown(node.rawMarkdownBody, 120),
-        node.frontmatter.tags
+        node.frontmatter.tags,
+        node.frontmatter.thumbnail
       ]
       :[
         `/${node.id}/`,
         node.title,
         node.created_at,
         _excerptHtml(node.rendered_body, 120),
-        [...(node.tags.map(tag => tag.name) || []), 'Qiita'] // Qiitaタグを追加
+        [...(node.tags.map(tag => tag.name) || []), 'Qiita'], // Qiitaタグを追加
+        undefined,
       ]
 
 
@@ -48,6 +51,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   createNodeField({ name: `date`,     node,   value: date     })
   createNodeField({ name: `excerpt`,  node,   value: excerpt  })
   createNodeField({ name: `tags`,     node,   value: tags     })
+  createNodeField({ name: `thumbnail`,node,   value: thumbnail})
 }
 
 function _excerptMarkdown(markdown, length) {

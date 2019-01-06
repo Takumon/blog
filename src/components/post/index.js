@@ -9,6 +9,7 @@ import Title from '../title';
 import SNSShare from '../sns-share'
 import PostMetaInfo from '../post-meta-info'
 import Seo from '../seo';
+import Iframely from '../iframely';
 import ScrollSyncToc from '../toc/scroll-sync-toc';
 import Paging from '..//paging';
 import styles from './index.module.scss';
@@ -62,15 +63,22 @@ class Post extends React.Component {
       [`${styles.sns_share_hide}`]: !this.state.isShowSnsShare,
     })
 
+    const largeImage = 
+      fields.thumbnail 
+      ? config.blogUrl + fields.thumbnail
+      : undefined
+
     return (
       <article>
         <Title postTitle={fields.title} />
+        <Iframely />
         <Seo
           isRoot={false}
           title={`${fields.title} | ${siteTitle}`}
           description={fields.excerpt}
           postUrl={postUrl}
           postDate={fields.date}
+          largeImage={largeImage}
           />
 
         <div className={styles.header}>

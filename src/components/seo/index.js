@@ -9,6 +9,7 @@ export default function Seo({
   description, // not required
   postUrl, // not required
   postDate, // not required
+  largeImage, // not required
 }) {
   const type = isRoot ? 'website' : 'article';
 
@@ -20,11 +21,20 @@ export default function Seo({
     postDate,
   });
 
+  const image = 
+    largeImage
+      ? largeImage
+      : config.blogImageUrl;
+  const twitterCard = 
+    largeImage
+      ? 'summary_large_image'
+      : 'summary';
+
   return(
     <Helmet>
       {/* General tags */}
       <meta name="description" content={description || config.blogDescription} />
-      <meta name="image" content={config.blogImageUrl} />
+      <meta name="image" content={image} />
 
       {/* Schema.org tags */}
       {JSONLDTag}
@@ -35,13 +45,16 @@ export default function Seo({
       <meta property="og:url" content={config.blogUrl} />
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content={config.blogTitle} />
-      <meta property="og:image" content={config.blogImageUrl} />
+      <meta property="og:image" content={image} />
 
       {/* OpenGraph tags for facebook */}
       <meta property="fb:app_id" content={config.facebookAppId} />
 
       {/* Twitter Card tags */}
-      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:card" content={twitterCard} />
+      <meta name="twitter:image" content={image} />
+      <meta name="twitter:title" content={title || config.blogTitle} />
+      <meta name="twitter:description" content={description || config.blogDescription} />
       <meta name="twitter:site" content={`@${config.blogAuthorTwitterUserName}`} />
     </Helmet>
   )
