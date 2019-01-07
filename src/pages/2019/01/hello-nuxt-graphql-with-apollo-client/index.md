@@ -7,7 +7,8 @@ tags:
   - Apollo Client
   - Vue.js
   - 読書感想
-thumbnail: /thumbnail/2019/01/hello-graphql-nuxt/bookimage.jpg
+slug: /hello-nuxt-graphql-with-apollo-client
+thumbnail: /thumbnail/2019/01/hello-nuxt-graphql-with-apollo-client.jpg
 ---
 
 ## なにこれ

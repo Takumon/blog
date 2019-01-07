@@ -29,7 +29,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   ] =
     node.internal.type === `MarkdownRemark`
       ? [
-        createFilePath({ node, getNode }),
+        node.frontmatter.slug || createFilePath({ node, getNode }), // 記事でURL指定があればそちらを優先する
         node.frontmatter.title,
         node.frontmatter.date,
         _excerptMarkdown(node.rawMarkdownBody, 120),
