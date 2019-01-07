@@ -1,5 +1,5 @@
 ---
-title: Nuxt.js＋GraphQLをサクッと学べた /「Hello, GraphQL for client-side!」を読んだ
+title: Nuxt.js＋Apollo＋GraphQLをサクッと学べた /「Hello, GraphQL for client-side!」を読んだ
 date: '2019-01-07T19:00:00.000+09:00'
 tags:
   - Nuxt.js
@@ -8,7 +8,7 @@ tags:
   - Vue.js
   - 読書感想
 slug: /hello-nuxt-graphql-with-apollo-client
-thumbnail: /thumbnail/2019/01/hello-nuxt-graphql-with-apollo-client.jpg
+thumbnail: /thumbnail/2019/01/hello-nuxt-graphql-with-apollo-client.png
 ---
 
 ## なにこれ
