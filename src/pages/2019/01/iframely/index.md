@@ -1,6 +1,6 @@
 ---
 title: ブログにあらゆる外部コンテンツを埋め込めるWebサービス「Iframely」の使い方
-date: '2019-01-10T19:00:00.000+09:00'
+date: '2019-01-11T23:30:00.000+09:00'
 tags:
   - Iframely
   - oEmbed
@@ -35,7 +35,7 @@ SNSのコンテンツ、動画といった外部コンテンツを自分のブ�
 <br/>
 
 **[「Iframely」](https://iframely.com/)**は、そのような問題を一挙に解決してくれるWebサービスです。
-実際このブログも[Iframely](https://iframely.com/)を使って外部コンテンツを埋め込んでいますが、めちゃ便利です。<br/>
+実際このブログでも[Iframely](https://iframely.com/)を使って外部コンテンツを埋め込んでいますが、かなり便利です。<br/>
 今回は、**「Iframelyでどんなことができるか」**、**「実際使ってみた感想」**などについてご紹介したいと思います。
 最後のほうに**[「GatsbyでIframelyを使う方法」](#gatsbyの場合)**も紹介しています。
 
@@ -332,8 +332,10 @@ export default class Iframely extends React.Component {
 
 次に記事（マークダウンファイル）にIframelyで生成した埋め込み用コードを貼り付けますが、その際2点だけ修正が必要になります。
 
-* `data-iframely-url`の末尾に`&omit_script=1`を追加（埋め込みコードの描画はIframely用コンポーネントで行うため、画面初期表示時の描画を抑止する）
-* `embed.js`の読み込みは削除する（Iframely用コンポーネントで読み込むため）
+* `data-iframely-url`の末尾に`&omit_script=1`を追加
+    * 埋め込みコードの描画はIframely用コンポーネントで行うため、画面初期表示時の描画を抑止します。
+* `embed.js`の読み込みを削除
+    * Iframely用コンポーネントで読み込むため、記事での読み込みは削除します。
 
 ```markdown{3-9}:title=記事
 ## Iframlyお試し
