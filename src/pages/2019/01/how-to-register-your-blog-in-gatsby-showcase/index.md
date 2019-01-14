@@ -15,14 +15,14 @@ thumbnail: /thumbnail/2019/01/how-to-register-your-blog-in-gatsby-showcase.png
 Gatsbyの公式サイトには[ショーケース](https://www.gatsbyjs.org/showcase/)なるものがあって、
 **世の中に公開されているGatsby製のWebサイトを一覧で見ることができます。**
 実はこの[ショーケース](https://www.gatsbyjs.org/showcase/)、けっこう簡単に自分のWebサイトを登録できます。（ということに最近気づきました。）<br/>
-今回は**[「Gatsbyショーケースの活用方法」](#gatsbyショーケース活用方法)**とあわせて、**[「Gatsbyショーケースに自分のWebサイトを登録する方法」](#ショーケース登録方法)**についてご紹介します。
+今回は**[「Gatsbyショーケースの活用方法」](#gatsbyショーケース活用方法)**とあわせて、**[「Gatsbyショーケースに自分のWebサイトを登録する方法」](#gatsbyショーケース登録方法)**についてご紹介します。
 
 
 ## Gatsbyショーケース活用方法
 
-いろんなWebサイトが見れるので、UIを参考にできますし、
-なかにはソースコードを公開してくれている場合もあるので、実装についても参考にできます。<br/>
-そのため**「自分のGatsby製Webサイトをどうやってカスタマイズしていこう？」と迷っている時などに見ると良い**です。
+いろんなGatsby製のWebサイトが見れるので、UIを参考にできますし、
+ソースコードを公開してくれている場合もあるので、実装についても参考にできます。<br/>
+そのため**「自分のGatsby製Webサイトをどうやってカスタマイズしていこう？」と迷っている時などに見ると何かヒントが見つかる**かもしれません。
 
 ![gatsby-showcase](gatsby-showcase.png)
 
@@ -42,7 +42,7 @@ Gatsbyの公式サイトには[ショーケース](https://www.gatsbyjs.org/show
 **ブログURL：** https://codebushi.com/
 <br/>
 伏見稲荷大社の千本鳥居をバックに、日本を意識したデザインのWebサイトです。
-右上ボタンによるメニューの開閉のアニメーションもカッコ良いです。
+右上ボタンによるメニューの開閉のアニメーションもカッコいいです。
 
 ![CODE Bushi image1](blog-code-bushi-1.png)
 <br/>
@@ -57,13 +57,13 @@ Gatsbyの公式サイトには[ショーケース](https://www.gatsbyjs.org/show
 **ブログURL：** https://sean.is/
 <br/>
 
-名前「Sean Coker」の部分にマウスカーソルを合わせると、「Sean Coker」の文字がクルクル回転したり
-白背景をクリックすると、〇、△、□などオブジェクトが散乱したり、凝った作りになっています。
+名前「Sean Coker」の部分にマウスカーソルを合わせると、「Sean Coker」の文字がクルクル回転したり、
+白背景をクリックすると〇、△、□などオブジェクトが散乱したり、凝ったデザインになっています。
   
 ![Sean Coker's Blog iamge1](./blog-sean-coker-1.png)
 <br/>
 
-シンプルですが、洗練されたモノトーンのデザインがかっこいいです。
+シンプルですが、洗練されたモノトーンのデザインがカッコいいです。
 
 ![Sean Coker's Blog iamge2](./blog-sean-coker-2.png)
 
@@ -76,9 +76,9 @@ Gatsbyの公式サイトには[ショーケース](https://www.gatsbyjs.org/show
 <br/>
 
 島根のフルスタックエンジニアの方のポートフォリオ兼ブログです。<br/>
-マテリアルデザインで統一されており、画面遷移やマウスホバーのアニメーションにも凝っています。
+マテリアルデザインで統一されており、画面遷移やマウスホバー時のアニメーションにも凝っています。
 UIについてもストレスなくWebサイト内を回遊できるように考えられているなぁと感じました。<br/>
-なんと[ソースコード](https://github.com/junkboy0315/yuuni-web)を公開してくれています。ありがたいです:blush:
+なんとコチラ、[ソースコード](https://github.com/junkboy0315/yuuni-web)を公開してくれています:blush:
 
 **記事一覧**
 ![blog-yuuniworks image1](blog-yuuniworks-1.png)
@@ -102,9 +102,8 @@ UIについてもストレスなくWebサイト内を回遊できるように考
 
 水色がアクセントカラーのすっきりしたデザインです。
 ヘッダー右に検索窓から気になる記事を検索できたり、
-記事詳細の下部には直近記事3つが一覧表示されているなど、Webサイト内を回遊しやすいような工夫がされています。<br/>
-またPCとモバイルの両方で見やすいデザインになっています。<br/>
-なんとコチラも、[ソースコード](https://github.com/mottox2/website)を公開してくれています。ありがたや～:blush:
+記事詳細の最下部には最近投稿した記事へのリンクがあったり、Webサイト内を回遊しやすいような工夫がされています。<br/>
+なんとコチラも、[ソースコード](https://github.com/mottox2/website)を公開してくれています。非常に助かります:blush:
 
 **記事一覧**
 ![blog-mottomotto image1](blog-mottomotto-1.png)
@@ -114,19 +113,19 @@ UIについてもストレスなくWebサイト内を回遊できるように考
 ![blog-mottomotto image2](blog-mottomotto-2.png)
 <br/>
 
-みなさんもお気に入りのGatsby製Webサイトを見つけてみてください。
+みなさんも[ショーケース](https://www.gatsbyjs.org/showcase/)でお気に入りのGatsby製Webサイトを見つけてみてください。
 
 
 
 ## Gatsbyショーケース登録方法
 
 本題について説明します。<br/>
-Gatsbyはショーケースの登録情報を[sites.yml](https://github.com/gatsbyjs/gatsby/blob/master/docs/sites.yml)で管理しています。登録する場合はコチラを編集すればOKです。<br/>
+Gatsbyはショーケースの登録情報を[sites.yml](https://github.com/gatsbyjs/gatsby/blob/master/docs/sites.yml)で管理しています。登録する場合はコチラを編集します。<br/>
 <br/>
 詳しく手順を見ていきましょう。
 
-* **(1)** まずは[Gatsby](https://github.com/gatsbyjs/gatsby)リポジトリをフォークしましょう。
-* **(2-1)** 次にフォークした自分のリポジトリで`sites.yml`(`プロジェクトルート/docs/sites.yml`)を編集します。sites.ymlは最低限下記を追記すればOKです。
+* **(1)** まずは[Gatsbyのリポジトリ](https://github.com/gatsbyjs/gatsby)をフォークしましょう。
+* **(2-1)** 次にフォークした自分のリポジトリで`sites.yml`(`プロジェクトルート/docs/sites.yml`)を編集します。sites.ymlは必ず下記プロパティを記載します。
 
 ```yaml:title=sites.ymlに最低限追記する項目
 - title: Takumon blog # Webサイトのタイトル
@@ -138,7 +137,7 @@ Gatsbyはショーケースの登録情報を[sites.yml](https://github.com/gats
 ```
 <br/>
 
-* **(2-1)** `sites.yml`はオプションで下記も記載できます。`source_url`プロパティについては**ソースコード公開しても大丈夫な方は記載したほう良い**かなぁと思います。
+* **(2-1)** `sites.yml`はオプションで下記も記載できます。
 
 ```yaml:title=sites.ymlにオプションで追記する項目
   source_url: "https://github.com/Takumon/blog" # ブログのソースコードを公開していればGitHubなどのURLを記載
@@ -154,21 +153,21 @@ Gatsbyはショーケースの登録情報を[sites.yml](https://github.com/gats
 
 これで登録手順は終了です。<br/>
 この後は、Gatsby側の人が「プルリクマージ」→「Gatsbyショーケースに反映」してくれます。
-プルリクは割とすぐにマージされます。自分は10分程度でマージされました。
-Gatsbyショーケースには最大1日程度待てば反映さるはずです。即時反映ではないので注意してください。
+プルリクはすぐにマージされます。自分は10分程度でマージされました。
+Gatsbyショーケースには最大1日程度待てば反映されるはずです。即時反映ではないので注意してください。
 <br/>
 
-登録されると自分のWebサイトがGatsbyショーケースで確認できます（達成感があります！！）
+登録されると自分のWebサイトがGatsby[ショーケース](https://www.gatsbyjs.org/showcase/)で確認できます（達成感があります！！）
 
 ![how-to-submit2](how-to-submit-2.png)
 
 
 なお登録後に自分のWebサイトに変更があった場合は、再度`sites.yml`を編集してプルリクを送ればよいです。
 
-※詳細はGatby公式サイトの[Submit to Site Showcase](https://www.gatsbyjs.org/docs/site-showcase-submissions/)をご確認ください。<br/>
+※詳細はGatsby公式サイトの[Submit to Site Showcase](https://www.gatsbyjs.org/docs/site-showcase-submissions/)に記載されているのでご確認ください。<br/>
 
 ## まとめ
 
 Gatsbyショーケースに自分のWebサイトを登録する方法についてご紹介しました。
 現時点で「Blog」カテゴリに日本の人のブログは、わずか3個です。
-しかし今回紹介したように登録手順はとても簡単なので、Gatsbyでブログを書いている方は、ぜひ登録してみてはいかがでしょうか。
+ただ登録手順はとても簡単なので、GatsbyでWebサイトを作っている方は、ぜひ登録してみてはいかがでしょうか。
