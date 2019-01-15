@@ -1,6 +1,6 @@
 ---
 title: Gatsbyショーケースに自分のWebサイトを登録する方法
-date: '2019-01-15T07:00:00.000+09:00'
+date: '2019-01-15T22:00:00.000+09:00'
 tags:
   - Gatsby
 slug: /how-to-register-your-blog-in-gatsby-showcase
@@ -8,17 +8,17 @@ thumbnail: /thumbnail/2019/01/how-to-register-your-blog-in-gatsby-showcase.png
 ---
 
 
-![iframely](/thumbnail/2019/01/how-to-register-your-blog-in-gatsby-showcase.png)
+![gatsby-showcase](/thumbnail/2019/01/how-to-register-your-blog-in-gatsby-showcase.png)
 
 ## なにこれ
 
 Gatsbyの公式サイトには[ショーケース](https://www.gatsbyjs.org/showcase/)なるものがあって、
 **世の中に公開されているGatsby製のWebサイトを一覧で見ることができます。**
 実はこの[ショーケース](https://www.gatsbyjs.org/showcase/)、**「けっこう簡単に自分のWebサイトを登録できる」**ということに最近気づきました。<br/>
-今回は**[「Gatsbyショーケースの活用方法」](#gatsbyショーケース活用方法)**とあわせて、**[「Gatsbyショーケースに自分のWebサイトを登録する方法」](#gatsbyショーケース登録方法)**についてご紹介します。
+今回はGatsbyでブログやポートフォリオなど作っている人向けに**[「Gatsbyショーケースに自分のWebサイトを登録する方法」](#gatsbyショーケース登録方法)**についてご紹介します。
 
 
-## Gatsbyショーケース活用方法
+## Gatsbyショーケース
 
 いろんなGatsby製のWebサイトが見れるので、UIを参考にできますし、
 ソースコードを公開してくれている場合もあるので、実装についても参考にできます。<br/>
