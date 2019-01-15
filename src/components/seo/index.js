@@ -56,6 +56,8 @@ export default function Seo({
       <meta name="twitter:title" content={title || config.blogTitle} />
       <meta name="twitter:description" content={description || config.blogDescription} />
       <meta name="twitter:site" content={`@${config.blogAuthorTwitterUserName}`} />
+
+      <link rel="canonical" href={postUrl} />
     </Helmet>
   )
 }
