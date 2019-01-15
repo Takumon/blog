@@ -14,15 +14,15 @@ thumbnail: /thumbnail/2019/01/how-to-register-your-blog-in-gatsby-showcase.png
 
 Gatsbyの公式サイトには[ショーケース](https://www.gatsbyjs.org/showcase/)なるものがあって、
 **世の中に公開されているGatsby製のWebサイトを一覧で見ることができます。**
-実はこの[ショーケース](https://www.gatsbyjs.org/showcase/)、**「けっこう簡単に自分のWebサイトを登録できる」**ということに最近気づきました。<br/>
-今回はGatsbyでブログやポートフォリオなど作っている人向けに**[「Gatsbyショーケースに自分のWebサイトを登録する方法」](#gatsbyショーケース登録方法)**についてご紹介します。
+実はこの[ショーケース](https://www.gatsbyjs.org/showcase/)、**けっこう簡単に自分のWebサイトを登録できる**ということに最近気づきました。<br/>
+今回は、Gatsbyでブログやポートフォリオなどを作っている人向けに、[ショーケースの活用方法](#gatsbyショーケース活用方法)とあわせて、**[「ショーケースに自分のWebサイトを登録する方法」](#gatsbyショーケース登録方法)**についてご紹介します。
 
 
-## Gatsbyショーケース
+## Gatsbyショーケース活用方法
 
-いろんなGatsby製のWebサイトが見れるので、UIを参考にできますし、
-ソースコードを公開してくれている場合もあるので、実装についても参考にできます。<br/>
-そのため**「自分のGatsby製Webサイトをどうやってカスタマイズしていこう？」と迷っている時などに見ると何かヒントが見つかる**かもしれません。
+Gatsbyショーケースは、いろんなGatsby製のWebサイトが見れるのでUIを参考にできますし、
+なかにはソースコードを公開しているWebサイトもあるので、実装についても参考にできます。<br/>
+そのため**「自分のGatsby製Webサイトをどうやってカスタマイズしていこう？」と迷っている時などに見ると、何かヒントが見つかる**かもしれません。
 
 ![gatsby-showcase](gatsby-showcase.png)
 
@@ -120,12 +120,12 @@ UIについてもストレスなくWebサイト内を回遊できるように考
 ## Gatsbyショーケース登録方法
 
 本題について説明します。<br/>
-Gatsbyはショーケースの登録情報を[sites.yml](https://github.com/gatsbyjs/gatsby/blob/master/docs/sites.yml)で管理しています。登録する場合はコチラを編集します。<br/>
+Gatsbyはショーケースの登録情報を[sites.yml](https://github.com/gatsbyjs/gatsby/blob/master/docs/sites.yml)で管理しています。登録する場合はこのsites.ymlを編集します。<br/>
 <br/>
 詳しく手順を見ていきましょう。
 
-* **(1)** まずは[Gatsbyのリポジトリ](https://github.com/gatsbyjs/gatsby)をフォークしましょう。
-* **(2-1)** 次にフォークしたリポジトリで`sites.yml`（リポジトリの`docs`配下にあるります）を編集します。sites.ymlは必ず下記プロパティを記載しましょう。
+* **(1)** まずは[Gatsbyのリポジトリ](https://github.com/gatsbyjs/gatsby)をフォークします。
+* **(2-1)** 次にフォークしたリポジトリで、リポジトリの`docs`配下にある`sites.yml`を編集します。`sites.yml`は必ず下記プロパティを記載しましょう。
 
 ```yaml:title=sites.ymlに最低限記載する項目
 - title: Takumon blog # Webサイトのタイトル
@@ -152,12 +152,11 @@ Gatsbyはショーケースの登録情報を[sites.yml](https://github.com/gats
 
 
 以上で登録手順は終了です。<br/>
-この後は、Gatsby側の人が「プルリクマージ」→「Gatsbyショーケースに反映」してくれます。
-プルリクはすぐにマージされます。自分は10分程度でマージされました。
-Gatsbyショーケースへの反映には最大1日かかります。即時反映ではないので注意してください。
+この後は、Gatsby側で「プルリクマージ」→「Gatsbyショーケースに反映」されます。
+プルリクはすぐにマージされますが、Gatsbyショーケースへの反映には最大1日かかります。即時反映ではないので注意してください。
 <br/>
 
-登録されると自分のWebサイトがGatsby[ショーケース](https://www.gatsbyjs.org/showcase/)で確認できます（達成感があります！！）
+登録されると[Gatsbyショーケース](https://www.gatsbyjs.org/showcase/)で自分のWebサイトが確認できます（達成感があります！！）
 
 ![how-to-submit2](how-to-submit-2.png)
 
