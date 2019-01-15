@@ -1,4 +1,523 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Fri, 11 Jan 2019 14:41:44 GMT</lastBuildDate><item><title><![CDATA[ブログにあらゆる外部コンテンツを埋め込めるWebサービス「Iframely」の使い方]]></title><description><![CDATA[なにこれ SNSのコンテンツ、動画といった外部コンテンツを自分のブログに載せる場合、
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Tue, 15 Jan 2019 13:22:15 GMT</lastBuildDate><item><title><![CDATA[Gatsbyショーケースに自分のWebサイトを登録する方法]]></title><description><![CDATA[なにこれ Gatsbyの公式サイトには ショーケース なるものがあって、
+ 世の中に公開されているGatsby製のWebサイトを一覧で見ることができます。 
+実はこの ショーケース 、 けっこう簡単に自分のWeb…]]></description><link>https://takumon.com//how-to-register-your-blog-in-gatsby-showcase</link><guid isPermaLink="false">https://takumon.com//how-to-register-your-blog-in-gatsby-showcase</guid><pubDate>Tue, 15 Jan 2019 13:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/01/how-to-register-your-blog-in-gatsby-showcase.png&quot; alt=&quot;gatsby-showcase&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
+&lt;p&gt;Gatsbyの公式サイトには&lt;a href=&quot;https://www.gatsbyjs.org/showcase/&quot;&gt;ショーケース&lt;/a&gt;なるものがあって、
+&lt;strong&gt;世の中に公開されているGatsby製のWebサイトを一覧で見ることができます。&lt;/strong&gt;
+実はこの&lt;a href=&quot;https://www.gatsbyjs.org/showcase/&quot;&gt;ショーケース&lt;/a&gt;、&lt;strong&gt;けっこう簡単に自分のWebサイトを登録できる&lt;/strong&gt;ということに最近気づきました。&lt;br/&gt;
+今回は、Gatsbyでブログやポートフォリオなどを作っている人向けに、&lt;a href=&quot;#gatsby%E3%82%B7%E3%83%A7%E3%83%BC%E3%82%B1%E3%83%BC%E3%82%B9%E6%B4%BB%E7%94%A8%E6%96%B9%E6%B3%95&quot;&gt;ショーケースの活用方法&lt;/a&gt;とあわせて、&lt;strong&gt;&lt;a href=&quot;#gatsby%E3%82%B7%E3%83%A7%E3%83%BC%E3%82%B1%E3%83%BC%E3%82%B9%E7%99%BB%E9%8C%B2%E6%96%B9%E6%B3%95&quot;&gt;「ショーケースに自分のWebサイトを登録する方法」&lt;/a&gt;&lt;/strong&gt;についてご紹介します。&lt;/p&gt;
+&lt;h2 id=&quot;gatsbyショーケース活用方法&quot;&gt;&lt;a href=&quot;#gatsby%E3%82%B7%E3%83%A7%E3%83%BC%E3%82%B1%E3%83%BC%E3%82%B9%E6%B4%BB%E7%94%A8%E6%96%B9%E6%B3%95&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Gatsbyショーケース活用方法&lt;/h2&gt;
+&lt;p&gt;Gatsbyショーケースは、いろんなGatsby製のWebサイトが見れるのでUIを参考にできますし、
+なかにはソースコードを公開しているWebサイトもあるので、実装についても参考にできます。&lt;br/&gt;
+そのため&lt;strong&gt;「自分のGatsby製Webサイトをどうやってカスタマイズしていこう？」と迷っている時などに見ると、何かヒントが見つかる&lt;/strong&gt;かもしれません。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/5e5d181e6a82f89f49f7180a387e2afc/eacac/gatsby-showcase.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 64.48692152917505%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAAA7DAAAOwwHHb6hkAAADEElEQVQ4y5VSTU8bVxSdfaQuI2VRdlHUXdS/ESmbJgJFTdhE3SRCqioidV2JKlGjCgmhtECJSGIjaDDB9QfEYD8zDDaMxx3jDyjY4xibwXaB8fhj7PHznL6hQemildKrd3TenTdz7p3zLjcxPj3KhyJxMSrzP/4wJty88YVwp39QGLh9Vxi49XHov/WlMPTgUfTroWEPNzGyuLbqSMMzHcNvv8TgnhLhnrDB8kkJninpnP8NF2e+53G8fZnE/GTgjNtL5XywYIfJQC9gtiml3Q/5f8GyLFrYq9Kd8CFiQrLEBUnYv7kpYW2V0PD6BoIhglwuB6PVRKuhwTQ0VKsVNBp16LUa1FIJpyd/oqadQTs9hWE0UT7UrHzqFLKYVrm7g/f9V/qu4tPPPqd9167j0ieX8c3wt4gElrErC8jvR+H2evDs6WOIPA+vy4VfHU6suD1ISRKq6jErqFq1WgUH2X2Vcy0u+V8vLGF2yUcd8wt48dIBsi5g2etFJZ+HphyivCdDFtaQistMyA2Xcw6zz2dYQRlHxSJ+/mnUmhr7HiuBZZUrlUp+28BWo07bhoFOp8MyC9E1H47yOVg1HYVYANmMhOwfB9jm1xEJE5DACpKiiArr0OmYtiJ8CInEjsql0xk/pT00my1arzOf9DpM02SsM+7grKah1W6jRynqzEPt5ISxhiZ7t1nX0Tba4EMBS5biKBaLKqco+fMOu2aX2rdti7M9M7t93m2P5bAstix2RmF22dX3ergI+3mvZ53PSZWZySm5vwXZh9TsULwfof8VPaZoc6XCBLPZnPd9rY7d5XcjT+i9rx7SO4P36eLcDC0X39Gj4i7d3hLoQSJK5ZhE46JIC/sZ2tKObZtoyzC6VltHtaQU7V8m/6y25PZhfGoGzyamEQyGkZZEdNjcZSUe2VQC4oYAl2MWmfjvqB6reLPwCq4380huenFcUnROlhNPy+Xylq7Xgo1Gg7CKhA0uY520mg2SSUikoiikkBJJ4Z1CYpEICa8GSHwrStLJBFmYd5JQ6C0JBpz83u7O4l9ODWzBKEsXGAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;gatsby-showcase&quot;
+        title=&quot;&quot;
+        src=&quot;/static/5e5d181e6a82f89f49f7180a387e2afc/fb8a0/gatsby-showcase.png&quot;
+        srcset=&quot;/static/5e5d181e6a82f89f49f7180a387e2afc/1a291/gatsby-showcase.png 148w,
+/static/5e5d181e6a82f89f49f7180a387e2afc/2bc4a/gatsby-showcase.png 295w,
+/static/5e5d181e6a82f89f49f7180a387e2afc/fb8a0/gatsby-showcase.png 590w,
+/static/5e5d181e6a82f89f49f7180a387e2afc/526de/gatsby-showcase.png 885w,
+/static/5e5d181e6a82f89f49f7180a387e2afc/eacac/gatsby-showcase.png 994w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;またカテゴリでフィルターもできるので、自分の興味のあるカテゴリ（たとえばブログなど）に絞って見ることもできます。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ac965f4c8d4185af00cf1ecd43ffb677/359d8/gatsby-showcase-filltered.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 64.69072164948454%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABcRAAAXEQHKJvM/AAADX0lEQVQ4y02Sy29aRxTG7x/RRZNF1SpSs2qVVZRNJSuSF124qhPbdZSkUjdNu4nlSJHaLqJITaumVhdN1Uo1JsGPChuoSYELtoscHJvEyDwMhgvmeS8X7GBeF4gNuQzzdYJdxyN9OmfmaL75zZzhNL8/erDmWvd5PcHVX+7/6v7k4373wKdX3INMwwPX3MOXr7qHLzFdvvZGA9cPNfh//Hx19OY3vlsjt7XcxBj/1GWIY2FyE46/wrAb47BOhpi2wE8xTUfA62OwsTUbm1t0rKbxwjLuhU3rB89kGd/A0qSAea0ryIWM/FI9EEUrLarqVpg0LTbSisbIgS9I2rEkAcvp6hrBiz2CVIbFAgFwrA6hRG0RleUoFUvrXNZu/xeHgyASAVwrQKUKFIug2SReZdJoBzYRWuIhLVlhu/8jnDYH5mZmsLO7091Iaee1OQqFgodLORa7hpQZtiUZvsAGnGtP4PM/h1KSUGQFWSUIezTwug242NsP9ma4PTKCaFSA2tpHTSmT1zz5fJ4Z2h3HhO2MBIdJD7PZAPPsn8ilg6iqbezWa5h6cAtPF2bxx/gc7t4bg3dTwCt2UPOggf39RpdQkqQjQ0q7hJBl5JJxVKtVlMoyavUKKk2CA0JReSGhVt5DVt6BJGYgSjk0my00ajUQVe0ayrLs4RI8f0xIRBGuxWXMGczQ6x8jHAiARO3IuP9GPWTFy2wQM3oDZo0mPNROIChE4U+LiBWKRKruIpkQPNz2P/yJK2dwpf86PvzgI5w9ewE/37mL6Xs9uPHVOXz75buwP7yDU2+fxnun38LQ0GdY9XqxbLdB99MPRMwEGGGKEVrfdLkjZSFuJ7EdTyERS2EjEMHY3BSMz834zTINrdmK3r4+XO25gHKpjEK5Csv8PLyLDlItFZERRQ+X5E8YihJV9w/oYdNBO5TSzbBA/eEIjYtZulcq02giSbO5fLfebrVoq16nR38SO7mch0svLDqPDDvI5RH3+yCEgkhEY12Kk6P5sgEn+wULJgMe6x4hkExgYisCjS/UMeWKiO8WNriwTmepulxq/dmzcm19Xfl+9Kby9dAl5buRUWVleUWpNxpKRBCUYqWixEJBZfDcGeWL3vNK3/vvKBqTSRl64lF6jM7KeYtb5SPby/8Bjs1OYFwVEHYAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;gatsby-showcase-filltered&quot;
+        title=&quot;&quot;
+        src=&quot;/static/ac965f4c8d4185af00cf1ecd43ffb677/fb8a0/gatsby-showcase-filltered.png&quot;
+        srcset=&quot;/static/ac965f4c8d4185af00cf1ecd43ffb677/1a291/gatsby-showcase-filltered.png 148w,
+/static/ac965f4c8d4185af00cf1ecd43ffb677/2bc4a/gatsby-showcase-filltered.png 295w,
+/static/ac965f4c8d4185af00cf1ecd43ffb677/fb8a0/gatsby-showcase-filltered.png 590w,
+/static/ac965f4c8d4185af00cf1ecd43ffb677/526de/gatsby-showcase-filltered.png 885w,
+/static/ac965f4c8d4185af00cf1ecd43ffb677/fa2eb/gatsby-showcase-filltered.png 1180w,
+/static/ac965f4c8d4185af00cf1ecd43ffb677/359d8/gatsby-showcase-filltered.png 1552w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h2 id=&quot;お気に入りのgatsby製webサイト&quot;&gt;&lt;a href=&quot;#%E3%81%8A%E6%B0%97%E3%81%AB%E5%85%A5%E3%82%8A%E3%81%AEgatsby%E8%A3%BDweb%E3%82%B5%E3%82%A4%E3%83%88&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;お気に入りのGatsby製Webサイト&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.gatsbyjs.org/showcase/&quot;&gt;ショーケース&lt;/a&gt;を見て、僕もいくつか気になったWebサイトがあったので以下でご紹介します。&lt;/p&gt;
+&lt;h3 id=&quot;code-bushi&quot;&gt;&lt;a href=&quot;#code-bushi&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;CODE Bushi&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;ブログURL：&lt;/strong&gt; &lt;a href=&quot;https://codebushi.com/&quot;&gt;https://codebushi.com/&lt;/a&gt;
+&lt;br/&gt;
+伏見稲荷大社の千本鳥居をバックに、日本を意識したデザインのWebサイトです。
+右上のボタンによるメニュー開閉のアニメーションもカッコいいです。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/e4737ecdd00c53bd0ca7b10ece3aa26f/eacac/blog-code-bushi-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 60.865191146881294%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAA7DAAAOwwHHb6hkAAADIElEQVQozyWSTW/jVBSG80NGNE5iO77Xvtf5cOw4dtJ8Tdpk0iSlzUe/mZaUmYpBqAIhDYNAiAUbxL9gyXIqsWCBLCEh8RNgFoMFO9Zg9+VMWLw6su/14+ecezPVQuHbvmC/zmvmT4deOTpu2FGfG9GA8WjX5NHQNKmaVK1oh/Oox1jka3rkqFoUGEbU4SzqW8WoY8ufPWl/n3E17cdp1caRJ3HZqmHddnBRL2FZlphJgf2SxMQWGAsLe1T7poltxjGi56FtYVqxcOgIPKQ1l/E/M3VVfzmtCAJa/1yGdnIVlpJ1KJPzoJSsfDuZlVgyq1jJYd1JHkkj6VosCQ2D3lvJhDItmcmyJpKeyeEZxm+ZhqrdHTgSF75IrgKBx77EdWjhg4cOPpoGuNkf4ePlHr5+eoYPhz7OPI79soU5SRxWrU2Oa+J+IEz4jL3KBBoBqxLndZGsCXhOra8bAu/3JJ4NJD5fv41vbtf46r0lvlwf4KZv46wusSAgmWHpWDgh4K400TL5q0xT1+5mNC/6S3IdSJy4Ape+wJNtjmc9htupjRerDj5dBHhxHOKTmcQ7Pse8LLAi4Irmd+rK+5FtomuZBCzqd5OSwMKxknfJbF4VuPAEbloWbgcCXxw18Hw/xGfHu3h+McbjDicIhbpaVP+HvjF8RMCeIMNQ1+/Gpc08knWDWm+6uO74uOrVsWq7GIcuWk4VdcdFs9nGaDTBtNvFSeDiyK/hgGZIMpuWuxvgG0PSn5TNZFox0TQZSsUimM6gMQnbC1FvdjHem2G1XGF1OIfverBUDR2LDqi6uTb3QwK2LQIyJffSYwa4qv2rKGqapSg5LWVcprV6I92bzNKz09P07OQkXc0X6XCwk5akTXvyaS5fSJmqpq6hp3RlEDD+e+bBg60flJwKRSmgqBvQCkXomoGq46G93cF4d4jxzi4GnS66YRMB2QnOaV8B+XweWSWPrWyOvs+B4K8J+NZ32Wz+72xOfV0ssljVirHBzLhSqcbNIIjbzTBuh2HcavhxWPdiz3Fiznisa3qs5HJxVqFkc39sZZW/thTll/8A5DeK0xfWaikAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;CODE Bushi image1&quot;
+        title=&quot;&quot;
+        src=&quot;/static/e4737ecdd00c53bd0ca7b10ece3aa26f/fb8a0/blog-code-bushi-1.png&quot;
+        srcset=&quot;/static/e4737ecdd00c53bd0ca7b10ece3aa26f/1a291/blog-code-bushi-1.png 148w,
+/static/e4737ecdd00c53bd0ca7b10ece3aa26f/2bc4a/blog-code-bushi-1.png 295w,
+/static/e4737ecdd00c53bd0ca7b10ece3aa26f/fb8a0/blog-code-bushi-1.png 590w,
+/static/e4737ecdd00c53bd0ca7b10ece3aa26f/526de/blog-code-bushi-1.png 885w,
+/static/e4737ecdd00c53bd0ca7b10ece3aa26f/eacac/blog-code-bushi-1.png 994w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;記事一覧も、それぞれの記事にアイキャッチが配置されており非常に見やすいデザインになっています。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/83401ce4104521b447007954d4e656c8/eacac/blog-code-bushi-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 59.356136820925556%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAA7DAAAOwwHHb6hkAAACqklEQVQoz42TTWgTQQCFexSaZtP9yW6S7f4km2zSJGvS5q9pS6EKSkusolIq2p4EEbWXQhHFQ0XsQWupFZSiJ/UiRbCoRahStysiInj15kXxKnhQB58z2aoHLXh47OzOzNs3H29aAnxsPijqb6jcNlHzuLDhRQzbS2QrXlfvbs/KVj1Fs7x2+j0k6h4vGZ6wKU7SvTaRSdsISvrLsJp82NImdDwLKRa4cLypkGKiXO/BtbkV3L6+gaXFZRw4dBiWloGl2IjIFqJyEjElCV5O/NnHxpLxmRk+5uQ4e/nGhU0SEFTiFIpk5tglcmX6Hjlz+gJp7B0hTncvyRXrxHZqxMqViWo5hJNNEpQMQk9FZYIm/cgMV5mhP2GilVdhpvJIF3bCSNegpXLIddUQMTOQdSotjfZIgiZiyUy2j+lHcyzqn34bsnSUByTVRrHcDzPRiYEdQxjYNYRQxADHa+BFoylBMtFOxUy4rQzpH8m2UAwZp4qFO/dxYnYRb99/wKun73BydAzbE3loERsK5R2l/GTGXfYTclslbBU0qPEspmbncXl5DeeuLuHi9E2sLiygXOlButgLyhCUIZK5CoSo5RuGzX8ZboKlC+rVOkb3HYRTKMHqzGF4uAGlw4ZIcfDMhK77L4Zski3MdfUhX6zAsZ3mM1uoQqK1EAS9yU+UfHY+Q/Mvw0d+l8yvAUEnckeKnJqcITfWnpDGzBQ5OjlBzp+dInm7RPSYTaJUKpUUS5HQr9pIxvdNw2Zt1lmxWbIgNZZiSewZGcfi3Qc4fmsO4/sbmDgyhkyxD5lCHQnKLpmvwkx3o12hZWank/1iU8MvLQFenaN/eU21Tmvj8krcLZb63b6BYXdwsOHmCzW30ym5YTXlCpGES6+Yy64pE03mv0v6c7r/BS32yk+wbVf5C2Yt4AAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;CODE Bushi image2&quot;
+        title=&quot;&quot;
+        src=&quot;/static/83401ce4104521b447007954d4e656c8/fb8a0/blog-code-bushi-2.png&quot;
+        srcset=&quot;/static/83401ce4104521b447007954d4e656c8/1a291/blog-code-bushi-2.png 148w,
+/static/83401ce4104521b447007954d4e656c8/2bc4a/blog-code-bushi-2.png 295w,
+/static/83401ce4104521b447007954d4e656c8/fb8a0/blog-code-bushi-2.png 590w,
+/static/83401ce4104521b447007954d4e656c8/526de/blog-code-bushi-2.png 885w,
+/static/83401ce4104521b447007954d4e656c8/eacac/blog-code-bushi-2.png 994w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3 id=&quot;sean-cokers-blog&quot;&gt;&lt;a href=&quot;#sean-cokers-blog&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Sean Coker&apos;s Blog&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;ブログURL：&lt;/strong&gt; &lt;a href=&quot;https://sean.is/&quot;&gt;https://sean.is/&lt;/a&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;名前「Sean Coker」の部分にマウスカーソルを合わせると、「Sean Coker」の文字がクルクル回転したり、
+白背景をクリックすると〇、△、□などオブジェクトが散乱したり、凝ったデザインになっています。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/80e0739d009386fb9aad1885d06b9968/eacac/blog-sean-coker-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 60.66398390342053%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAA7DAAAOwwHHb6hkAAABQklEQVQoz61TS0+EMBDm/8cYE7142kTjRQ8edw8mHnQTT1w5gAUWkDe4RXC3FMa2KQjIRmN2ki/z/jqlg6Kq6lmapmocx09Zlq3nkCSJwKE861/nef6iadq94rruIxxJwjAMFMdxltxpmoa0bUunYCl6e72gy7sbYc/VyDrwfR9xwhV3ZIJrkH5vX56fwuLi5Ed84ItAEATWiHDUIJvKsgRd1+EVmbDf73uSiZ4nHJ7+uSOwLSr+XcCyLNjYNr8SYIz7Qwf4nZCTuX4ENiMyTVMAISTIh5P+6cpc8vwdTGsDnvcGAZvMl4iiCCilI0L2oK18lMMT1rSBHaFA6lpMRAiBmtmseTpdP2FH2K1NzeJNB9bCO4WuqkqA+8MaLtL+XhvP8x6OtdhRGHoK+12uyqoKthgbuCjQv4Ax+ihLWzeM5y+8qpWA6CoGzgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Sean Coker&apos;s Blog iamge1&quot;
+        title=&quot;&quot;
+        src=&quot;/static/80e0739d009386fb9aad1885d06b9968/fb8a0/blog-sean-coker-1.png&quot;
+        srcset=&quot;/static/80e0739d009386fb9aad1885d06b9968/1a291/blog-sean-coker-1.png 148w,
+/static/80e0739d009386fb9aad1885d06b9968/2bc4a/blog-sean-coker-1.png 295w,
+/static/80e0739d009386fb9aad1885d06b9968/fb8a0/blog-sean-coker-1.png 590w,
+/static/80e0739d009386fb9aad1885d06b9968/526de/blog-sean-coker-1.png 885w,
+/static/80e0739d009386fb9aad1885d06b9968/eacac/blog-sean-coker-1.png 994w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;シンプルですが、洗練されたモノトーンのデザインがカッコいいです。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ccf678ab9538b5d0a6fee82ac73ba256/eacac/blog-sean-coker-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 60.96579476861167%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAA7DAAAOwwHHb6hkAAABrUlEQVQoz41SyU7jQBD1F3OeX4DTzJFf4MKRjEDigJAQQomU5JDV7XiL3Y4T4ux2x8Wrlm2MhQQtPVW7uur51WL0er2/SZK0l8vl02q1ei6xXq+fN5vNF7CvHlMCufz2MhwObw3P8x6pcc7nMymlKpumqb7/dKIoCgzbtu/4I8/zFFD9fl91Oh0VBIFyXVf5vq/m87m2UKMQqjiuCeZAjmk4rtsqVGknyick0na7pf1+X4G/j8cjFT+vVPE9LxxhGFpGHC9bjw//6fLPhUpAFEpJo9GIhBA0nU41LMsitIbQqzpJnfSTEASt9tsrXf+7Usn7SiehRH7UlrFYLAhNb6qq45NwMpm0omhB46mp4jjWRLPZjGxAW9smx3G0Sh5OveRvCRGse4j+KJ4kq/E8n/xA6jIxmMr+quSSsJwUKxRQ47i+Vse9ZMvgYf1Ycrk2UJfxA9YjN00zFwwhKqA1OfYsLwQ1z7kgFAYI7uvLeTqdKMsySoEMS833crl/sdiO0e12b1DKFr2bw0qokcPBQArLkWLmyvF4LKFODuDD4srD4SB3u10TIfwxBtf+AAe8iaqc+FNDAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Sean Coker&apos;s Blog iamge2&quot;
+        title=&quot;&quot;
+        src=&quot;/static/ccf678ab9538b5d0a6fee82ac73ba256/fb8a0/blog-sean-coker-2.png&quot;
+        srcset=&quot;/static/ccf678ab9538b5d0a6fee82ac73ba256/1a291/blog-sean-coker-2.png 148w,
+/static/ccf678ab9538b5d0a6fee82ac73ba256/2bc4a/blog-sean-coker-2.png 295w,
+/static/ccf678ab9538b5d0a6fee82ac73ba256/fb8a0/blog-sean-coker-2.png 590w,
+/static/ccf678ab9538b5d0a6fee82ac73ba256/526de/blog-sean-coker-2.png 885w,
+/static/ccf678ab9538b5d0a6fee82ac73ba256/eacac/blog-sean-coker-2.png 994w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3 id=&quot;yuuniworks-portfolio--blog&quot;&gt;&lt;a href=&quot;#yuuniworks-portfolio--blog&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Yuuniworks Portfolio / Blog&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;ブログURL：&lt;/strong&gt; &lt;a href=&quot;https://www.yuuniworks.com/&quot;&gt;https://www.yuuniworks.com/&lt;/a&gt;
+&lt;br/&gt;
+&lt;strong&gt;ソースURL：&lt;/strong&gt; &lt;a href=&quot;https://github.com/junkboy0315/yuuni-web&quot;&gt;https://github.com/junkboy0315/yuuni-web&lt;/a&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;島根のフルスタックエンジニアの方のポートフォリオ兼ブログです。&lt;br/&gt;
+マテリアルデザインで統一されており、画面遷移やマウスホバー時のアニメーションにも凝っています。
+UIについてもストレスなくWebサイト内を回遊できるように考えられているなぁと感じました。&lt;br/&gt;
+なんとコチラ、&lt;a href=&quot;https://github.com/junkboy0315/yuuni-web&quot;&gt;ソースコード&lt;/a&gt;を公開してくれています&lt;img null=&quot;&quot; data-icon=&quot;emoji-blush&quot; style=&quot;display: inline; margin: 0; margin-top: 1px; position: relative; top: 5px; width: 25px&quot; src=&quot;data:image/png;base64, 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&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;記事一覧&lt;/strong&gt;
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/745347125adf8fc9e8adc11d50d7496e/eacac/blog-yuuniworks-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 60.56338028169014%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAC/UlEQVQoz03S2U8TURQH4PmDVBS0QEtboRhaoWVpi5VdZFFcEh+QCgFLSzcQWywFQcXogw+auMQHa9yipmo0mkgC6mgpBCRKDHdKahSc6c8zpSY+fDlzzz3LfRgu59iLoKJn4V2OPfY8u2suKttBttvnolkUt5ItXfHoNpJlj1M+Hs3ujkd3ds9Hd3UvUFyIUn9U0bv4KufE21tcTueHJ5oAoHT/hNLzG/kZeURBdqWtQ+HdlOtbh9K3AZV/AwVEPUj869CcAfJ6Yt+4nZ0z9zSDf6BysQ2li4my/Iw8kksUchzYlE9UbiaqPUzUEG3aqljkX8Puvs9zXL59NqI7K0HrTl9C4xag9mR4BRRQ7h+1l+59DFqfgEI/g25wU/EQS+0NJFHi/DzPqXpmIiUjEnR+JurkIlKUofLIzYS+tdRYSPYMMVQEBJjOCjAMCzAGGMxBlqoOJWEYoIG7+2YiZWEJ+uFVUT/MUEL0VEhb0X8nidrJBCyjAqxhAfsnEmijc/U5AeUjQjrWhATYQixVM5ZEpZcG7umfjVRNSDAFmWiiIpmRlAUFNE+toe5CAkeuruHw5QTqztPQMEN1iKF+lKGNlhwiraMs1Tb+Ew1+GmhyzUZqL0qwhlbFaiqy/acyyNAwLqD9ApmkBWOMXsRQS3cNpIk0k5b0wCTq/fw8t29gJtJ+ScKB8KrYTNtbw/JmhoMyGiDn5MYDo/LABFrSBLRQvkV+HZ1J6tDkLzQOxea5cueHew2TKdhGhI39IwnJlmENCJKZWNISkmXou1TR/0UyOeOS2bcsVboXpUpXXLIMxKQqx0fR2DON0pOv5jh1x+NHZd4EypxfsdexhFIHxdMUPT9goN/E4P4Bo3sF5c5lGBzL0LtWYHLEUW5/D/Mp0jsLXcdDFHY8QHH77WWuqPHa5dLjT5b0HXc/Go5G+OL2u7y26TpvPPGMt9rf8lWdL3mL/TVvPfWaN/dO86Wdb3jD0ft80cEbfHHrTV7ZdIPfapn6lG27EtPWjT/9CxdrfvX3knexAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;blog-yuuniworks image1&quot;
+        title=&quot;&quot;
+        src=&quot;/static/745347125adf8fc9e8adc11d50d7496e/fb8a0/blog-yuuniworks-1.png&quot;
+        srcset=&quot;/static/745347125adf8fc9e8adc11d50d7496e/1a291/blog-yuuniworks-1.png 148w,
+/static/745347125adf8fc9e8adc11d50d7496e/2bc4a/blog-yuuniworks-1.png 295w,
+/static/745347125adf8fc9e8adc11d50d7496e/fb8a0/blog-yuuniworks-1.png 590w,
+/static/745347125adf8fc9e8adc11d50d7496e/526de/blog-yuuniworks-1.png 885w,
+/static/745347125adf8fc9e8adc11d50d7496e/eacac/blog-yuuniworks-1.png 994w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;記事一覧&lt;/strong&gt;
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ea5c06cb28aefbd47617f6cbe1e029eb/eacac/blog-yuuniworks-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 60.56338028169014%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAA7DAAAOwwHHb6hkAAACGklEQVQoz42T327TMBTG+4JdkbYWaeOP1G0SE7c8CG/AI3A5bhCaUCSuQEgD1rC2aVr1X9KkcWI7dux+HGdttwsEi/TJ7vGnX8/J5zSOj8/fnpxcfG23zz4fHDz3ms1nXtOt272rtVovvNaTl97uvN0+9TqdM6/z9Nw7POx6R0en3quLN1+63dfvG9c/e59Az5oJZHlJkg9WiTTjiFZZrXTNwegsFxo5d1JghVMJbYAbvz9v3A6CSweUqtKltuZOxqhqYyoLQ3WziFZmOl8aVkijDNV4biSZ5NYrlTEOGE6mg4Z/O/jggDkvTSEUakkNlmZYTBeIogiz+RxCSFTGQOkKShYouMTeL9SGGsBwNAkIOKyBVNwDRVkhjROEv/sEEuCcoyxLkoJSCppad3/KyctpdUDXYRD+Bbg1EFRDyBJRvMI6Y8hYDkYqCl7Xdz4u1X+A25HzNIdcrTEajZCmKZIkQRzHYFkGTWPfA/XjgKIQELnrRtajljSq60zW+2oPe/TIlCLBRR3IfL7AdDarg9Fa0zs0/wIOLrcpazqwO8mytIqUZZmlUCyFYxljVkppjbX2odc1Q9fNpTxw9/CjA9L9gsWdNiQhKyTroh6x4JQ0dZdTIG4P3HudzKYuYTSeThvfvl+/W6VssoiSm2Wc+ss48emr8MPxwB8Gt34Yjv0gCPzxeOxTQPQ79FeJ8zjvTkkvTrL+j1+9qz9Tp2mt3A38CwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;blog-yuuniworks image2&quot;
+        title=&quot;&quot;
+        src=&quot;/static/ea5c06cb28aefbd47617f6cbe1e029eb/fb8a0/blog-yuuniworks-2.png&quot;
+        srcset=&quot;/static/ea5c06cb28aefbd47617f6cbe1e029eb/1a291/blog-yuuniworks-2.png 148w,
+/static/ea5c06cb28aefbd47617f6cbe1e029eb/2bc4a/blog-yuuniworks-2.png 295w,
+/static/ea5c06cb28aefbd47617f6cbe1e029eb/fb8a0/blog-yuuniworks-2.png 590w,
+/static/ea5c06cb28aefbd47617f6cbe1e029eb/526de/blog-yuuniworks-2.png 885w,
+/static/ea5c06cb28aefbd47617f6cbe1e029eb/eacac/blog-yuuniworks-2.png 994w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;記事詳細&lt;/strong&gt;
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/7fea5a110f918f901184676a2519e614/eacac/blog-yuuniworks-3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 60.56338028169014%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAB+ElEQVQoz42S227UMBCG9wW3vWi3EpSDVqUXyzUPwhvwCFyWG4QQisQVCKkV3ahNt2Wbc7I52PEhdoYZp1uBQGotfZrJePzPTOzJk6fHbw8PF99ms6Mv053n3nT67C92MLa7+wJ56XyKzWavvIMD4tjb25t7+/tH3mLx5ut8/vr95PRs+QlwbWoOdSv+geJZUUOWV1BWzMUapqDlIw2T0LQSVA9wvryMJxfB6oQEhTJaamuIThkH+QydME7NbZSYhgmjemsw1yH1CPnaANyso2DiXwQfSLDlkg67qulGQ1Zp4KIHPIDVB8RSUeiEBolWYEuUf8dAOVfX6xUKXjlB6oQ2O9lDVTfQti0wxtEyZznn0HUdSKmgxn2KUe5WkDpc3fxHkLpI0xSSJHY2iiL0E4jjGPI8R7EawvAWsixzuQ8KdlJjJwKMMTAMA/R9D9ZaUErd+xQ3aDmO/4gOe4iSwo2stXYiZKkAiW0XiXKhHtNh78ai8YqicNDoVYXPpiyd+AOCwcndLWvcsCho66axeNiBws5KKS1jzOLoFru1tDjmsxF6YnTLAb3DjyRIFQxVRmg0IYQbm0b+E+qQ9mCbi5hh/A3Xv8Jw8v3H6bti06yTrDxP842fF5WPt+qHYejA2/RZ2/oo7mOH99A35Y+Uy7ysL89+Lj//BoRNa5oJpRdqAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;blog-yuuniworks image3&quot;
+        title=&quot;&quot;
+        src=&quot;/static/7fea5a110f918f901184676a2519e614/fb8a0/blog-yuuniworks-3.png&quot;
+        srcset=&quot;/static/7fea5a110f918f901184676a2519e614/1a291/blog-yuuniworks-3.png 148w,
+/static/7fea5a110f918f901184676a2519e614/2bc4a/blog-yuuniworks-3.png 295w,
+/static/7fea5a110f918f901184676a2519e614/fb8a0/blog-yuuniworks-3.png 590w,
+/static/7fea5a110f918f901184676a2519e614/526de/blog-yuuniworks-3.png 885w,
+/static/7fea5a110f918f901184676a2519e614/eacac/blog-yuuniworks-3.png 994w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br/&gt;&lt;/p&gt;
+&lt;h3 id=&quot;motto-x-motto&quot;&gt;&lt;a href=&quot;#motto-x-motto&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;MOTTO x MOTTO&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;ブログURL：&lt;/strong&gt; &lt;a href=&quot;https://mottox2.com/&quot;&gt;https://mottox2.com/&lt;/a&gt;
+&lt;br/&gt;
+&lt;strong&gt;ソースURL：&lt;/strong&gt; &lt;a href=&quot;https://github.com/mottox2/website&quot;&gt;https://github.com/mottox2/website&lt;/a&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;水色がアクセントカラーのすっきりしたデザインです。
+画面右上の検索窓から気になる記事を検索できたり、
+記事詳細の最下部には最近投稿した記事へのリンクが貼られていたり、Webサイト内を回遊しやすいような工夫がされています。&lt;br/&gt;
+なんとコチラも、&lt;a href=&quot;https://github.com/mottox2/website&quot;&gt;ソースコード&lt;/a&gt;を公開してくれています。非常に助かります&lt;img null=&quot;&quot; data-icon=&quot;emoji-blush&quot; style=&quot;display: inline; margin: 0; margin-top: 1px; position: relative; top: 5px; width: 25px&quot; src=&quot;data:image/png;base64, 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&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;記事一覧&lt;/strong&gt;
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/2195584689d360429f14d64544c8dad1/eacac/blog-mottomotto-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 60.56338028169014%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAA7DAAAOwwHHb6hkAAACDUlEQVQoz62Sy27TQBSG/SAsWFSIFWKFQEIgFtANT8UTIFWEiAVlA0vYIBIqKqDVSF11A6jBadzEuTRN47Edezy+zMzPGYeIlkoVC470yWdmzvznMnYePtl8+rjR2l/feL/76NkHtt5ss/uNFrvbaLNbtL7T/MgevPzE7hE3X2yxa8/bbI32rhJXmlvs+qsv7PabHXbj9c7e2sbbdw775n6OAQyTEt24xO54gSPyvaRCPzMYEH4ODKSBR/5hptElDiXwPS6wN+HoLAr0CmD7R3fqnEzGLSytBIwKeaDyNFGVFAqqXFIR0ATOU+Zq5PeViCOl8wzHft9zfH/YtmraGFVUClxIGGPsGhWtldaolK7XZzF0Jy9KnMxOEUaxEVmGnnfUd4bDpaDNKMsK3vEMyWKBBTGfz8E5R5IkyPMcSqk60Ca0VlUVeBQjTQVt0Gh8/48gBSljNHUhURQFNFVmsSIr33JW0J7ZRFJKY/1zgnZ+gkblzkJIKt+K2uBMSgghat8KrVgJklgtaJNdrJA2ObUZBAEyErWt2tajKKq/f7d8qaCtMKdHCESOy+xfKmz9jizpUbQ/PdUh53o6neowDDW1qulC/bVGYjX2x6BHqc8IZR+IBD1nPB5v4z/ZaDSaOJ1OZ5MGPxJp2pnxyN0fTFweBC7N0aXZ1cRx7KZpegG7Hyxjf1I3vYODg6+/AOamevX6mliYAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;blog-mottomotto image1&quot;
+        title=&quot;&quot;
+        src=&quot;/static/2195584689d360429f14d64544c8dad1/fb8a0/blog-mottomotto-1.png&quot;
+        srcset=&quot;/static/2195584689d360429f14d64544c8dad1/1a291/blog-mottomotto-1.png 148w,
+/static/2195584689d360429f14d64544c8dad1/2bc4a/blog-mottomotto-1.png 295w,
+/static/2195584689d360429f14d64544c8dad1/fb8a0/blog-mottomotto-1.png 590w,
+/static/2195584689d360429f14d64544c8dad1/526de/blog-mottomotto-1.png 885w,
+/static/2195584689d360429f14d64544c8dad1/eacac/blog-mottomotto-1.png 994w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;記事詳細&lt;/strong&gt;
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/16c5e32cce9e6ee3234e12166fdda35e/eacac/blog-mottomotto-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 60.66398390342053%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAA7DAAAOwwHHb6hkAAACPElEQVQoz42S22sTQRTG9/8QQRD0Ud9EFBG0+OJ/5aVRq62obdEHq1AVQX1SUyu1GlfEh1oTrdHUSbLJpk3S7CV7yV5m5vPMtmJbL3Tgx1n2fPOdmTNHGzozNXZ6PL9w6vrTwtCNZ/qJiRn9+OSMfnQirx8az+tHbs3qJ+/M68duz+kHb87q+yi/d/KFvofYReyfmtcP3yvoB6YL73dfffxE+7BUeTUA0ApSrA4EDCdE1Rmg4adohgLVfoRly0crkjATwIg2oO8KaRZWbDAvRjMF3pTZqtZumc+xvkgi+VLlB18uf+Wdlsnd3hqPfI9bnTYHBIGtpDFv1KvcdxzOoxArRp1phtHIKzcpJQ8Tjm9dB2EYIk4ScC4gN6pxIZByDiFlhvqvNO1OF7bjyoD2sGqtpjUavw2lFAj7LizLgm3bGZ7nZfi+jyiKsKHNYpqmsByXcgFVkCCvrYa00O52kaQJ4jjKEHQyZbCd7NSkV0UGg4HaDMMwthsK2G4AP4gQBDEJk8xwM9sNySwzVLk/TqhiHBPReuQcf107MlR59Rjzrwv4VCyh9PkLSqUSisUiihQ/Li6CMbYjw19jk1LzxejYNXE+d1nkLo6K4dyIyF0YEZdGroiz54bF/QcPBenokWWG6hGZKbh6IOoh00zTfLn5OimNmxD/uCv+34Jms2lq5XL5LlVYpbFYdvseMxprrGlarF7vslqtzWpGl02/+84e6WXWsV0WBj7zfJ+RnvX7fdbr9TJoxOrk9fYnAxZsrBmfT4UAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;blog-mottomotto image2&quot;
+        title=&quot;&quot;
+        src=&quot;/static/16c5e32cce9e6ee3234e12166fdda35e/fb8a0/blog-mottomotto-2.png&quot;
+        srcset=&quot;/static/16c5e32cce9e6ee3234e12166fdda35e/1a291/blog-mottomotto-2.png 148w,
+/static/16c5e32cce9e6ee3234e12166fdda35e/2bc4a/blog-mottomotto-2.png 295w,
+/static/16c5e32cce9e6ee3234e12166fdda35e/fb8a0/blog-mottomotto-2.png 590w,
+/static/16c5e32cce9e6ee3234e12166fdda35e/526de/blog-mottomotto-2.png 885w,
+/static/16c5e32cce9e6ee3234e12166fdda35e/eacac/blog-mottomotto-2.png 994w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;みなさんも&lt;a href=&quot;https://www.gatsbyjs.org/showcase/&quot;&gt;ショーケース&lt;/a&gt;でお気に入りのGatsby製Webサイトを見つけてみてください。&lt;/p&gt;
+&lt;h2 id=&quot;gatsbyショーケース登録方法&quot;&gt;&lt;a href=&quot;#gatsby%E3%82%B7%E3%83%A7%E3%83%BC%E3%82%B1%E3%83%BC%E3%82%B9%E7%99%BB%E9%8C%B2%E6%96%B9%E6%B3%95&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Gatsbyショーケース登録方法&lt;/h2&gt;
+&lt;p&gt;本題について説明します。&lt;br/&gt;
+Gatsbyはショーケースの登録情報を&lt;a href=&quot;https://github.com/gatsbyjs/gatsby/blob/master/docs/sites.yml&quot;&gt;sites.yml&lt;/a&gt;で管理しています。登録する場合はこのsites.ymlを編集します。&lt;br/&gt;
+&lt;br/&gt;
+詳しく手順を見ていきましょう。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;(1)&lt;/strong&gt; まずは&lt;a href=&quot;https://github.com/gatsbyjs/gatsby&quot;&gt;Gatsbyのリポジトリ&lt;/a&gt;をフォークします。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;(2-1)&lt;/strong&gt; 次にフォークしたリポジトリで、リポジトリの&lt;code class=&quot;language-text&quot;&gt;docs&lt;/code&gt;配下にある&lt;code class=&quot;language-text&quot;&gt;sites.yml&lt;/code&gt;を編集します。&lt;code class=&quot;language-text&quot;&gt;sites.yml&lt;/code&gt;は必ず下記プロパティを記載しましょう。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;sites.ymlに最低限記載する項目&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Takumon blog &lt;span class=&quot;token comment&quot;&gt;# Webサイトのタイトル&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;main_url&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &quot;https&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;//takumon.com&quot; &lt;span class=&quot;token comment&quot;&gt;# WebサイトのメインページのURL&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &quot;https&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;//takumon.com&quot; &lt;span class=&quot;token comment&quot;&gt;# WebサイトのURL&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;featured&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean important&quot;&gt;false &lt;/span&gt;&lt;span class=&quot;token comment&quot;&gt;# 最初はfalseにしておきます。Gatsby側で4半期に１回判定があり、「注目サイト」に認定されるとtrueになります。&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;categories&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;# Webサイトのカテゴリーを複数指定します。 &lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; Blog&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;(2-1)&lt;/strong&gt; &lt;code class=&quot;language-text&quot;&gt;sites.yml&lt;/code&gt;はオプションで下記も記載できます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;sites.ymlにオプションで記載する項目&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;  &lt;span class=&quot;token key atrule&quot;&gt;source_url&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &quot;https&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;//github.com/Takumon/blog&quot; &lt;span class=&quot;token comment&quot;&gt;# ブログのソースコードを公開していればGitHubなどのURLを記載&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Java Engineer&apos;s tech blog. &lt;span class=&quot;token comment&quot;&gt;# Webサイトの説明&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;built_by&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Takumon &lt;span class=&quot;token comment&quot;&gt;# Webサイト作成者名&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;built_by_url&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &quot;https&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;//twitter.com/inouetakumon&quot; &lt;span class=&quot;token comment&quot;&gt;# Webサイト作成者のURL&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;(3)&lt;/strong&gt; 自分のリポジトリで編集が終わったら、フォーク元にプルリクを出します。プルリク先はmasterブランチでOKです。プルリクについては&lt;a href=&quot;https://github.com/gatsbyjs/gatsby/pulls?utf8=%E2%9C%93&amp;#x26;q=is%3Apr+is%3Aclosed+sites.yml&quot;&gt;他の方のプルリク&lt;/a&gt;や&lt;a href=&quot;https://github.com/gatsbyjs/gatsby/pull/10941&quot;&gt;僕のプルリク&lt;/a&gt;を参考にしてください。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以上で登録手順は終了です。&lt;br/&gt;
+この後は、Gatsby側で「プルリクマージ」→「Gatsbyショーケースに反映」されます。
+プルリクはすぐにマージされますが、Gatsbyショーケースへの反映には最大1日かかります。即時反映ではないので注意してください。
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;登録されると&lt;a href=&quot;https://www.gatsbyjs.org/showcase/&quot;&gt;Gatsbyショーケース&lt;/a&gt;で自分のWebサイトが確認できます（達成感があります！！）&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ade547698f0d1f5f76afb4e312fbef14/359d8/how-to-submit-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 60.56701030927836%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABcRAAAXEQHKJvM/AAACwElEQVQoz11Sy0tUYRS//0Db2gYtWgTZslaVELOpjbWTaJEaqEGrwG3oLBSkJAITCwUZHSOkQpwZKLOs22Oah1evOg/nzjhPnffc93fvr+/eOwzWgcN5fN/5fd/vnMOM3H3xfHzQGx4f8n4bH1pmJ4aXWffAIjva52Hd/YvsmKWWP7Bkq+WP9XvsvLuto/c9m+7+pehI7/QUE/nNbxgqQDQTJgE02aQ+tYphxzABw7KG49tKY0Nr+3BqLBEODtcZQUj70c5bV1tNkei6TpwyEF2VOr6l9XqNqJpKrOcJ0em5TFRZtGpxdFRaYxLxZMAKTNMkmqaD2+YR/BNBKBxFMn2I/WwVfDwNLp5BtliGJEqgD9ICA62WiO1UHlsHWZKtK4glBR8FTATaPySqouJWTy+uXruJS12X0Tf8GDcGJ3HeNYhTXXcw8XKZctWRE1Ko1hqo16rY4aOY9wXI9Kofn4JhHxM/AWgx7b7uwoVzF3Hm9FkMPHiIGW8AT57O4cqjOTxb5SmgiFwqAjYYpYAVfP+8grcrHuL3ryKRTPiYWCzeAaSCdyvvsTC3AO/SG4RCETogOjFdQVEBMiKg6BpkU4eQz6FFGSVSGeQKRau/yOdyPmZ3Z9/pIW2yYRj4XxTaL404eTOdQnH9C+qbP6CzQRB+1xm8Ye8BCsUipdz+oQVIBwNVVVGr1qAoin259fMXjkNhmB4PSpNTmO2+jY+uHmzdc6H5Yd5+iOI5gIWCDdhZG9Mw7ZWpVCpEFFvOmpTLJJ/JEKl8TJRgiPCvPURYmicV9hXRdr8Sup8WM60NuMYkk8mNkxRVVUO93ujEjWaTrkcLmkH/m81Bowz0dgtQPPqnPaVSaZ3hd/jZarWakGU5Kkky12g0OFEUOUqZo0BcuVx2YlXlxFSKkziOU/f2OJlaKRaz87IkRTVNOxAEYeYvVx9Gq2VMQR0AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;how-to-submit2&quot;
+        title=&quot;&quot;
+        src=&quot;/static/ade547698f0d1f5f76afb4e312fbef14/fb8a0/how-to-submit-2.png&quot;
+        srcset=&quot;/static/ade547698f0d1f5f76afb4e312fbef14/1a291/how-to-submit-2.png 148w,
+/static/ade547698f0d1f5f76afb4e312fbef14/2bc4a/how-to-submit-2.png 295w,
+/static/ade547698f0d1f5f76afb4e312fbef14/fb8a0/how-to-submit-2.png 590w,
+/static/ade547698f0d1f5f76afb4e312fbef14/526de/how-to-submit-2.png 885w,
+/static/ade547698f0d1f5f76afb4e312fbef14/fa2eb/how-to-submit-2.png 1180w,
+/static/ade547698f0d1f5f76afb4e312fbef14/359d8/how-to-submit-2.png 1552w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;なお登録後に自分のWebサイトに変更があった場合は、&lt;code class=&quot;language-text&quot;&gt;sites.yml&lt;/code&gt;の定義を更新してプルリクを送ればよいです。&lt;/p&gt;
+&lt;p&gt;※詳細はGatsby公式サイトの&lt;a href=&quot;https://www.gatsbyjs.org/docs/site-showcase-submissions/&quot;&gt;Submit to Site Showcase&lt;/a&gt;に記載されているのでご確認ください。&lt;br/&gt;&lt;/p&gt;
+&lt;h2 id=&quot;まとめ&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ&lt;/h2&gt;
+&lt;p&gt;Gatsbyショーケースに自分のWebサイトを登録する方法についてご紹介しました。
+現時点で「Blog」カテゴリに登録されている日本の方のブログは、わずか3つです。
+登録手順はとても簡単なので、GatsbyでWebサイトを作っている方は、ぜひ登録してみてはいかがでしょうか。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[ブログにあらゆる外部コンテンツを埋め込めるWebサービス「Iframely」の使い方]]></title><description><![CDATA[なにこれ SNSのコンテンツ、動画といった外部コンテンツを自分のブログに載せる場合、
 単純にリンクを張り付けるよりも、以下のようにHTMLの 埋め込みコード を張り付けたほうがビジュアル面で効果的です。 ただTwitterやYouTube…]]></description><link>https://takumon.com//iframely</link><guid isPermaLink="false">https://takumon.com//iframely</guid><pubDate>Fri, 11 Jan 2019 14:30:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/01/iframely.png&quot; alt=&quot;iframely&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;SNSのコンテンツ、動画といった外部コンテンツを自分のブログに載せる場合、
