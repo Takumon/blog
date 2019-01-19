@@ -32,11 +32,11 @@ class Paging extends React.Component {
 
       <div className={styles.to_list}>
         <Link className={styles.link_to_list} to="/" rel="prev">
-          <i className={styles.tomato_icon} ></i>
-          <i className={styles.tomato_icon} ></i>
+          <i className={styles.tomato_icon_1} ></i>
+          <i className={styles.tomato_icon_2} ></i>
           記事一覧
-          <i className={styles.tomato_icon} ></i>
-          <i className={styles.tomato_icon} ></i>
+          <i className={styles.tomato_icon_3} ></i>
+          <i className={styles.tomato_icon_4} ></i>
         </Link>
       </div>
     </div>
