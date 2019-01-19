@@ -19,7 +19,7 @@
   }
 }
 
-.content {
+.to_prev_and_next {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -28,16 +28,41 @@
   padding: 0;
 
   & > li {
-    width: 50%;
     padding: 12px;
     margin: 0;
     box-sizing: border-box;
+    width: 50%;
 
     .link_to_previous {
       @include paging_link();
     }
     .link_to_next {
       @include paging_link();
+    }
+  }
+}
+
+.to_list {
+  padding: 12px;
+  margin: 0;
+  box-sizing: border-box;
+
+  .link_to_list {
+    width: 100%;
+    text-align: center;
+    @include paging_link();
+    font-size: 1.2rem;
+    line-height: 2rem;
+
+    .tomato_icon {
+      display: inline-block;
+      box-sizing: border-box;
+      vertical-align: bottom;
+      background-image: url(../../images/tomato.svg);
+      width: 1.2rem;
+      height: 1.2rem;
+      background-repeat: no-repeat;
+      margin: 0.5rem;
     }
   }
 }

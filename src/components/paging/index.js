@@ -9,7 +9,8 @@ class Paging extends React.Component {
   render() {
     const { previous, next } = this.props
     return (
-      <ul className={styles.content}>
+    <div>
+      <ul className={styles.to_prev_and_next}>
         <li>
           {
             previous &&
@@ -28,6 +29,17 @@ class Paging extends React.Component {
           }
         </li>
       </ul>
+
+      <div className={styles.to_list}>
+        <Link className={styles.link_to_list} to="/" rel="prev">
+          <i className={styles.tomato_icon} ></i>
+          <i className={styles.tomato_icon} ></i>
+          記事一覧
+          <i className={styles.tomato_icon} ></i>
+          <i className={styles.tomato_icon} ></i>
+        </Link>
+      </div>
+    </div>
     );
   }
 }
