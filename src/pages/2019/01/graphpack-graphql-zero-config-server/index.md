@@ -13,10 +13,10 @@ thumbnail: /thumbnail/2019/01/graphpack-graphql-zero-config-server.png
 
 ## なにこれ
 
-**「とりあえずクライアント側と同じJavaScriptで手っ取り早くGraphQLサーバ立てたい！」**<br/>
+**「とりあえずクライアント側と同じJavaScriptで手っ取り早くGraphQLサーバー立てたい！」**<br/>
 
 このようなユースケースに[Graphpack](https://github.com/glennreyes/graphpack)はピッタリです。
-設定いらずのNode製GraphQLサーバーで**「GraphQLのスキーマとリゾルバーを定義するだけでOK」**、さらに**「[GraphQL Playground IDE](https://github.com/prisma/graphql-playground)が標準搭載」**なのでクライアント側を自前で実装せずとも動作確認できます。<br/>
+設定いらずのNode製GraphQLサーバーで **「GraphQLのスキーマとリゾルバーを定義するだけでOK」**、さらに **「[GraphQL Playground IDE](https://github.com/prisma/graphql-playground)が標準搭載」**なのでクライアント側を自前で実装せずとも動作確認できます。<br/>
 今回は、この[Graphpack](https://github.com/glennreyes/graphpack)の使い方について以下の5ステップでご紹介します。<br/>
 ※ここで紹介するソースコードはGitHub([Takumon/nuxt-graphpack-sample](https://github.com/Takumon/nuxt-graphpack-sample))にもあるので参考にしてみてください。
 
@@ -28,7 +28,7 @@ thumbnail: /thumbnail/2019/01/graphpack-graphql-zero-config-server.png
 
 ## 1. Graphpackとは
 
-Node.js製のゼロコンフィグなミニマルGraphQLサーバで[Webpack](https://github.com/webpack/webpack)、[Nodemon](https://github.com/remy/nodemon)、[Apollo Server](https://github.com/apollographql/apollo-server) をイイ感じにまとめたライブラリです。感触を掴むだけなら[CodeSandboxのお試し環境](https://codesandbox.io/s/k3qrkl8qlv)が用意されているので、そちらを触ってみるとよいでしょう。
+Node.js製のゼロコンフィグなミニマルGraphQLサーバーで[Webpack](https://github.com/webpack/webpack)、[Nodemon](https://github.com/remy/nodemon)、[Apollo Server](https://github.com/apollographql/apollo-server) をイイ感じにまとめたライブラリです。感触を掴むだけなら[CodeSandboxのお試し環境](https://codesandbox.io/s/k3qrkl8qlv)が用意されているので、そちらを触ってみるとよいでしょう。
 [README](https://github.com/glennreyes/graphpack/README.md)では以下8つの特徴をうたっています。
 
 * 📦 **設定いらず**（**ZERO-CONFIG**）！
@@ -98,7 +98,7 @@ export default resolvers;
 
 ### 動作確認してみる
 
-* サーバを`npm run dev`で起動して、ブラウザで http://localhost:4000/ を開くとGraphQL Playground IDEが表示されます。
+* サーバーを`npm run dev`で起動して、ブラウザで http://localhost:4000/ を開くとGraphQL Playground IDEが表示されます。
 
 ![hello-world](hello-world.png)
 
@@ -115,7 +115,7 @@ query {
 
 ![hello-world-result](hello-world-result.png)
 
-こんな感じで、とても簡単にGraophQLサーバーができ上がります。
+こんな感じで、とても簡単にGraophQLサーバーが立てられます。
 
 
 ## 3. GraphpackでQueryを実装・動作確認する
@@ -181,7 +181,7 @@ const resolvers = {
 
 ### 動作確認
 
-* 実装できたら`npm run dev`でサーバ起動して http://localhost:4000/ を開いて
+* 実装できたら`npm run dev`でサーバー起動して http://localhost:4000/ を開いて
 以下のクエリを発行します。するとユーザー一覧が取得できます。
 
 ```graphql:title=ユーザー一覧取得用Query
@@ -218,7 +218,7 @@ query {
 ## 4. GraphpackでMutationを実装・動作確認する
 
 
-ユーザー情報の取得はできたので、次にユーザー情報の登録・更新・削除を実装します。
+ユーザー情報が取得できたので、次はユーザー情報の登録・更新・削除を実装します。
 
 ### 実装
 
@@ -251,8 +251,7 @@ type Mutation {
 <br/>
 
 
-ユーザー情報を定義しているJavaScriptファイルに
-ユーザー情報のID採番用ロジックを追記します。
+これはGraphQLとは関係ありませんが、ユーザー情報登録時のID採番用ロジックを`db.js`に追記します。
 初期状態でユーザー情報が2件なので、採番用IDは3から始まるようにします。
 
 ```javascript{16-20}:title=src/db.js
@@ -317,13 +316,13 @@ const resolvers = {
 
 ### 動作確認
 
-実装できたら`npm run dev`でサーバ起動して http://localhost:4000/ を開きます。
+実装できたら`npm run dev`でサーバー起動して http://localhost:4000/ を開きます。
 
 
 #### 登録の動作確認
 
 以下のようなMutationを発行すると、登録したユーザー情報が返ってきます。<br/>
-<small>※Mutation実行後にユーザー一覧を取得すると、`nuxt taro`が取得できます。</small>
+<small>※登録後にユーザー一覧を取得すると、`nuxt taro`が取得できます。</small>
 
 
 ```graphql:title=登録用Muatation
@@ -346,9 +345,9 @@ mutation {
 
 #### 更新の動作確認
 
-今度は'nuxt taro'を更新してみましょう。
+今度は`nuxt taro`を更新してみましょう。
 以下のようなMutationを発行すると、更新されたユーザー情報が返ってきます。<br/>
-<small>※Mutation実行後にユーザー一覧を取得すると`nuxt taro`が`nuxt updatedtaro`になっていることを確認できます。</small>
+<small>※更新後にユーザー一覧を取得すると`nuxt taro`が`nuxt updatedtaro`になっていることを確認できます。</small>
 
 ```graphql:title=更新用Muatation
 mutation {
@@ -372,9 +371,9 @@ mutation {
 
 #### 削除の動作確認
 
-最後に'nuxt updatedtaro'を削除してみましょう。
+最後に`nuxt updatedtaro`を削除してみましょう。
 以下のようなMutationを発行すると削除されたユーザー情報が返ってきます。<br/>
-<small>※Mutation実行後にユーザー一覧を取得すると`nuxt updatedtaro`がなくなっていることが確認できます。</small>
+<small>※削除後にユーザー一覧を取得すると`nuxt updatedtaro`がなくなっていることが確認できます。</small>
 
 ```graphql:title=削除用Mutation
 mutation {
@@ -427,7 +426,7 @@ type Subscription {
 <br/>
 
 リゾルバーでSubscriptionを定義し、Mutationも修正します。
-Mutationも修正するのは、Mutation処理が完了後にSubscriptionを発行できるようにするためです。
+Mutationも修正するのは、登録・更新・削除完了後にSubscriptionを発行できるようにするためです。
 
 
 
@@ -491,7 +490,7 @@ const resolvers = {
 
 ### 動作確認
 
-実装できたら`npm run dev`でサーバ起動して http://localhost:4000/ を開きます。
+実装できたら`npm run dev`でサーバー起動して http://localhost:4000/ を開きます。
 
 `userCreated`の動作確認をしましょう。
 以下のようなSubscriptionを発行します。
@@ -530,22 +529,23 @@ subscription {
 
 <br/>
 
+
+以上でSubscriptionの動作確認は終了です。
 今回は紹介しませんが、**userUpdated**と**userDeleted**も同様の方法で動作確認できるのでやってみてください。
 
 
 
 ## まとめ
 
-今回はNode製GraphQLサーバ「Graphpack」の使い方について紹介しました。
-上記で紹介した通り使い方はとても簡単ですので、「とりあえずGraphQLサーバーを立ててみたい！」という方はGraphpackを検討してみてはいかがでしょうか。
+今回はNode製GraphQLサーバー「Graphpack」の使い方について紹介しました。
+上記で紹介した通り非常に簡単ですので、「とりあえずGraphQLサーバーを立ててみたい！」という方はGraphpackを検討してみてはいかがでしょうか。
 
 
 ## 参考
 * [A Beginner’s Guide to GraphQL - DEV Community 👩‍💻👨‍💻](https://dev.to/leonardomso/a-beginners-guide-to-graphql-3kjj)
   * GraphpackでQuery、Mutationの実装方法を紹介している記事です。
 * [Logo design for Graphpack | Steemit](https://steemit.com/utopian-io/@richardbmx/logo-design-for-graphpack-approved-and-used-in-the-project)
-  * Gpraphpackのロゴをどういうふうに作ったかのお話です。
-* [Levvel Blog - A Guide to Subscriptions in GraphQL with Apollo](https://www.levvel.io/our-ideas/A-Guide-to-Subscriptions-in-GraphQL-with-Apollo)
+  * Gpraphpackのロゴの舞台裏のお話です。
 
 
 ## 関連記事
