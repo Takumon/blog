@@ -140,6 +140,56 @@
     li > ol {
       margin-left: 0rem;
     }
+
+
+    $section-border: 3px;
+
+    // セクションのスタイル
+    h2 {
+      margin-top: 3rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: .5rem;
+      border-bottom: $section-border solid #ddd;
+      position: relative;
+    }
+    h2::before {
+      position: absolute;
+      content: " ";
+      width: 100px;
+      bottom: -$section-border;
+      height: $section-border;
+      background-color: #d32828;
+    }
+    h3 {
+      margin-top: 2rem;
+      padding-bottom: .3rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    h3::before {
+      position: absolute;
+      content: " ";
+      width: 100px;
+      bottom: -3px;
+      height: 1px;
+      background-color: #dadada;
+    }
+    h4 {
+      margin-top: 1rem;
+      margin-bottom: .8rem;
+      font-size: 1rem;
+    }
+    h5 {
+      margin-top: 0.8rem;
+      margin-bottom: .5rem;
+      font-size: .8rem;
+    }
+    h6 {
+      margin-top: 0.5rem;
+      margin-bottom: .3rem;
+      font-size: .8rem;
+    }
+
   }
 
   .toc {
@@ -430,24 +480,48 @@
       font-size: 1.6rem;
     }
     h2 {
-      margin-bottom: .5rem;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
       font-size: 1.4rem;
+      border-bottom: 3px solid #ddd;
+      position: relative;
+    }
+    h2::before {
+      position: absolute;
+      content: " ";
+      width: 100px;
+      bottom: -3px;
+      height: 3px;
+      background-color: rgb(206, 17, 38);
     }
     h3 {
-      margin-bottom: .4rem;
-      font-size: 1.3rem;
+      margin-top: 1.2rem;
+      margin-bottom: .7rem;
+      font-size: 1.2rem;
+      position: relative;
+    }
+    h3::before {
+      position: absolute;
+      content: " ";
+      width: 100px;
+      bottom: -3px;
+      height: 1px;
+      background-color: #dadada;
     }
     h4 {
-      margin-bottom: .3rem;
-      font-size: 1.2rem;
+      margin-top: 1rem;
+      margin-bottom: .5rem;
+      font-size: 1rem;
     }
     h5 {
+      margin-top: 0.8rem;
       margin-bottom: .2rem;
-      font-size: 1.1rem;
+      font-size: .8rem;
     }
     h6 {
+      margin-top: 0.5rem;
       margin-bottom: .1rem;
-      font-size: 1rem;
+      font-size: .8rem;
     }
   }
 }
