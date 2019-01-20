@@ -1,12 +1,9 @@
 ---
-title: 設定いらずのNode製GraphQLサーバー「Graphpack」の使い方
+title: 設定いらずのNode製GraphQLサーバー「Graphpack」の使い方 / Query, Mutation, Subscriptionを試す
 date: '2019-01-18T22:00:00.000+09:00'
 tags:
   - Graphpack
   - GraphQL
-  - Nuxt.js
-  - Apollo Client
-  - Vue.js
 slug: /graphpack-graphql-zero-config-server
 thumbnail: /thumbnail/2019/01/graphpack-graphql-zero-config-server.png
 ---
@@ -20,19 +17,18 @@ thumbnail: /thumbnail/2019/01/graphpack-graphql-zero-config-server.png
 
 このようなユースケースに[Graphpack](https://github.com/glennreyes/graphpack)はピッタリです。
 設定いらずのNode製GraphQLサーバーで**「GraphQLのスキーマとリゾルバーを定義するだけでOK」**、さらに**「[GraphQL Playground IDE](https://github.com/prisma/graphql-playground)が標準搭載」**なのでクライアント側を自前で実装せずとも動作確認できます。<br/>
-今回は、この[Graphpack](https://github.com/glennreyes/graphpack)の使い方について以下の3ステップでご紹介します。
-おまけで最後にNuxt.js+Apolloによりクライアント側実装も載せておきます。
+今回は、この[Graphpack](https://github.com/glennreyes/graphpack)の使い方について以下の5ステップでご紹介します。<br/>
+※ここで紹介するソースコードはGitHub([Takumon/nuxt-graphpack-sample](https://github.com/Takumon/nuxt-graphpack-sample))にもあるので参考にしてみてください。
 
-* 🔰 Graphpackを使ってみる
-* 💪 GraphpackでQuery, Mutation, Subscriptionを実装する・動作確認する
-* ✨ [Nuxt.js](https://ja.nuxtjs.org/)+[Apollo Client](https://www.apollographql.com/docs/react/api/apollo-client.html)でクライアント側を実装する（おまけ）
+* [🔰 Graphpackとは](#1-graphpackとは)
+* [💪 Graphpackを使ってみる](#2-graphpackを使ってみる)
+* [💖 GraphpackでQueryを実装・動作確認する](#3-graphpackでqueryを実装・動作確認する)
+* [✨️ GraphpackでMutationを実装・動作確認する](#4-graphpackでmutationを実装・動作確認する)
+* [💎 GraphpackでSubscriptionを実装・動作確認する](#5-graphpackでsubscriptionを実装・動作確認する)
 
+## 1. Graphpackとは
 
-## Graphpackとは
-
-[**「A minimalistic zero-config GraphQL server」**](https://github.com/glennreyes/graphpack)
-
-Node.js製のゼロコンフィグなミニマルGraphQLサーバで[**「Webpack」**](https://github.com/webpack/webpack),[**「Nodemon」**](https://github.com/remy/nodemon),[**「Apollo Server」**](https://github.com/apollographql/apollo-server) をイイ感じにまとめたライブラリです。感触を掴むだけなら[CodeSandboxのお試し環境](https://codesandbox.io/s/k3qrkl8qlv)が用意されているので、そちらを触ってみるとよいでしょう。
+Node.js製のゼロコンフィグなミニマルGraphQLサーバで[Webpack](https://github.com/webpack/webpack)、[Nodemon](https://github.com/remy/nodemon)、[Apollo Server](https://github.com/apollographql/apollo-server) をイイ感じにまとめたライブラリです。感触を掴むだけなら[CodeSandboxのお試し環境](https://codesandbox.io/s/k3qrkl8qlv)が用意されているので、そちらを触ってみるとよいでしょう。
 [README](https://github.com/glennreyes/graphpack/README.md)では以下8つの特徴をうたっています。
 
 * 📦 **設定いらず**（**ZERO-CONFIG**）！
@@ -45,9 +41,9 @@ Node.js製のゼロコンフィグなミニマルGraphQLサーバで[**「Webpac
 * ⚡️ ES module importsとdynamic importをサポート
 
 
-## 1. Graphpackを使ってみる
+## 2. Graphpackを使ってみる
 
-### 実装
+### 実装してみる
 
 * プロジェクト雛形を作成し、`graphpack` を開発環境用ライブラリとしてインストールします。
 
@@ -100,9 +96,9 @@ export default resolvers;
 ```
 <br/>
 
-### 動作確認
+### 動作確認してみる
 
-* サーバを`npm run dev`で起動して、ブラウザで http://localhost:4000/graphql を開くとGraphQL Playground IDEが表示されます。
+* サーバを`npm run dev`で起動して、ブラウザで http://localhost:4000/ を開くとGraphQL Playground IDEが表示されます。
 
 ![hello-world](hello-world.png)
 
@@ -115,20 +111,20 @@ query {
 ```
 <br/>
 
-* `world!`が返ってきます！
+* `world!`がレスポンスとして返ってきます。
 
 ![hello-world-result](hello-world-result.png)
 
-とても簡単にGraophQLサーバーができ上がりました。
+こんな感じで、とても簡単にGraophQLサーバーができ上がります。
 
 
-## 2. GraphpackでQuery, Mutation, Subscriptionを実装する
+## 3. GraphpackでQueryを実装・動作確認する
 
 ユーザー情報（ID、名前、メール、年齢）を扱う処理を例に実装方法を説明します。
 
-### Query
-#### 実装
-スキーマ定義をして
+### 実装
+
+* ユーザー情報のスキーマ定義します。
 
 ```graphql:title=src/schema.graphql
 type Query {
@@ -145,7 +141,7 @@ type User {
 ```
 <br/>
 
-仮のデータとしてユーザー情報を用意しましょう。
+* 仮のユーザー情報を用意しましょう。
 
 ```javascript:title=src/db.js
 export let users = [
@@ -166,14 +162,14 @@ export let users = [
 <br/>
 
 
-最後にリゾルバーを定義します。データは前手順で作成したものを使います。
+* 最後にリゾルバーを定義します。データは前手順で作成したものを使います。
 
 ```javascript:title=src/resolvers.js
 import { users } from './db';
 
 const resolvers = {
   Query: {
-    // 一件検索
+    // 1件検索
     user: (parent, { id }, context, info) => users.find(user => user.id == id),
     // 複数件検索（簡単のため全件検索としている）
     users: (parent, args, context, info) => users
@@ -183,12 +179,12 @@ const resolvers = {
 <br/>
 
 
-#### 動作確認
+### 動作確認
 
-実装できたら`npm run dev`でサーバ起動して http://localhost:4000/graphql を開いて
-以下のクエリを発行します。
+* 実装できたら`npm run dev`でサーバ起動して http://localhost:4000/ を開いて
+以下のクエリを発行します。するとユーザー一覧が取得できます。
 
-```graphql:title=全権検索用Query
+```graphql:title=ユーザー一覧取得用Query
 query {
   users {
     id
@@ -200,14 +196,12 @@ query {
 ```
 <br/>
 
-すると以下のようにユーザー一覧が取得できます。
-
 ![get-users](get-users.png)
 
 
-一件検索の場合は以下のようなクエリを発行します。
+* 1件検索の場合は以下のようなクエリを発行しましょう。指定したIDのユーザー情報が取得できます。
 
-```graphql:title=一件検索用Query
+```graphql:title=ユーザー情報1件検索用Query
 query {
   user(id: 1) {
     id
@@ -217,19 +211,16 @@ query {
   }
 }
 ```
-<br/>
-
-すると以下のように指定したIDのユーザー情報が取得できます。
 
 ![get-user](get-user.png)
 
 
+## 4. GraphpackでMutationを実装・動作確認する
 
-### Mutation
 
 ユーザー情報の取得はできたので、次にユーザー情報の登録・更新・削除を実装します。
 
-#### 実装
+### 実装
 
 スキーマ定義にMutationを追記します。
 
@@ -324,15 +315,16 @@ const resolvers = {
 <br/>
 
 
-#### 動作確認
+### 動作確認
 
-実装できたら`npm run dev`でサーバ起動して http://localhost:4000/graphql を開きます。
+実装できたら`npm run dev`でサーバ起動して http://localhost:4000/ を開きます。
 
 
-##### 登録
+#### 登録の動作確認
 
-以下のようなMutationを発行すると、登録したユーザー情報がレスポンスとして返ってきます。<br/>
-※ユーザー情報を取得すると、`nuxt taro`も取得できることが確認できます。
+以下のようなMutationを発行すると、登録したユーザー情報が返ってきます。<br/>
+<small>※Mutation実行後にユーザー一覧を取得すると、`nuxt taro`が取得できます。</small>
+
 
 ```graphql:title=登録用Muatation
 mutation {
@@ -352,11 +344,11 @@ mutation {
 ![create-user](create-user.png)
 
 
-##### 登録
+#### 更新の動作確認
 
 今度は'nuxt taro'を更新してみましょう。
 以下のようなMutationを発行すると、更新されたユーザー情報が返ってきます。<br/>
-※一覧を取得すると`nuxt taro`が`nuxt updatedtaro`になっていることを確認できます。
+<small>※Mutation実行後にユーザー一覧を取得すると`nuxt taro`が`nuxt updatedtaro`になっていることを確認できます。</small>
 
 ```graphql:title=更新用Muatation
 mutation {
@@ -378,11 +370,11 @@ mutation {
 
 
 
-##### 削除
+#### 削除の動作確認
 
 最後に'nuxt updatedtaro'を削除してみましょう。
-以下のようなMutationを発行すると、削除されたユーザーがレスポンスとして帰ってきます。<br/>
-※一覧を取得すると`nuxt updatedtaro`がなくなっていることが確認できます。
+以下のようなMutationを発行すると削除されたユーザー情報が返ってきます。<br/>
+<small>※Mutation実行後にユーザー一覧を取得すると`nuxt updatedtaro`がなくなっていることが確認できます。</small>
 
 ```graphql:title=削除用Mutation
 mutation {
@@ -400,10 +392,10 @@ mutation {
 ![delete-user](delete-user.png)
 
 
+## 5. GraphpackでSubscriptionを実装・動作確認する
 
-### Subscription
 
-#### 実装
+### 実装
 
 GraphpackではSubscriptionはデフォルトoffになっています。
 そのためココだけは設定ファイルを作成する必要があります。
@@ -435,7 +427,7 @@ type Subscription {
 <br/>
 
 リゾルバーでSubscriptionを定義し、Mutationも修正します。
-Mutation処理が完了後にSubscriptionを発行できるようにするためです。
+Mutationも修正するのは、Mutation処理が完了後にSubscriptionを発行できるようにするためです。
 
 
 
@@ -497,9 +489,9 @@ const resolvers = {
 ```
 <br/>
 
-#### 動作確認
+### 動作確認
 
-実装できたら`npm run dev`でサーバ起動して http://localhost:4000/graphql を開きます。
+実装できたら`npm run dev`でサーバ起動して http://localhost:4000/ を開きます。
 
 `userCreated`の動作確認をしましょう。
 以下のようなSubscriptionを発行します。
@@ -542,583 +534,10 @@ subscription {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 3. Nuxt.js + Apollo Client でクライアント側を実装する
-
-Graphpackだけでも備え付けの[GraphQL Playground IDE](https://github.com/prisma/graphql-playground)で、動作確認できますが、
-せっかくなのクライアント側も作成してアプリっぽくしましょう。
-今回は[Nuxt.js](https://ja.nuxtjs.org/)+[Apollo Client](https://www.apollographql.com/docs/react/api/apollo-client.html)で作ります✨
-
-### プロジェクト雛形作成
-
-[nuxt-community/starter-template](https://github.com/nuxt-community/starter-template)で雛形を作成します。
-`vue-cli`（雛形作成用コマンド）が入ってない場合はグローバルインストールしましょう。
-
-```
-npm i -g vue-cli
-vue init nuxt-community/starter-template graphpack-client-sample
-cd graphpack-client-sample
-npm i
-npm run dev
-```
-<br/>
-
-http://localhost:3000 にアクセスして以下の画面が表示されればOKです。
-
-![client-1](client-1.png)
-
-
-
-### @nuxtjs/apollo導入
-
-[@nuxtjs/apollo](https://www.npmjs.com/package/@nuxtjs/apollo)をインストールします。
-
-```
-npm i @nuxtjs/apollo
-```
-<br/>
-
-
-`nuxt.config.js`に以下設定を追加します。
-
-```javascript:title=nuxt.config.js
-module.exports = {
-  mode: 'spa',
-  modules: [
-    '@nuxtjs/apollo',
-  ],
-  apollo: {
-    clientConfigs: {
-      default: {
-        // Graphpack側のエンドポイントを指定します。
-        httpEndpoint: 'http://localhost:4000/graphql',
-        // Subscription用にWebSocketの設定も追加します。
-        wsEndpoint: 'ws://localhost:4000/graphql',
-        websocketsOnly: true, 
-      }
-    }
-  },
-  // ・・・
-}
-```
-<br/>
-
-これで下準備は整いました。
-次からは本格的な実装に入っていきます。
-
-
-#### Query
-
-ユーザー情報取得用のクエリ`apollo/queries/getUsers.gql`を作成します。
-※今回は`apollo/queries`や`apollo/mutation`などの配下にgqlファイルを作成することにします。
-
-```qql:title=apollo/queries/getUsers.gql
-query GetUsers {
-    users {
-        id
-        name
-        email
-        age
-    }
-}
-```
-<br/>
-
-
-次に`pages/index.vue`を修正します。
-ここでは[SmartQuery](https://github.com/Akryum/vue-apollo/blob/master/docs/api/smart-query.md)とよばれる、
-「コンポーネントにapolloオブジェクトを定義してApollo Clientを呼び出す」方法を使っています。
-※今回は見た目の話はしないので`<style>`タグ自体削除しています。
-
-
-```javascript:title=pages/index.vue
-<template>
-  <table>
-    <tr>
-      <th>ID</th> 
-      <th>名前</th> 
-      <th>メール</th> 
-      <th>年齢</th>
-    </tr>
-
-    <tr v-for="user in users" :key="user.id">
-      <td>{{user.id}}</td>
-      <td>{{user.name}}</td>
-      <td>{{user.email}}</td>
-      <td>{{user.age}}</td>
-    </tr>
-  </table>
-</template>
-
-<script>
-import getUsersGql from '~/apollo/queries/getUsers.gql'
-
-export default {
-  data() {
-    return {
-      users: [],
-    }
-  },
-  apollo: {
-    users: {
-      query: getUsersGql,
-    }
-  },
-}
-</script>
-```
-<br/>
-
-そうしたら
-1. Graphpack側のサーバを起動
-2. `npm run dev`でクライアントを起動
-3. ブラウザでhttp://localhost:3000 にアクセスして以下の画面が表示されればOKです。
-
-![client-2](client-2.png)
-
-
-
-#### Mutation
-
-ユーザー一覧ができたので、登録、更新、削除処理を追加します。
-
-```gql:title=apollo/mutations/createUser.gql
-mutation($name: String!, $email: String!, $age: Int) {
-  createUser(name: $name, email: $email, age: $age) {
-    id
-    name
-    email
-    age
-  }
-}
-```
-<br/>
-
-```gql:title=apollo/mutations/updateUser.gql
-mutation($id: ID!, $name: String!, $email: String!, $age: Int) {
-  updateUser(id: $id,name: $name,email: $email,age: $age) {
-    id
-    name
-    email
-    age
-  }
-}
-```
-<br/>
-
-```gql:title=apollo/mutations/deleteUser.gql
-mutation($id: ID!) {
-  deleteUser(id: $id) {
-    id
-    name
-    email
-    age
-  }
-}
-```
-<br/>
-
-次にユーザー一覧で、登録、更新、削除ができるようにします。
-index.vueを修正しましょう。
-
-
-```javascript:title=pages/index.vueの一部
-<template>
-  <table>
-    <tr>
-      <th>ID</th> 
-      <th>名前</th> 
-      <th>メール</th> 
-      <th>年齢</th>
-      <th>-</th>
-    </tr>
-
-    <tr v-for="user in users" :key="user.id">
-      <template v-if="user.editable">
-        <td>{{user.id}}</td>
-        <td><input type="text" v-model="user.name"></td>
-        <td><input type="email" v-model="user.email"></td>
-        <td><input type="number" v-model="user.age"></td>
-        <td>
-          <button @click="updateUser(user)">編集完了</button>
-          <button @click="deleteUser(user.id)">削除</button>
-        </td>
-      </template>
-      <template v-else>
-        <td>{{user.id}}</td>
-        <td>{{user.name}}</td>
-        <td>{{user.email}}</td>
-        <td>{{user.age}}</td>
-        <td>
-          <button @click="chengeEditMode(user)">編集</button>
-        </td>
-      </template>
-    </tr>
-
-    <tr>
-      <td></td>
-      <td><input type="text" v-model="newUser.name" placeholder="名前"></td>
-      <td><input type="email" v-model="newUser.email" placeholder="メール"></td>
-      <td><input type="number" v-model="newUser.age" placeholder="年齢"></td>
-      <td>
-        <button @click="createUser(newUser)">登録</button>
-      </td>
-    </tr>
-  </table>
-</template>
-
-<script>
-import getUsersGql from '~/apollo/queries/getUsers.gql'
-import createUserGql from '~/apollo/mutations/createUser.gql'
-import updateUserGql from '~/apollo/mutations/updateUser.gql'
-import deleteUserGql from '~/apollo/mutations/deleteUser.gql'
-
-export default {
-  data() {
-    return {
-      users: [],
-      // 新規登録用ユーザ情報
-      newUser: {
-        name: null,
-        email: null,
-        age: null,
-      }
-    }
-  },
-  apollo: {
-    users: {
-      query: getUsersGql,
-    }
-  },
-  methods: {
-    async createUser({name, email, age}) {
-
-      const { data, error } = await this.$apollo.mutate({
-        mutation: createUserGql,
-        variables: {
-          name,
-          email,
-          age,
-        },
-        // 登録後に、データを再取得したい場合に定義する
-        refetchQueries: [{
-          query: getUsersGql,
-        }]
-      })
-
-      if (error) {
-        console.log(error);
-        return;
-      }
-
-      this.$apollo.queries.users.refresh()
-
-      // 入力フォーム初期化
-      this.newUser.name = null;
-      this.newUser.email = null;
-      this.newUser.age = null;
-    },
-    async updateUser(user) {
-
-      const { data, error } = await this.$apollo.mutate({
-        mutation: updateUserGql,
-        variables: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          age: user.age,
-        },
-        // 更新後に、データを再取得したい場合に定義する
-        refetchQueries: [{
-          query: getUsersGql,
-        }]
-      });
-
-      if (error) {
-        console.log(error);
-        return;
-      }
-
-      // 編集を終了
-      this.chengeEditMode(user);
-    },
-    async deleteUser(id) {
-
-      const { data, error } = await this.$apollo.mutate({
-        mutation: deleteUserGql,
-        variables: {
-          id
-        },
-        // 削除後に、データを再取得したい場合に定義する
-        refetchQueries: [{
-          query: getUsersGql,
-        }]
-      })
-
-      if (error) {
-        console.log(error);
-        return;
-      }
-    },
-    chengeEditMode(user) {
-      const i = this.users.findIndex(u => u.id == user.id)
-      if (i === -1 ) {
-        throw new Error('該当するユーザは存在しません');
-      }
-
-      this.$set(this.users, i, {
-        ...user,
-        editable: !user.editable
-      });
-    }
-  }
-}
-</script>
-```
-<br/>
-
-
-ブラウザを開いてみてください。
-それぞれの以下のようにして操作ができます。
-* **登録：**　最下行に名前、メール、年齢を入力し、登録ボタンをクリック
-* **更新：**　編集ボタンをクリックで編集モードになり、名前、メール、年齢を入力し、編集完了ボタンをクリック
-* **削除：**　編集ボタンをクリックで編集モードになり、削除ボタンをクリック
-
-![client-3](client-3.png)
-![client-4](client-4.png)
-
-
-
-#### Subscription
-
-Subscriptionを使って、ユーザー情報を他の人が編集したときにリアルタイムで編集が反映されるようにします。
-
-```gql:title=apollo/subscriptions/userCreated.gql
-subscription {
-  userCreated {
-    id
-    name
-    email
-    age
-  }
-}
-```
-<br/>
-
-```gql:title=apollo/subscriptions/userUpdated.gql
-subscription {
-  userDeleted {
-    id
-    name
-    email
-    age
-  }
-}
-```
-<br/>
-
-
-```gql:title=apollo/subscriptions/userDeleted.gql
-subscription {
-  userUpdated {
-    id
-    name
-    email
-    age
-  }
-}
-```
-<br/>
-
-index.vueでSubscriptionを実装します。
-templateには一切手をいれません。scriptタグのみ修正します。
-
-```javascript:title=pages/index.vueの一部
-import getUsersGql from '~/apollo/queries/getUsers.gql'
-import createUserGql from '~/apollo/mutations/createUser.gql'
-import updateUserGql from '~/apollo/mutations/updateUser.gql'
-import deleteUserGql from '~/apollo/mutations/deleteUser.gql'
-import userCreatedGql from '~/apollo/subscriptions/userCreated.gql'
-import userUpdatedGql from '~/apollo/subscriptions/userUpdated.gql'
-import userDeletedGql from '~/apollo/subscriptions/userDeleted.gql'
-
-export default {
-  data() {
-    return {
-      users: [],
-      newUser: {
-        name: null,
-        email: null,
-        age: null,
-      }
-    }
-  },
-  apollo: {
-    users: {
-      query: getUsersGql,
-      // サーバ側でイベントが発行された時の処理を定義する
-      subscribeToMore: [
-        {
-          document: userCreatedGql,
-          updateQuery: (prev, { subscriptionData }) => {
-            if (!subscriptionData.data) {
-              return prev;
-            }
-
-            const newUser = subscriptionData.data.userCreated;
-            return prev.users.push(newUser);
-          }
-        },
-        {
-          document: userUpdatedGql,
-          updateQuery: (prev, { subscriptionData }) => {
-            if (!subscriptionData.data) {
-              return prev;
-            }
-
-            const updatedUser = subscriptionData.data.userUpdated;
-            const targetUser = prev.users.find(user => user.id == updatedUser.id);
-            targetUser.name = updatedUser.name;
-            targetUser.email = updatedUser.email;
-            targetUser.age = updatedUser.age;
-
-            return prev.users;
-          }
-        },
-        {
-          document: userDeletedGql,
-          updateQuery: (prev, { subscriptionData }) => {
-            console.log('fdasfadfadfad')
-            if (!subscriptionData.data) {
-              return prev;
-            }
-
-            const deletedUser = subscriptionData.data.userDeleted;
-            const userIndex = prev.users.findIndex(user => user.id == deletedUser.id);
-
-            if (userIndex === -1) throw new Error('User not found');
-
-            prev.users.splice(userIndex, 1);
-
-            return prev.users;
-          }
-        }
-      ]
-    }
-  },
-  methods: {
-    async createUser({name, email, age}) {
-
-      const { data, error } = await this.$apollo.mutate({
-        mutation: createUserGql,
-        variables: {
-          name,
-          email,
-          age,
-        },
-        // refetchQueriesは削除します
-        // refetchQueriesの代わりにSubscriptionでユーザー情報を更新するためです
-      })
-
-      if (error) {
-        console.log(error);
-        return;
-      }
-
-      this.$apollo.queries.users.refresh()
-
-      // 入力フォーム初期化
-      this.newUser.name = null;
-      this.newUser.email = null;
-      this.newUser.age = null;
-    },
-    async updateUser(user) {
-
-      const { data, error } = await this.$apollo.mutate({
-        mutation: updateUserGql,
-        variables: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          age: user.age,
-        },
-        // refetchQueriesは削除します
-        // refetchQueriesの代わりにSubscriptionでユーザー情報を更新するためです
-      });
-
-      if (error) {
-        console.log(error);
-        return;
-      }
-
-      // 編集を終了
-      this.chengeEditMode(user);
-    },
-    async deleteUser(id) {
-
-      const { data, error } = await this.$apollo.mutate({
-        mutation: deleteUserGql,
-        variables: {
-          id
-        },
-        // refetchQueriesは削除します
-        // refetchQueriesの代わりにSubscriptionでユーザー情報を更新するためです
-      })
-
-      if (error) {
-        console.log(error);
-        return;
-      }
-    },
-    chengeEditMode(user) {
-      const i = this.users.findIndex(u => u.id == user.id)
-      if (i === -1 ) {
-        throw new Error('該当するユーザは存在しません');
-      }
-
-      this.$set(this.users, i, {
-        ...user,
-        editable: !user.editable
-      });
-    }
-  }
-}
-```
-<br/>
-
-
-
-2つブラウザを開いてみて、片方で操作してみてください。
-リアルタイムでもう一方のブラウザにユーザー情報の変更が反映されていればOKです。
-
-![client-5](client-5.png)
-![client-6](client-6.png)
-
-
-
-
 ## まとめ
 
-
-クライアント側はとサーバ側で扱う言語を統一できとりあえず簡単にGraphQLを使うことができる[Graphpack](https://github.com/glennreyes/graphpack)を是非使ってみてはいかがでしょうか。
+今回はNode製GraphQLサーバ「Graphpack」の使い方について紹介しました。
+上記で紹介した通り使い方はとても簡単ですので、「とりあえずGraphQLサーバーを立ててみたい！」という方はGraphpackを検討してみてはいかがでしょうか。
 
 
 ## 参考
@@ -1126,10 +545,7 @@ export default {
   * GraphpackでQuery、Mutationの実装方法を紹介している記事です。
 * [Logo design for Graphpack | Steemit](https://steemit.com/utopian-io/@richardbmx/logo-design-for-graphpack-approved-and-used-in-the-project)
   * Gpraphpackのロゴをどういうふうに作ったかのお話です。
-* [GraphQL と Nuxt.js でチャットを作る](https://www.aintek.xyz/posts/graphql-nuxt-chat)
 * [Levvel Blog - A Guide to Subscriptions in GraphQL with Apollo](https://www.levvel.io/our-ideas/A-Guide-to-Subscriptions-in-GraphQL-with-Apollo)
-* [the-road-to-graphql/fullstack-apollo-subscription-example: A minimal Apollo Server 2 with Apollo Client 2 with Subscriptions application.](https://github.com/the-road-to-graphql/fullstack-apollo-subscription-example)
-* [bmsantos/apollo-graphql-subscriptions-example: Apollo GraphQL Subscriptions issue](https://github.com/bmsantos/apollo-graphql-subscriptions-example)
 
 
 ## 関連記事
