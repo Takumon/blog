@@ -10,6 +10,7 @@ import Seo from '../seo';
 import Footer from '../footer';
 import Bio from '../bio';
 import Rss from '../rss';
+import UserHeat from '../user-heat';
 
 
 export default class Layout extends React.Component {
@@ -69,6 +70,7 @@ export default class Layout extends React.Component {
 
     return (
       <div className={styles.root_container}>
+        <UserHeat />
         {header}
         {children}
         <Footer isRoot={isRoot} />
