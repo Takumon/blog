@@ -1,4 +1,717 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Mon, 21 Jan 2019 13:04:52 GMT</lastBuildDate><item><title><![CDATA[懇親会で飛び込みLTに参加した / 「JavaScriptつまみ食い LT 会 ～ つまみ食い LT 大会！」の感想]]></title><description><![CDATA[なにこれ 2019/1/19(土)、 JavaScriptつまみ食い LT 会 #4 ～ つまみ食い LT 大会！ で懇親会にて飛び込みLTに参加しました。勉強会の様子も含めLTの感想を書きます。 どんな勉強会だったか 今回で開催5回目となり、…]]></description><link>https://takumon.com//impression-of-cherrypick-js-20190119</link><guid isPermaLink="false">https://takumon.com//impression-of-cherrypick-js-20190119</guid><pubDate>Sun, 20 Jan 2019 18:30:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/01/impression-of-cherrypick-js-20190119.png&quot; alt=&quot;Graphpack&quot;&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Wed, 23 Jan 2019 10:46:54 GMT</lastBuildDate><item><title><![CDATA[設定いらずのNode製GraphQLサーバー「Graphpack」の使い方 / Query, Mutation, Subscriptionを試す]]></title><description><![CDATA[なにこれ 「とりあえずクライアント側と同じJavaScriptで手っ取り早くGraphQLサーバー立てたい！」 このようなユースケースに Graphpack はピッタリです。
+設定いらずのNode製GraphQLサーバーで  「GraphQL…]]></description><link>https://takumon.com//graphpack-graphql-zero-config-server</link><guid isPermaLink="false">https://takumon.com//graphpack-graphql-zero-config-server</guid><pubDate>Wed, 23 Jan 2019 10:50:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/01/graphpack-graphql-zero-config-server.png&quot; alt=&quot;Graphpack&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;「とりあえずクライアント側と同じJavaScriptで手っ取り早くGraphQLサーバー立てたい！」&lt;/strong&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;このようなユースケースに&lt;a href=&quot;https://github.com/glennreyes/graphpack&quot;&gt;Graphpack&lt;/a&gt;はピッタリです。
+設定いらずのNode製GraphQLサーバーで &lt;strong&gt;「GraphQLのスキーマとリゾルバーを定義するだけでOK」&lt;/strong&gt;、さらに &lt;strong&gt;「&lt;a href=&quot;https://github.com/prisma/graphql-playground&quot;&gt;GraphQL Playground IDE&lt;/a&gt;が標準搭載」&lt;/strong&gt;なのでクライアント側を自前で実装せずとも動作確認できます。&lt;br/&gt;
+今回は、この&lt;a href=&quot;https://github.com/glennreyes/graphpack&quot;&gt;Graphpack&lt;/a&gt;の使い方について以下の5ステップでご紹介します。&lt;br/&gt;
+※ここで紹介するソースコードはGitHub(&lt;a href=&quot;https://github.com/Takumon/nuxt-graphpack-sample&quot;&gt;Takumon/nuxt-graphpack-sample&lt;/a&gt;)にもあるので参考にしてみてください。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-graphpack%E3%81%A8%E3%81%AF&quot;&gt;🔰 Graphpackとは&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-graphpack%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B&quot;&gt;💪 Graphpackを使ってみる&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3-graphpack%E3%81%A7query%E3%82%92%E5%AE%9F%E8%A3%85%E3%83%BB%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B&quot;&gt;💖 GraphpackでQueryを実装・動作確認する&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#4-graphpack%E3%81%A7mutation%E3%82%92%E5%AE%9F%E8%A3%85%E3%83%BB%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B&quot;&gt;✨️ GraphpackでMutationを実装・動作確認する&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#5-graphpack%E3%81%A7subscription%E3%82%92%E5%AE%9F%E8%A3%85%E3%83%BB%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B&quot;&gt;💎 GraphpackでSubscriptionを実装・動作確認する&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;1-graphpackとは&quot;&gt;&lt;a href=&quot;#1-graphpack%E3%81%A8%E3%81%AF&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. Graphpackとは&lt;/h2&gt;
+&lt;p&gt;Node.js製のゼロコンフィグなミニマルGraphQLサーバーで&lt;a href=&quot;https://github.com/webpack/webpack&quot;&gt;Webpack&lt;/a&gt;、&lt;a href=&quot;https://github.com/remy/nodemon&quot;&gt;Nodemon&lt;/a&gt;、&lt;a href=&quot;https://github.com/apollographql/apollo-server&quot;&gt;Apollo Server&lt;/a&gt; をイイ感じにまとめたライブラリです。感触を掴むだけなら&lt;a href=&quot;https://codesandbox.io/s/k3qrkl8qlv&quot;&gt;CodeSandboxのお試し環境&lt;/a&gt;が用意されているので、そちらを触ってみるとよいでしょう。
+&lt;a href=&quot;https://github.com/glennreyes/graphpack/README.md&quot;&gt;README&lt;/a&gt;では以下8つの特徴をうたっています。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;📦 &lt;strong&gt;設定いらず&lt;/strong&gt;（&lt;strong&gt;ZERO-CONFIG&lt;/strong&gt;）！&lt;/li&gt;
+&lt;li&gt;🚦 ライブリロード機能組み込み済！&lt;/li&gt;
+&lt;li&gt;🚨 わかりやすいエラーメッセージ！&lt;/li&gt;
+&lt;li&gt;🎮 &lt;a href=&quot;https://github.com/prisma/graphql-playground&quot;&gt;GraphQL Playground IDE&lt;/a&gt; 標準装備！&lt;/li&gt;
+&lt;li&gt;⭐️ SDLでスキーマ定義可能（&lt;a href=&quot;https://github.com/prisma/graphql-import&quot;&gt;GraphQL imports&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;💖 TypeScriptをサポート&lt;/li&gt;
+&lt;li&gt;🔥 爆速ビルド&lt;/li&gt;
+&lt;li&gt;⚡️ ES module importsとdynamic importをサポート&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;2-graphpackを使ってみる&quot;&gt;&lt;a href=&quot;#2-graphpack%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. Graphpackを使ってみる&lt;/h2&gt;
+&lt;h3 id=&quot;実装してみる&quot;&gt;&lt;a href=&quot;#%E5%AE%9F%E8%A3%85%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;実装してみる&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;プロジェクト雛形を作成し、&lt;code class=&quot;language-text&quot;&gt;graphpack&lt;/code&gt; を開発環境用ライブラリとしてインストールします。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;mkdir graphpack-sample
+cd graphpack-sample
+npm init
+npm i -D graphpack&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;src/schema.graphql&lt;/code&gt;と&lt;code class=&quot;language-text&quot;&gt;src/resolver.js&lt;/code&gt;を作成します。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;プロジェクト構成&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;txt&quot;&gt;&lt;pre class=&quot;language-txt&quot;&gt;&lt;code class=&quot;language-txt&quot;&gt;graphpack-sample
+└── src
+     ├── resolvers.js
+     └── schema.graphql&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;src/scheme.graphql&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;graphql&quot;&gt;&lt;pre class=&quot;language-graphql&quot;&gt;&lt;code class=&quot;language-graphql&quot;&gt;type Query &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token attr-name&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; String
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;src/resolvers.graphql&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; resolvers &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  Query&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    hello&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;world!&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; resolvers&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;package.json&lt;/code&gt;に以下のスクリプトを追記します。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;package.jsonの一部&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;json&quot;&gt;&lt;pre class=&quot;language-json&quot;&gt;&lt;code class=&quot;language-json&quot;&gt;  &lt;span class=&quot;token property&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;dev&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;graphpack&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;build&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;graphpack build&quot;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;h3 id=&quot;動作確認してみる&quot;&gt;&lt;a href=&quot;#%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;動作確認してみる&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;サーバーを&lt;code class=&quot;language-text&quot;&gt;npm run dev&lt;/code&gt;で起動して、ブラウザで &lt;a href=&quot;http://localhost:4000/&quot;&gt;http://localhost:4000/&lt;/a&gt; を開くとGraphQL Playground IDEが表示されます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 61.67763157894737%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAA7DAAAOwwHHb6hkAAACKklEQVQoz3WSy27TQBSG/QaUxE6ci52bnZg0GY+dkubSXIpaVMGKBZtKsELd8QbskBCrqmqUkpAI1Fdgwa5VrYZ2VSxWiHcAeYsaJ4czuSkNyeLTsT0+n/8zY+5g/+DTh+OTn0fHjZtGo2kfHh7ZRKf22n2P7fEKCL8aD2/zgs+uVOs3e3tPftUf7Xa4Tvf0+rv9Ay4uv8Hl1TVYvSvofj6FZqsNJ+2Pc3Tu3DdbY8bXbWh1uvD23fseF9+oXSTz2yAmjVs+qg3WQvFBUM0MJE0fhLAGV8DWpRQZ1XCK3MYyOZDT5hknkZKlbtQhqpfduLEF4fVNkLMFkDKb4E+a4FMp8IoOgkLBlzRGiKkcvl+CCCmyPsA+V324DeF04ZwTVGoFtRwEUqaLsAqTe2w04Z6chqfPX8D+q9fgT+PHaAUkHT9MyjNCpOxKtApyoXbOYQKLNftV6iKwiDeWAVLagcLjZxDIFEeyJbgRswaFNy8xoUItPxtF0V0EFmFSD0p9D/L/JZvDlY0axHd3xkKRCVckZFK2LrHGSaKIUYGoUYWoWYUIbsFUGNSKc0KFusvSTWs4W5qNyPaRiZhYplszIdY7CfvYOByjD1GE0FFlz1A4RNkQm5bRZ8JQtnTGTrknTn6PEcp0XGMCXrORWTp2wstg22DWcYqyxQmJ7NeAqv8VVf1PWDOdWDbviApxvNG0w8fWHX5SfQniYFqELKA7QoL8DmpmP5A0v/wDjn13J8/rnr8AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;hello-world&quot;
+        title=&quot;&quot;
+        src=&quot;/static/17cbf1d9923125e72bcc7c16bd61eec3/fb8a0/hello-world.png&quot;
+        srcset=&quot;/static/17cbf1d9923125e72bcc7c16bd61eec3/1a291/hello-world.png 148w,
+/static/17cbf1d9923125e72bcc7c16bd61eec3/2bc4a/hello-world.png 295w,
+/static/17cbf1d9923125e72bcc7c16bd61eec3/fb8a0/hello-world.png 590w,
+/static/17cbf1d9923125e72bcc7c16bd61eec3/526de/hello-world.png 885w,
+/static/17cbf1d9923125e72bcc7c16bd61eec3/fa2eb/hello-world.png 1180w,
+/static/17cbf1d9923125e72bcc7c16bd61eec3/84430/hello-world.png 1216w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;試しに以下のQueryを実行してみましょう。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;query {
+  hello
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;world!&lt;/code&gt;がレスポンスとして返ってきます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 61.012526096033405%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABcRAAAXEQHKJvM/AAACkklEQVQoz3WSy27TQBSG/QIgpLSxYydOnDiOZ3yL44SEXEqrUimhVAEJAUIIWMEOsanEG3DZ0gVtU5LSSogVT9As2kDVRWWxQWIH2SLxAK2tw7GThlLB4tM/tme+OTPHzLPHT3vdtc7X1dU3h531dXdl5bVbq9VcVc25lBCX/IeTb5RSt9VqHV5vt7+1ms11Znvr/cGh+wV2P32Gwf4B5j50321D520PNnqbsNHdHOXJeEyn2wsJxmsbXehubsGLl6/2mHStvZstL0BUNo4jScW/IEh+TKa+kNXD5DJ0klF5BCtrfkwxfC6YgxnL6kdxakOSWDtMQq8MssVZkKyal7brkNDLkDQqIOoV4JQCRLM2RDIWsIgo5yEhW5BSbFDNS6DgvCBpvurpzmUQSanPTEvagCcliKmOx+JENlcI4XAcyM6LBBZvP4An9x+BTQrg5KtgosjUyhM0rexVMWmh0meiaX0g4C6CVvKSqgMScXDnMggolUgReKzImWlCe34JYlYdBGcOeGcGeLsRPvNI1Gp4Jr67snyrz5wT1UGt2IDlVtt7ONeCewtL8Lx9E+7MNuFqdR7uzi/CDYnAtbgCMXsGRKMKCbM2QUR4s+5ZKLZmG31mSqIDPudAQrE9LpsHFuGwKl7JY6MsCN4JePwSLYWCOC5MjImPpVipZ2IqGTsQagMWL39atrxAcJpAHuQ0Cm28Z/FUZX9VOBaqpBgK94JusrJ1jAJ/hIW/hjVJbI6PQl+w6j5W4/NnwDs80gOh6uwEwgMOm8GGx7VHKH8Iu41XUqIXQcNF5Aw0OCpSGVW4x0SSuY+cbP7kZOOHkLOHIi0O2YwxjKTIcCpFQyISHSbT+jCHqfyLFP1OZPOXIBsffgOyq4DRTTBReQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;hello-world-result&quot;
+        title=&quot;&quot;
+        src=&quot;/static/64ee442f811af0c8c03bf5f21d729ca1/fb8a0/hello-world-result.png&quot;
+        srcset=&quot;/static/64ee442f811af0c8c03bf5f21d729ca1/1a291/hello-world-result.png 148w,
+/static/64ee442f811af0c8c03bf5f21d729ca1/2bc4a/hello-world-result.png 295w,
+/static/64ee442f811af0c8c03bf5f21d729ca1/fb8a0/hello-world-result.png 590w,
+/static/64ee442f811af0c8c03bf5f21d729ca1/526de/hello-world-result.png 885w,
+/static/64ee442f811af0c8c03bf5f21d729ca1/fa2eb/hello-world-result.png 1180w,
+/static/64ee442f811af0c8c03bf5f21d729ca1/08f6a/hello-world-result.png 1770w,
+/static/64ee442f811af0c8c03bf5f21d729ca1/fb12d/hello-world-result.png 1916w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/p&gt;
+&lt;p&gt;こんな感じで、とても簡単にGraophQLサーバーが立てられます。&lt;/p&gt;
+&lt;h2 id=&quot;3-graphpackでqueryを実装・動作確認する&quot;&gt;&lt;a href=&quot;#3-graphpack%E3%81%A7query%E3%82%92%E5%AE%9F%E8%A3%85%E3%83%BB%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. GraphpackでQueryを実装・動作確認する&lt;/h2&gt;
+&lt;p&gt;ユーザー情報（ID、名前、メール、年齢）を扱う処理を例に実装方法を説明します。&lt;/p&gt;
+&lt;h3 id=&quot;実装&quot;&gt;&lt;a href=&quot;#%E5%AE%9F%E8%A3%85&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;実装&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;ユーザー情報のスキーマ定義します。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;src/schema.graphql&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;graphql&quot;&gt;&lt;pre class=&quot;language-graphql&quot;&gt;&lt;code class=&quot;language-graphql&quot;&gt;type Query &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token attr-name&quot;&gt;users&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;User&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+  user&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ID&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; User&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+type User &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token attr-name&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ID&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+  &lt;span class=&quot;token attr-name&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; String&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+  &lt;span class=&quot;token attr-name&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; String&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+  &lt;span class=&quot;token attr-name&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Int
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;ul&gt;
+&lt;li&gt;仮のユーザー情報を用意しましょう。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;src/db.js&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; users &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    id&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    name&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;gatsby taro&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    email&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;gatsby.taro@gmail.com&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    age&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;32&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    id&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    name&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;gridsome taro&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    email&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;gridsom.taro@gmail.com&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    age&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;55&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;ul&gt;
+&lt;li&gt;最後にリゾルバーを定義します。データは前手順で作成したものを使います。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;src/resolvers.js&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; users &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;./db&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; resolvers &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  Query&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// 1件検索&lt;/span&gt;
+    user&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parent&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; id &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; context&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; info&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; users&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;user &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; user&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;id &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; id&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// 複数件検索（簡単のため全件検索としている）&lt;/span&gt;
+    users&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parent&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; args&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; context&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; info&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; users
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;h3 id=&quot;動作確認&quot;&gt;&lt;a href=&quot;#%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;動作確認&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;実装できたら&lt;code class=&quot;language-text&quot;&gt;npm run dev&lt;/code&gt;でサーバー起動して &lt;a href=&quot;http://localhost:4000/&quot;&gt;http://localhost:4000/&lt;/a&gt; を開いて
+以下のクエリを発行します。するとユーザー一覧が取得できます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;ユーザー一覧取得用Query&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;graphql&quot;&gt;&lt;pre class=&quot;language-graphql&quot;&gt;&lt;code class=&quot;language-graphql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  users &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    id
+    name
+    email
+    age
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 76.40522875816994%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABcRAAAXEQHKJvM/AAADdUlEQVQ4y3WSS4zbVBiFDQwDohlP3nacd+K3E8d5J86kTjLtTKcjBEVCIMSSBZXYICEkBBJiRSUeUxixLDNTlnTFDiJUtWTBggVkURWhVkAXkA0bdtTW4bczrUZCLD79N9fOueeca+b1l1/95LPL+z98tPfxzct7e7P9/U9n29tbs5WVldkTq6uz1f/Bf+a/w7LszHGc78aj0ffdweAL5qsvr9289/s93Lp9G7/cuYu7v/6Gb6/fwJWDQxwcXQ34/JiDw6sP905y5eAIh4dHeO/9Sz8z+eELX5e6W4iXzX/Ws6p7Kplz43nFFaTqQzKKGZCSl3C058P7U6y6saJ2X5BNCKr1IyPUxlOpfw683nWz5gAJqY5oyaQDagFrWQ2ryTIe58qI8CISgoy8ZCFXNpEuVlCQ6yjJdS9vdBCRrTkTzmnTpNpBUmm7vNYBp7aRJPzp/46JdYidCezOGDU6wJQaqNMzy0dpBWvC6yttMtCcM6cEaZqtO1CH267UHuEkSneCtN7Ba2+9iw/eeBu82oLQdBCvbCCq24gaNmLEujHwalobyjNn5kworUyztQG08ZYr9yZQyI0v9ACZhAXTRsfoIqP1wNccpMzT4Ct9cHqfquojofU9y+xg/OErvkN5mqttQJ+cc9X+JlQS8dF6m8dMqJsmKiUrEEyaDoQWdd4i0Z5DB2yQ44HnV1BwhnNmLaMEHcaVprtOfYWJGPXE0mRFC3FaR8oWLJoZvQeuOiSRMTiKzZFzvjpYCsot8OXGMnJCbEAQLdes9GBUurSuo2v20KlvIE1rpkiXQS6zFC8QNIc0bXDUH6f1ETdsz6JLEdTWnHksJU2fd3Zw4fS2e/Hs03hptIMhRb608yz2nnsRMl3EbrIAh1zyQWTqtLWzjNynyBZFri4dCgoJPkIO36E/v3n+grtrb+K8fQYXN3dh0O2uZHSwOQMjQYJNgsKxQ4565IwBxV66XDr0BemzCWXUb+LlOnjRuh8tml6E4ETLixarHluoemHi0ZLlUWQvX7E9jvqi2/VIKIDXbS9h2O5x5J+YtbRynS2aCJETNl8JeLBeL1Sx7u8VTDSo5xQ5jBCxE8SJMFGjyCm5eYsJpcrXwnn970he/yNaMBacZC0EtbFgM8riqZS4CAnS4kkilyovqlxxofGlhf5f/mwK4l/hvHbjXz/X08DUq3RBAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;get-users&quot;
+        title=&quot;&quot;
+        src=&quot;/static/2e9a53c6d98d2444c40ee1f8a777b552/fb8a0/get-users.png&quot;
+        srcset=&quot;/static/2e9a53c6d98d2444c40ee1f8a777b552/1a291/get-users.png 148w,
+/static/2e9a53c6d98d2444c40ee1f8a777b552/2bc4a/get-users.png 295w,
+/static/2e9a53c6d98d2444c40ee1f8a777b552/fb8a0/get-users.png 590w,
+/static/2e9a53c6d98d2444c40ee1f8a777b552/526de/get-users.png 885w,
+/static/2e9a53c6d98d2444c40ee1f8a777b552/fa2eb/get-users.png 1180w,
+/static/2e9a53c6d98d2444c40ee1f8a777b552/2f365/get-users.png 1530w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1件検索の場合は以下のようなクエリを発行しましょう。指定したIDのユーザー情報が取得できます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;ユーザー情報1件検索用Query&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;graphql&quot;&gt;&lt;pre class=&quot;language-graphql&quot;&gt;&lt;code class=&quot;language-graphql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  user&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    id
+    name
+    email
+    age
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 61.65611814345991%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABcRAAAXEQHKJvM/AAACr0lEQVQoz3WSTWsTURSGsxcxZpJ2Jt+ZZJLM151MJpk0aZo20ppitRAoFHWhbkQQoT/AjQsFcVebWFtB/Re6kEobBfEjCOJaCy5caMCV0GRez6QN1KKLhzP3zj3vfc8513P1/JUnm631z2uttfftdru7urrazRlG1+v1djmO63I+37/hfF0fxYDf363Vah/m5xsfp+v1555We/PN23ddvHi5ja2dV9ja7uDR46dorW/gwcbmf2k//Jv7rTZu3b7z3ROvLG6n7FmMS2zPH88OvCFxIKTUQTijD+MInhg/RDDDDqH3I4qJkGx88YS1UkcqzCBuVPqiWUVMtRHTJxAl+EweY1IOgVQOgmQiQtElljaRYWWk6UyaomJOOmp+igSLux5/Qu0ISglC1uqPU7LLWMoYIpCgNyrjzPIlrFy+Bks2UTDKMOg8k20wxaZvG5piO8VsAbpd3vUERK0TVIsIsmJfoJt5EhwhuO4SGrTKLM7WzyDMJhG25xCyagiaUwjmCKMK3qw5SWUCCzcv7gsKsgVes/qcyOAVdXDk7mSS4TjhJY4RGSpZpORoaQGxiTqi5WlEbcKiUo2qk9HKsE7VSDBJDsmuL8n6uVwFDTrcrJ3GUnUWdxeauNFYxHyaoSlqCJs1RMhVhFWHbiN0gQu5dLJ6BYqUpx6KaodP592e0aQKWGmcw3USuTAzj3vNZSxNzUEksRnqZ9Q4EDrCSFBT3KGI2o4rSMPY45LMUTXbUfWSE5ctR5QLDp8ynBOS6ejU+CibdARKDh7CLZc3qoM0Capy4asr+Hr4PFL7E3Z7R+UPn4r/YG+M/heUIhRWgUSO0kdIEjnqoSYXvnm4ePYZL7HffIr9CGXMXkIr9gSJ9bi43AsklJ4/rvR8FBOEQntZWmeHccRw/VNP6r+iKf3TH35igAJgECn4AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;get-user&quot;
+        title=&quot;&quot;
+        src=&quot;/static/f5bb7db9af2113a5374565973d0413ab/fb8a0/get-user.png&quot;
+        srcset=&quot;/static/f5bb7db9af2113a5374565973d0413ab/1a291/get-user.png 148w,
+/static/f5bb7db9af2113a5374565973d0413ab/2bc4a/get-user.png 295w,
+/static/f5bb7db9af2113a5374565973d0413ab/fb8a0/get-user.png 590w,
+/static/f5bb7db9af2113a5374565973d0413ab/526de/get-user.png 885w,
+/static/f5bb7db9af2113a5374565973d0413ab/fa2eb/get-user.png 1180w,
+/static/f5bb7db9af2113a5374565973d0413ab/08f6a/get-user.png 1770w,
+/static/f5bb7db9af2113a5374565973d0413ab/cf391/get-user.png 1896w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/p&gt;
+&lt;h2 id=&quot;4-graphpackでmutationを実装・動作確認する&quot;&gt;&lt;a href=&quot;#4-graphpack%E3%81%A7mutation%E3%82%92%E5%AE%9F%E8%A3%85%E3%83%BB%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;4. GraphpackでMutationを実装・動作確認する&lt;/h2&gt;
+&lt;p&gt;ユーザー情報が取得できたので、次はユーザー情報の登録・更新・削除を実装します。&lt;/p&gt;
+&lt;h3 id=&quot;実装-1&quot;&gt;&lt;a href=&quot;#%E5%AE%9F%E8%A3%85-1&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;実装&lt;/h3&gt;
+&lt;p&gt;スキーマ定義にMutationを追記します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;src/schema.graphqlの一部&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;graphql&quot;&gt;&lt;pre class=&quot;language-graphql&quot;&gt;&lt;code class=&quot;language-graphql&quot;&gt;type Mutation &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  // 登録
+  createUser&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; String&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; String&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Int
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; User&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+  
+  // 更新
+  updateUser&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ID&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; String&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; String&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Int
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; User&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+  
+  // 削除
+  deleteUser&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ID&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; User&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;これはGraphQLとは関係ありませんが、ユーザー情報登録時のID採番用ロジックを&lt;code class=&quot;language-text&quot;&gt;db.js&lt;/code&gt;に追記します。
+初期状態でユーザー情報が2件なので、採番用IDは3から始まるようにします。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;src/db.js&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; users &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    id&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    name&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;gatsby taro&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    email&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;gatsby.taro@gmail.com&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    age&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;32&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    id&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    name&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;gridsome taro&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    email&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;gridsom.taro@gmail.com&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    age&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;55&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// 採番用ID(3から始まるようにする)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; idSequence &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// 採番処理&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;generateId&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;++&lt;/span&gt;idSequence&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;リゾルバーにMutationを追記します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;src/resolvers.jsの一部&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; users&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; generateId &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;./db&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; resolvers &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  Query&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// ・・・&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  Mutation&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    createUser&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parent&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; name&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; email&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; age &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; context&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; info&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; newUser &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; id&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;generateId&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; name&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; email&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; age&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      users&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;newUser&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; newUser&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    updateUser&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parent&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; id&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; name&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; email&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; age &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; context&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; info&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; updatedUser &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; users&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;user &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; user&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;id &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; id&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      updatedUser&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; name&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      updatedUser&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;email &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; email&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      updatedUser&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;age &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; age&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; updatedUser&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    deleteUser&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parent&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; id &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; context&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; info&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; userIndex &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; users&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;findIndex&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;user &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; user&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;id &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; id&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;userIndex &lt;span class=&quot;token operator&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;User not found&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;deletedUser&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; users&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;splice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;userIndex&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; deletedUser&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// ・・・&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;h3 id=&quot;動作確認-1&quot;&gt;&lt;a href=&quot;#%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D-1&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;動作確認&lt;/h3&gt;
+&lt;p&gt;実装できたら&lt;code class=&quot;language-text&quot;&gt;npm run dev&lt;/code&gt;でサーバー起動して &lt;a href=&quot;http://localhost:4000/&quot;&gt;http://localhost:4000/&lt;/a&gt; を開きます。&lt;/p&gt;
+&lt;h4 id=&quot;登録の動作確認&quot;&gt;&lt;a href=&quot;#%E7%99%BB%E9%8C%B2%E3%81%AE%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;登録の動作確認&lt;/h4&gt;
+&lt;p&gt;以下のようなMutationを発行すると、登録したユーザー情報が返ってきます。&lt;br/&gt;
+&lt;small&gt;※登録後にユーザー一覧を取得すると、&lt;code class=&quot;language-text&quot;&gt;nuxt taro&lt;/code&gt;が取得できます。&lt;/small&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;登録用Muatation&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;graphql&quot;&gt;&lt;pre class=&quot;language-graphql&quot;&gt;&lt;code class=&quot;language-graphql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;mutation&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  createUser&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;nuxt taro&quot;&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;nuxt.taro@gmail.com&quot;&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;43&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    id
+    name
+    email
+    age
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 77.1108179419525%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABcRAAAXEQHKJvM/AAADRklEQVQ4y4WTWW8bVRiGJxCVoOAk9ZoZYs9iezybZ2yPdzuNx1tjR0rBgIQKQqAKIcpyiwRI3MAf4I4lKYoQXHENbgBV/Al6RS9Y+h/ao/PyjeNUgCJx8ej9dM6cZ75zzozw9Tff3bn/x338evcufrt3D7//+Rdun/6Ezz7/AkfHt/Dl0fGFHC3z+NZXOKbnTk5O8NHHn/wi7I8r3/tX+tD84EFKL7OobLCUZjHF9pni+Ex1qkwr1hbIVGcoM5Rpmk8vUzRKD2gONH5bkL36XKsGkJw2k+wWotkSYllvwUbGxpqoYzWhYSWu4rKYRzyVhZQ2odD8jmxDzrrQch6TzTq28qVTIaJ685Tdhuh1mVRsYttukLy54GmnhYTuo351hmeuXYevuXANH26hCs+oU107S7POmiat06unwnrGnGdKu6gOp6zUHqPUGMNpDGE2+jCadBSVXUyv38DNV99ELl9Gsj5C3OshZrURJcKMWG1W9tpovn6NhLI1V7wO6t0xsxojuCRzKa3GAHo9gNkc0FZ8KIqHAnWT8Pch+T2IfhdimSgupKxSaqP11izs0KIOuzC6I5YnwTn6EoM6jdP56CQ1KROVEbbdPaSoiVSlS3UHMafDwq3L2cqp8JRszxV6U3E0YWE3FhGmsaAPqzVE8pGwgRidd8pq0dgZYR212yRsQDXoDDdVZx6jBZtOg8XMGuJGFRJdjEwXlHbOWKVL0PQqDOriXBheZGpZPxIWSLhCW36lM8S3h8+x1zoDzHavQjOrELZ1rEgGnkxb6Is5tOlzytKi+P8JH98x5od7U7w/fZa9N53hJnGjf4AP+xO83Z+iQJ0Okiqu/Ff4D/7dYdqcv9Sb4oXdMXuxN+GTZp9/cDDjnx4+z98ZHHDV8LmgejxXqHG6ZU6LOUl4kjK5rEOhey4U0tYPb/QmeHd8+DCo9Xivtsdf3tvnObPGads8krH5hupyQ69ym6QJkkgkEZeENY09rND5aqFwQ7F+XJMdrGVMRBQHMb2MCP0R6zsGNjMWIvSbrRMx2YK1oxOFC9Bhq0VsacWfhUtxsXJZlIdRSQ62JCVIKvkgkc4Ga3EpuBQTFzxBPBbdDgRKIcyLSKaHq3HR/xsjlMuiDlHQ6gAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;create-user&quot;
+        title=&quot;&quot;
+        src=&quot;/static/9c4b0f6957283d51fb598eb253db3645/fb8a0/create-user.png&quot;
+        srcset=&quot;/static/9c4b0f6957283d51fb598eb253db3645/1a291/create-user.png 148w,
+/static/9c4b0f6957283d51fb598eb253db3645/2bc4a/create-user.png 295w,
+/static/9c4b0f6957283d51fb598eb253db3645/fb8a0/create-user.png 590w,
+/static/9c4b0f6957283d51fb598eb253db3645/526de/create-user.png 885w,
+/static/9c4b0f6957283d51fb598eb253db3645/fa2eb/create-user.png 1180w,
+/static/9c4b0f6957283d51fb598eb253db3645/25fe2/create-user.png 1516w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/p&gt;
+&lt;h4 id=&quot;更新の動作確認&quot;&gt;&lt;a href=&quot;#%E6%9B%B4%E6%96%B0%E3%81%AE%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;更新の動作確認&lt;/h4&gt;
+&lt;p&gt;今度は&lt;code class=&quot;language-text&quot;&gt;nuxt taro&lt;/code&gt;を更新してみましょう。
+以下のようなMutationを発行すると、更新されたユーザー情報が返ってきます。&lt;br/&gt;
+&lt;small&gt;※更新後にユーザー一覧を取得すると&lt;code class=&quot;language-text&quot;&gt;nuxt taro&lt;/code&gt;が&lt;code class=&quot;language-text&quot;&gt;nuxt updatedtaro&lt;/code&gt;になっていることを確認できます。&lt;/small&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;更新用Muatation&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;graphql&quot;&gt;&lt;pre class=&quot;language-graphql&quot;&gt;&lt;code class=&quot;language-graphql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;mutation&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  updateUser&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;nuxt updatedtaro&quot;&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;nuxt.updatedtaro@gmail.com&quot;&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;44&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    id
+    name
+    email
+    age
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 77.21268163804493%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABcRAAAXEQHKJvM/AAADb0lEQVQ4y3WTW28bRRTHN1XVIFE7rS9Zx469Xi/enb04a+/F60scO74kdiHIJlyEkCiqEA9IIMQjEhISDyA+AbekKALeeG5XEKnfgj7RBy79DNBZ/zl2rFZC5eGnOTuj/c2Zc2aE73/86d7DPx7i1/v38duDB/j9z7/w8y/n+Orrb3Byehvfnpw+ndOL8fT2dzghzs7O8Olnn98TJgfuHa87gOL1/xE1hycknYslgxdNd4lsebxU8blClCyX8Li8WDOci9F0eF6z/5ZND1LFuyNIth+W3C6yZotnzSYSShVJxV4SL5h4ZkvF5XQJaykZV3IMV7IarhYtJFUH8ZKNRNlBSnO5aDZwvVwNhZi8E4pmC1v2Ls9VmtgyA2StBnJWc0ladeGNpphN30BQqsDRHDg05zIfruYtR4/5vK4HyKh+KDyb10Op1oE9eJ7rzSGMYACdUOv7YI0+5NouDl+7ifdvvQujXIPkDZHf2UNObyDLaGMizRrcp2Ra70xJKBmhtNNCq3PA7eAQfjBGPZigFhzACoZgQR9xKoMs23iOBUh5E2TcHkSvA7HeRcbp4HqlzWu1NnbfOyZhwQiL1V1U2ge8XL/IbIFW76/YR4KOppZdaHSsTWeEjN2FWG1DpOwzRLLa4TatyYoTClclM5RIaA7GXKds9MZgmZW2YhEnNHcpZEYDSaq3aDSxqV8gEgmjxXcoe4V5obBRtMIMHTnT3Oc5qmWekN09ML8HdcWioxp1U2X1x8JFIy8godnmO5ShopFwjZpyRMf68sWX+eu9CYbUCEYbCNsGLtO1iUkW1pQaSqoH7WlCYyFsPRFe2mbhvtfFF0fH/KPJFB8cvYK3+jfwdquPN/cOwew2+qKMfbqXMv2UJklmIVyxiGkTbrOVUMhp4WxvjFd7Ez7rjuez9nD+4Xg6/+HopfknLxzPTbs174ryvKfY87zemF+z2nMSPCZFxK02t/Qnwru3Ogf4+MbsUT/oRwO/G93sTSLbakSCqEaxvBEJSi0qq17UKDtRmQWRzuoRW7GIy6z+qEklkZl/V4hJ+nl88czoFWwQaebSc6oiVtCxUTCWYyyvIyWZKOYZChT/F4nmi+S4plTOhfV0zo+J+XEsUxhtZIujzWJ5lNgujdaTW6P1VG5FdnSJvoV0biSk/odMYbyezvr/AilzzRyQ4ePbAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;update-user&quot;
+        title=&quot;&quot;
+        src=&quot;/static/dfd6b940da1fa35dfaaf387dd2441f07/fb8a0/update-user.png&quot;
+        srcset=&quot;/static/dfd6b940da1fa35dfaaf387dd2441f07/1a291/update-user.png 148w,
+/static/dfd6b940da1fa35dfaaf387dd2441f07/2bc4a/update-user.png 295w,
+/static/dfd6b940da1fa35dfaaf387dd2441f07/fb8a0/update-user.png 590w,
+/static/dfd6b940da1fa35dfaaf387dd2441f07/526de/update-user.png 885w,
+/static/dfd6b940da1fa35dfaaf387dd2441f07/fa2eb/update-user.png 1180w,
+/static/dfd6b940da1fa35dfaaf387dd2441f07/9c578/update-user.png 1514w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/p&gt;
+&lt;h4 id=&quot;削除の動作確認&quot;&gt;&lt;a href=&quot;#%E5%89%8A%E9%99%A4%E3%81%AE%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;削除の動作確認&lt;/h4&gt;
+&lt;p&gt;最後に&lt;code class=&quot;language-text&quot;&gt;nuxt updatedtaro&lt;/code&gt;を削除してみましょう。
+以下のようなMutationを発行すると削除されたユーザー情報が返ってきます。&lt;br/&gt;
+&lt;small&gt;※削除後にユーザー一覧を取得すると&lt;code class=&quot;language-text&quot;&gt;nuxt updatedtaro&lt;/code&gt;がなくなっていることが確認できます。&lt;/small&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;削除用Mutation&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;graphql&quot;&gt;&lt;pre class=&quot;language-graphql&quot;&gt;&lt;code class=&quot;language-graphql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;mutation&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  deleteUser&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    id
+    name
+    email
+    age
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 61.204188481675395%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABcRAAAXEQHKJvM/AAACrUlEQVQoz3XSz0/TYBgH8B7xpJO167Z23ca69fcvWDfoOjaFhUEAiTEYDprgQU1MMPFiPHjQvwEicywjevXileAMzAhRs5sHz5odPXiDNo9PNzlI9PDJ07fP22+ftynx6M6DdrvZ+tpoNL7sNHd6W5ubPVVVe+HR0R5FUT2SJP+JIoc9mqZ71Wr18/x8/VulWm0Su6328dHxJ9jrdGH/4CPsvf8AL9uv4UWzDds7u/8V9M/2bDVasN1swdNnz7uE62gHpjsDrOacUhnNDzEZnx6T/Biv+JG0hMQBCpG4HsB+NKv6NO6hh/WElS2ICdo+kZDz3cz4NKT0KS9tloBVCsCpRUggOmcBxZtA8gbEsiYksAaSeF/UpyCHewSssuF46kQFGDHfIcIpuUtLBYgqtkfxOlAZA+kDdM6ESwkRltbW4eHtu2CJFowbDuhyEVTRBk0akiXbK8oFUOzJDkGllW5ctoFR8l4ka0AEgyI4xZnRlAKqMwvzlTrEtBIwxTrEcZqY6Q7pJaB011OsMtQe3xwGRgQLSMn0zodRf2oorYISHNVwgSvUgbMrkJiqAOegfBniluupGGxMu8NAVrFxc8EjMTAwOqZBGAXHHrwEv58l2YNA1igDq7vAaA7W0kBUL3kqTi/wVocYYYXuWrkGu9dXvfXZRVh0ZoDDiVNSHmgMCgIvZy0wcJ3UnWHQObEgEHuSNNEhLjDZw7pbg3tzy6f369f8DfRq5Yb/ZGHFTwjj/kXe8JdY3l/I6D5luD4+/Jc4iujuiYSTiuLEO2KEyR2tTs/BxtwyzE5egVtXF6BWrOKvYkI0mBAxqIhHlnAa4RwR8cjWggnzh0SYy72N8trPGK/9iAlmP6nk+9SY0g9xQj+clJDYD6WkfiIl9wW8zv4LJ36XM+ovJqO++Q0HeYHa08D96QAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;delete-user&quot;
+        title=&quot;&quot;
+        src=&quot;/static/5cb85f5c669161188e9dd7ad4d2598ff/fb8a0/delete-user.png&quot;
+        srcset=&quot;/static/5cb85f5c669161188e9dd7ad4d2598ff/1a291/delete-user.png 148w,
+/static/5cb85f5c669161188e9dd7ad4d2598ff/2bc4a/delete-user.png 295w,
+/static/5cb85f5c669161188e9dd7ad4d2598ff/fb8a0/delete-user.png 590w,
+/static/5cb85f5c669161188e9dd7ad4d2598ff/526de/delete-user.png 885w,
+/static/5cb85f5c669161188e9dd7ad4d2598ff/fa2eb/delete-user.png 1180w,
+/static/5cb85f5c669161188e9dd7ad4d2598ff/08f6a/delete-user.png 1770w,
+/static/5cb85f5c669161188e9dd7ad4d2598ff/9c961/delete-user.png 1910w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/p&gt;
+&lt;h2 id=&quot;5-graphpackでsubscriptionを実装・動作確認する&quot;&gt;&lt;a href=&quot;#5-graphpack%E3%81%A7subscription%E3%82%92%E5%AE%9F%E8%A3%85%E3%83%BB%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;5. GraphpackでSubscriptionを実装・動作確認する&lt;/h2&gt;
+&lt;h3 id=&quot;実装-2&quot;&gt;&lt;a href=&quot;#%E5%AE%9F%E8%A3%85-2&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;実装&lt;/h3&gt;
+&lt;p&gt;GraphpackではSubscriptionはデフォルトoffになっています。
+そのためココだけは設定ファイルを作成する必要があります。
+プロジェクトのルートフォルダ直下に&lt;code class=&quot;language-text&quot;&gt;graphpack.config.js&lt;/code&gt;を作成しましょう。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;graphpack.config.js&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  server&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    subscriptions&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;// Subscriptionのエンドポイントとして&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;// QueryとMutationと同じパスを設定します。&lt;/span&gt;
+      path&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token string&quot;&gt;`/graphql`&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;スキーマ定義にSubscriptionを追記します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;src/schema.graphqlの一部&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;graphql&quot;&gt;&lt;pre class=&quot;language-graphql&quot;&gt;&lt;code class=&quot;language-graphql&quot;&gt;type Subscription &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;userCreated&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; User&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;userUpdated&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; User&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;userDeleted&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; User&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;リゾルバーでSubscriptionを定義し、Mutationも修正します。
+Mutationも修正するのは、登録・更新・削除完了後にSubscriptionを発行できるようにするためです。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;src/resolvers.jsの一部&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Subscriptionのやりとりには`apollo-server`のPubSubを使る&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// `graphpack`の場合、`apollo-server`は入っている&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; PubSub &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;apollo-server&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; users&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; generateId &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;./db&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; pubsub &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;PubSub&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;EVENT&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token constant&quot;&gt;USER_CRAETED&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;userCreated&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token constant&quot;&gt;USER_UPDATED&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;userUpdated&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token constant&quot;&gt;USER_DELETED&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;userDeleted&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; resolvers &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;    
+  &lt;span class=&quot;token comment&quot;&gt;// ・・・&lt;/span&gt;
+  Mutation&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    createUser&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parent&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; name&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; email&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; age &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; context&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; info&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; newUser &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; id&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;generateId&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; name&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; email&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; age&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      users&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;newUser&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+            
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      pubsub&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;publish&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;EVENT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;USER_CRAETED&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;EVENT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;USER_CRAETED&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; newUser&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;      &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; newUser&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    updateUser&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parent&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; id&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; name&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; email&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; age &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; context&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; info&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; updatedUser &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; users&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;user &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; user&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;id &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; id&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      updatedUser&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; name&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      updatedUser&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;email &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; email&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      updatedUser&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;age &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; age&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      pubsub&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;publish&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;EVENT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;USER_UPDATED&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;EVENT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;USER_UPDATED&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; updatedUser&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;      &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; updatedUser&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    deleteUser&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parent&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; id &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; context&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; info&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; userIndex &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; users&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;findIndex&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;user &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; user&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;id &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; id&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      
+      &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;userIndex &lt;span class=&quot;token operator&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;User not found&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;deletedUser&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; users&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;splice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;userIndex&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      pubsub&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;publish&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;EVENT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;USER_DELETED&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;EVENT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;USER_DELETED&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; deletedUser&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/span&gt;      &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; deletedUser&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  Subscription&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;EVENT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;USER_CRAETED&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      subscribe&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; pubsub&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;asyncIterator&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;EVENT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;USER_CRAETED&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;EVENT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;USER_UPDATED&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      subscribe&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; pubsub&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;asyncIterator&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;EVENT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;USER_UPDATED&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;EVENT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;USER_DELETED&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      subscribe&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; pubsub&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;asyncIterator&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;EVENT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;USER_DELETED&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// ・・・&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;h3 id=&quot;動作確認-2&quot;&gt;&lt;a href=&quot;#%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D-2&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;動作確認&lt;/h3&gt;
+&lt;p&gt;実装できたら&lt;code class=&quot;language-text&quot;&gt;npm run dev&lt;/code&gt;でサーバー起動して &lt;a href=&quot;http://localhost:4000/&quot;&gt;http://localhost:4000/&lt;/a&gt; を開きます。&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;userCreated&lt;/code&gt;の動作確認をしましょう。
+以下のようなSubscriptionを発行します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;:title=登録用muatation&quot;&gt;&lt;pre class=&quot;language-:title=登録用muatation&quot;&gt;&lt;code class=&quot;language-:title=登録用muatation&quot;&gt;subscription {
+  userCreated {
+    id
+    name
+    email
+    age    
+  }
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;すると実行結果（画面右半分）にローディングアイコンが表示され、監視状態となります。&lt;/p&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 63.56715606307777%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABcRAAAXEQHKJvM/AAACzUlEQVQ4y32SW08TQRSA911baCvd3V6Wlm67t+6l2/tVIa0FgiUaEKvQoPHBF33XJ18NRq0YEdBIYoyJf8A/AFXr6gvG/yJOezxbawRCfPhydmZ2vjkz51DP2uvfHz5+1H3SblsP1tYswzSt006nNeJyWSOjo5bzBOx5e/2Uw2HFBOHL9OyMNVWtdkVJalD7+z9g79Nn6H79Bh+7Fuy8eQvPN7fgxdbL/7A9YAPZ3H4FG/h/++k6XGk2VynTrEE0N3ngl1I9T0jqMRG5FxC0nj+mIvFeYIDaYw/hs9dFfRg1gnN9Tk4cuJnACiWmpyCSKJGIWYZgPAecisSzQMdM8PIGuCM6OMMqjPM6cEN4KQWSloeYkgFFL/QRELQCcTLhFsXKuFnOEkZMAR01gIklBrDICMrKZgF2GvOgosTAAw0lC/ohcNzXMOaVNImEJlqUT0kDY2YIIyQwIx2lyCDa2Wkgy0m4k6sArRWB1ctI6Qg+o9w/Ey9BujpJ6remUIgnM2qSeDEbBiW2dCDm/4xtaRTXxnFzEKXH4fRi36eVwEwWiJlSWhQtJO1siH1FD25mBRMYZAzfz4MiL2ackZIQRGEABTb2Nzcco7TPGmXQpQyJuf0t6mqlDgvnpsni5AzUi1W4WZuDZuU8LNng3Gq9AUUtB/6hyJaEzAqEzbP/hPgU+J5EZMdb1OtmC+5fXiZ35xchmSgOMgyKSYjIqUG15yJxuIAwmAV30pVR6MODdDlDRJprUR+WrsG7les/3y8tk3uNBXJ79iK5VKyS0QmVuHiD6JxIarxG6ESF+PQywSIcRS//8hqVHlb6QKK5FSqBPaTpedARFdHs/pLT4P3bOtiPBvZbqVADA3tVxhZRsH0OI6p5yGJxIzR3g3KFlW+ukLw7FtU6ASXVcYXljiMQ7Xg4oeNG7MggsQDf4ZHoMXg/vycEox1hQt51eNjZ30AamZ9KzuyAAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;subscription-1&quot;
+        title=&quot;&quot;
+        src=&quot;/static/46a5dd71ec73c93bd1b38799d7463245/fb8a0/subscription-1.png&quot;
+        srcset=&quot;/static/46a5dd71ec73c93bd1b38799d7463245/1a291/subscription-1.png 148w,
+/static/46a5dd71ec73c93bd1b38799d7463245/2bc4a/subscription-1.png 295w,
+/static/46a5dd71ec73c93bd1b38799d7463245/fb8a0/subscription-1.png 590w,
+/static/46a5dd71ec73c93bd1b38799d7463245/526de/subscription-1.png 885w,
+/static/46a5dd71ec73c93bd1b38799d7463245/fa2eb/subscription-1.png 1180w,
+/static/46a5dd71ec73c93bd1b38799d7463245/08f6a/subscription-1.png 1770w,
+/static/46a5dd71ec73c93bd1b38799d7463245/67a86/subscription-1.png 1839w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/p&gt;
+&lt;p&gt;この状態で別タブを開き...&lt;/p&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 63.56715606307777%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABcRAAAXEQHKJvM/AAACeUlEQVQ4y22SXU/TYBTHey9sbMvWlnV1s+3alb6s2xjMbRAIRFnURFFQEhZjvPBLeGm8wIgTE4SBoDfyQWAxo3KD8buIT3s87TqBZRe/nKfPy6//87TUp9bWr3eb77ubrZb9dmPDNizLHgmF7HAkYt8Ih31GxsbsUSSMhILqr4+O2llZPr3bWLLnFxa6Si73gDo//w0nP7pg22fws3sKR9+PYHunDTvtPfh2cAhfkcP9L9De24fPu21kD7ax9tlp7+P+XfjwcQuePlt7ThULiyBMz1/okuk0eMlpLa84q4sN5+Wde84r5M2jFedgdc1ZqMw6tKg6XFZzOFl3UorRq7JBklndTavWRZTl1illch5uWXWSs2qg50rgVSlfhbRaBkbKA5stAIOwchESkuXDTZQhg3tS+jSerbkIZMwqCdPpJsWqU0CrU4RGWTxrQRwlCYRGQoIBNasC28uPgdUqkDJrw3BTRg34Qp3ERLlJjU9MAlMoE0a2gBZNFJl+9dJFBRNUtQjN2UVIGtWeoF8Rzhvna+64UgH1yX1Sfv0QE2IyRi+ShGD6qfokxF6NYsqQMomCek8QiLhLsctpVcjU5gg/U8KESgkPm8QXiZft0v3WMW0qaPeqiL98dv017TYJxzNNyrvwhNQTJsTrKftzSW36f7ueJF2YgUxhti93g6QkykuBEBN6BwcZFPYTDuAGayTCiZ7Q8g7+QcgwvJcltQrBOyReiiH8RRzkAoXrFIP/l9+eJx6Cd4+8WQWtvgRCae7qx7iGNz+WFF5QjKifMYJ2zMn5jmCUOzjuRFLZToyXO9GA2E2lE0vnsA5DOYln1A4rGccjMbbxD91rkLBOE2s4AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;subscription-2&quot;
+        title=&quot;&quot;
+        src=&quot;/static/23165bbbf16f9be0be54b90121b38021/fb8a0/subscription-2.png&quot;
+        srcset=&quot;/static/23165bbbf16f9be0be54b90121b38021/1a291/subscription-2.png 148w,
+/static/23165bbbf16f9be0be54b90121b38021/2bc4a/subscription-2.png 295w,
+/static/23165bbbf16f9be0be54b90121b38021/fb8a0/subscription-2.png 590w,
+/static/23165bbbf16f9be0be54b90121b38021/526de/subscription-2.png 885w,
+/static/23165bbbf16f9be0be54b90121b38021/fa2eb/subscription-2.png 1180w,
+/static/23165bbbf16f9be0be54b90121b38021/08f6a/subscription-2.png 1770w,
+/static/23165bbbf16f9be0be54b90121b38021/67a86/subscription-2.png 1839w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/p&gt;
+&lt;p&gt;登録用のMutaitonを発行してみましょう。&lt;/p&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 62.849162011173185%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABcRAAAXEQHKJvM/AAACpUlEQVQ4y4WSy08TURTGZykqxLa0TN/Tx8x02s7ceXWmpaUFlKIR6iuigol7E/cuXJCYiOjCIBEogpGEBaxF+PM+zx0G0p2LX849d+Z8957vXOHi7C/Ozv7g/PwCJyenmJ+fg67rME3zvzDG4LouVldX8XptLUDY3T/E3uERhoe/cHR8jJ2D39geHmB77ye+7w4Dtnf3ieE1wf7OHjHEFsUv37bwcWMTnza/QkjJFqIlhpyiwm26kOw5JGQTExkFNxO5gLF4FmMUb4SMTeVxO1XAraREsYjxdBHRvBoglKwOOEV7Bpl6EwU2jaLZRrraQLLiBqS0BvKai0KF40Cu+9DdHjSq051usGbeHAp6G4JY85GsNyDSrRIyQ7x8iahYiBV1VLxZrK9v4B5rwjM8OPUWrKoHkw4xw2hQ9BQbVqsDQao6UI0mSqqPsupR6w6SZEMgXjKQrjXwcHkFlt6E6C0g4/eRtrtIsRkkWYdiByLlhbKHwec3ELKqhTSJcN+4EGeK1lfEuCh5bJIF6UYfktdHzu8i35pFzu0iZ3aQJlFF8+Ev3YUwVbXBEctXItRuOYTyOFGmlizyN2WTiNlDlgSyZkh4S1VvQZddCMmag3jVQkSqYzL0L0LcoQOidLsoCebJJ5sEeYtZox2QCeHrQJC8ZTQsgYtouo/Z1jye9hYx6C7ifX8ZP5ae4MXMAkQajKnaYDQ8XpgLRUa5FqR/hAkqeOB1cfr8FTYer+Dd/Uf4sPwMbxcHqFtttHIqXkoaKtSSyC79So3Ac5EGJNN3gwty0xXNwcDvoWm30aCJO+Y0YtRqpGgEUSIPfaKoT0OhQnkEnpdonz8dRggphSFRpkLFDJ5IpFDDeFbFJN0qXqgiJlWRoD01X4FGVEbQRvaMUh150vkHDjOsMRmNmOsAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;subscription-3&quot;
+        title=&quot;&quot;
+        src=&quot;/static/89891b4bc902fbc41f02ec590c8873ea/fb8a0/subscription-3.png&quot;
+        srcset=&quot;/static/89891b4bc902fbc41f02ec590c8873ea/1a291/subscription-3.png 148w,
+/static/89891b4bc902fbc41f02ec590c8873ea/2bc4a/subscription-3.png 295w,
+/static/89891b4bc902fbc41f02ec590c8873ea/fb8a0/subscription-3.png 590w,
+/static/89891b4bc902fbc41f02ec590c8873ea/526de/subscription-3.png 885w,
+/static/89891b4bc902fbc41f02ec590c8873ea/fa2eb/subscription-3.png 1180w,
+/static/89891b4bc902fbc41f02ec590c8873ea/08f6a/subscription-3.png 1770w,
+/static/89891b4bc902fbc41f02ec590c8873ea/4d726/subscription-3.png 1790w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/p&gt;
+&lt;p&gt;これで、元のタブに戻ると、登録された情報がレスポンスで返ってきていれば成功です。&lt;/p&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 62.849162011173185%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABcRAAAXEQHKJvM/AAACp0lEQVQ4y4WSy08TURTGZydETXj1MW1npq9pO9N2Xp0Hw6MVpNQINIqAINC6c+HKxI2sNCpqfIABC0RJ+AdYCzH92z7PHSvpxrj45bvn5sw353G5X5eXuLy4QLfbxfn5ORqNBiqWBddx4PwH27bh+z5arW202y20Wy1wnZNTHJ2e4fD4O45/nGK/c4L9byf4yvTw6J/sHXSwd9gJ9N2nPbx8s4vXu+/ByXoVCX0S0awKIacglDUxJCq4GZcxMJbAYEjAAHEtlCCEgIGwiOt8EoMRKdAbsRSGxVwAlzankGFY0xDLPtLGJNhdXHUQU2zwBRuxvIUkxSmKGbnyODS7BpXyyqTsbHgzSGlT4KJFD1FKiORMhLP6FVHZwHBGg617+Ln5CPWSDYfOlZIPU/VgKA4M1Q1UI3VzFswJMuQpkdfswCDSB4tDZCzlTWz5NZgl+rFbR8KbR7xSQ0yfAk8wjVpVpLIumh/a4EKKiQCqZqxXHdNRitl5iBjJ21SNg7jTQNKdh+hVIfm3INpViAaNh0xzigdv4Ta4TNGBQDOKUcvJQiWYV5qqklUbcZqXQMYzWY0qHEfMIhOjBoEMBKNHr8o8zb8s2+B2mit4e28NO81VfFnZwKvldZyRfiQ26ksoZcrYpu3pZMhaFLTJgEQPdg4MabY6jYXbmr2LjVoDzxbu48XSA3S3H+NgbROKRgasddkET4sziX7Dfq4MKYf7vPwQq2T4ZH4JT+uLWJ9bxPM7TWSo3RFqly1GpqdTpk2G9T/zivXB4qg+DZla1pihRDNL0Px4tl36mG1YpDu+t222oCwlzrkzKLqzkKkSuTwRGDByRIZi9nR0govI7M1pENQK0pqHcKaEYUnBaFLFGME0nC5BTRehJhUUpAIUotDj71mj7yRa3m8xB7JpIy+UbAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;subscription-4&quot;
+        title=&quot;&quot;
+        src=&quot;/static/5602d4585c77e98c3841e166f915cdd2/fb8a0/subscription-4.png&quot;
+        srcset=&quot;/static/5602d4585c77e98c3841e166f915cdd2/1a291/subscription-4.png 148w,
+/static/5602d4585c77e98c3841e166f915cdd2/2bc4a/subscription-4.png 295w,
+/static/5602d4585c77e98c3841e166f915cdd2/fb8a0/subscription-4.png 590w,
+/static/5602d4585c77e98c3841e166f915cdd2/526de/subscription-4.png 885w,
+/static/5602d4585c77e98c3841e166f915cdd2/fa2eb/subscription-4.png 1180w,
+/static/5602d4585c77e98c3841e166f915cdd2/08f6a/subscription-4.png 1770w,
+/static/5602d4585c77e98c3841e166f915cdd2/4d726/subscription-4.png 1790w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;以上でSubscriptionの動作確認は終了です。
+今回は紹介しませんが、&lt;strong&gt;userUpdated&lt;/strong&gt;と&lt;strong&gt;userDeleted&lt;/strong&gt;も同様の方法で動作確認できるのでやってみてください。&lt;/p&gt;
+&lt;h2 id=&quot;まとめ&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ&lt;/h2&gt;
+&lt;p&gt;今回はNode製GraphQLサーバー「Graphpack」の使い方について紹介しました。
+上記で紹介した通り非常に簡単ですので、「とりあえずGraphQLサーバーを立ててみたい！」という方はGraphpackを検討してみてはいかがでしょうか。&lt;/p&gt;
+&lt;h2 id=&quot;参考&quot;&gt;&lt;a href=&quot;#%E5%8F%82%E8%80%83&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://dev.to/leonardomso/a-beginners-guide-to-graphql-3kjj&quot;&gt;A Beginner’s Guide to GraphQL - DEV Community 👩‍💻👨‍💻&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;GraphpackでQuery、Mutationの実装方法を紹介している記事です。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://steemit.com/utopian-io/@richardbmx/logo-design-for-graphpack-approved-and-used-in-the-project&quot;&gt;Logo design for Graphpack | Steemit&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Gpraphpackのロゴの舞台裏のお話です。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;関連記事&quot;&gt;&lt;a href=&quot;#%E9%96%A2%E9%80%A3%E8%A8%98%E4%BA%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;関連記事&lt;/h2&gt;
+&lt;p&gt;GraphQL関連の記事は、他にも書いているので参考にしてみてください。&lt;/p&gt;
+&lt;div class=&quot;iframely-embed&quot;&gt;&lt;div class=&quot;iframely-responsive&quot; style=&quot;padding-bottom: 49.943%; padding-top: 120px;&quot;&gt;&lt;a href=&quot;https://takumon.com/hello-nuxt-graphql-with-apollo-client&quot; data-iframely-url=&quot;//cdn.iframe.ly/z7eXyM3&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[懇親会で飛び込みLTに参加した / 「JavaScriptつまみ食い LT 会 ～ つまみ食い LT 大会！」の感想]]></title><description><![CDATA[なにこれ 2019/1/19(土)、 JavaScriptつまみ食い LT 会 #4 ～ つまみ食い LT 大会！ で懇親会にて飛び込みLTに参加しました。勉強会の様子も含めLTの感想を書きます。 どんな勉強会だったか 今回で開催5回目となり、…]]></description><link>https://takumon.com//impression-of-cherrypick-js-20190119</link><guid isPermaLink="false">https://takumon.com//impression-of-cherrypick-js-20190119</guid><pubDate>Sun, 20 Jan 2019 18:30:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/01/impression-of-cherrypick-js-20190119.png&quot; alt=&quot;Graphpack&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;2019/1/19(土)、&lt;a href=&quot;https://cherrypick-js.connpass.com/event/112099/&quot;&gt;JavaScriptつまみ食い LT 会 #4 ～ つまみ食い LT 大会！&lt;/a&gt;で懇親会にて飛び込みLTに参加しました。勉強会の様子も含めLTの感想を書きます。&lt;/p&gt;
 &lt;div class=&quot;iframely-embed&quot;&gt;&lt;div class=&quot;iframely-responsive&quot; style=&quot;padding-bottom: 40.8994%; padding-top: 120px;&quot;&gt;&lt;a href=&quot;https://cherrypick-js.connpass.com/event/112099/&quot; data-iframely-url=&quot;//cdn.iframe.ly/7K5O1Rf&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;
