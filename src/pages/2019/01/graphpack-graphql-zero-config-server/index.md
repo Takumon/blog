@@ -98,7 +98,7 @@ export default resolvers;
 
 ### 動作確認してみる
 
-* サーバーを`npm run dev`で起動して、ブラウザで http://localhost:4000/ を開くとGraphQL Playground IDEが表示されます。
+* サーバーを`npm run dev`で起動して、ブラウザで `http://localhost:4000/` を開くとGraphQL Playground IDEが表示されます。
 
 ![hello-world](hello-world.png)
 
@@ -181,7 +181,7 @@ const resolvers = {
 
 ### 動作確認
 
-* 実装できたら`npm run dev`でサーバー起動して http://localhost:4000/ を開いて
+* 実装できたら`npm run dev`でサーバー起動して `http://localhost:4000/` を開いて
 以下のクエリを発行します。するとユーザー一覧が取得できます。
 
 ```graphql:title=ユーザー一覧取得用Query
@@ -316,7 +316,7 @@ const resolvers = {
 
 ### 動作確認
 
-実装できたら`npm run dev`でサーバー起動して http://localhost:4000/ を開きます。
+実装できたら`npm run dev`でサーバー起動して `http://localhost:4000/` を開きます。
 
 
 #### 登録の動作確認
@@ -490,7 +490,7 @@ const resolvers = {
 
 ### 動作確認
 
-実装できたら`npm run dev`でサーバー起動して http://localhost:4000/ を開きます。
+実装できたら`npm run dev`でサーバー起動して `http://localhost:4000/` を開きます。
 
 `userCreated`の動作確認をしましょう。
 以下のようなSubscriptionを発行します。
