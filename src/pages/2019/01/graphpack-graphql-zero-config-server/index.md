@@ -1,6 +1,6 @@
 ---
 title: 設定いらずのNode製GraphQLサーバー「Graphpack」の使い方 / Query, Mutation, Subscriptionを試す
-date: '2019-01-21T07:30:00.000+09:00'
+date: '2019-01-23T19:50:00.000+09:00'
 tags:
   - Graphpack
   - GraphQL
