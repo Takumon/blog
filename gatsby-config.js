@@ -151,7 +151,7 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-offline`,
+    `gatsby-plugin-remove-serviceworker`,
     `gatsby-plugin-twitter`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-sitemap`,
