@@ -1,4 +1,485 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Wed, 23 Jan 2019 11:35:43 GMT</lastBuildDate><item><title><![CDATA[設定いらずのNode製GraphQLサーバー「Graphpack」の使い方 / Query, Mutation, Subscriptionを試す]]></title><description><![CDATA[なにこれ 「とりあえずクライアント側と同じJavaScriptで手っ取り早くGraphQLサーバー立てたい！」 このようなユースケースに Graphpack はピッタリです。
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 03 Feb 2019 08:10:32 GMT</lastBuildDate><item><title><![CDATA[WEBエンジニア勉強会 初LT感想と参加レポート / 「MDX-DeckとCode Suferでスライドを作ろう！」補足情報]]></title><description><![CDATA[なにこれ 2019/2/1(金)、 WEBエンジニア勉強会 #11 でLTしてきました。
+本記事では 自分のLTスライド と、 10分の枠では伝えきれなかった補足情報 を紹介します。
+また他の方のLTの様子や、勉強会の雰囲気なども 参加レポート として書いています。 LT…]]></description><link>https://takumon.com//mdx-deck-and-code-surfer</link><guid isPermaLink="false">https://takumon.com//mdx-deck-and-code-surfer</guid><pubDate>Sun, 03 Feb 2019 08:15:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
+&lt;p&gt;2019/2/1(金)、&lt;a href=&quot;https://web-engineer-meetup.connpass.com/event/115444/&quot;&gt;WEBエンジニア勉強会 #11&lt;/a&gt;でLTしてきました。
+本記事では&lt;strong&gt;自分のLTスライド&lt;/strong&gt;と、&lt;strong&gt;10分の枠では伝えきれなかった補足情報&lt;/strong&gt;を紹介します。
+また他の方のLTの様子や、勉強会の雰囲気なども&lt;strong&gt;参加レポート&lt;/strong&gt;として書いています。&lt;/p&gt;
+&lt;div class=&quot;iframely-embed&quot;&gt;&lt;div class=&quot;iframely-responsive&quot; style=&quot;padding-bottom: 40.8994%; padding-top: 120px;&quot;&gt;&lt;a href=&quot;https://web-engineer-meetup.connpass.com/event/115444/&quot; data-iframely-url=&quot;//cdn.iframe.ly/YLILmaW&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;ltの発表スライド&quot;&gt;&lt;a href=&quot;#lt%E3%81%AE%E7%99%BA%E8%A1%A8%E3%82%B9%E3%83%A9%E3%82%A4%E3%83%89&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;LTの発表スライド&lt;/h2&gt;
+&lt;p&gt;※スライドの右端をクリックするか、&lt;code class=&quot;language-text&quot;&gt;→&lt;/code&gt;をクリックすると次画面に遷移できます。&lt;br&gt;
+※全画面で見る場合は&lt;a href=&quot;https://takumon.github.io/mdx-deck-sample/&quot;&gt;GitHub Pages&lt;/a&gt;をご覧ください。&lt;/p&gt;
+&lt;div&gt;
+          &lt;div
+            class=&quot;gatsby-resp-iframe-wrapper&quot;
+            style=&quot;padding-bottom: 75%; position: relative; height: 0; overflow: hidden;margin-bottom: 1.0725rem&quot;
+          &gt;
+            &lt;iframe src=&quot;https://takumon.github.io/mdx-deck-sample&quot; style=&quot;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+          &quot;&gt;&lt;/iframe&gt;
+          &lt;/div&gt;
+          &lt;/div&gt;
+&lt;p&gt;※実はMDX-Deckについては以前の記事にも書いています。
+LTのネタになりそうだとうことで、今回さらに深堀して整理したものをLTで発表しました。&lt;/p&gt;
+&lt;div class=&quot;iframely-embed&quot;&gt;&lt;div class=&quot;iframely-responsive&quot; style=&quot;height: 168px; padding-bottom: 0;&quot;&gt;&lt;a href=&quot;https://takumon.com/2018/12/23/&quot; data-iframely-url=&quot;//cdn.iframe.ly/vvP8pRK&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;ltの反響&quot;&gt;&lt;a href=&quot;#lt%E3%81%AE%E5%8F%8D%E9%9F%BF&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;LTの反響&lt;/h2&gt;
+&lt;p&gt;Twitterを見るとMDX-Deckに少しでも興味をもっていただけたようでうれしいです。&lt;/p&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; data-partner=&quot;tweetdeck&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;よく考えたらスライド作成ツールの紹介をするスライド作るのってハードル高くてしんどいよな・・・&lt;br&gt;こんな表現・アニメーションできるんだぜって見せつけなきゃいけないんだから、たくもんさんすごい  &lt;a href=&quot;https://twitter.com/hashtag/web%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E5%8B%89%E5%BC%B7%E4%BC%9A11?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#webエンジニア勉強会11&lt;/a&gt;&lt;/p&gt;&amp;mdash; ngmt (@ngmt83) &lt;a href=&quot;https://twitter.com/ngmt83/status/1091307490694713346?ref_src=twsrc%5Etfw&quot;&gt;February 1, 2019&lt;/a&gt;&lt;/blockquote&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; data-partner=&quot;tweetdeck&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;隣に座っている、みずりゅさんが手に持ったものを落としそうになるぐらいスゴイ、それが MDX-DECK！w　　&lt;a href=&quot;https://twitter.com/hashtag/WEB%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E5%8B%89%E5%BC%B7%E4%BC%9A11?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#WEBエンジニア勉強会11&lt;/a&gt;&lt;/p&gt;&amp;mdash; いわしまん (@iwasiman) &lt;a href=&quot;https://twitter.com/iwasiman/status/1091307489881055234?ref_src=twsrc%5Etfw&quot;&gt;February 1, 2019&lt;/a&gt;&lt;/blockquote&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; data-partner=&quot;tweetdeck&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;MDX-DECK、jsxでかけるのめっちゃよさそう &lt;a href=&quot;https://twitter.com/hashtag/WEB%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E5%8B%89%E5%BC%B7%E4%BC%9A11?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#WEBエンジニア勉強会11&lt;/a&gt;&lt;/p&gt;&amp;mdash; Rin(しま) (@408rin) &lt;a href=&quot;https://twitter.com/408rin/status/1091306260723449861?ref_src=twsrc%5Etfw&quot;&gt;February 1, 2019&lt;/a&gt;&lt;/blockquote&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; data-partner=&quot;tweetdeck&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;mdxカックイイ &lt;a href=&quot;https://twitter.com/hashtag/WEB%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E5%8B%89%E5%BC%B7%E4%BC%9A11?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#WEBエンジニア勉強会11&lt;/a&gt;&lt;/p&gt;&amp;mdash; VTRyo@レベル0 (@3s_hv) &lt;a href=&quot;https://twitter.com/3s_hv/status/1091305678143053824?ref_src=twsrc%5Etfw&quot;&gt;February 1, 2019&lt;/a&gt;&lt;/blockquote&gt;
+&lt;h2 id=&quot;lt補足情報（ハマりポイントなど）&quot;&gt;&lt;a href=&quot;#lt%E8%A3%9C%E8%B6%B3%E6%83%85%E5%A0%B1%EF%BC%88%E3%83%8F%E3%83%9E%E3%82%8A%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%81%AA%E3%81%A9%EF%BC%89&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;LT補足情報（😭ハマりポイント😭など）&lt;/h2&gt;
+&lt;p&gt;LTではMDX-Deckのメリットを中心に話しましたが、実際使ってみるとハマりポイントがいくつかあります😭
+ここでは、LTで話せなかった部分の説明と、MDX-Deckを使う上での注意事項とハマりポイントのワークアラウンドについてお話します。&lt;br/&gt;
+ハマりポイントはありますが、一度作ってしまえば、テーマやコンポーネントなどは再利用できるので、MDX-Deck是非使ってみてください。&lt;/p&gt;
+&lt;h3 id=&quot;コンポーネント&quot;&gt;&lt;a href=&quot;#%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;コンポーネント&lt;/h3&gt;
+&lt;p&gt;時間の都合上、紹介できなかったコンポーネントです。&lt;/p&gt;
+&lt;h4 id=&quot;horizontal：横並びレイアウト&quot;&gt;&lt;a href=&quot;#horizontal%EF%BC%9A%E6%A8%AA%E4%B8%A6%E3%81%B3%E3%83%AC%E3%82%A4%E3%82%A2%E3%82%A6%E3%83%88&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Horizontal：横並びレイアウト&lt;/h4&gt;
+&lt;p&gt;複数の画像や文章を横ならびに表示するレイアウトです。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; Horizontal&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;mdx-deck/layouts&apos;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; Horizontal
+
+&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;images&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;sample&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;background&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;jpg&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;images&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;sample&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;background&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;jpg&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;images&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;note&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;preview&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;png&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;images&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;note&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;preview&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;png&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+### どんどん横に並んでいく&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4 id=&quot;head：メタ情報埋め込み&quot;&gt;&lt;a href=&quot;#head%EF%BC%9A%E3%83%A1%E3%82%BF%E6%83%85%E5%A0%B1%E5%9F%8B%E3%82%81%E8%BE%BC%E3%81%BF&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Head：メタ情報埋め込み&lt;/h4&gt;
+&lt;p&gt;スライドをHTMLで公開する場合、HTMLのheadタグを指定できます。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; Head &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;mdx-deck&apos;&lt;/span&gt;
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;Head&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token plain-text&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;title&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token plain-text&quot;&gt;mdx-deckとcode-suferでスライドを作ろう！&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;title&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token plain-text&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;Head&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;😭ただコチラTwitterCardの設定はうまくいきませんでした😭&lt;/strong&gt;
+今回どうしてもTwitterCardを設定したかったので、
+ワークアラウンドとして、ビルド時に出力されたHTMLファイルを直接編集し
+headタグに以下を埋め込んでからデプロイしました。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;title=ビルド後に出力されたindex.htmlの一部&quot;&gt;&lt;pre class=&quot;language-title=ビルド後に出力されたindex.htmlの一部&quot;&gt;&lt;code class=&quot;language-title=ビルド後に出力されたindex.htmlの一部&quot;&gt;&amp;lt;link rel=&amp;quot;canonical&amp;quot; href=&amp;quot;https://takumon.github.io/mdx-deck-sample/&amp;quot;&amp;gt;
+&amp;lt;meta name=&amp;#39;viewport&amp;#39; content=&amp;#39;width=device-width,initial-scale=1&amp;#39;&amp;gt;
+&amp;lt;meta name=&amp;quot;twitter:site&amp;quot; content=&amp;quot;@inouetakumon&amp;quot;&amp;gt;
+&amp;lt;meta name=&amp;quot;twitter:creator&amp;quot; content=&amp;quot;@inouetakumon&amp;quot;&amp;gt;
+&amp;lt;meta name=&amp;quot;twitter:card&amp;quot; content=&amp;quot;summary_large_image&amp;quot;&amp;gt;
+&amp;lt;meta name=&amp;#39;twitter:title&amp;#39; content=&amp;quot;MDX-DeckとCode Suferでスライドを作ろう！ #WEBエンジニア勉強会11&amp;quot;&amp;gt;
+&amp;lt;meta name=&amp;#39;twitter:image&amp;#39; content=&amp;quot;https://takumon.github.io/mdx-deck-sample/images/card.png&amp;quot;&amp;gt;
+&amp;lt;meta name=&amp;#39;twitter:description&amp;#39; content=&amp;quot;MDX（Markdown + JSX）をベースとしたグラフィカルなスライドが作れるライブラリの紹介です。&amp;quot;&amp;gt;
+
+&amp;lt;meta property=&amp;quot;og:title&amp;quot; content=&amp;quot;MDX-DeckとCode Surferでスライドを作ろう！ #WEBエンジニア勉強会11&amp;quot;&amp;gt;
+&amp;lt;meta property=&amp;quot;og:description&amp;quot; content=&amp;quot;MDX（Markdown + JSX）をベースとしたグラフィカルなスライドが作れるライブラリの紹介です。&amp;quot;&amp;gt;
+&amp;lt;meta property=&amp;quot;og:image&amp;quot; content=&amp;quot;https://takumon.github.io/mdx-deck-sample/images/card.png&amp;quot;&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;プレゼンテーション機能&quot;&gt;&lt;a href=&quot;#%E3%83%97%E3%83%AC%E3%82%BC%E3%83%B3%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E6%A9%9F%E8%83%BD&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;プレゼンテーション機能&lt;/h3&gt;
+&lt;p&gt;LTではデモをお見せしただけだったので、
+実際どんなものか説明します。&lt;/p&gt;
+&lt;h4 id=&quot;プレゼンモード&quot;&gt;&lt;a href=&quot;#%E3%83%97%E3%83%AC%E3%82%BC%E3%83%B3%E3%83%A2%E3%83%BC%E3%83%89&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;プレゼンモード&lt;/h4&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 64.6570796460177%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABcRAAAXEQHKJvM/AAAC90lEQVQ4y4WRy2sTURTG7zyTNq82ySSZJjNJ32mSxqam1qZCkaIoilYoFhc+QNy4EBe6cCG4kIJp1D5tmwqiCxF159ailRK1joIorlz4JygqSJ3r551JRLGCF745d+ac+7vfOUNOnT59fb58/U1pcmZtZr5snDt/wdASLYbPHzT8StiWEokYoYhqhNUmtleNhkDICIRUtm9iMWLk+wtre/cfeD28Y8d9Mjc39/TZ6jKeV5bxau0JHj18gNnpkq2ZqRKmrpYwPj6OYrGIiYkSpqeu4OaNeVybvczyRUxevcT2EygVL+LMmbPvCVuPOxISRvem1ocGE3Rbv0b78wnam0vQbCZG480q5Z1uKrs8lHO4qBJR6HBBp4dHC/Tk8RF65NBueuLwzu+j+wpoaAy+JZwor4hNKfBqyiThJEjIUieI0lGL7RDUJKRoCmJTF2QtA2YCCwtlWOvjp8/48vUb/fEDGBnZ/45wkmNFZsUOLWPKsTR8rT1QMwNQuwfR2NmHzsFdaOzIV2EsXxfP2sB7d+/gj0Wtx9jY2DvboRy1ijOmdcjbmkNr3zC03iHE0luhp7agnkEshxbQWXN47OgR3Lp1E+VyGUtLS3RxcRHZbLYKlGxg2hTZIVe8G2q6H0p6AP62XgTiaThiqSrQ6oRBCS9Bi8WxOd+H7uwmhCMR6vP5rItqwGo7pjWrYHILEvntiGQKULq2su9VkBT9DWVjQqZFRIseRFebAo9LppZrjiO1GbJbZT1rWgOvT/TA1ZxDfXMP6hI59hO6N4iTnPDUEQg8B0nkIAicDbQdEkFaEQI6xGDctCLxxSDa71VJSnyDWFeoAX7pN5Aj5JFTIuA5su6UeTMadpks8V+JImd63ZLpqZdMUeDXJZG1TMgbEvByL3q73IiqDUi3+3FwTxI8a+XX7aIoQpYddvzTldctoyfpR1u7F3HNg6QuwOngPxBWPO92e1+yuMoKK39L07RKLper6Lpe+Vde0OWKN+Rb9XoaXrjc7ts/AY0ffN2r/FqTAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;presentation-mode-1.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/a9de7a0d3b3cd8221450838253d22968/fb8a0/presentation-mode-1.png&quot;
+        srcset=&quot;/static/a9de7a0d3b3cd8221450838253d22968/1a291/presentation-mode-1.png 148w,
+/static/a9de7a0d3b3cd8221450838253d22968/2bc4a/presentation-mode-1.png 295w,
+/static/a9de7a0d3b3cd8221450838253d22968/fb8a0/presentation-mode-1.png 590w,
+/static/a9de7a0d3b3cd8221450838253d22968/526de/presentation-mode-1.png 885w,
+/static/a9de7a0d3b3cd8221450838253d22968/fa2eb/presentation-mode-1.png 1180w,
+/static/a9de7a0d3b3cd8221450838253d22968/08f6a/presentation-mode-1.png 1770w,
+/static/a9de7a0d3b3cd8221450838253d22968/79a16/presentation-mode-1.png 1808w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/p&gt;
+&lt;p&gt;ショートカットキーは、Macだと&lt;code class=&quot;language-text&quot;&gt;option + p&lt;/code&gt;、Windowsだと&lt;code class=&quot;language-text&quot;&gt;alt + p&lt;/code&gt;です。&lt;br&gt;
+タイマーやページ数などプレゼンに必要な機能がすべて確認できるモードです。
+MDX-Deckは複数タブ間の画面遷移を同期する機能を持っています。
+そのため手元のPCではプレゼンテーションモードで開いてスライドを遷移させながら、
+プロジェクターには通常モードで開いて見せるといったことが可能です。&lt;/p&gt;
+&lt;h4 id=&quot;オーバービューモード&quot;&gt;&lt;a href=&quot;#%E3%82%AA%E3%83%BC%E3%83%90%E3%83%BC%E3%83%93%E3%83%A5%E3%83%BC%E3%83%A2%E3%83%BC%E3%83%89&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;オーバービューモード&lt;/h4&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 68.12354312354313%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAABcRAAAXEQHKJvM/AAADOUlEQVQ4y22SzW8bRRjGx/Z613Fsx3X8ubtex9/r9dpJ6iS21yalRWmhioQiQEklIoSEhDjQSm1P7aFQRSQVQqJSIwGHEiraVAiURuVPaK0VB9Q7fwA3EL20aUd+mNl1RIR6ePTOvO/Mb555Z8j93d0nOzs7g917u/aVq1ftUqlkp9KKfWxStqOxlB2Lp+14UraTKcXJpzKqnZFVW9M0W1FVu1Kt2svLy1y/tVqtc2TvwT7u/HgX+w9/xd7eA1z77Dq++vI69u9/jYe/fIef791i2sZPd7dx5/Yt/HD7Jr795ia+2NzC1hbTjRvY3NzExsYGVldXLxJfugJfsvgimm/Qet2ghBA6qSTp0ptNevpsm7YXZ+jxLqu1DFps6LQyo9NkoURJVKXeWJZ6jvGoUY80Drb3UxLMzyKQNanStMAs8ySEtA6SNEHiPBogiZqr1KF0iNnGSOZQzE0PhXCc7z1PYlMNSKkSzU1bsCzLAUpyBQHNZAfVIaoGEvocMg0LiVobCaODau8MxrQG/IoBUTGGDMyAky4wabQgsesmmv3/gJkKA5l8sbOJw/Jzp5CdXUS23kGmtuAc+ErgTKSK07ECfXvBQueIQ3YVx50DNNuQmz2osyeQ0ecR1+oIqHWn5v8/8I+PPge2r9En31/G8YWu28NUGYJiQpANphqUmRPItV5nTnuIVuZZjYEYUHwV8OR76+itrNEz5z6E1e04wGS5hkixgXCeqdCEbLK2MMf8mjyOnB1xaA794ZgLJJMlkJBKY+V5rL/bgT4lwDrVxvRrbVQX5tB+o4+19bec1+Vt8PPe8nYcfWVteugNjRyO59jV2CsXZvvo9dweEjEE71iEKQxPwB0LwQlnfiieJxKTPziUItHhxETQBXr5n4vmDmLlFu10u87HLhZyVK+UabVcpFlVoTktS6c0jeZzGg2OjVGf1+OsEwU35mXp5VxNcj/2ygefYOmddbz/8QVYvUXHYUuXoKTDKGphhEOi69rD5XHHI+WzEWhyGGdPFrHUz/PcJfLs4Pnvf//156OnT/8ZdHv9AUsOxkOBgc/vH/gl0YleQWAaRT4fyeMTnDrxeB8Tr89m9dV/AWwpjLIgDDIhAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;presentation-mode-2.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/bd3ba2ad4a815b2653e28fc4228e2070/fb8a0/presentation-mode-2.png&quot;
+        srcset=&quot;/static/bd3ba2ad4a815b2653e28fc4228e2070/1a291/presentation-mode-2.png 148w,
+/static/bd3ba2ad4a815b2653e28fc4228e2070/2bc4a/presentation-mode-2.png 295w,
+/static/bd3ba2ad4a815b2653e28fc4228e2070/fb8a0/presentation-mode-2.png 590w,
+/static/bd3ba2ad4a815b2653e28fc4228e2070/526de/presentation-mode-2.png 885w,
+/static/bd3ba2ad4a815b2653e28fc4228e2070/fa2eb/presentation-mode-2.png 1180w,
+/static/bd3ba2ad4a815b2653e28fc4228e2070/e6d6e/presentation-mode-2.png 1716w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/p&gt;
+&lt;p&gt;ショートカットキーは、Macだと&lt;code class=&quot;language-text&quot;&gt;option + u&lt;/code&gt;、Windowsだと&lt;code class=&quot;language-text&quot;&gt;alt + u&lt;/code&gt;です。
+パワーポイントのように、左側にページ一覧が表示されるモードです。&lt;/p&gt;
+&lt;h4 id=&quot;全ページ表示モード&quot;&gt;&lt;a href=&quot;#%E5%85%A8%E3%83%9A%E3%83%BC%E3%82%B8%E8%A1%A8%E7%A4%BA%E3%83%A2%E3%83%BC%E3%83%89&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;全ページ表示モード&lt;/h4&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 67.97583081570997%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAABcRAAAXEQHKJvM/AAADBElEQVQ4y21T2UtUURw+Oneuy4zbpI6Ojs6i6KjjliFGOaaWUqgk0Z5GkUuZkgsu44Koo+ZC/Qs9RUIGYgsuFaG5kVlmRhD4YORDC/mQ1sPX71wHRZwLH9/vnnPPd37Ld9nAwAO8HB/D2OgIpqdeo7+3B2mWVBzNTEdGegayMg+jID8WJYXHUF6UgysFx3H1ch5aas+i7Fo+UtMykZ2dheLiEpSXl4NVt3ahqtmGypZO1LR2o5LiCmsbyjga2ihuRU2TFdbObjR13Ua7rQcd7X2w2frQ0GjFrcpKVFVV40bZTRQVFYExRRDYPgOU+jhiI5i7hhAE98BwKDQRYN46MM9QaJ2CUMeCcU8RjzFjNKYyDIhUe5MA2w03XRw8jYnQmg/COywRbqFmCFozok2JMMel0Np+MBK+YDmFtdo7WO+7CzzqBRZtyDySIImIohzOMhmxCCZqYyAPioJMY5JYHhwNkcACTGDqCOmd+ehR29mP5a+rmFhcwszyF3xa/Ymc/NOSIBfjLOPspouFa4gZ7sRuxDzmgjwzP1MyfAnMPxz3B4fBn7nZaax8XpDi+vq6HaFtVhm2+uQXJmXCY+fASKiMCdsXMJUeQ8/GJZEfayv49f2bFLc0N0tCgiDscG5hKXILSpBXUCoh91KJlJUs0ASFLh5KI/VQHYkGWz+eT0zj4eMRDD4ZxauZeZw5f3FvybA/G5ubEv/Z2MT1mka8mJzFBB0am5zDuYomqQKReszb4RwQsdVjhWrXhHcJ/l5fl3jz7z80tnZI8dPhIWjUfgjV6eBKw1NFJEEdnQIvcoO7PgHOHr57Bd8sfsT8+yW8JX63tIy5hQ+wnMhHVu5JHDhkoQ/lkCl9qJcxEDRRkhNcggkhsY4FlYY4+Eclk/9i4UJZ8INOVJJA4GZXkkddaDB8TyAxn/AkKMkRcvKqzJGghyEeoYkWBJKxPe2T5Z4MoEv0tO5F9uF94yULtO5HJXvQd0JwjGNB0e47foBnIdqNLVJZrpztg3Cx/wC8Ar4nah2X/B958/qFjKKm/QAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;presentation-mode-3.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/8a38bf2e26002a12d9607adf98301240/fb8a0/presentation-mode-3.png&quot;
+        srcset=&quot;/static/8a38bf2e26002a12d9607adf98301240/1a291/presentation-mode-3.png 148w,
+/static/8a38bf2e26002a12d9607adf98301240/2bc4a/presentation-mode-3.png 295w,
+/static/8a38bf2e26002a12d9607adf98301240/fb8a0/presentation-mode-3.png 590w,
+/static/8a38bf2e26002a12d9607adf98301240/526de/presentation-mode-3.png 885w,
+/static/8a38bf2e26002a12d9607adf98301240/fa2eb/presentation-mode-3.png 1180w,
+/static/8a38bf2e26002a12d9607adf98301240/5e107/presentation-mode-3.png 1655w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/p&gt;
+&lt;p&gt;ショートカットキーは、Macだと&lt;code class=&quot;language-text&quot;&gt;option + g&lt;/code&gt;、Windowsだと&lt;code class=&quot;language-text&quot;&gt;alt + g&lt;/code&gt;です。
+全ページがグリッド表示されるモードです。発表後の、質問タイムなどに使えます。&lt;/p&gt;
+&lt;h3 id=&quot;テーマ指定方法&quot;&gt;&lt;a href=&quot;#%E3%83%86%E3%83%BC%E3%83%9E%E6%8C%87%E5%AE%9A%E6%96%B9%E6%B3%95&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;テーマ指定方法&lt;/h3&gt;
+&lt;p&gt;テーマのカスタマイズについては&lt;a href=&quot;https://github.com/jxnblk/mdx-deck/blob/master/docs/theming.md&quot;&gt;公式ドキュメント&lt;/a&gt;を見ると良いです。
+ここでは&lt;a href=&quot;https://github.com/Takumon/mdx-deck-sample/blob/master/components/theme.js&quot;&gt;僕のスライドのソースコード&lt;/a&gt;を例にしてにカスタマイズ方法を紹介します。&lt;/p&gt;
+&lt;h4 id=&quot;デフォルトテーマをカスタマイズする&quot;&gt;&lt;a href=&quot;#%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88%E3%83%86%E3%83%BC%E3%83%9E%E3%82%92%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA%E3%81%99%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;デフォルトテーマをカスタマイズする&lt;/h4&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;theme.js&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; theme &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;mdx-deck/themes&apos;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;theme&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// カスタマイズしたいプロパティを定義&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;セクションタイトルなどをレスポンシブ対応する&quot;&gt;&lt;a href=&quot;#%E3%82%BB%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB%E3%81%AA%E3%81%A9%E3%82%92%E3%83%AC%E3%82%B9%E3%83%9D%E3%83%B3%E3%82%B7%E3%83%96%E5%AF%BE%E5%BF%9C%E3%81%99%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;セクションタイトルなどをレスポンシブ対応する&lt;/h3&gt;
+&lt;p&gt;画面サイズに応じたスタイルを指定するには、メディアクエリを指定する必要があります。
+テーマの設定においてメディアクエリは以下のような形で指定できます。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;theme.js&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; theme &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;mdx-deck/themes&apos;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;theme&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  h1&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    textTransform&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;uppercase&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    fontWeight&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;600&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    fontSize&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;1rem&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    letterSpacing&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;.02rem&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;@media screen and (min-width:480px) and (min-height: 400px)&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      fontSize&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;1.5rem&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      letterSpacing&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;.03rem&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;@media screen and (min-width:640px) and (min-height: 500px)&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      fontSize&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;2.5rem&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      letterSpacing&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;.04rem&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;@media screen and (min-width:1020px) and (min-height: 830px)&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      fontSize&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;4rem&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      letterSpacing&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;.05rem&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;画面遷移方式をカスタマイズする&quot;&gt;&lt;a href=&quot;#%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E6%96%B9%E5%BC%8F%E3%82%92%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA%E3%81%99%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;画面遷移方式をカスタマイズする&lt;/h3&gt;
+&lt;p&gt;横スライドしかできませんが、
+遷移における、速度変化の割合（CSSでいう&lt;code class=&quot;language-text&quot;&gt;transition-timing-function&lt;/code&gt;）と時間を指定できます。
+自分の場合は、アニメーションをオフにしたかったので、時間は0にしました。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;theme.js&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; theme &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;mdx-deck/themes&apos;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;theme&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// 横スライドするでデジ曲線のパターン&lt;/span&gt;
+  transitionTimingFunction&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;linear&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// スライドにかかる時間&lt;/span&gt;
+  transitionDuration&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;0s&apos;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;ソースコードのシンタックスハイライトを指定する&quot;&gt;&lt;a href=&quot;#%E3%82%BD%E3%83%BC%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E3%82%B7%E3%83%B3%E3%82%BF%E3%83%83%E3%82%AF%E3%82%B9%E3%83%8F%E3%82%A4%E3%83%A9%E3%82%A4%E3%83%88%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%99%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;ソースコードのシンタックスハイライトを指定する&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.npmjs.com/package/react-syntax-highlighter&quot;&gt;react-syntax-highlighter&lt;/a&gt;をインストールして、以下のように指定します。
+お好きなテーマを選びましょう。自分はatomDarkにしました。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;theme.js&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; theme &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;mdx-deck/themes&apos;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; atomDark &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;react-syntax-highlighter/styles/prism/atom-dark&apos;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;theme&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  prism&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    style&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; atomDark
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;ソースコードプレビューをレスポンシブ対応する&quot;&gt;&lt;a href=&quot;#%E3%82%BD%E3%83%BC%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%89%E3%83%97%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E3%82%92%E3%83%AC%E3%82%B9%E3%83%9D%E3%83%B3%E3%82%B7%E3%83%96%E5%AF%BE%E5%BF%9C%E3%81%99%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;ソースコードプレビューをレスポンシブ対応する&lt;/h3&gt;
+&lt;p&gt;MDE-Deckのテーマは、&lt;code class=&quot;language-text&quot;&gt;h1～h6&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;ul&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;ol&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;li&lt;/code&gt;タグのスタイルは指定できるのですが、
+&lt;strong&gt;😭ソースコードプレビューのタグである&lt;code class=&quot;language-text&quot;&gt;pre&lt;/code&gt;の指定はテーマではできません😭&lt;/strong&gt;
+そのためテーマではなく、レイアウトコンポーネントを作ることで対応しました。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;layout-aligne-center.js&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; React &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;react&apos;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; styled &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;styled-components&apos;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; Wrapper &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; styled&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;main&lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token string&quot;&gt;`
+  width: 100vw;
+  height: 100vh;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+
+  pre {
+    max-width: 90vw;
+    max-height: 80vh;
+    font-size: 0.5rem;
+
+    @media screen and (min-width:480px) and (min-height: 400px) {
+      font-size: 0.8rem;
+    }
+    @media screen and (min-width:640px) and (min-height: 500px) {
+      font-size: 1rem;
+    }
+    @media screen and (min-width:1020px) and (min-height: 830px) {
+      font-size: 1.8rem;
+    }
+  }
+`&lt;/span&gt;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;LayoutAlignCenter&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; children &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;Wrapper&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;children&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;Wrapper&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; LayoutAlignCenter&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;ビルド周りの注意点&quot;&gt;&lt;a href=&quot;#%E3%83%93%E3%83%AB%E3%83%89%E5%91%A8%E3%82%8A%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;ビルド周りの注意点&lt;/h3&gt;
+&lt;h4 id=&quot;htmlに出力する&quot;&gt;&lt;a href=&quot;#html%E3%81%AB%E5%87%BA%E5%8A%9B%E3%81%99%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;HTMLに出力する&lt;/h4&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;mdx-deck build&lt;/code&gt;では&lt;strong&gt;😭mdxファイルで指定した画像を出力してくれません😭&lt;/strong&gt;
+そのため以下のようにしてビルド時に自分でコピーする必要があります。
+npmスクリプトは以下のようにしました。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;json&quot;&gt;&lt;pre class=&quot;language-json&quot;&gt;&lt;code class=&quot;language-json&quot;&gt;    &lt;span class=&quot;token property&quot;&gt;&quot;build&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;mdx-deck build --no-html deck.mdx &amp;amp; cpx \&quot;images/*\&quot; ./dist/images&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4 id=&quot;pdfに出力する&quot;&gt;&lt;a href=&quot;#pdf%E3%81%AB%E5%87%BA%E5%8A%9B%E3%81%99%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;PDFに出力する&lt;/h4&gt;
+&lt;p&gt;npmスクリプトは以下の縦幅と横幅を指定して出力するようにしました。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;json&quot;&gt;&lt;pre class=&quot;language-json&quot;&gt;&lt;code class=&quot;language-json&quot;&gt;    &lt;span class=&quot;token property&quot;&gt;&quot;pdf&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;mdx-deck pdf --width 1377 --height 756 deck.mdx&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;😭ただ文字の大きさなどのレイアウトが思い通りにいかない部分がありました😭&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Code Suferのアニメーション非対応&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ソースコードの全量が表示されるのみ、アニメーションごとの説明は表示されない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Appearタグのアニメーション非対応&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;アニメーションごとにスライドを分けたりはできない。最終結果のみ表示される&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;左右分割レイアウト非対応&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;何も表示されない。空白のページが出力される。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;絵文字は白黒になる&lt;/li&gt;
+&lt;li&gt;文字が小さく表示される&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;スナップショットを出力する&quot;&gt;&lt;a href=&quot;#%E3%82%B9%E3%83%8A%E3%83%83%E3%83%97%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%E3%82%92%E5%87%BA%E5%8A%9B%E3%81%99%E3%82%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;スナップショットを出力する&lt;/h4&gt;
+&lt;p&gt;MDX-Deckでは一枚目のスライドをPNGで出力できます。
+npmスクリプトは以下の縦幅と横幅を指定して出力するようにしました。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;json&quot;&gt;&lt;pre class=&quot;language-json&quot;&gt;&lt;code class=&quot;language-json&quot;&gt;    &lt;span class=&quot;token property&quot;&gt;&quot;screenshot&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;mdx-deck screenshot --width 1200 --height 630 deck.mdx&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;😭ただこれもPDFと同様に、レイアウトが思い通りにいきませんでした😭&lt;/strong&gt;
+本当はTwitterカード用の画像をこの機能で作りたかったのですが、結局断念してパワポで作りました。&lt;/p&gt;
+&lt;h3 id=&quot;シンタックス周りの注意点&quot;&gt;&lt;a href=&quot;#%E3%82%B7%E3%83%B3%E3%82%BF%E3%83%83%E3%82%AF%E3%82%B9%E5%91%A8%E3%82%8A%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;シンタックス周りの注意点&lt;/h3&gt;
+&lt;p&gt;2つほど注意点があります。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HTMLタグやコンポーネントのタグ内に、マークダウンを記述しても素の文字列として認識されてしまう&lt;/li&gt;
+&lt;li&gt;セクションタイトルを凝ったスタイルにしようとしてHTMLタグのh1 h2タグなどを使うと、テーマで指定したスタイルが有効にならない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;プレゼン時の注意事項&quot;&gt;&lt;a href=&quot;#%E3%83%97%E3%83%AC%E3%82%BC%E3%83%B3%E6%99%82%E3%81%AE%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;プレゼン時の注意事項&lt;/h3&gt;
+&lt;p&gt;こちらも注意が必要です。&lt;br/&gt;
+HTMLなので、レイアウトがディスプレイの解像度に左右されます。
+レスポンシブデザインにしたとしても、&lt;strong&gt;😭場合によっては文章が折り返されたりして、思い通りのレイアウトで表示されません😭&lt;/strong&gt;
+そのため、プレゼンの前は、お試しでプロジェクターに映してレイアウトが崩れないか確認しましょう。
+崩れる場合は、ブラウザの拡大率で調整すればOKです。&lt;/p&gt;
+&lt;h3 id=&quot;mdxを使ったライブラリ&quot;&gt;&lt;a href=&quot;#mdx%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;MDXを使ったライブラリ&lt;/h3&gt;
+&lt;p&gt;MDX-Deckの以外にも&lt;a href=&quot;https://mdxjs.com/&quot;&gt;MDX&lt;/a&gt;を使ったライブラリが何個かあります。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.docz.site/&quot;&gt;docz&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;手軽にReactコンポーネントガイドを作れるです。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/ChristopherBiscardi/gatsby-mdx&quot;&gt;gatsby-mdx&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Gatsbyのプラグイン。GatsbyでMDXが使えるようになります。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;補足情報は以上です。&lt;/p&gt;
+&lt;h2 id=&quot;参加レポート&quot;&gt;&lt;a href=&quot;#%E5%8F%82%E5%8A%A0%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;参加レポート&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://twitter.com/engineer_osca&quot;&gt;OSCA&lt;/a&gt;さんが主催する勉強会で、今回で11回目の開催です。
+今回の渋谷にある&lt;a href=&quot;https://mixi.co.jp/&quot;&gt;ミクシィ&lt;/a&gt;で行われました。広々としたスペースで夜景が見えるとても綺麗な会場でした。&lt;/p&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 40.90909090909091%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAIAAAB2/0i6AAAACXBIWXMAAAsSAAALEgHS3X78AAAB80lEQVQY0wHoARf+AP3LQvzFOfy/Nfu6Mvu2M/qxMvqvOvmsO/mrQ/igM/ikQ/qaNP+iQf+xaf2taviPQvWEN/SCO/R9O/R8PgD9yT38xDb8vS37tyn7sSj6rSn6qSv5qTP5pjf3oTb8nTLntoOoutHB2PLE3Pn28vD3mFj0fjT0fz7zez0A/cc1/MhG/Mtc/Mle/Mxz+8hw+8Fl+7tf+a1G95wq/KdI8fPyY57iirbrncn62dvh+5ZR84A39H8883g5AP3KPf3KTv3VeP7sx/3muf3Wlf3ku/vEdvmyUvmrSfmoTvzBgt/Ov+fQv/rcyPjPtPWAL/R7MPR+PPSDSgD9yDn8ykv9yVT8y2f8yWj8y3X7vFn6uFf5sE75rU75q1P3lzP9ljL8nU78znH87aD3wZ/53L/2mGL0dzcA/cc0/MMy/L0v+7w7+s14+cBd+q84+agy+ag7+J4v+Jou955A9pQ396Bb/tlg/tAb+ct7/+1m+r9+8nI2AP3HMvzDNPy9Lvu8OfrBVPq4RfqtNPmoMfmlNPihNPicMveZNfeWOPaPOfu+W/7eiv7fbv/XK/ipdfN2OAD9xjL8wjD8vjH7uS/7sij6ri36rDL5qDL5pDH4oDL4nDP3mDP3kzP2jjL2hTD1jUv4qGT4rV/0gEHzdTO9ED2RigQuCQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;web-engineer-meatup&quot;
+        title=&quot;&quot;
+        src=&quot;/static/a66f18412b5f6b15d291ddda13df4624/fb8a0/web-engineer-meetup.png&quot;
+        srcset=&quot;/static/a66f18412b5f6b15d291ddda13df4624/1a291/web-engineer-meetup.png 148w,
+/static/a66f18412b5f6b15d291ddda13df4624/2bc4a/web-engineer-meetup.png 295w,
+/static/a66f18412b5f6b15d291ddda13df4624/fb8a0/web-engineer-meetup.png 590w,
+/static/a66f18412b5f6b15d291ddda13df4624/7c491/web-engineer-meetup.png 660w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+&lt;br/&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;技術領域を限定していないので、フロントエンドからバックエンドまで色々な技術ネタを聞くことができ、非常に楽しい勉強会でした。
+以下にLT登壇者のスライドと感想を載せています。&lt;/p&gt;
+&lt;h3 id=&quot;写真共有アプリ「みてね」に見る簡潔な良uiux&quot;&gt;&lt;a href=&quot;#%E5%86%99%E7%9C%9F%E5%85%B1%E6%9C%89%E3%82%A2%E3%83%97%E3%83%AA%E3%80%8C%E3%81%BF%E3%81%A6%E3%81%AD%E3%80%8D%E3%81%AB%E8%A6%8B%E3%82%8B%E7%B0%A1%E6%BD%94%E3%81%AA%E8%89%AFuiux&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;写真共有アプリ「みてね」に見る簡潔な良UI/UX&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://twitter.com/ngmt83&quot;&gt;ngmt&lt;/a&gt;さん&lt;/strong&gt;&lt;/p&gt;
+&lt;div style=&quot;left: 0; width: 100%; height: 0; position: relative; padding-bottom: 74.9288%;&quot;&gt;&lt;iframe src=&quot;//speakerdeck.com/player/d7decad7104443288501c421631cc8a5&quot; style=&quot;border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;&quot; allowfullscreen scrolling=&quot;no&quot; allow=&quot;autoplay; encrypted-media&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;ミクシィさんが作っている写真共有アプリ「みてね」の紹介です。
+実際ngmtさんが使ってみた感想を踏まえながら、
+「みてね」のUI/UXのすばらしさについて聞くことができました。
+「サービスとして『なんでも提供できる』は『何も提供していない』と同じ」という前提をもとに
+「みてね」は想定ユーザーを限定し、そこに対して使いやすさを追求することで簡潔なUI/UXを実現できている
+という話しの展開で、すごく納得させられるLTでした。&lt;/p&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;h3 id=&quot;webエンジニアが知っておきたい決済の仕組み&quot;&gt;&lt;a href=&quot;#web%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E3%81%8C%E7%9F%A5%E3%81%A3%E3%81%A6%E3%81%8A%E3%81%8D%E3%81%9F%E3%81%84%E6%B1%BA%E6%B8%88%E3%81%AE%E4%BB%95%E7%B5%84%E3%81%BF&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;WEBエンジニアが知っておきたい決済の仕組み&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://twitter.com/ykagano&quot;&gt;ykagano&lt;/a&gt;さん&lt;/strong&gt;&lt;/p&gt;
+&lt;div style=&quot;left: 0; width: 100%; height: 0; position: relative; padding-bottom: 69.1563%;&quot;&gt;&lt;iframe src=&quot;//speakerdeck.com/player/2f10fe62a6d541acb0a42deb95e3828b&quot; style=&quot;border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;&quot; allowfullscreen scrolling=&quot;no&quot; allow=&quot;autoplay; encrypted-media&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;通称「おーそり」と呼ばれる「オーソライゼーション」や「クリアリング」「セツルメント」までの決済の一連の流れと登場人物を
+図解で説明してくれていて、決済システムに詳しくない自分でも理解することができました。
+&lt;a href=&quot;https://twitter.com/ykagano&quot;&gt;ykagano&lt;/a&gt;さんのしゃべりは非常に聞きやすく、
+、聴衆への視線の配り方、間の取り方などはぜひ参考にしたいところです。&lt;/p&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;h3 id=&quot;心理的安全性とは？-保ち方、壊し方-などについて&quot;&gt;&lt;a href=&quot;#%E5%BF%83%E7%90%86%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E3%81%A8%E3%81%AF%EF%BC%9F-%E4%BF%9D%E3%81%A1%E6%96%B9%E3%80%81%E5%A3%8A%E3%81%97%E6%96%B9-%E3%81%AA%E3%81%A9%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;心理的安全性とは？ 保ち方、壊し方 などについて&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://connpass.com/user/NagaakiHoshi/&quot;&gt;星 永亮&lt;/a&gt;さん&lt;/strong&gt;&lt;/p&gt;
+&lt;div style=&quot;left: 0; width: 100%; height: 0; position: relative; padding-bottom: 74.9288%;&quot;&gt;&lt;iframe src=&quot;//speakerdeck.com/player/10bca2b777d64c1296af7b63d695b427&quot; style=&quot;border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;&quot; allowfullscreen scrolling=&quot;no&quot; allow=&quot;autoplay; encrypted-media&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;最近はやりのワードについてのLTでした。
+心理的安全性が高い状態に持っていくには、誰かが継続的に行動しないと実現できないんだなぁと実感しました。
+「セーフティー」という言葉を社内に流行らせようとしている&lt;a href=&quot;https://connpass.com/user/NagaakiHoshi/&quot;&gt;星 永亮&lt;/a&gt;さんの行動はとても素晴らしいと思います！！&lt;/p&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;h3 id=&quot;なぜ僕はプログラミングが苦手なのか&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%9C%E5%83%95%E3%81%AF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%8C%E8%8B%A6%E6%89%8B%E3%81%AA%E3%81%AE%E3%81%8B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なぜ僕はプログラミングが苦手なのか&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://twitter.com/3s_hv&quot;&gt;VTRyo&lt;/a&gt;さん&lt;/strong&gt;&lt;/p&gt;
+&lt;div style=&quot;left: 0; width: 100%; height: 0; position: relative; padding-bottom: 74.9288%;&quot;&gt;&lt;iframe src=&quot;//speakerdeck.com/player/94caa136a9b74483a9f897f41cff4220&quot; style=&quot;border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;&quot; allowfullscreen scrolling=&quot;no&quot; allow=&quot;autoplay; encrypted-media&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;「他の人が短時間で簡単に実現できることを、自分がそれの何倍も時間がかかってやっと実現できた」ときに「自分はセンスないな」と劣等感を抱いてしまいがちです。
+しかしセンスの有無について以下のように解釈すると、劣等感を打破して前に進んでいけるというお話でした。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;センスある人 = これまでの経験により必要な感覚が備わっている&lt;/li&gt;
+&lt;li&gt;センスがない人 = まだ習慣が備わってない人&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;自分も新人のころ「自分はセンスない」と落ち込んだりしたことがあるので、非常に共感させられるLTでした。
+&lt;br/&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;h3 id=&quot;grpc入門&quot;&gt;&lt;a href=&quot;#grpc%E5%85%A5%E9%96%80&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;gRPC入門&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://twitter.com/mzryuka&quot;&gt;みずりゅ&lt;/a&gt;さん&lt;/strong&gt;&lt;/p&gt;
+&lt;div&gt;
+          &lt;div
+            class=&quot;gatsby-resp-iframe-wrapper&quot;
+            style=&quot;padding-bottom: 75%; position: relative; height: 0; overflow: hidden;margin-bottom: 1.0725rem&quot;
+          &gt;
+            &lt;iframe src=&quot;https://esa-pages.io/p/sharing/10496/posts/38/86b73fd543ff1f842540-slides.html&quot; style=&quot;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+          &quot;&gt;&lt;/iframe&gt;
+&lt;br&gt;
+          &lt;/div&gt;
+          &lt;/div&gt;
+&lt;p&gt;いろんな言語でgRPCを試したという内容でした。
+スライドが&lt;a href=&quot;https://esa.io/&quot;&gt;esa&lt;/a&gt;のプレゼンモードで、
+画面遷移時に、&lt;strong&gt;↓↓esaのキャラクター↓↓&lt;/strong&gt;がにゅにゅにゅっと動くのがかわいかったです。&lt;/p&gt;
+&lt;p&gt;
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 212px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 59.905660377358494%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAA7DAAAOwwHHb6hkAAACJklEQVQoz5WRTUwTURDHtyYiULux20WNF7160LuHwslwMK0HMVxalURT0x44IEYxxmhAAV3a/W63NdFEsW00eDLBBANSoI1IgomJASXogcTEXjzIZfuGea9bFKkkbvLLvJ35z7yZeVxT8JSPv9YT4G/0Bvm+KwEk+J9gTm+Av95zurnzzCHOffF8qzcpg5DRQLBUENLaNsSMzqgX28zB/L3d0bNY8ILfayaIkFYJBisItcTrWMoefYRRL+bkUMDTHe34XZAKUwoREGpF/PchfFIm7S/z5ORYjniSCeYTLW2L9l8FwVsVsDGajThw8hCoi++h9j1YeAdcYhAajRFw9OAUJHULCtUgYFcwPF+CsZVlWCv/hKUJC5bGVfj6vQzZz59AX1yAgxkD9lUv37mgiAverUlwuzTDuiLIt/kXsFp8ChVS7fThxw/QoEtAtcJOHTrts1FwX3D5zWsor//aHPkHnq8WJlnc6W77yJ5LXX4RF9+Ct7XgshlpjexHXMp90vp8lIyvfiGvVpbJifwT5qNx+jiC8zB4rvhqBV1dIT+KbJcuVVyaZNfYpUt2gxG38WH+YJj5aLwpJdtuS7HdKcRSqYVGWrDj1s22OzjGQHEG+menoX+usIV76L9bLDigZm4aBkuz0PY4A0f1OBw3FThGSapwJBrp5PpisQMTo89CU7l8eDKbCyHhv5nK5hm1/7eofWSaYUOWwylFDVFMWT4Xi0QObwDIaR1XtDA83wAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;esa-icon.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/8671f03b9843e811f068c7b55fde2242/13aec/esa-icon.png&quot;
+        srcset=&quot;/static/8671f03b9843e811f068c7b55fde2242/53898/esa-icon.png 148w,
+/static/8671f03b9843e811f068c7b55fde2242/13aec/esa-icon.png 212w&quot;
+        sizes=&quot;(max-width: 212px) 100vw, 212px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/p&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;h3 id=&quot;word-cloudでツイートを可視化してみた&quot;&gt;&lt;a href=&quot;#word-cloud%E3%81%A7%E3%83%84%E3%82%A4%E3%83%BC%E3%83%88%E3%82%92%E5%8F%AF%E8%A6%96%E5%8C%96%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Word Cloudでツイートを可視化してみた&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://twitter.com/naoto_7713&quot;&gt;なおと&lt;/a&gt;さん&lt;/strong&gt;&lt;/p&gt;
+&lt;div style=&quot;left: 0; width: 100%; height: 0; position: relative; padding-bottom: 75.0019%; padding-top: 38px;&quot;&gt;&lt;iframe src=&quot;https://www.slideshare.net/slideshow/embed_code/key/3LF05HDXS8WFos&quot; style=&quot;border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;&quot; allowfullscreen scrolling=&quot;no&quot; allow=&quot;autoplay; encrypted-media&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;WEBエンジニア勉強会#11に関するツイートをワードクラウド化するデモが印象的でした。&lt;/p&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;ja&quot;&gt;&lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;LT楽しかったです。セーフティーですね&lt;br&gt;ツイート数の合計は368でした！！また、word cloudしたものです。&lt;a href=&quot;https://twitter.com/hashtag/web%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E5%8B%89%E5%BC%B7%E4%BC%9A11?src=hash&amp;amp;ref_src=twsrc%5Etfw&quot;&gt;#webエンジニア勉強会11&lt;/a&gt; &lt;a href=&quot;https://t.co/Ytx1JAPDMA&quot;&gt;pic.twitter.com/Ytx1JAPDMA&lt;/a&gt;&lt;/p&gt;&amp;mdash; なおと (@naoto_7713) &lt;a href=&quot;https://twitter.com/naoto_7713/status/1091364920807964673?ref_src=twsrc%5Etfw&quot;&gt;2019年2月1日&lt;/a&gt;&lt;/blockquote&gt;
+&lt;br/&gt;
+&lt;p&gt;Twitter APIと形態素解析のライブラリとWord Cloudを組み合わせだそうで、比較的簡単に実装できそうなので自分でも試してみたいです。
+&lt;a href=&quot;https://qiita.com/turmericN/items/04cd0b40f91076f0ef42&quot;&gt;Qiita&lt;/a&gt;にも投稿されてますね！&lt;/p&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;h3 id=&quot;フロントエンドコーディングにおけるpagespeed-insights対策&quot;&gt;&lt;a href=&quot;#%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8Bpagespeed-insights%E5%AF%BE%E7%AD%96&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;フロントエンドコーディングにおけるPageSpeed Insights対策&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://twitter.com/kkoudev&quot;&gt;kkoudev&lt;/a&gt;さん&lt;/strong&gt;&lt;/p&gt;
+&lt;div style=&quot;left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.1987%;&quot;&gt;&lt;iframe src=&quot;//speakerdeck.com/player/0c7e921dcb7041e898071b8c8690b8c1&quot; style=&quot;border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;&quot; allowfullscreen scrolling=&quot;no&quot; allow=&quot;autoplay; encrypted-media&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.amazon.co.jp/dp/B07JJ344WK/ref=dp-kindle-redirect?_encoding=UTF8&amp;#x26;btkr=1&quot;&gt;長速本&lt;/a&gt;を思い出す内容でした。フロントエンドのパフォーマンスを改善するための具体的な方法の紹介でしたが、
+ちょいちょい「IE11だけは～」みたいな話がありIE11の闇を感じました。&lt;/p&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;h2 id=&quot;まとめ（初ltの感想）&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81%EF%BC%88%E5%88%9Dlt%E3%81%AE%E6%84%9F%E6%83%B3%EF%BC%89&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ（初LTの感想）&lt;/h2&gt;
+&lt;p&gt;正式な登壇枠でのLTは、実は今回が初でした。
+なんとなく「LTやりたい」と思っていた状態から実行に移せたのは、ひとえに周りの方々のおかげです。
+背中を押してくれた&lt;a href=&quot;https://twitter.com/kakakakakku&quot;&gt;@kakakakakku&lt;/a&gt;さん、&lt;br/&gt;
+資料レビューをしてくれた #write_blog_every_week の皆さん、&lt;br/&gt;
+誤字脱字を隅々までチェックして、練習に付き合ってくれた会社の後輩くん、&lt;br&gt;
+本当にありがとうございました。
+今後も別の勉強会でLTしたり、&lt;a href=&quot;https://web-engineer-meetup.connpass.com/&quot;&gt;WEBエンジニア勉強会&lt;/a&gt;に参加したいと思います。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[設定いらずのNode製GraphQLサーバー「Graphpack」の使い方 / Query, Mutation, Subscriptionを試す]]></title><description><![CDATA[なにこれ 「とりあえずクライアント側と同じJavaScriptで手っ取り早くGraphQLサーバー立てたい！」 このようなユースケースに Graphpack はピッタリです。
 設定いらずのNode製GraphQLサーバーで  「GraphQL…]]></description><link>https://takumon.com//graphpack-graphql-zero-config-server</link><guid isPermaLink="false">https://takumon.com//graphpack-graphql-zero-config-server</guid><pubDate>Wed, 23 Jan 2019 10:50:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/01/graphpack-graphql-zero-config-server.png&quot; alt=&quot;Graphpack&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;「とりあえずクライアント側と同じJavaScriptで手っ取り早くGraphQLサーバー立てたい！」&lt;/strong&gt;&lt;br/&gt;&lt;/p&gt;
