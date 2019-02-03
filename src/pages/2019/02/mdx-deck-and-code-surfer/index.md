@@ -1,5 +1,5 @@
 ---
-title: 'WEBエンジニア勉強会 初LT感想と参加レポート / 「MDX-DeckとCode Suferでスライドを作ろう！」補足情報 #WEBエンジニア勉強会11'
+title: 'WEBエンジニア勉強会 初LT感想と参加レポート / 「MDX-DeckとCode Suferでスライドを作ろう！」補足情報'
 date: '2019-02-03T17:15:00.000+09:00'
 tags:
   - 勉強会
