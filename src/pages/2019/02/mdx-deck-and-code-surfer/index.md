@@ -1,6 +1,6 @@
 ---
-title: #WEBエンジニア勉強会11 初LT感想と参加レポート / 「MDX-DeckとCode Suferでスライドを作ろう！」補足情報 
-date: '2019-02-03T09:00:00.000+09:00'
+title: 'WEBエンジニア勉強会 初LT感想と参加レポート / 「MDX-DeckとCode Suferでスライドを作ろう！」補足情報 #WEBエンジニア勉強会11'
+date: '2019-02-03T17:15:00.000+09:00'
 tags:
   - 勉強会
   - LT
@@ -17,15 +17,15 @@ thumbnail: /thumbnail/2019/02/mdx-deck-and-code-surfer.png
 
 ## なにこれ 
 2019/2/1(金)、[WEBエンジニア勉強会 #11](https://web-engineer-meetup.connpass.com/event/115444/)でLTしてきました。
-本記事では自分のLTスライドと、10分の枠では伝えきれなかった補足情報を紹介します。
-また他の方のLTの様子や、勉強会の雰囲気なども参加レポートとして書いています。
+本記事では**自分のLTスライド**と、**10分の枠では伝えきれなかった補足情報**を紹介します。
+また他の方のLTの様子や、勉強会の雰囲気なども**参加レポート**として書いています。
 
 <div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 40.8994%; padding-top: 120px;"><a href="https://web-engineer-meetup.connpass.com/event/115444/" data-iframely-url="//cdn.iframe.ly/YLILmaW"></a></div></div>
 
 
 ## LTの発表スライド
 
-※`→`をクリックするか、スライドの右端をクリックすると次画面に遷移できます。<br>
+※スライドの右端をクリックするか、`→`をクリックすると次画面に遷移できます。<br>
 ※全画面で見る場合は[GitHub Pages](https://takumon.github.io/mdx-deck-sample/)をご覧ください。
 
 <iframe 
@@ -44,9 +44,7 @@ LTのネタになりそうだとうことで、今回さらに深堀して整理
 
 ## LTの反響
 
-MDX-Deckに興味をもっていただけたようでうれしいです。
-次セクションの[「LT補足情報」](#lt補足情報)で触れますが、MDX-Deckは若干つらい部分があります。
-ただ一度作ってしまえば、テーマやコンポーネントなどは再利用できるので、今後もMDX-Deckでスライドを作っていきたいと考えています。
+Twitterを見るとMDX-Deckに少しでも興味をもっていただけたようでうれしいです。
 
 <blockquote class="twitter-tweet" data-partner="tweetdeck"><p lang="ja" dir="ltr">よく考えたらスライド作成ツールの紹介をするスライド作るのってハードル高くてしんどいよな・・・<br>こんな表現・アニメーションできるんだぜって見せつけなきゃいけないんだから、たくもんさんすごい  <a href="https://twitter.com/hashtag/web%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E5%8B%89%E5%BC%B7%E4%BC%9A11?src=hash&amp;ref_src=twsrc%5Etfw">#webエンジニア勉強会11</a></p>&mdash; ngmt (@ngmt83) <a href="https://twitter.com/ngmt83/status/1091307490694713346?ref_src=twsrc%5Etfw">February 1, 2019</a></blockquote>
 
@@ -59,9 +57,11 @@ MDX-Deckに興味をもっていただけたようでうれしいです。
 <blockquote class="twitter-tweet" data-partner="tweetdeck"><p lang="ja" dir="ltr">mdxカックイイ <a href="https://twitter.com/hashtag/WEB%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E5%8B%89%E5%BC%B7%E4%BC%9A11?src=hash&amp;ref_src=twsrc%5Etfw">#WEBエンジニア勉強会11</a></p>&mdash; VTRyo@レベル0 (@3s_hv) <a href="https://twitter.com/3s_hv/status/1091305678143053824?ref_src=twsrc%5Etfw">February 1, 2019</a></blockquote>
 
 
-## LT補足情報
+## LT補足情報（😭ハマりポイント😭など）
 
-ここでは、LTで話せなかった部分の説明と、MDX-Deckを使う上での注意事項とワークアラウンドについてお話します。
+LTではMDX-Deckのメリットを中心に話しましたが、実際使ってみるとハマりポイントがいくつかあります😭
+ここでは、LTで話せなかった部分の説明と、MDX-Deckを使う上での注意事項とハマりポイントのワークアラウンドについてお話します。<br/>
+ハマりポイントはありますが、一度作ってしまえば、テーマやコンポーネントなどは再利用できるので、MDX-Deck是非使ってみてください。
 
 ### コンポーネント
 
@@ -94,7 +94,7 @@ import { Head } from 'mdx-deck'
 </Head>
 ```
 
-ただコチラTwitterCardの設定はうまくいきませんでした。
+**😭ただコチラTwitterCardの設定はうまくいきませんでした😭**
 今回どうしてもTwitterCardを設定したかったので、
 ワークアラウンドとして、ビルド時に出力されたHTMLファイルを直接編集し
 headタグに以下を埋め込んでからデプロイしました。
@@ -236,7 +236,7 @@ export default {
 ### ソースコードプレビューをレスポンシブ対応する
 
 MDE-Deckのテーマは、`h1～h6`, `ul`, `ol`, `li`タグのスタイルは指定できるのですが、
-ソースコードプレビューのタグである`pre`の指定はできません。
+**😭ソースコードプレビューのタグである`pre`の指定はテーマではできません😭**
 そのためテーマではなく、レイアウトコンポーネントを作ることで対応しました。
 
 ```jsx:title=layout-aligne-center.js
@@ -280,7 +280,7 @@ export default LayoutAlignCenter
 
 #### HTMLに出力する
 
-`mdx-deck build`ではmdxファイルで指定した画像を出力してくれません。
+`mdx-deck build`では**😭mdxファイルで指定した画像を出力してくれません😭**
 そのため以下のようにしてビルド時に自分でコピーする必要があります。
 npmスクリプトは以下のようにしました。
 
@@ -296,7 +296,7 @@ npmスクリプトは以下の縦幅と横幅を指定して出力するよう�
     "pdf": "mdx-deck pdf --width 1377 --height 756 deck.mdx",
 ```
 
-ただ文字の大きさなどのレイアウトが思い通りにいかない部分がありました。
+**😭ただ文字の大きさなどのレイアウトが思い通りにいかない部分がありました😭**
 
 * Code Suferのアニメーション非対応
   * ソースコードの全量が表示されるのみ、アニメーションごとの説明は表示されない
@@ -316,7 +316,7 @@ npmスクリプトは以下の縦幅と横幅を指定して出力するよう�
     "screenshot": "mdx-deck screenshot --width 1200 --height 630 deck.mdx",
 ```
 
-ただこれもPDFと同様に、レイアウトが思い通りにいきませんでした。
+**😭ただこれもPDFと同様に、レイアウトが思い通りにいきませんでした😭**
 本当はTwitterカード用の画像をこの機能で作りたかったのですが、結局断念してパワポで作りました。
 
 ### シンタックス周りの注意点
@@ -331,7 +331,7 @@ npmスクリプトは以下の縦幅と横幅を指定して出力するよう�
 
 こちらも注意が必要です。<br/>
 HTMLなので、レイアウトがディスプレイの解像度に左右されます。
-レスポンシブデザインにしたとしても、場合によっては不本意に文章が折り返されたりします。
+レスポンシブデザインにしたとしても、**😭場合によっては文章が折り返されたりして、思い通りのレイアウトで表示されません😭**
 そのため、プレゼンの前は、お試しでプロジェクターに映してレイアウトが崩れないか確認しましょう。
 崩れる場合は、ブラウザの拡大率で調整すればOKです。
 
@@ -365,18 +365,17 @@ MDX-Deckの以外にも[MDX](https://mdxjs.com/)を使ったライブラリが�
 <br/>
 
 技術領域を限定していないので、フロントエンドからバックエンドまで色々な技術ネタを聞くことができ、非常に楽しい勉強会でした。
-以下ではLT登壇者のスライドと感想を載せています。
+以下にLT登壇者のスライドと感想を載せています。
 
 
 ### 写真共有アプリ「みてね」に見る簡潔な良UI/UX
-
-[ngmt](https://twitter.com/ngmt83)さん
+**[ngmt](https://twitter.com/ngmt83)さん**
 
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 74.9288%;"><iframe src="//speakerdeck.com/player/d7decad7104443288501c421631cc8a5" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media"></iframe></div>
 <br/>
 
 ミクシィさんが作っている写真共有アプリ「みてね」の紹介です。
-実際ngmtさんが使ってみた実例を踏まえながら、
+実際ngmtさんが使ってみた感想を踏まえながら、
 「みてね」のUI/UXのすばらしさについて聞くことができました。
 「サービスとして『なんでも提供できる』は『何も提供していない』と同じ」という前提をもとに
 「みてね」は想定ユーザーを限定し、そこに対して使いやすさを追求することで簡潔なUI/UXを実現できている
@@ -387,8 +386,7 @@ MDX-Deckの以外にも[MDX](https://mdxjs.com/)を使ったライブラリが�
 
 
 ### WEBエンジニアが知っておきたい決済の仕組み
-
-[ykagano](https://twitter.com/ykagano)さん
+**[ykagano](https://twitter.com/ykagano)さん**
 
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 69.1563%;"><iframe src="//speakerdeck.com/player/2f10fe62a6d541acb0a42deb95e3828b" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media"></iframe></div>
 <br/>
@@ -403,8 +401,7 @@ MDX-Deckの以外にも[MDX](https://mdxjs.com/)を使ったライブラリが�
 <br/>
 
 ### 心理的安全性とは？ 保ち方、壊し方 などについて
-
-[星 永亮](https://connpass.com/user/NagaakiHoshi/)さん
+**[星 永亮](https://connpass.com/user/NagaakiHoshi/)さん**
 
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 74.9288%;"><iframe src="//speakerdeck.com/player/10bca2b777d64c1296af7b63d695b427" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media"></iframe></div>
 <br/>
@@ -418,24 +415,23 @@ MDX-Deckの以外にも[MDX](https://mdxjs.com/)を使ったライブラリが�
 
 
 ### なぜ僕はプログラミングが苦手なのか
-
-[VTRyo](https://twitter.com/3s_hv)さん
+**[VTRyo](https://twitter.com/3s_hv)さん**
 
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 74.9288%;"><iframe src="//speakerdeck.com/player/94caa136a9b74483a9f897f41cff4220" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media"></iframe></div>
 <br/>
 
 「他の人が短時間で簡単に実現できることを、自分がそれの何倍も時間がかかってやっと実現できた」ときに「自分はセンスないな」と劣等感を抱いてしまいがちです。
-ただこの劣等感を打破するためにセンスの有無について以下のように解釈すると、劣等感を打破して前に進んでいけるのではないかというお話でした。
-・センスある人 = これまでの経験により必要な感覚が備わっている
-・センスがない人 = まだ習慣が備わってない人
+しかしセンスの有無について以下のように解釈すると、劣等感を打破して前に進んでいけるというお話でした。
+* センスある人 = これまでの経験により必要な感覚が備わっている
+* センスがない人 = まだ習慣が備わってない人
 
+自分も新人のころ「自分はセンスない」と落ち込んだりしたことがあるので、非常に共感させられるLTでした。
 <br/>
 <br/>
 
 
 ### gRPC入門
-
-[みずりゅ](https://twitter.com/mzryuka)さん
+**[みずりゅ](https://twitter.com/mzryuka)さん**
 
 
 <iframe 
@@ -447,7 +443,7 @@ MDX-Deckの以外にも[MDX](https://mdxjs.com/)を使ったライブラリが�
 
 いろんな言語でgRPCを試したという内容でした。
 スライドが[esa](https://esa.io/)のプレゼンモードで、
-画面遷移時に、esaのキャラクターの鳥がにゅにゅにゅっと動くのがかわいかったです。
+画面遷移時に、**↓↓esaのキャラクター↓↓**がにゅにゅにゅっと動くのがかわいかったです。
 
 ![esa-icon.png](./esa-icon.png)
 
@@ -455,7 +451,7 @@ MDX-Deckの以外にも[MDX](https://mdxjs.com/)を使ったライブラリが�
 <br/>
 
 ### Word Cloudでツイートを可視化してみた
-[なおと](https://twitter.com/naoto_7713)さん
+**[なおと](https://twitter.com/naoto_7713)さん**
 
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 75.0019%; padding-top: 38px;"><iframe src="https://www.slideshare.net/slideshow/embed_code/key/3LF05HDXS8WFos" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media"></iframe></div>
 <br/>
@@ -472,13 +468,13 @@ Twitter APIと形態素解析のライブラリとWord Cloudを組み合わせ�
 <br/>
 
 ### フロントエンドコーディングにおけるPageSpeed Insights対策
-[kkoudev](https://twitter.com/kkoudev)さん
+**[kkoudev](https://twitter.com/kkoudev)さん**
 
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.1987%;"><iframe src="//speakerdeck.com/player/0c7e921dcb7041e898071b8c8690b8c1" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media"></iframe></div>
 <br/>
 
 [長速本](https://www.amazon.co.jp/dp/B07JJ344WK/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1)を思い出す内容でした。フロントエンドのパフォーマンスを改善するための具体的な方法の紹介でしたが、
-ちょいちょい「IE11だけは～」みたいな話があって、IE11の闇を感じました。
+ちょいちょい「IE11だけは～」みたいな話がありIE11の闇を感じました。
 
 <br/>
 <br/>
@@ -489,7 +485,7 @@ Twitter APIと形態素解析のライブラリとWord Cloudを組み合わせ�
 正式な登壇枠でのLTは、実は今回が初でした。
 なんとなく「LTやりたい」と思っていた状態から実行に移せたのは、ひとえに周りの方々のおかげです。
 背中を押してくれた[@kakakakakku](https://twitter.com/kakakakakku)さん、<br/>
-資料レビューをしてくれた #write_blog_every_week の皆さん、<br/>
+資料レビューをしてくれた \#write\_blog\_every\_week の皆さん、<br/>
 誤字脱字を隅々までチェックして、練習に付き合ってくれた会社の後輩くん、<br>
 本当にありがとうございました。
 今後も別の勉強会でLTしたり、[WEBエンジニア勉強会](https://web-engineer-meetup.connpass.com/)に参加したいと思います。
