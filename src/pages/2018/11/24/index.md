@@ -4,6 +4,8 @@ date: '2018-11-24T23:40:00.000+09:00'
 tags:
   - Gatsby
   - Gatsby theme
+keywords:
+  - Gatsby
 ---
 
 ## なにこれ

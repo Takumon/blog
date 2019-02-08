@@ -5,6 +5,8 @@ tags:
   - Gatsby
   - React
   - CSSModules
+keywords:
+  - Gatsby
 ---
 
 ## なにこれ

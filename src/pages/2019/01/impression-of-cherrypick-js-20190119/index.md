@@ -3,8 +3,11 @@ title: 懇親会で飛び込みLTに参加した / 「JavaScriptつまみ食い 
 date: '2019-01-21T03:30:00.000+09:00'
 tags:
   - JavaScript
+  - mdx-deck
   - 勉強会
   - LT
+keywords:
+  - 勉強会
 slug: /impression-of-cherrypick-js-20190119
 thumbnail: /thumbnail/2019/01/impression-of-cherrypick-js-20190119.png
 ---

@@ -5,6 +5,8 @@ tags:
   - Gatsby
   - GatsbyPlugin
   - Qiita
+keywords:
+  - GatsbyPlugin
 ---
 
 ## なにこれ

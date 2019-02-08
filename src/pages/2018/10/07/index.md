@@ -4,6 +4,9 @@ date: "2018-10-07T12:00:00.000Z"
 tags:
   - Gatsby
   - SNS
+  - SRE
+keywords:
+  - Gatsby
 ---
 
 ## なにこれ

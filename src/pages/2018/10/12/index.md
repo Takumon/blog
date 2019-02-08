@@ -3,6 +3,8 @@ title: Gatsby2系の新機能
 date: "2018-10-12T12:00:00.000Z"
 tags:
   - Gatsby
+keywords:
+  - Gatsby
 ---
 
 ## なにこれ
