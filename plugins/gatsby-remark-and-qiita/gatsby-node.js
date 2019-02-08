@@ -37,7 +37,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         node.frontmatter.tags,
         // キーワード指定がない場合は、タグの一番目が一番重要とみなし、それをキーワードとする
         node.frontmatter.keywords || [node.frontmatter.tags[0]],
-        node.frontmatter.thumbnail
+        node.frontmatter.thumbnail || '',
       ]
       :[
         `/${node.id}/`,
@@ -46,7 +46,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         _excerptHtml(node.rendered_body, 120),
         [...(node.tags.map(tag => tag.name) || []), 'Qiita'], // Qiitaタグを追加
         [node.tags[0].name],
-        undefined,
+        '',
       ]
 
 

@@ -38,6 +38,7 @@ exports.createPages = ({ graphql, actions }) => {
                     excerpt
                     tags
                     keywords
+                    thumbnail
                   }
                 }
               }
@@ -52,6 +53,7 @@ exports.createPages = ({ graphql, actions }) => {
                     excerpt
                     tags
                     keywords
+                    thumbnail
                   }
                   id
                   title

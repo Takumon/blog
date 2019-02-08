@@ -3,22 +3,38 @@ import { Link } from 'gatsby'
 
 import PostMetaInfo from '../post-meta-info';
 import styles from './index.module.scss';
+import * as config from '../../config/blog-config.js';
 
 
 
 class PostPreviewSmall extends React.Component {
   render() {
-    const {slug, title, excerpt, date, tags} = this.props.postField;
+    const {
+      slug, 
+      title, 
+      excerpt, 
+      date, 
+      tags,
+      thumbnail,
+    } = this.props.postField;
+
 
     return (
       <Link key={slug} className={styles.content_link} to={slug}>
-        <h3 className={styles.title} >
-            {title}
-        </h3>
-        <PostMetaInfo
-          tags={tags}
-          date={date}
-          />
+        <div className={styles.content_thumbnail}>
+          <img className={styles.content_thumbnail_image} src={thumbnail || config.blogImageUrl} />
+        </div>
+        <div className={styles.content_post_info}>
+          <h3 className={styles.title} >
+              {title}
+          </h3>
+          <div className={styles.post_meta_info}>
+            <PostMetaInfo
+              tags={tags}
+              date={date}
+              />
+          </div>
+        </div> 
       </Link>
     );
   }
