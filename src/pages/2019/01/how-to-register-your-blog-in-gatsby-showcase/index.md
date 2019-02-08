@@ -3,6 +3,8 @@ title: Gatsbyショーケースに自分のWebサイトを登録する方法
 date: '2019-01-15T22:00:00.000+09:00'
 tags:
   - Gatsby
+keywords:
+  - Gatsby
 slug: /how-to-register-your-blog-in-gatsby-showcase
 thumbnail: /thumbnail/2019/01/how-to-register-your-blog-in-gatsby-showcase.png
 ---

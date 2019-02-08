@@ -2,7 +2,9 @@
 title: 設定いらずのNode製GraphQLサーバー「Graphpack」の使い方 / Query, Mutation, Subscriptionを試す
 date: '2019-01-23T19:50:00.000+09:00'
 tags:
+  - GraphQL
   - Graphpack
+keywords:
   - GraphQL
 slug: /graphpack-graphql-zero-config-server
 thumbnail: /thumbnail/2019/01/graphpack-graphql-zero-config-server.png

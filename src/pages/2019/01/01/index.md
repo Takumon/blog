@@ -5,6 +5,8 @@ tags:
   - Git
   - GitHub
   - 読書感想
+keywords:
+  - Git
 ---
 
 ## なにこれ

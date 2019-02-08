@@ -4,6 +4,8 @@ date: '2018-11-03T09:00:00.000Z'
 tags:
   - Gatsby
   - GatsbyPlugin
+keywords:
+  - GatsbyPlugin
 ---
 
 ## なにこれ

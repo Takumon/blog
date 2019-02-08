@@ -6,6 +6,8 @@ tags:
   - Kotlin
   - JJUG CCC
   - イベントレポート
+keywords:
+  - Java
 ---
 
 ## なにこれ

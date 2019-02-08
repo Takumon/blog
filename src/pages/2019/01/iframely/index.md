@@ -216,7 +216,7 @@ SNSのコンテンツ、動画といった外部コンテンツを自分のブ�
 ![card-designe.png](card-designe.png)
 
 
-自分はブログのデザインと会うように、リンクの色やカードの背景色などをカスタムしています。
+自分はブログのデザインと合うように、リンクの色やカードの背景色などをカスタムしています。
 
 <div class="iframely-embed">
     <div class="iframely-responsive" style="padding-bottom: 52.5%; padding-top: 120px;">

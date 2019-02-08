@@ -4,6 +4,8 @@ date: "2018-10-08T12:00:00.000Z"
 tags:
   - Gatsby
   - PWA
+keywords:
+  - Gatsby
 ---
 
 ## なにこれ

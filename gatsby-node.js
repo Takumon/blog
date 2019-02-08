@@ -5,6 +5,7 @@ const _flow = require('lodash/fp/flow')
 const _forEach = require('lodash/fp/forEach')
 const _uniq = require('lodash/fp/uniq')
 const _flatMap = require('lodash/fp/flatMap')
+const relatedPost = require('./gatsby-related-post')
 
 
 
@@ -36,6 +37,8 @@ exports.createPages = ({ graphql, actions }) => {
                     date
                     excerpt
                     tags
+                    keywords
+                    thumbnail
                   }
                 }
               }
@@ -49,6 +52,8 @@ exports.createPages = ({ graphql, actions }) => {
                     date
                     excerpt
                     tags
+                    keywords
+                    thumbnail
                   }
                   id
                   title
@@ -93,9 +98,14 @@ exports.createPages = ({ graphql, actions }) => {
           return 0
         })
 
+        const allPostNodes = _.map(posts, ({node}) => node)
 
         // 記事詳細ページ生成
         _.each(posts, ({type, node}, index) => {
+
+          // 最大5つ関連記事を取得
+          const relatedPosts = relatedPost.extractRelatedPosts(allPostNodes, node, relatedPost.defaultConfig).slice(0,5)
+          const latestPosts = allPostNodes.slice(0,5)
 
           if (type === POST_TYPE.ORIGINAL) {
             createPage({
@@ -103,6 +113,8 @@ exports.createPages = ({ graphql, actions }) => {
               component: blogPost,
               context: {
                 slug: node.fields.slug,
+                relatedPosts,
+                latestPosts,
                 ...previouseAndNext(posts, index)
               },
             })
@@ -113,6 +125,8 @@ exports.createPages = ({ graphql, actions }) => {
               component: qiitaPost,
               context: {
                 slug: node.fields.slug,
+                relatedPosts,
+                latestPosts,
                 ...previouseAndNext(posts, index)
               },
             })

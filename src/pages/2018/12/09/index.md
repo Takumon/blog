@@ -3,6 +3,9 @@ title: Vimを始める時に取り組んだ４つのこと
 date: '2018-12-09T21:00:00.000+09:00'
 tags:
   - Vim
+  - Vimium
+keywords:
+  - Vim
 ---
 
 ## なにこれ

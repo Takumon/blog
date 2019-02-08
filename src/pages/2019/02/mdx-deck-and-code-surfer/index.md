@@ -1,5 +1,5 @@
 ---
-title: 'WEBエンジニア勉強会 初LT感想と参加レポート / 「MDX-DeckとCode Suferでスライドを作ろう！」補足情報'
+title: 'WEBエンジニア勉強会 初LT感想と参加レポート / 「MDX-DeckとCode Surferでスライドを作ろう！」補足情報'
 date: '2019-02-03T17:15:00.000+09:00'
 tags:
   - 勉強会
@@ -10,6 +10,8 @@ tags:
   - markdown
   - プレゼン
   - スライド
+keywords:
+  - mdx-deck
 slug: /mdx-deck-and-code-surfer
 thumbnail: /thumbnail/2019/02/mdx-deck-and-code-surfer.png
 ---
@@ -90,7 +92,7 @@ export default Horizontal
 ```jsx
 import { Head } from 'mdx-deck'
 <Head>
-  <title>mdx-deckとcode-suferでスライドを作ろう！</title>
+  <title>mdx-deckとcode-surferでスライドを作ろう！</title>
 </Head>
 ```
 
@@ -105,7 +107,7 @@ headタグに以下を埋め込んでからデプロイしました。
 <meta name="twitter:site" content="@inouetakumon">
 <meta name="twitter:creator" content="@inouetakumon">
 <meta name="twitter:card" content="summary_large_image">
-<meta name='twitter:title' content="MDX-DeckとCode Suferでスライドを作ろう！ #WEBエンジニア勉強会11">
+<meta name='twitter:title' content="MDX-DeckとCode Surferでスライドを作ろう！ #WEBエンジニア勉強会11">
 <meta name='twitter:image' content="https://takumon.github.io/mdx-deck-sample/images/card.png">
 <meta name='twitter:description' content="MDX（Markdown + JSX）をベースとしたグラフィカルなスライドが作れるライブラリの紹介です。">
 
@@ -298,7 +300,7 @@ npmスクリプトは以下の縦幅と横幅を指定して出力するよう�
 
 **😭ただ文字の大きさなどのレイアウトが思い通りにいかない部分がありました😭**
 
-* Code Suferのアニメーション非対応
+* Code Surferのアニメーション非対応
   * ソースコードの全量が表示されるのみ、アニメーションごとの説明は表示されない
 * Appearタグのアニメーション非対応
   * アニメーションごとにスライドを分けたりはできない。最終結果のみ表示される
@@ -473,7 +475,7 @@ Twitter APIと形態素解析のライブラリとWord Cloudを組み合わせ�
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.1987%;"><iframe src="//speakerdeck.com/player/0c7e921dcb7041e898071b8c8690b8c1" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media"></iframe></div>
 <br/>
 
-[長速本](https://www.amazon.co.jp/dp/B07JJ344WK/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1)を思い出す内容でした。フロントエンドのパフォーマンスを改善するための具体的な方法の紹介でしたが、
+[超速本](https://www.amazon.co.jp/dp/B07JJ344WK/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1)を思い出す内容でした。フロントエンドのパフォーマンスを改善するための具体的な方法の紹介でしたが、
 ちょいちょい「IE11だけは～」みたいな話がありIE11の闇を感じました。
 
 <br/>

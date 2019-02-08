@@ -5,6 +5,9 @@ tags:
   - React
   - Schema-org
   - JSON-LD
+  - SRE
+keywords:
+  - JSON-LD
 ---
 
 ## なにこれ

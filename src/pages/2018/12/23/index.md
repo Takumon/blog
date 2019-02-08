@@ -8,6 +8,8 @@ tags:
   - markdown
   - プレゼン
   - スライド
+keywords:
+  - mdx-deck
 ---
 
 ## なにこれ

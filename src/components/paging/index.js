@@ -3,43 +3,91 @@ import React from 'react';
 import { Link } from 'gatsby'
 
 import styles from './index.module.scss';
+import PostPreviewSmall from '../post-preview-small'
 
 class Paging extends React.Component {
 
   render() {
-    const { previous, next } = this.props
-    return (
-    <div>
-      <ul className={styles.to_prev_and_next}>
-        <li>
-          {
-            previous &&
-            <Link className={styles.link_to_previous} to={previous.fields.slug} rel="prev">
-              ← 古い記事<br/>{previous.fields.title}
-            </Link>
-          }
-        </li>
-        <li>
-          {
-            next &&
-            <Link className={styles.link_to_next} to={next.fields.slug} rel="next">
-              新しい記事 →<br/>
-              {next.fields.title}
-            </Link>
-          }
-        </li>
-      </ul>
+    const { 
+      previous, 
+      next,
+      relatedPosts,
+      latestPosts,
+    } = this.props
 
-      <div className={styles.to_list}>
+    return (
+    <div className={styles.context}>
+      <div className={styles.context_header}>
+        <i className={styles.context_header_tomato} ></i>
+        <i className={styles.context_header_tomato} ></i>
+        <i className={styles.context_header_tomato} ></i>
+        <i className={styles.context_header_tomato} ></i>
+      </div>
+    
+
+      {
+        previous && 
+        <div className={styles.posts_context}>
+        <h2 className={styles.posts_category}>←前の記事</h2>
+        <PostPreviewSmall
+          key={previous.fields.slug}
+          postField={previous.fields}
+        />
+        </div>
+      }
+
+      {
+        next && 
+        <div className={styles.posts_context}>
+        <h2 className={styles.posts_category}>次の記事→</h2>
+        <PostPreviewSmall
+          key={next.fields.slug}
+          postField={next.fields}
+        />
+        </div>
+      }
+
+
+      {
+        relatedPosts && relatedPosts.length > 0 &&
+        <div className={styles.posts_context}>
+          <h2 className={styles.posts_category}>関連記事</h2>
+
+          {relatedPosts.map(p =>
+            <PostPreviewSmall
+              key={p.fields.slug}
+              postField={p.fields}
+              />
+          )}
+        </div>
+      }
+
+      {
+        latestPosts && latestPosts.length > 0 &&
+        <div className={styles.posts_context}>
+          <h2 className={styles.posts_category}>最近の記事</h2>
+
+          {latestPosts.map(p =>
+            <PostPreviewSmall
+              key={p.fields.slug}
+              postField={p.fields}
+              />
+          )}
+        </div>
+      }
+
+
+      <div className={styles.posts_context}>
         <Link className={styles.link_to_list} to="/" rel="prev">
           <i className={styles.tomato_icon_1} ></i>
           <i className={styles.tomato_icon_2} ></i>
-          記事一覧
+          <span className={styles.tomato_icon_title}>記事一覧</span>
           <i className={styles.tomato_icon_3} ></i>
           <i className={styles.tomato_icon_4} ></i>
         </Link>
       </div>
     </div>
+    
     );
   }
 }

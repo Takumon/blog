@@ -5,6 +5,8 @@ tags:
   - Github-Pages
   - カスタムドメイン
   - Https化
+keywords:
+  - カスタムドメイン
 ---
 
 ## なにこれ
