@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 03 Feb 2019 08:10:32 GMT</lastBuildDate><item><title><![CDATA[WEBエンジニア勉強会 初LT感想と参加レポート / 「MDX-DeckとCode Suferでスライドを作ろう！」補足情報]]></title><description><![CDATA[なにこれ 2019/2/1(金)、 WEBエンジニア勉強会 #11 でLTしてきました。
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Fri, 08 Feb 2019 12:13:10 GMT</lastBuildDate><item><title><![CDATA[WEBエンジニア勉強会 初LT感想と参加レポート / 「MDX-DeckとCode Surferでスライドを作ろう！」補足情報]]></title><description><![CDATA[なにこれ 2019/2/1(金)、 WEBエンジニア勉強会 #11 でLTしてきました。
 本記事では 自分のLTスライド と、 10分の枠では伝えきれなかった補足情報 を紹介します。
 また他の方のLTの様子や、勉強会の雰囲気なども 参加レポート として書いています。 LT…]]></description><link>https://takumon.com//mdx-deck-and-code-surfer</link><guid isPermaLink="false">https://takumon.com//mdx-deck-and-code-surfer</guid><pubDate>Sun, 03 Feb 2019 08:15:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;2019/2/1(金)、&lt;a href=&quot;https://web-engineer-meetup.connpass.com/event/115444/&quot;&gt;WEBエンジニア勉強会 #11&lt;/a&gt;でLTしてきました。
@@ -51,7 +51,7 @@ LTのネタになりそうだとうことで、今回さらに深堀して整理
 &lt;p&gt;スライドをHTMLで公開する場合、HTMLのheadタグを指定できます。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; Head &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;mdx-deck&apos;&lt;/span&gt;
 &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;Head&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token plain-text&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;title&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token plain-text&quot;&gt;mdx-deckとcode-suferでスライドを作ろう！&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;title&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token plain-text&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;title&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token plain-text&quot;&gt;mdx-deckとcode-surferでスライドを作ろう！&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;title&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token plain-text&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;Head&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;😭ただコチラTwitterCardの設定はうまくいきませんでした😭&lt;/strong&gt;
 今回どうしてもTwitterCardを設定したかったので、
@@ -62,7 +62,7 @@ headタグに以下を埋め込んでからデプロイしました。&lt;/p&gt;
 &amp;lt;meta name=&amp;quot;twitter:site&amp;quot; content=&amp;quot;@inouetakumon&amp;quot;&amp;gt;
 &amp;lt;meta name=&amp;quot;twitter:creator&amp;quot; content=&amp;quot;@inouetakumon&amp;quot;&amp;gt;
 &amp;lt;meta name=&amp;quot;twitter:card&amp;quot; content=&amp;quot;summary_large_image&amp;quot;&amp;gt;
-&amp;lt;meta name=&amp;#39;twitter:title&amp;#39; content=&amp;quot;MDX-DeckとCode Suferでスライドを作ろう！ #WEBエンジニア勉強会11&amp;quot;&amp;gt;
+&amp;lt;meta name=&amp;#39;twitter:title&amp;#39; content=&amp;quot;MDX-DeckとCode Surferでスライドを作ろう！ #WEBエンジニア勉強会11&amp;quot;&amp;gt;
 &amp;lt;meta name=&amp;#39;twitter:image&amp;#39; content=&amp;quot;https://takumon.github.io/mdx-deck-sample/images/card.png&amp;quot;&amp;gt;
 &amp;lt;meta name=&amp;#39;twitter:description&amp;#39; content=&amp;quot;MDX（Markdown + JSX）をベースとしたグラフィカルなスライドが作れるライブラリの紹介です。&amp;quot;&amp;gt;
 
@@ -279,7 +279,7 @@ npmスクリプトは以下のようにしました。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;😭ただ文字の大きさなどのレイアウトが思い通りにいかない部分がありました😭&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;Code Suferのアニメーション非対応&lt;/p&gt;
+&lt;p&gt;Code Surferのアニメーション非対応&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;ソースコードの全量が表示されるのみ、アニメーションごとの説明は表示されない&lt;/li&gt;
 &lt;/ul&gt;
@@ -468,7 +468,7 @@ HTMLなので、レイアウトがディスプレイの解像度に左右され�
 &lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://twitter.com/kkoudev&quot;&gt;kkoudev&lt;/a&gt;さん&lt;/strong&gt;&lt;/p&gt;
 &lt;div style=&quot;left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.1987%;&quot;&gt;&lt;iframe src=&quot;//speakerdeck.com/player/0c7e921dcb7041e898071b8c8690b8c1&quot; style=&quot;border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;&quot; allowfullscreen scrolling=&quot;no&quot; allow=&quot;autoplay; encrypted-media&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
 &lt;br/&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.amazon.co.jp/dp/B07JJ344WK/ref=dp-kindle-redirect?_encoding=UTF8&amp;#x26;btkr=1&quot;&gt;長速本&lt;/a&gt;を思い出す内容でした。フロントエンドのパフォーマンスを改善するための具体的な方法の紹介でしたが、
+&lt;p&gt;&lt;a href=&quot;https://www.amazon.co.jp/dp/B07JJ344WK/ref=dp-kindle-redirect?_encoding=UTF8&amp;#x26;btkr=1&quot;&gt;超速本&lt;/a&gt;を思い出す内容でした。フロントエンドのパフォーマンスを改善するための具体的な方法の紹介でしたが、
 ちょいちょい「IE11だけは～」みたいな話がありIE11の闇を感じました。&lt;/p&gt;
 &lt;br/&gt;
 &lt;br/&gt;
@@ -2026,7 +2026,7 @@ Gatsbyはショーケースの登録情報を&lt;a href=&quot;https://github.com
     &lt;/span&gt;
   &lt;/span&gt;
   &lt;/p&gt;
-&lt;p&gt;自分はブログのデザインと会うように、リンクの色やカードの背景色などをカスタムしています。&lt;/p&gt;
+&lt;p&gt;自分はブログのデザインと合うように、リンクの色やカードの背景色などをカスタムしています。&lt;/p&gt;
 &lt;div class=&quot;iframely-embed&quot;&gt;
     &lt;div class=&quot;iframely-responsive&quot; style=&quot;padding-bottom: 52.5%; padding-top: 120px;&quot;&gt;
         &lt;a 

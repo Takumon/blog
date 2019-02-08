@@ -48,8 +48,8 @@
 <url> <loc>https://takumon.com//tags/markdown/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/プレゼン/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/スライド/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://takumon.com//tags/graphpack/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/graph-ql/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://takumon.com//tags/graphpack/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/java-script/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/gatsby/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/iframely/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -76,10 +76,12 @@
 <url> <loc>https://takumon.com//tags/babel/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/qiita/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/vim/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://takumon.com//tags/vimium/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/css/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/clip-path/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/gatsby-theme/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/windows/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://takumon.com//tags/ランチャー/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/gatsby-plugin/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/unified/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/remark/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -87,6 +89,7 @@
 <url> <loc>https://takumon.com//tags/css-modules/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/pwa/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/sns/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://takumon.com//tags/sre/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/schema-org/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/json-ld/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/ogp/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
