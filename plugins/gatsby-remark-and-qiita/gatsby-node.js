@@ -25,6 +25,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     date,
     excerpt,
     tags,
+    keywords,
     thumbnail,
   ] =
     node.internal.type === `MarkdownRemark`
@@ -34,6 +35,8 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         node.frontmatter.date,
         _excerptMarkdown(node.rawMarkdownBody, 120),
         node.frontmatter.tags,
+        // キーワード指定がない場合は、タグの一番目が一番重要とみなし、それをキーワードとする
+        node.frontmatter.keywords || [node.frontmatter.tags[0]],
         node.frontmatter.thumbnail
       ]
       :[
@@ -42,6 +45,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         node.created_at,
         _excerptHtml(node.rendered_body, 120),
         [...(node.tags.map(tag => tag.name) || []), 'Qiita'], // Qiitaタグを追加
+        [node.tags[0].name],
         undefined,
       ]
 
@@ -51,6 +55,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   createNodeField({ name: `date`,     node,   value: date     })
   createNodeField({ name: `excerpt`,  node,   value: excerpt  })
   createNodeField({ name: `tags`,     node,   value: tags     })
+  createNodeField({ name: `keywords`, node,   value: keywords })
   createNodeField({ name: `thumbnail`,node,   value: thumbnail})
 }
 

@@ -50,7 +50,13 @@ class Post extends React.Component {
       fields,
       headings,
       html,
-      pageContext: { previous, next, slug },
+      pageContext: { 
+        previous, 
+        next, 
+        slug,
+        relatedPosts,
+        latestPosts,
+      },
       siteTitle,
     } = this.props
 
@@ -110,7 +116,8 @@ class Post extends React.Component {
         </div>
 
         <div className={styles.container}>
-          <div className={styles.post} dangerouslySetInnerHTML={{ __html: html }} />
+          <div className={styles.post} dangerouslySetInnerHTML={{ __html: html }}>
+          </div>
           <div className={styles.toc}>
             <ScrollSyncToc headings={headings} />
           </div>
@@ -121,8 +128,14 @@ class Post extends React.Component {
               twitterUserName={config.blogAuthorTwitterUserName}
               />
           </div>
+
           <div className={styles.paging}>
-            <Paging previous={previous} next={next} />
+            <Paging 
+              previous={previous} 
+              next={next} 
+              relatedPosts={relatedPosts} 
+              latestPosts={latestPosts}
+            />
           </div>
         </div>
       </article>
