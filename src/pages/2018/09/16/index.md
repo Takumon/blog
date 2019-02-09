@@ -264,7 +264,7 @@ function sumarrize(html) {
 ## まとめ
 今回はReactアプリでSNSシェアボタンや自分のSNSへのリンクを設置し、さらにOGPタグを設置して
 Twitterなどでのシェアをより効果的にする方法をメモに残しました。
-Reactだと、かなり簡単に実現できるし、グっと今時のWebサイトっぽくなるので是非みなさんも試してみてください。
+Reactだと、かなり簡単に実現できるし、グっと今時のWebサイトっぽくなるので是非みなさんも試してみてください🍅
 
 ## 参考
 * [react-share](https://github.com/nygardk/react-share)
@@ -281,7 +281,3 @@ Reactだと、かなり簡単に実現できるし、グっと今時のWebサイ
     * HTML文字列から単純テキストを抽出してくれるライブラリで
 * [GatsbyはES6未対応 | GitHub issues](https://github.com/gatsbyjs/gatsby/issues/3780)
     * GatsbyはビルドでJSファイル最初化時にUglifyを使っており、uglifyがES6未対応なのでES6のコードをコンパイルしようとするとエラーになってしまいます。
-
-
-
-

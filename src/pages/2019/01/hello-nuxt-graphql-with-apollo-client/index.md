@@ -106,3 +106,7 @@ Nuxt.js＋GraphQLをまだ始めたばかりですが、**[「Hello, GraphQL for
 <iframe src="https://hatenablog-parts.com/embed?url=https%3A%2F%2Fblog.hiroppy.me%2Fentry%2Fapollo-link-state" style="border: 0; width: 100%; height: 190px;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media"></iframe>
 
 <iframe src="https://hatenablog-parts.com/embed?url=https%3A%2F%2Femployment.en-japan.com%2Fengineerhub%2Fentry%2F2018%2F12%2F26%2F103000" style="border: 0; width: 100%; height: 190px;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media"></iframe>
+
+<br/>
+
+🍅

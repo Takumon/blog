@@ -219,5 +219,4 @@ export default function createJSONLDTag({
 ### まとめ
 今回はschema.orgやJSON+LDについての簡単なメモと
 ReactでJSON+LDを実現する具体例を紹介しました。
-なお学習時は、[クックパッド](https://cookpad.com/)や[Pinterest](https://www.pinterest.jp/)など検索結果がリッチなWebサイトの構造化マークアップをのぞいてみると面白いかもしれません。
-
+なお学習時は、[クックパッド](https://cookpad.com/)や[Pinterest](https://www.pinterest.jp/)など検索結果がリッチなWebサイトの構造化マークアップをのぞいてみると面白いかもしれません🍅

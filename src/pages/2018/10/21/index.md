@@ -2098,4 +2098,4 @@ Gatsbyはプラグインの他にも、
 * [Starter一覧](https://www.gatsbyjs.org/starters/)
 * [Gatsby採用事例一覧](https://www.gatsbyjs.org/showcase/)
 
-など参考になるサイトとソースコードが充実しているのでこれから詳しく見ていこうと思います。
+など参考になるサイトとソースコードが充実しているのでこれから詳しく見ていこうと思います🍅

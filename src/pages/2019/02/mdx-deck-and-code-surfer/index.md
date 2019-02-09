@@ -490,7 +490,7 @@ Twitter APIと形態素解析のライブラリとWord Cloudを組み合わせ�
 資料レビューをしてくれた \#write\_blog\_every\_week の皆さん、<br/>
 誤字脱字を隅々までチェックして、練習に付き合ってくれた会社の後輩くん、<br>
 本当にありがとうございました。
-今後も別の勉強会でLTしたり、[WEBエンジニア勉強会](https://web-engineer-meetup.connpass.com/)に参加したいと思います。
+今後も別の勉強会でLTしたり、[WEBエンジニア勉強会](https://web-engineer-meetup.connpass.com/)に参加したいと思います🍅
 
 
 
