@@ -20,9 +20,10 @@ thumbnail: /thumbnail/2019/02/gatsby-related-posts-like-hugo.png
 記事下部に関連記事リンクを設けておくと、記事を読み終えたユーザーが、また別の記事を見てくれる可能性が上がるので、
 回遊率向上という観点で非常に効果的なUIです。
 
-ある日、[mom0tomoさんのブログ](https://mom0tomo.github.io/)の記事[「HugoでRelated Content(関連記事)を表示する」](https://mom0tomo.github.io/post/hugo_related_posts/)を見て、[**Hugo**](https://gohugo.io/)（Go言語製静的サイトジェネレーター）には、関連記事リンクを簡単に表示できる機能があることを知りました。自分が使っている[**Gatsby**](https://www.gatsbyjs.org/)（JavaScript製静的サイトジェネレーター）に、そのような機能はありません。うらやましい！
+そんな関連記事リンクが[**Hugo**](https://gohugo.io/)（Go言語製静的サイトジェネレーター）には、デフォルトで用意されていることを、[mom0tomoさんのブログ](https://mom0tomo.github.io/)の記事[「HugoでRelated Content(関連記事)を表示する」](https://mom0tomo.github.io/post/hugo_related_posts/)を見て知りました。
+自分が使っている[**Gatsby**](https://www.gatsbyjs.org/)（JavaScript製静的サイトジェネレーター）に、そのような機能はありません。うらやましい！
 
-ということで、**Hugoの実装を真似して、Gatsbyで関連記事が表示できるようにしてみました。**実物はこの記事の下のほうにあるのでご覧ください。
+ということで、**Hugoの実装を真似して、Gatsbyで関連記事が表示できるようにしてみました。**実物はこのページの下部にあるのでご覧ください。
 今回は、以下のような流れで、関連記事機能について説明したいと思います。
 
 * [Hugoの関連記事機能](#hugoの関連記事機能)
@@ -44,7 +45,7 @@ thumbnail: /thumbnail/2019/02/gatsby-related-posts-like-hugo.png
 
 記事の全文を解析するようなガッツリした機能ではなく、
 マークダウンのFront Matter（日付、タイトル、タグ、キーワード、カテゴリなど）をもとに関連度を測るシンプルな機能です。
-設定で、以下のようなチューニングが可能です。
+以下のようなチューニングが設定で可能です。
 
 1. どれが一致した場合に関連とみなすか
 2. 一致した場合の重みづけをどうするか
@@ -145,7 +146,6 @@ trueの場合、若干パフォーマンスは下がりますご、より良い�
 ## 関連記事表示イメージ
 
 たとえば、この記事だと以下のように表示されます。記事のキーワードがGatsbyなので、Gatsby関連の記事が表示されていますね。
-実物はこのページの下のほうを見ていただければと思います。
 ちなみに記事リンクの見た目は[SmartNewsさんのブログ](https://developer.smartnews.com/blog/)を参考にしました。
 SmartNewsさんのブログはPC・モバイルともにカッコいいデザインです！
 
