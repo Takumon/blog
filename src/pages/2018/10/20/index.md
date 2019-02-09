@@ -295,4 +295,4 @@ Gatsbyはプラグイン機構が非常に考えぬかれたスマートな形�
 機能追加時もnpmインストールして`gatsby-config.js`に設定を追加するだけなのでコードがとてもスッキリするなぁという印象でした。<br>
 プラグイン公開時も、npmパッケージでkeywordに`gatsby`と`gatsby-plugin`をつけるだけというシンプルさも見逃せません。<br>
 なお今回[Source Plugin Tutorial](https://www.gatsbyjs.org/docs/source-plugin-tutorial/)のページは見ていませんが、
-自作プラグインを公開する時はこのページを参考にしたいと思います。
+自作プラグインを公開する時はこのページを参考にしたいと思います🍅

@@ -304,7 +304,6 @@ Github-rebbonsで紹介されているコードを少しReactベースに修正�
 ## まとめ
 今回はQiitaから記事を取得するGatsbyプラグインを作りました。
 自分のプラグインが[Gatsbyのサイト](https://www.gatsbyjs.org/packages/gatsby-source-qiita/)で検索できるようになったときは少し感動しました。
-また自分のブログに[gatsby-source-qiita](https://www.gatsbyjs.org/packages/gatsby-source-qiita/)を適用したことにより記事数とバリエーションが増えてので、なんとなく満足してます。<br>
-
+また自分のブログに[gatsby-source-qiita](https://www.gatsbyjs.org/packages/gatsby-source-qiita/)を適用したことにより記事数とバリエーションが増えてので、なんとなく満足してます🍅
 
 

@@ -53,14 +53,12 @@ function extractRelatedPostRankings(allpostNodes, postNode, config) {
         return []
     }
 
-    // 以下３点の情報を元に関連記事のランキングを抽出する
-    return _extractRelatedPostRankings(
-        createInvertedIndex(allpostNodes, config),      // (1) 転置インデックス
-        createQuery(idx, postNode, config.indices),     // (2) 検索用クエリ
-        new Date(postNode.fields.date)                  // (3) 記事の投稿日
-    )
+    const idx = createInvertedIndex(allpostNodes, config)
+    const query = createQuery(idx, postNode, config.indices)
+    const upperDate = new Date(postNode.fields.date)
+
     // 自分自身は関連記事のランキングから削除する
-    .filter(r => r.node != postNode)
+    return _extractRelatedPostRankings(idx,query,upperDate).filter(r => r.node != postNode)
 }
 
 

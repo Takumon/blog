@@ -56,7 +56,7 @@ GitHubを普段から使っている人にとっては当たり前だけど、�
 新人さんにオススメしたい一冊です！
 
 ただ本格的にGitで開発するなら、これに加えて[Pro Git](https://git-scm.com/book/ja/v2)などを読む必要がありそうです。
-というわけで次は[Pro Git](https://git-scm.com/book/ja/v2)を読みます。
+というわけで次は[Pro Git](https://git-scm.com/book/ja/v2)を読みます🍅
 
 ## 参考
 * [いちばんやさしいGit&GitHubの教本 人気講師が教えるバージョン管理＆共有入門 | インプレスブック](https://book.impress.co.jp/books/1118101036)

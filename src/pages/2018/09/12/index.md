@@ -75,7 +75,7 @@ takumon.com
 そうすることで次回以降デプロイ時もGitHub Pagesの独自ドメイン設定が保たれるようになります。
 
 ## まとめ
-GitHub Pagesの方がHttps対応は用意してくれているので、独自ドメインに対するドメインレコードの設定さえできれば、あとは簡単に、独自ドメイン化+Https化を実現できました。
+GitHub Pagesの方がHttps対応は用意してくれているので、独自ドメインに対するドメインレコードの設定さえできれば、あとは簡単に、独自ドメイン化+Https化を実現できました🍅
 
 ## 参考
 * [GitHub Pages + 独自ドメイン + HTTPS (SSL) のサポートをGitHubが提供開始](https://qiita.com/foobaron/items/cd9cfc403defa706372b)

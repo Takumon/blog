@@ -540,18 +540,11 @@ subscription {
 ## まとめ
 
 今回はNode製GraphQLサーバー「Graphpack」の使い方について紹介しました。
-上記で紹介した通り非常に簡単ですので、「とりあえずGraphQLサーバーを立ててみたい！」という方はGraphpackを検討してみてはいかがでしょうか。
+上記で紹介した通り非常に簡単ですので、「とりあえずGraphQLサーバーを立ててみたい！」という方はGraphpackを検討してみてはいかがでしょうか🍅
 
 
 ## 参考
 * [A Beginner’s Guide to GraphQL - DEV Community 👩‍💻👨‍💻](https://dev.to/leonardomso/a-beginners-guide-to-graphql-3kjj)
   * GraphpackでQuery、Mutationの実装方法を紹介している記事です。
 * [Logo design for Graphpack | Steemit](https://steemit.com/utopian-io/@richardbmx/logo-design-for-graphpack-approved-and-used-in-the-project)
-  * Gpraphpackのロゴの舞台裏のお話です。
-
-
-## 関連記事
-
-GraphQL関連の記事は、他にも書いているので参考にしてみてください。
-
-<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 49.943%; padding-top: 120px;"><a href="https://takumon.com/hello-nuxt-graphql-with-apollo-client" data-iframely-url="//cdn.iframe.ly/z7eXyM3"></a></div></div>
+  * Gpraphpackロゴ作成の舞台裏です。
