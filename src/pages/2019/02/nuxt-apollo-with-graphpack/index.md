@@ -17,9 +17,9 @@ thumbnail: /thumbnail/2019/02/nuxt-apollo-with-graphpack.png
 
 ## なにこれ 
 
-[以前のGraphpackの記事](graphpack-graphql-zero-config-server)でGrapQLのサーバー側を実装を紹介しました。
-Graphpackは備え付けの[GraphQL Playground IDE](https://github.com/prisma/graphql-playground)で動作確認できますが、せっかくなのでクライアント側も作成してみました。
-今回は**[Nuxt.js](https://ja.nuxtjs.org/)と[Apollo Client](https://www.apollographql.com/docs/react/api/apollo-client.html)を使って簡単なユーザー管理画面を作成する方法をチュートリアル形式でご紹介します。**<br/>
+以前の記事[設定いらずのNode製GraphQLサーバー「Graphpack」の使い方](graphpack-graphql-zero-config-server)でGrapQLのサーバー側を実装を紹介しました。
+Graphpackは備え付けの[GraphQL Playground IDE](https://github.com/prisma/graphql-playground)で動作確認できますが、せっかくなので今回はクライアント側も作成してみました。
+本記事では**[Nuxt.js](https://ja.nuxtjs.org/)と[Apollo Client](https://www.apollographql.com/docs/react/api/apollo-client.html)を使って簡単なユーザー管理画面を作成する方法をチュートリアル形式でご紹介します。**<br/>
 最終的にはQuery, Mutation, Subscription全てを実装しますが、
 以下のようにステップを分けて、少しずつ実装していきましょう✨
 * [🔰プロジェクトのひな型を作成する](#プロジェクトのひな型を作成する)
