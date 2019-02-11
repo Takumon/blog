@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url> <loc>https://takumon.com//nuxt-apollo-with-graphpack</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//gatsby-related-posts-like-hugo</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//mdx-deck-and-code-surfer</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//graphpack-graphql-zero-config-server</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -41,6 +42,10 @@
 <url> <loc>https://takumon.com//386efa75-7773-5424-94a8-1a2b3ae52a6b/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//4bf6ffd5-8640-508e-ab47-1a55df05d72e/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//e6e81f10-e1df-58fa-ad49-6da5d018abc4/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://takumon.com//tags/graph-ql/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://takumon.com//tags/nuxt-js/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://takumon.com//tags/apollo-client/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://takumon.com//tags/vue-js/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/gatsby/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/hugo/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/golang/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -52,16 +57,12 @@
 <url> <loc>https://takumon.com//tags/markdown/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/プレゼン/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/スライド/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://takumon.com//tags/graph-ql/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/graphpack/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/java-script/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/iframely/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/o-embed/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/埋め込みコード/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/react/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://takumon.com//tags/nuxt-js/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://takumon.com//tags/apollo-client/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://takumon.com//tags/vue-js/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/読書感想/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/git/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com//tags/git-hub/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
