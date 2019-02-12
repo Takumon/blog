@@ -22,10 +22,10 @@ Graphpackは備え付けの[GraphQL Playground IDE](https://github.com/prisma/gr
 本記事では**[Nuxt.js](https://ja.nuxtjs.org/)と[Apollo Client](https://www.apollographql.com/docs/react/api/apollo-client.html)を使って簡単なユーザー管理画面を作成する方法をチュートリアル形式でご紹介します。**<br/>
 最終的にはQuery, Mutation, Subscription全てを実装しますが、
 以下のようにステップを分けて、少しずつ実装していきましょう✨
-* [🔰プロジェクトのひな型を作成する](#プロジェクトのひな型を作成する)
-* [💪Queryを実装する](#queryを実装する) → ユーザー情報が一覧で表示できる
-* ️[💖Mutationを実装する](#mutationを実装する) → ユーザーの登録・更新・削除ができる
-* [💎Subscriptionを実装する](#subscriptionを実装する) → 他ブラウザとリアルタイムでユーザー情報が同期する
+* [🔰 プロジェクトのひな型を作成する](#プロジェクトのひな型を作成する)
+* [💪 Queryを実装する](#queryを実装する) → ユーザー情報が一覧で表示できる
+* [💖 Mutationを実装する](#mutationを実装する) → ユーザーの登録・更新・削除ができる
+* [💎 Subscriptionを実装する](#subscriptionを実装する) → 他ブラウザとリアルタイムでユーザー情報が同期する
 
 
 完成イメージ
