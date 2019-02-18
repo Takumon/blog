@@ -19,7 +19,7 @@ thumbnail: /thumbnail/2019/02/aws-appsync-pipeline-resolver-with-multiple-dynamo
 
 AWSのGraphQLフルマネージドサービス[「AppSync」](https://aws.amazon.com/jp/appsync/)で複数のデータリソースを扱う場合は**「Pipeline Resolver」**という機能を使います。
 これは、1つのデータリソースを扱うファンクションを定義し、それらを組み合わせるという仕組みです。
-ファンクションではデータリソースのCRUD操作や操作結果のデータ加工などを[**VTL（Apatch Verocity Template Language）**](http://velocity.apache.org/engine/1.7/vtl-reference.html)で記述します。
+ファンクションではデータリソースのCRUD操作や操作結果の加工などを[**VTL（Apatch Verocity Template Language）**](http://velocity.apache.org/engine/1.7/vtl-reference.html)で記述します。
 今回は、**Pipeline Resolverを使って複数のデータリソース（DynamoDBの複数テーブル）から情報を取得する場合のVTLの書き方について以下2パターンをご紹介します。**
 
 
@@ -40,12 +40,12 @@ AWSのGraphQLフルマネージドサービス[「AppSync」](https://aws.amazon
 
 ## 1対1で紐づく2つのDynamoDBのテーブルから1件情報を取得する場合
 
-### APIとデータリソース仕様
+### APIとデータリソースの仕様
 
 <details><summary>コチラをクリックしたら見れます。リゾルバーとあわせてご覧ください。</summary><div>
 <br/>
 
-`{"id":"1000"}`を引数にAPIを呼び出すと以下の結果がレスポンスで返ってくる想定です。
+`{"id":"1000"}`を引数にAPIを呼び出すと以下レスポンスが返ってくる想定です。
 
 ```json:title=APIのレスポンス
 {
@@ -90,7 +90,7 @@ query {
 
 
 ### リゾルバーの書き方
-従業員に紐づく部署情報もあわせて取得する場合、以下のようなVTLを作成します。
+「従業員情報 + 従業員に紐づく部署情報」を1件件取得する場合、以下のようなVTLを作成します。
 
 
 #### 1. 従業員テーブルに対する関数
@@ -107,7 +107,7 @@ query {
 ```
 
 ```vtl:title=レスポンスマッピングテンプレート
-# 従業員テーブルから取得した情報をレスポンスに設定します。
+# 従業員情報をレスポンスに設定します。
 $util.toJson($context.result)
 ```
 
@@ -116,12 +116,12 @@ $util.toJson($context.result)
 
 ```vtl:title=リクエストマッピングテンプレート
 # 前関数で取得した従業員情報に紐づく部署情報を取得します。
-# 前関数での取得結果は $ctx.prev.resultで参照できます。
+# 前関数の結果は $ctx.prev.resultで参照できます。
 #set($args={"id": $ctx.prev.result.departmentId})
 {
         "operation": "GetItem",
         "key": {
-                # 部署IDをもとに部署テーブルを検索するような処理を記述します。
+                # 部署IDをもとに部署テーブルを検索する場合の定義です。
                 "id": $util.dynamodb.toDynamoDBJson($ctx.prev.result.departmentId),
         }
 }
@@ -129,17 +129,18 @@ $util.toJson($context.result)
 
 
 ```vtl:title=レスポンスマッピングテンプレート
-# 取得した部署情報を前の関数で取得した結果とマージしてレスポンスとして返します。
 
 #if($ctx.error)
         $util.error($ctx.error.message, $ctx.error.type)
 #end
 
-# オブジェクトに新しくプロパティを追加する場合は putメソッドを使います
+
+# 前関数の結果（従業員情報）と今回の結果（部署情報）をマージします。
+# オブジェクトに新しくプロパティを追加する場合は putメソッドを使います。
 # putメソッドを使う場合は $util.qr で囲む必要があります。
 $util.qr($ctx.prev.result.put("departmentName", $ctx.result.name))
 
-# マージした情報をレスポンスに設定します。
+# マージ結果をレスポンスに設定します。
 $util.toJson($ctx.prev.result)
 ```
 
@@ -151,13 +152,13 @@ $util.toJson($ctx.prev.result)
 
 ## 1対Nで紐づく2つのDynamoDBのテーブルから複数件情報を取得する場合
 
-### APIとデータリソース仕様
+### APIとデータリソースの仕様
 
 <details><summary>コチラをクリックしたら見れます。リゾルバーとあわせてご覧ください。</summary><div>
 <br/>
 
 まずは想定するAppSyncのスキーマとデータリソースを説明します。
-`{ "contractor":"ギャッツビー太郎"}`を引数にAPIを呼び出すと以下の結果がレスポンスで返ってくる想定です。
+`{ "contractor":"ギャッツビー太郎"}`を引数にAPIを呼び出すと以下のレスポンスが返ってくる想定です。
 
 ```json:title=APIのレスポンス
 {
@@ -263,7 +264,7 @@ query {
 
 ### リゾルバーの書き方
 
-契約者に紐づく契約を商品情報をあわせて取得する場合、以下のようなVTLを作成します。
+「契約者情報 + 契約者に紐づく商品情報」を複数件取得する場合、以下のようなVTLを作成します。
 
 
 ### 1. 契約テーブルに対する関数
@@ -291,8 +292,7 @@ $util.toJson($context.result)
 ### 2. 商品テーブルに対する関数
 
 ```vtl:title=リクエストマッピングテンプレート
-# 前の関数で取得した契約情報に紐づく商品情報を取得します
-
+# 前関数で取得した契約情報から商品IDを抽出します。
 #set($productIds = [])
 #set($contracts = $ctx.prev.result.items)
 #foreach($c in $contracts)
@@ -307,8 +307,7 @@ $util.toJson($context.result)
     "version" : "2017-02-28",
     "operation" : "Scan",
     "filter" : {
-        # 複数の値のどれかに一致する」といった検索条件を指定する場合は
-        # contains関数を使います
+        # 「複数の値のどれかに一致する」という条件はcontains関数で実現します。
         "expression": "contains(:ids, id)",
         "expressionValues" : {
             ":ids" : $util.dynamodb.toDynamoDBJson($productIds)
@@ -319,25 +318,24 @@ $util.toJson($context.result)
 
 
 ```vtl:title=レスポンスマッピングテンプレート
-# 取得した部署情報を前の関数で取得した結果とマージしてレスポンスとして返します。
 
 #if($ctx.error)
         $util.error($ctx.error.message, $ctx.error.type)
 #end
 
-# 契約情報(前関数の結果)に対して商品情報をくっつけていきます。
+# 前関数の結果（契約情報）と今回の結果（商品情報）をマージします。
 #foreach($c in $ctx.prev.result.items)
 	#set($products = [])    
-    # 今回の取得結果（商品）をいてレートして
+    # 商品情報をイテレート
     #foreach( $p in $ctx.result.items )
-        # 対象の商品が見つかったら
+        # 契約情報に含まれる商品が見つかったら
         #if($c.productIds.contains($p.id))
             # $productsにaddします。
-                $util.qr($products.add($p))
-            #end
+            $util.qr($products.add($p))
+        #end
     #end
         
-    # 最終的にproductsを契約情報に追加します。
+    # 商品情報を契約情報に追加します。
     #set($temp = { "items": $products })
     $util.qr($contract.put("products", $temp))
 #end
