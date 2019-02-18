@@ -1,6 +1,6 @@
 ---
 title: 'AWS AppSyncのPipeline Resolverで複数データリソースを扱う場合のVTLの書き方'
-date: '2019-02-18T07:00:00.000+09:00'
+date: '2019-02-19T07:30:00.000+09:00'
 tags:
   - AppSync
   - AWS
