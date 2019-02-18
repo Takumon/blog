@@ -73,13 +73,13 @@ query {
 
 #### 取得対象データ
 
-```markdown:title=従業員テーブル（employeeテーブル） ※簡単のため１件のみ
+```markdown:title=従業員テーブル（Employeeテーブル） ※簡単のため１件のみ
 * id: 100
 * name: ギャッツビー太郎
 * departmentId: 9001
 ```
 
-```markdown:title=部署テーブル（departmentテーブル） ※簡単のため１件のみ
+```markdown:title=部署テーブル（Departmentテーブル） ※簡単のため１件のみ
 * id: 9001
 * name: 総務部
 ```
@@ -90,13 +90,13 @@ query {
 
 
 ### リゾルバーの書き方
-「従業員情報 + 従業員に紐づく部署情報」を1件件取得する場合、以下のようなVTLを作成します。
+「従業員情報 + 従業員に紐づく部署情報」を1件取得する場合、以下のようなVTLを作成します。
 
 
 #### 1. 従業員テーブルに対するファンクション
 
 ```vtl:title=リクエストマッピングテンプレート
-# いたって単純でDynamoDBから1件情報を取得するだけです。
+# 従業員IDを指定してDynamoDBから1件情報を取得します。
 {
     "version": "2017-02-28",
     "operation": "GetItem",
@@ -116,24 +116,21 @@ $util.toJson($context.result)
 
 ```vtl:title=リクエストマッピングテンプレート
 # 前ファンクションの結果（従業員情報）に紐づく部署情報を取得します。
-# 前ファンクションの結果は $ctx.prev.resultで参照できます。
-#set($args={"id": $ctx.prev.result.departmentId})
 {
-        "operation": "GetItem",
-        "key": {
-                # 部署IDをもとに部署テーブルを検索する場合の定義です。
-                "id": $util.dynamodb.toDynamoDBJson($ctx.prev.result.departmentId),
-        }
+    "operation": "GetItem",
+    "key": {
+        # 前ファンクションの結果は $ctx.prev.resultで参照できます。
+        # 部署IDを指定してDynamoDBから1件情報を取得します。
+        "id": $util.dynamodb.toDynamoDBJson($ctx.prev.result.departmentId),
+    }
 }
 ```
 
 
 ```vtl:title=レスポンスマッピングテンプレート
-
 #if($ctx.error)
         $util.error($ctx.error.message, $ctx.error.type)
 #end
-
 
 # 前ファンクションの結果（従業員情報）と今回の結果（部署情報）をマージします。
 # オブジェクトに新しくプロパティを追加する場合は putメソッドを使います。
@@ -146,10 +143,6 @@ $util.toJson($ctx.prev.result)
 
 
 
-
-
-
-
 ## 1対Nで紐づく2つのDynamoDBのテーブルから複数件情報を取得する場合
 
 ### APIとデータリソースの仕様
@@ -157,7 +150,6 @@ $util.toJson($ctx.prev.result)
 <details><summary>コチラをクリックしたら見れます。リゾルバーとあわせてご覧ください。</summary><div>
 <br/>
 
-まずは想定するAppSyncのスキーマとデータリソースを説明します。
 `{ "contractor":"ギャッツビー太郎"}`を引数にAPIを呼び出すと以下のレスポンスが返ってくる想定です。
 
 ```json:title=APIのレスポンス
@@ -210,7 +202,6 @@ $util.toJson($ctx.prev.result)
 #### Queryのスキーマ
 
 ```
-
 type Contracts {
     items: [Contract]
 }
@@ -235,7 +226,7 @@ query {
 
 #### 取得対象データ
 
-```markdown:title=契約テーブル（Contructテーブル） 2件
+```markdown:title=契約テーブル（Contractテーブル） 2件
 * id: 1000
 * name: 〇〇〇案件
 * contractor: ギャッツビー太郎
@@ -247,7 +238,7 @@ query {
 * productIds: [2002,2003]
 ```
 
-```markdown:title=商品テーブル（productテーブル） 3件
+```markdown:title=商品テーブル（Productテーブル） 3件
 * id: 2001
 * name: トマト
 
@@ -264,7 +255,7 @@ query {
 
 ### リゾルバーの書き方
 
-「契約者情報 + 契約者に紐づく商品情報」を複数件取得する場合、以下のようなVTLを作成します。
+「契約情報 + 契約に紐づく商品情報」を複数件取得する場合、以下のようなVTLを作成します。
 
 
 ### 1. 契約テーブルに対するファンクション
@@ -272,10 +263,12 @@ query {
 ```vtl:title=リクエストマッピングテンプレート
 {
     "operation" : "Scan",
+    # 複数件検索ではfilterで検索条件を指定します。
     "filter" : {
-        # 検索条件はexpressionで定義します。今回は契約者名が一致することが条件です
+        # 具体的な検索条件はexpressionで定義します。
+        # 今回は契約者名が一致することが条件です。
         "expression": "contractor = :contractor",
-        # 検索条件で使う変数はあらかじめexpressionValuesで初期化します
+        # 検索条件で使う変数はあらかじめexpressionValuesで初期化します。
         "expressionValues" : {
             ":contractor" : $util.dynamodb.toDynamoDBJson($ctx.args.contractor)
         }
@@ -325,7 +318,7 @@ $util.toJson($context.result)
 
 # 前ファンクションの結果（契約情報）と今回の結果（商品情報）をマージします。
 #foreach($c in $ctx.prev.result.items)
-	#set($products = [])    
+    #set($products = [])    
     # 商品情報をイテレート
     #foreach( $p in $ctx.result.items )
         # 契約情報に含まれる商品が見つかったら
@@ -348,9 +341,9 @@ $util.toJson($ctx.prev.result)
 
 ## まとめ
 
-今回、AppSyncで複数のデータリソースから情報を取得・マージする方法を紹介しました。
-ここで紹介した方法さえ覚えておけば、データリソースが3つ以上になった場合も「リクエストマッピングテンプレート、レスポンスマッピングテンプレート」のセットを追加していけば良いだけです。
-またデータリソースがDynamoDBではなくRDB、Elasticsearch、Lambdaの場合も同様です。
+今回、AppSyncで複数のデータリソースから情報を取得する場合のVTLの書き方についてを紹介しました。
+ここで紹介した方法さえ覚えておけば、データリソースが3つ以上になった場合もファンクションを追加していけば良いだけです。
+またデータリソースがDynamoDBではなくRDB、Lambdaの場合もデータ取得APIを置き換えれば良いだけです。
 
 それにしてもAppSyncのリゾルバー定義は、なぜVTL縛りなのでしょうか。Lambdaのように好きな言語で実装させてくれてもいいのに... いずれは、そうなることを期待しています🍅
 
