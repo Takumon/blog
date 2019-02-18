@@ -93,10 +93,10 @@ query {
 「従業員情報 + 従業員に紐づく部署情報」を1件件取得する場合、以下のようなVTLを作成します。
 
 
-#### 1. 従業員テーブルに対する関数
+#### 1. 従業員テーブルに対するファンクション
 
 ```vtl:title=リクエストマッピングテンプレート
-# この関数はいたって単純でDynamoDBから1件情報を取得するだけです。
+# いたって単純でDynamoDBから1件情報を取得するだけです。
 {
     "version": "2017-02-28",
     "operation": "GetItem",
@@ -112,11 +112,11 @@ $util.toJson($context.result)
 ```
 
 
-#### 2. 部署テーブルに対する関数
+#### 2. 部署テーブルに対するファンクション
 
 ```vtl:title=リクエストマッピングテンプレート
-# 前関数で取得した従業員情報に紐づく部署情報を取得します。
-# 前関数の結果は $ctx.prev.resultで参照できます。
+# 前ファンクションの結果（従業員情報）に紐づく部署情報を取得します。
+# 前ファンクションの結果は $ctx.prev.resultで参照できます。
 #set($args={"id": $ctx.prev.result.departmentId})
 {
         "operation": "GetItem",
@@ -135,7 +135,7 @@ $util.toJson($context.result)
 #end
 
 
-# 前関数の結果（従業員情報）と今回の結果（部署情報）をマージします。
+# 前ファンクションの結果（従業員情報）と今回の結果（部署情報）をマージします。
 # オブジェクトに新しくプロパティを追加する場合は putメソッドを使います。
 # putメソッドを使う場合は $util.qr で囲む必要があります。
 $util.qr($ctx.prev.result.put("departmentName", $ctx.result.name))
@@ -267,7 +267,7 @@ query {
 「契約者情報 + 契約者に紐づく商品情報」を複数件取得する場合、以下のようなVTLを作成します。
 
 
-### 1. 契約テーブルに対する関数
+### 1. 契約テーブルに対するファンクション
 
 ```vtl:title=リクエストマッピングテンプレート
 {
@@ -289,10 +289,10 @@ $util.toJson($context.result)
 ```
 
 
-### 2. 商品テーブルに対する関数
+### 2. 商品テーブルに対するファンクション
 
 ```vtl:title=リクエストマッピングテンプレート
-# 前関数で取得した契約情報から商品IDを抽出します。
+# 前ファンクションで取得した契約情報から商品IDを抽出します。
 #set($productIds = [])
 #set($contracts = $ctx.prev.result.items)
 #foreach($c in $contracts)
@@ -323,7 +323,7 @@ $util.toJson($context.result)
         $util.error($ctx.error.message, $ctx.error.type)
 #end
 
-# 前関数の結果（契約情報）と今回の結果（商品情報）をマージします。
+# 前ファンクションの結果（契約情報）と今回の結果（商品情報）をマージします。
 #foreach($c in $ctx.prev.result.items)
 	#set($products = [])    
     # 商品情報をイテレート
