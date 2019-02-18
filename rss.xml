@@ -1,4 +1,299 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Tue, 12 Feb 2019 00:43:59 GMT</lastBuildDate><item><title><![CDATA[Nuxt.js＋Apollo ClientでCRUD操作 / ユーザー管理画面でQuery, Mutation, Subscriptionを実装]]></title><description><![CDATA[なにこれ 以前の記事 設定いらずのNode製GraphQLサーバー「Graphpack」の使い方 でGraphQLのサーバー側を実装を紹介しました。
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com/</link><generator>RSS for Node</generator><lastBuildDate>Mon, 18 Feb 2019 22:32:08 GMT</lastBuildDate><item><title><![CDATA[AWS AppSyncのPipeline Resolverで複数データリソースを扱う場合のVTLの書き方]]></title><description><![CDATA[なにこれ AWSのGraphQLフルマネージドサービス 「AppSync」 で複数のデータリソースを扱う場合は 「Pipeline Resolver」 という機能を使います。
+これは、…]]></description><link>https://takumon.com//aws-appsync-pipeline-resolver-with-multiple-dynamodb-tables</link><guid isPermaLink="false">https://takumon.com//aws-appsync-pipeline-resolver-with-multiple-dynamodb-tables</guid><pubDate>Mon, 18 Feb 2019 22:30:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/02/aws-appsync-pipeline-resolver-with-multiple-dynamodb-tables.png&quot; alt=&quot;aws-appsync-pipeline-resolver-with-multiple-dynamodb-tables&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
+&lt;p&gt;AWSのGraphQLフルマネージドサービス&lt;a href=&quot;https://aws.amazon.com/jp/appsync/&quot;&gt;「AppSync」&lt;/a&gt;で複数のデータリソースを扱う場合は&lt;strong&gt;「Pipeline Resolver」&lt;/strong&gt;という機能を使います。
+これは、1つのデータリソースを扱うファンクションを定義し、それらを組み合わせるという仕組みです。
+ファンクションではデータリソースのCRUD操作や操作結果の加工などを&lt;a href=&quot;http://velocity.apache.org/engine/1.7/vtl-reference.html&quot;&gt;&lt;strong&gt;VTL（Apatch Verocity Template Language）&lt;/strong&gt;&lt;/a&gt;で記述します。
+今回は、&lt;strong&gt;Pipeline Resolverを使って複数のデータリソース（DynamoDBの複数テーブル）から情報を取得する場合のVTLの書き方について以下2パターンをご紹介します。&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1%E5%AF%BE1%E3%81%A7%E7%B4%90%E3%81%A5%E3%81%8F2%E3%81%A4%E3%81%AEdynamodb%E3%81%AE%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%8B%E3%82%891%E4%BB%B6%E6%83%85%E5%A0%B1%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E5%A0%B4%E5%90%88&quot;&gt;🔰 1対1で紐づく2つのDynamoDBのテーブルから1件情報を取得する場合&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#1%E5%AF%BEn%E3%81%A7%E7%B4%90%E3%81%A5%E3%81%8F2%E3%81%A4%E3%81%AEdynamodb%E3%81%AE%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%8B%E3%82%89%E8%A4%87%E6%95%B0%E4%BB%B6%E6%83%85%E5%A0%B1%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E5%A0%B4%E5%90%88&quot;&gt;💪 1対Nで紐づく2つのDynamoDBのテーブルから複数件情報を取得する場合&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;small&gt;※この記事ではあくまでもVTLの書き方に注力して説明します。GraphQLのスキーマ・リゾルバー、AppSyncのリクエストマッピングテンプレート・レスポンスマッピングテンプレートの概要については知っている前提です。&lt;/small&gt;&lt;/p&gt;
+&lt;h2 id=&quot;pipeline-resolverの概要&quot;&gt;&lt;a href=&quot;#pipeline-resolver%E3%81%AE%E6%A6%82%E8%A6%81&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Pipeline Resolverの概要&lt;/h2&gt;
+&lt;p&gt;少しだけ説明します。
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/4564cb92bd23969ee7df2b0be2b894f8/66ba8/appsync-resolver.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 116.79558011049724%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAXCAYAAAALHW+jAAAACXBIWXMAABcRAAAXEQHKJvM/AAAECklEQVQ4y4VV/U+TVxTuP7KftuyHZUuGm9vU+cPcolN0xsy46aS1KrqIiHNLjGEOpmK2JcLGsmSBV8AVLOjko3wUaFFACsqXgsjb0tLWVipTka/R2t735dm5l5YJFLzJk/Pe3Hufe855zrmvpr6+/qDT6SyRZTnP4XBIg7IsBUb80vTEmDT57Ik0NfGUMPY/xp8KuFxOSZbtkt1uJyvnE0ex2WxO0fh8vlIsGgNDPkildTBUWFF4tWEBLl1rFIg3iKtGMzw8LPGJqqqhSIQx+mQZF/LZmxv2sISNWvbGR7tZwiYte3vjHF5du5O9sno7cz8YEXsVRWF09jnnIC6jxu12F/LJ7OwsY0wRN537rRB0GO9u1uOtj/di1af7kLBJh1WE19d/gdfW7YTXH0DUEX5WHCSuKwsI+SIf7V39yCuphLGyEX/9XYeC0moUllXDcM2M4vJ6sTY+OYXoueUJuZ2LGnj8ZAy3eu5BdrrReWcAdwccuEPouz80T8QdUAg87mUJo2u4YetGTr4RJeVm8tCES1drkVdcgYvGKvw7E4x5FtPj5YQ8R/U32mG92YnyuuuosdxEjbVNeBnL3UwwRKmogWSsUixtPXC5hpcSxoTp6ZexNzUD2rQfsetwOr46moHEpBPIIsEwqyIcDsPjG8Gabcn45MtURf/tT3AMOZcn7L1nh47IdGlnsPvIaexJ+QE7DpxEVm4RVIoiEongYWAUW3Xf4f2tB5Sk41mg4l4+ZP/IKKncgDKTBcVcXYKBFG+iFFDp0cUMk1PTkC5XIfdimWKydlDIrqWEMeVeHNNTk7SBzc9jCr8whBcejyc+IT/g8vjQ3N6Nts67qCUxLC230dTWJcpGXEqRcFFqm2wwNbQqvfddvFNWyCEXhYTQHiNRvp4TZUtMFMzOi/Je4n5s2JWi6E6cJ1GGVlZZeywT+m/OktqZSKLvz5NP4fzvRcI7Icqjf8QlqxP3K0lp51YWJTD6GFdIEGNFg2i9Iqo33n684FVVEaKMT0whJ8+Is78WKCWV1viixAh7+u24TGSNlLsKczPl0SasqbEVwdBzEfZiUeJ2Cov2stPtEyVjvt6OauqSOrIV5hbqno55pXk1RAWKTxjrTU7W0tEr2ox72nqrF7auPlHs3X0ymmlthvr5pa8Ni4b78x8GvLN5Hz7YdnDuXdyip7leWD6nxxcPHj5a9j0siC6EKVxereqZnAJ1zWfJ6rrth1QiUdfvOKyupe8PyRKhSq+26vEFxF4Km49IlLBM4/V6DYv/DSaLDYdO/oLjmblISc/GkfQL8zj6fTZST+dgcjq45J9CXOWawcHBbKqpiWAw6AmFQn6y/kg47FcYI0T8qsIWQOGgtdjeqPUSxzPi+vM/v3UMeAWNUVMAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;appsync-resolver&quot;
+        title=&quot;&quot;
+        src=&quot;/static/4564cb92bd23969ee7df2b0be2b894f8/fb8a0/appsync-resolver.png&quot;
+        srcset=&quot;/static/4564cb92bd23969ee7df2b0be2b894f8/1a291/appsync-resolver.png 148w,
+/static/4564cb92bd23969ee7df2b0be2b894f8/2bc4a/appsync-resolver.png 295w,
+/static/4564cb92bd23969ee7df2b0be2b894f8/fb8a0/appsync-resolver.png 590w,
+/static/4564cb92bd23969ee7df2b0be2b894f8/526de/appsync-resolver.png 885w,
+/static/4564cb92bd23969ee7df2b0be2b894f8/66ba8/appsync-resolver.png 905w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pileline Resolverの中で、どのファンクションをどの順番で呼び出すか指定します。&lt;/li&gt;
+&lt;li&gt;ファンクションは「データリソース、リクエストマッピングテンプレート、レスポンスマッピングテンプレート」のセットです。&lt;/li&gt;
+&lt;li&gt;柔軟性が高く、処理の共通化なども可能です。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;1対1で紐づく2つのdynamodbのテーブルから1件情報を取得する場合&quot;&gt;&lt;a href=&quot;#1%E5%AF%BE1%E3%81%A7%E7%B4%90%E3%81%A5%E3%81%8F2%E3%81%A4%E3%81%AEdynamodb%E3%81%AE%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%8B%E3%82%891%E4%BB%B6%E6%83%85%E5%A0%B1%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E5%A0%B4%E5%90%88&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1対1で紐づく2つのDynamoDBのテーブルから1件情報を取得する場合&lt;/h2&gt;
+&lt;h3 id=&quot;apiとデータリソースの仕様&quot;&gt;&lt;a href=&quot;#api%E3%81%A8%E3%83%87%E3%83%BC%E3%82%BF%E3%83%AA%E3%82%BD%E3%83%BC%E3%82%B9%E3%81%AE%E4%BB%95%E6%A7%98&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;APIとデータリソースの仕様&lt;/h3&gt;
+&lt;details&gt;&lt;summary&gt;コチラをクリックしたら見れます。リゾルバーとあわせてご覧ください。&lt;/summary&gt;&lt;div&gt;
+&lt;br/&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;{&amp;quot;id&amp;quot;:&amp;quot;1000&amp;quot;}&lt;/code&gt;を引数にAPIを呼び出すと以下レスポンスが返ってくる想定です。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;APIのレスポンス&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;json&quot;&gt;&lt;pre class=&quot;language-json&quot;&gt;&lt;code class=&quot;language-json&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;1000&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;ギャッツビー太郎&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;departmentId&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;9001&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;departmentName&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;総務部&quot;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4 id=&quot;queryのスキーマ&quot;&gt;&lt;a href=&quot;#query%E3%81%AE%E3%82%B9%E3%82%AD%E3%83%BC%E3%83%9E&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Queryのスキーマ&lt;/h4&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;type Sample1 {
+    id: ID!
+    name: String!
+    departmentId: String!
+    departmentName: String
+}
+
+query {
+    sample1(id: ID!): Sample1
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4 id=&quot;取得対象データ&quot;&gt;&lt;a href=&quot;#%E5%8F%96%E5%BE%97%E5%AF%BE%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;取得対象データ&lt;/h4&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;従業員テーブル（Employeeテーブル） ※簡単のため１件のみ&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;markdown&quot;&gt;&lt;pre class=&quot;language-markdown&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; id: 100
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; name: ギャッツビー太郎
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; departmentId: 9001&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;部署テーブル（Departmentテーブル） ※簡単のため１件のみ&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;markdown&quot;&gt;&lt;pre class=&quot;language-markdown&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; id: 9001
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; name: 総務部&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/details&gt;
+&lt;br/&gt;
+&lt;h3 id=&quot;リゾルバーの書き方&quot;&gt;&lt;a href=&quot;#%E3%83%AA%E3%82%BE%E3%83%AB%E3%83%90%E3%83%BC%E3%81%AE%E6%9B%B8%E3%81%8D%E6%96%B9&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;リゾルバーの書き方&lt;/h3&gt;
+&lt;p&gt;「従業員情報 + 従業員に紐づく部署情報」を1件取得する場合、以下のようなVTLを作成します。&lt;/p&gt;
+&lt;h4 id=&quot;1-従業員テーブルに対するファンクション&quot;&gt;&lt;a href=&quot;#1-%E5%BE%93%E6%A5%AD%E5%93%A1%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AB%E5%AF%BE%E3%81%99%E3%82%8B%E3%83%95%E3%82%A1%E3%83%B3%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. 従業員テーブルに対するファンクション&lt;/h4&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;リクエストマッピングテンプレート&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vtl&quot;&gt;&lt;pre class=&quot;language-vtl&quot;&gt;&lt;code class=&quot;language-vtl&quot;&gt;# 従業員IDを指定してDynamoDBから1件情報を取得します。
+{
+    &amp;quot;version&amp;quot;: &amp;quot;2017-02-28&amp;quot;,
+    &amp;quot;operation&amp;quot;: &amp;quot;GetItem&amp;quot;,
+    &amp;quot;key&amp;quot;: {
+        &amp;quot;id&amp;quot;: $util.dynamodb.toDynamoDBJson($ctx.args.id),
+    },
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;レスポンスマッピングテンプレート&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vtl&quot;&gt;&lt;pre class=&quot;language-vtl&quot;&gt;&lt;code class=&quot;language-vtl&quot;&gt;# 従業員情報をレスポンスに設定します。
+$util.toJson($context.result)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4 id=&quot;2-部署テーブルに対するファンクション&quot;&gt;&lt;a href=&quot;#2-%E9%83%A8%E7%BD%B2%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AB%E5%AF%BE%E3%81%99%E3%82%8B%E3%83%95%E3%82%A1%E3%83%B3%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. 部署テーブルに対するファンクション&lt;/h4&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;リクエストマッピングテンプレート&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vtl&quot;&gt;&lt;pre class=&quot;language-vtl&quot;&gt;&lt;code class=&quot;language-vtl&quot;&gt;# 前ファンクションの結果（従業員情報）に紐づく部署情報を取得します。
+{
+    &amp;quot;operation&amp;quot;: &amp;quot;GetItem&amp;quot;,
+    &amp;quot;key&amp;quot;: {
+        # 前ファンクションの結果は $ctx.prev.resultで参照できます。
+        # 部署IDを指定してDynamoDBから1件情報を取得します。
+        &amp;quot;id&amp;quot;: $util.dynamodb.toDynamoDBJson($ctx.prev.result.departmentId),
+    }
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;レスポンスマッピングテンプレート&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vtl&quot;&gt;&lt;pre class=&quot;language-vtl&quot;&gt;&lt;code class=&quot;language-vtl&quot;&gt;#if($ctx.error)
+        $util.error($ctx.error.message, $ctx.error.type)
+#end
+
+# 前ファンクションの結果（従業員情報）と今回の結果（部署情報）をマージします。
+# オブジェクトに新しくプロパティを追加する場合は putメソッドを使います。
+# putメソッドを使う場合は $util.qr で囲む必要があります。
+$util.qr($ctx.prev.result.put(&amp;quot;departmentName&amp;quot;, $ctx.result.name))
+
+# マージ結果をレスポンスに設定します。
+$util.toJson($ctx.prev.result)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;1対nで紐づく2つのdynamodbのテーブルから複数件情報を取得する場合&quot;&gt;&lt;a href=&quot;#1%E5%AF%BEn%E3%81%A7%E7%B4%90%E3%81%A5%E3%81%8F2%E3%81%A4%E3%81%AEdynamodb%E3%81%AE%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%8B%E3%82%89%E8%A4%87%E6%95%B0%E4%BB%B6%E6%83%85%E5%A0%B1%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E5%A0%B4%E5%90%88&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1対Nで紐づく2つのDynamoDBのテーブルから複数件情報を取得する場合&lt;/h2&gt;
+&lt;h3 id=&quot;apiとデータリソースの仕様-1&quot;&gt;&lt;a href=&quot;#api%E3%81%A8%E3%83%87%E3%83%BC%E3%82%BF%E3%83%AA%E3%82%BD%E3%83%BC%E3%82%B9%E3%81%AE%E4%BB%95%E6%A7%98-1&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;APIとデータリソースの仕様&lt;/h3&gt;
+&lt;details&gt;&lt;summary&gt;コチラをクリックしたら見れます。リゾルバーとあわせてご覧ください。&lt;/summary&gt;&lt;div&gt;
+&lt;br/&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;{ &amp;quot;contractor&amp;quot;:&amp;quot;ギャッツビー太郎&amp;quot;}&lt;/code&gt;を引数にAPIを呼び出すと以下のレスポンスが返ってくる想定です。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;APIのレスポンス&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;json&quot;&gt;&lt;pre class=&quot;language-json&quot;&gt;&lt;code class=&quot;language-json&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;contracts&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token property&quot;&gt;&quot;items&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            	&lt;span class=&quot;token property&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;1000&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;〇〇〇案件&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;token property&quot;&gt;&quot;contractor&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;ギャッツビー太郎&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;token property&quot;&gt;&quot;productIds&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+                    &lt;span class=&quot;token string&quot;&gt;&quot;2001&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                    &lt;span class=&quot;token string&quot;&gt;&quot;2002&quot;&lt;/span&gt;
+                &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;token property&quot;&gt;&quot;products&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+                    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;token property&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;2001&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                        &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;トマト&quot;&lt;/span&gt;
+                    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;token property&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;2002&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                        &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;ナス&quot;&lt;/span&gt;
+                    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            	&lt;span class=&quot;token property&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;1001&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;△△△案件&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;token property&quot;&gt;&quot;contractor&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;ギャッツビー太郎&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;token property&quot;&gt;&quot;productIds&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+                    &lt;span class=&quot;token string&quot;&gt;&quot;2002&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                    &lt;span class=&quot;token string&quot;&gt;&quot;2003&quot;&lt;/span&gt;
+                &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;token property&quot;&gt;&quot;products&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+                    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;token property&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;2002&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                        &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;ナス&quot;&lt;/span&gt;
+                    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;token property&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;2003&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                        &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;キュウリ&quot;&lt;/span&gt;
+                    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4 id=&quot;queryのスキーマ-1&quot;&gt;&lt;a href=&quot;#query%E3%81%AE%E3%82%B9%E3%82%AD%E3%83%BC%E3%83%9E-1&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Queryのスキーマ&lt;/h4&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;type Contracts {
+    items: [Contract]
+}
+
+type Contract {
+    id: ID!
+    name: String!
+    contractor: String!
+    productIds: [ID]
+    products: [Product]
+}
+
+type Product {
+    id: ID!
+    name: String
+}
+
+query {
+    getContracts(contractor: String!): Contracts
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4 id=&quot;取得対象データ-1&quot;&gt;&lt;a href=&quot;#%E5%8F%96%E5%BE%97%E5%AF%BE%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF-1&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;取得対象データ&lt;/h4&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;契約テーブル（Contractテーブル） 2件&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;markdown&quot;&gt;&lt;pre class=&quot;language-markdown&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; id: 1000
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; name: 〇〇〇案件
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; contractor: ギャッツビー太郎
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; productIds: [2001,2002]
+
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; id: 1001
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; name: △△△案件
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; contractor: ギャッツビー太郎
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; productIds: [2002,2003]&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;商品テーブル（Productテーブル） 3件&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;markdown&quot;&gt;&lt;pre class=&quot;language-markdown&quot;&gt;&lt;code class=&quot;language-markdown&quot;&gt;&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; id: 2001
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; name: トマト
+
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; id: 2002
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; name: ナス
+
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; id: 2003
+&lt;span class=&quot;token list punctuation&quot;&gt;*&lt;/span&gt; name: キュウリ&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/details&gt;
+&lt;br/&gt;
+&lt;h3 id=&quot;リゾルバーの書き方-1&quot;&gt;&lt;a href=&quot;#%E3%83%AA%E3%82%BE%E3%83%AB%E3%83%90%E3%83%BC%E3%81%AE%E6%9B%B8%E3%81%8D%E6%96%B9-1&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;リゾルバーの書き方&lt;/h3&gt;
+&lt;p&gt;「契約情報 + 契約に紐づく商品情報」を複数件取得する場合、以下のようなVTLを作成します。&lt;/p&gt;
+&lt;h3 id=&quot;1-契約テーブルに対するファンクション&quot;&gt;&lt;a href=&quot;#1-%E5%A5%91%E7%B4%84%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AB%E5%AF%BE%E3%81%99%E3%82%8B%E3%83%95%E3%82%A1%E3%83%B3%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. 契約テーブルに対するファンクション&lt;/h3&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;リクエストマッピングテンプレート&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vtl&quot;&gt;&lt;pre class=&quot;language-vtl&quot;&gt;&lt;code class=&quot;language-vtl&quot;&gt;{
+    &amp;quot;operation&amp;quot; : &amp;quot;Scan&amp;quot;,
+    # 複数件検索ではfilterで検索条件を指定します。
+    &amp;quot;filter&amp;quot; : {
+        # 具体的な検索条件はexpressionで定義します。
+        # 今回は契約者名が一致することが条件です。
+        &amp;quot;expression&amp;quot;: &amp;quot;contractor = :contractor&amp;quot;,
+        # 検索条件で使う変数はあらかじめexpressionValuesで初期化します。
+        &amp;quot;expressionValues&amp;quot; : {
+            &amp;quot;:contractor&amp;quot; : $util.dynamodb.toDynamoDBJson($ctx.args.contractor)
+        }
+    }
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;レスポンスマッピングテンプレート&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vtl&quot;&gt;&lt;pre class=&quot;language-vtl&quot;&gt;&lt;code class=&quot;language-vtl&quot;&gt;# 契約情報をレスポンスに設定します。
+$util.toJson($context.result)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;2-商品テーブルに対するファンクション&quot;&gt;&lt;a href=&quot;#2-%E5%95%86%E5%93%81%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AB%E5%AF%BE%E3%81%99%E3%82%8B%E3%83%95%E3%82%A1%E3%83%B3%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. 商品テーブルに対するファンクション&lt;/h3&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;リクエストマッピングテンプレート&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vtl&quot;&gt;&lt;pre class=&quot;language-vtl&quot;&gt;&lt;code class=&quot;language-vtl&quot;&gt;# 前ファンクションで取得した契約情報から商品IDを抽出します。
+#set($productIds = [])
+#set($contracts = $ctx.prev.result.items)
+#foreach($c in $contracts)
+    #foreach( $id in $c.productIds )
+        #if(!$productIds.contains($id))
+            $util.qr($productIds.add($id))
+        #end
+    #end
+#end
+
+{
+    &amp;quot;version&amp;quot; : &amp;quot;2017-02-28&amp;quot;,
+    &amp;quot;operation&amp;quot; : &amp;quot;Scan&amp;quot;,
+    &amp;quot;filter&amp;quot; : {
+        # 「複数の値のどれかに一致する」という条件はcontains関数で実現します。
+        &amp;quot;expression&amp;quot;: &amp;quot;contains(:ids, id)&amp;quot;,
+        &amp;quot;expressionValues&amp;quot; : {
+            &amp;quot;:ids&amp;quot; : $util.dynamodb.toDynamoDBJson($productIds)
+        }
+    }
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;レスポンスマッピングテンプレート&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vtl&quot;&gt;&lt;pre class=&quot;language-vtl&quot;&gt;&lt;code class=&quot;language-vtl&quot;&gt;#if($ctx.error)
+        $util.error($ctx.error.message, $ctx.error.type)
+#end
+
+# 前ファンクションの結果（契約情報）と今回の結果（商品情報）をマージします。
+#foreach($c in $ctx.prev.result.items)
+    #set($products = [])    
+    # 商品情報をイテレート
+    #foreach( $p in $ctx.result.items )
+        # 契約情報に含まれる商品が見つかったら
+        #if($c.productIds.contains($p.id))
+            # $productsにaddします。
+            $util.qr($products.add($p))
+        #end
+    #end
+        
+    # 商品情報を契約情報に追加します。
+    #set($temp = { &amp;quot;items&amp;quot;: $products })
+    $util.qr($contract.put(&amp;quot;products&amp;quot;, $temp))
+#end
+
+# マージした情報をレスポンスに設定します。
+$util.toJson($ctx.prev.result)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;まとめ&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ&lt;/h2&gt;
+&lt;p&gt;今回、AppSyncで複数のデータリソースから情報を取得する場合のVTLの書き方についてを紹介しました。
+ここで紹介した方法さえ覚えておけば、データリソースが3つ以上になった場合もファンクションを追加していけば良いだけです。
+またデータリソースがDynamoDBではなくRDB、Lambdaの場合もデータ取得APIを置き換えれば良いだけです。&lt;/p&gt;
+&lt;p&gt;それにしてもAppSyncのリゾルバー定義は、なぜVTL縛りなのでしょうか。Lambdaのように好きな言語で実装させてくれてもいいのに... いずれは、そうなることを期待しています🍅&lt;/p&gt;
+&lt;h2 id=&quot;参考&quot;&gt;&lt;a href=&quot;#%E5%8F%82%E8%80%83&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://dev.classmethod.jp/cloud/aws/appsync-updates-11-21/&quot;&gt;AWS AppSyncの新機能！Pipeline Resolver、Aurora Serverless Data Source、Delta Syncがサポートされました！ ｜ DevelopersIO&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/ja_jp/appsync/latest/devguide/tutorial-pipeline-resolvers.html&quot;&gt;チュートリアル: パイプラインリゾルバー - AWS AppSync&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Nuxt.js＋Apollo ClientでCRUD操作 / ユーザー管理画面でQuery, Mutation, Subscriptionを実装]]></title><description><![CDATA[なにこれ 以前の記事 設定いらずのNode製GraphQLサーバー「Graphpack」の使い方 でGraphQLのサーバー側を実装を紹介しました。
 Graphpackは備え付けの GraphQL Playground IDE…]]></description><link>https://takumon.com//nuxt-apollo-with-graphpack</link><guid isPermaLink="false">https://takumon.com//nuxt-apollo-with-graphpack</guid><pubDate>Mon, 11 Feb 2019 22:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/02/nuxt-apollo-with-graphpack.png&quot; alt=&quot;nuxt-apollo-with-graphpack&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;以前の記事&lt;a href=&quot;graphpack-graphql-zero-config-server&quot;&gt;設定いらずのNode製GraphQLサーバー「Graphpack」の使い方&lt;/a&gt;でGraphQLのサーバー側を実装を紹介しました。
