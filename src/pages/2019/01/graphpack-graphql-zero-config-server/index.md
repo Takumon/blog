@@ -117,7 +117,7 @@ query {
 
 ![hello-world-result](hello-world-result.png)
 
-こんな感じで、とても簡単にGraophQLサーバーが立てられます。
+こんな感じで、とても簡単にGraphQLサーバーが立てられます。
 
 
 ## 3. GraphpackでQueryを実装・動作確認する
@@ -267,7 +267,7 @@ export let users = [
   {
     id: 2,
     name: 'gridsome taro',
-    email: 'gridsom.taro@gmail.com',
+    email: 'gridsome.taro@gmail.com',
     age: 55
   },
 ];
