@@ -1,6 +1,6 @@
 ---
 title: 'Vue-I18nをscriptタグやJSファイル内で使う方法'
-date: '2019-02-21T07:30:00.000+09:00'
+date: '2019-02-21T07:50:00.000+09:00'
 tags:
   - Vue.js
   - Vue-I18n
@@ -55,7 +55,7 @@ export const i18n = new VueI18n({
 
 
 vueファイルのscriptタグでは以下のようにします。
-VueI18nオブジェクトに`tc`メソッドを使います。
+**VueI18nオブジェクトの`tc`メソッドを使います。**
 こうすることでvueファイルのscriptやJavaScriptファイルなど、どこでも使えるようになります。
 
 
