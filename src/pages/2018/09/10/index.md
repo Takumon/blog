@@ -57,7 +57,7 @@ module.exports = {
     title: 'Takumon Blog',
     author: 'Takuto Inoue',
     description: '日々の作業をつづっていきます。',
-    siteUrl: 'https://takumon.github.io/blog/',
+    siteUrl: 'https://takumon.github.io/blog',
   },
   ・・・
 };
