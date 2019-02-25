@@ -1198,17 +1198,17 @@ This is a beautiful iframe:
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
   xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
-    <loc>https://takumon.com//2018/10/14/</loc>
+    <loc>https://takumon.com/2018/10/14/</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://takumon.com//2018/10/12/</loc>
+    <loc>https://takumon.com/2018/10/12/</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://takumon.com//2018/10/08/</loc>
+    <loc>https://takumon.com/2018/10/08/</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
