@@ -5,7 +5,7 @@ module.exports = {
     title: 'Takumon Blog',
     author: 'Takuto Inoue',
     description: '日々の作業をつづっていきます。',
-    siteUrl: 'https://takumon.com/',
+    siteUrl: 'https://takumon.com',
   },
   plugins: [
     {
