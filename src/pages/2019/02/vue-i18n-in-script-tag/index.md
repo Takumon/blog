@@ -1,9 +1,9 @@
 ---
-title: 'Vue-I18nをscriptタグやJSファイル内で使う方法'
+title: 'VueI18nをscriptタグやJSファイル内で使う方法'
 date: '2019-02-21T07:50:00.000+09:00'
 tags:
   - Vue.js
-  - Vue-I18n
+  - VueI18n
 keywords:
   - Vue.js
 slug: /vue-i18n-in-script-tag
@@ -14,7 +14,7 @@ thumbnail: /thumbnail/2019/02/vue-i18n-in-script-tag.png
 
 
 ## なにこれ 
-[**Vue-I18n**](https://kazupon.github.io/vue-i18n/)はVue.jsの多言語対応ライブラリです。vueファイルのtemplateタグでは、`<p>{{$t('message.hello')}}</p>`のように使います。ただ**vueファイルのscriptタグや、他のJavaScriptファイルでの使い方**は[ガイド](https://kazupon.github.io/vue-i18n/guide/formatting.html)に明記されていません。今回はそのやり方についてご紹介します。
+[**VueI18n**](https://kazupon.github.io/vue-i18n/)はVue.jsの多言語対応ライブラリです。vueファイルのtemplateタグでは、`<p>{{$t('message.hello')}}</p>`のように使います。ただ**vueファイルのscriptタグや、他のJavaScriptファイルでの使い方**は[ガイド](https://kazupon.github.io/vue-i18n/guide/formatting.html)に明記されていません。今回はそのやり方についてご紹介します。
 
 
 
