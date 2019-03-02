@@ -30,9 +30,9 @@ VeeValidateであらかじめ言語毎にエラーメッセージを用意して
 ```javascript{4,6}:title=VeeValidateの定義
 import Vue from 'vue';
 import VeeValidate from 'vee-validate';
-// vee-validateで用意されている日本語版入力チェックエラーの文言を使用する
+// VeeValidateで用意されている日本語版入力チェックエラーメッセージを使う
 import ja from 'vee-validate/dist/locale/ja';
-// vee-validateで用意されている英語語版入力チェックエラーの文言を使用する
+// VeeValidateで用意されている英語語版入力チェックエラーメッセージを使う
 import en from 'vee-validate/dist/locale/en';
 // VueI18nオブジェクトをインポートする
 import { i18n } from './i18n';
@@ -61,7 +61,7 @@ const messages = require('./i18n.json');
 
 Vue.use(VueI18n);
 
-// ブラウザ言語によってVueI18nで使う言語を決定する
+// ブラウザ言語を取得
 const language = (
   (
     window.navigator.languages
@@ -75,6 +75,7 @@ const language = (
 
 const locale = language.substr(0, 2) === 'ja' ? 'ja' : 'en';
 
+// VueI18nで使う言語はブラウザ言語とする
 export const i18n = new VueI18n({
   locale,
   messages,
