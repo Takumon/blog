@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 03 Mar 2019 09:34:35 GMT</lastBuildDate><item><title><![CDATA[AppSync + serverlessによるソースコードの構成管理]]></title><description><![CDATA[なにこれ AWSのGraphQLマネージドサービス「 AppSync 」はGUIで簡単に設定ができて便利ですが、
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 03 Mar 2019 14:06:19 GMT</lastBuildDate><item><title><![CDATA[AppSync + serverlessによるソースコードの構成管理]]></title><description><![CDATA[なにこれ AWSのGraphQLマネージドサービス「 AppSync 」はGUIで簡単に設定ができて便利ですが、
 本格的に開発を進めていくとGUIポチポチでソースコードを管理するのはつらくなってきます。
  serverless というツールと serverless-appsync…]]></description><link>https://takumon.com/aws-appsync-and-serverless-framework</link><guid isPermaLink="false">https://takumon.com/aws-appsync-and-serverless-framework</guid><pubDate>Sun, 03 Mar 2019 22:50:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/03/aws-appsync-and-serverless-framework.png&quot; alt=&quot;aws-appsync-and-serverless-framework&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
@@ -285,7 +285,7 @@ serverless.ymlで定義したエンドポイント名はココで確認できま
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/3922725fe1779d95ac25006d11451b73/08352/appsync-gui-datasource.png&quot;
+    href=&quot;/static/ce7642343b110f652569cb878bcb890a/08352/appsync-gui-datasource.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -297,20 +297,20 @@ serverless.ymlで定義したエンドポイント名はココで確認できま
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 82.09269662921349%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAABcRAAAXEQHKJvM/AAAClUlEQVQ4y32Ub2/aMBDG8/WnfZhpmhia1OVF30xVqcSgKxBISMgoFJIQO84/fPbt7FBE2VZLPymG5PHz3F3i3N7efpxMpj/m88X33W7nbrdbN45jd+777uCX5z56C3c8m7uj6cIynnrE3P058Vxv4bt+ELi+798sw/DufjD44NDGxX8sqRRuMo5ZUSIrBIqqxrJuELS2SKVR0X2aOEppn1nF8Y0zGo16ddMi47xljIFSypJlGQSBD2G0gjCMIFiGEK1WwIsC6F7gBDuRM9YaYXL5xQkDv49aIhxbOljbk4DgTYNJmuFmu8X9fo8N7Y2Tuq6xpusLNP1mLa7X657jzWb9lm5SUoJVS1NUnodiMkFB11wILMsSAcBC7i2ve0JLACtIPeg5y9Wqj10twPrLMoQoQhEEmJOzlyTBA2NWmBXFmYIOER2a/pOdl7Tn/CaH2Laoowg0dCbVcIjleIycxNI8x4LETLyGat20HdK4pRKRW01YwSRJek58f99H30c9GIAmJ0inKxN3scDDbod7cpwSVPhz3L8iS3khGMdvI5saTqco6JCcBLOcnR1WVGvTmEth4xBONewEg6ATrGvQ5AxnM1TkzggyquEuSW2tjsfjm6a8FbyMvFzS2GjUVQV6szGtQlivUcQxHkjshch5gS0JnuO+G9kIXkY+zWFB8XJR4j7nuD+wziU9Z5xexb5qymvkS0FybMYiITEz2GaYbWdJyACnaTgtiqevmnI4oHp6kvrxUeNwqOHhQYvxWKfxWlOXtRCFvl4nZxY4OaQ3iubw+fmbPaeqtJlHyoRkCSvO0b7josIWFL63lMlu34nsq/nafDYD2hyPvJWyNNRtWyZZVqY5t2SMl0KI/0JjxU1doyj69Adnfb48dosZtwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 82.09269662921349%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAABcRAAAXEQHKJvM/AAAClElEQVQ4y32Ub2/aMBDG8/WnfZhpmhia1OVF30xTqcSgGxBISMgoFJIQO84/fPbt7NAqZVstPVIM4fHvuTvj3N7evp/N5t+Wy9XXw+Hg7vd7N45jd+n77uin5z54K3e6WLqT+cpqOvdIS/fHzHO9le/6QeD6vn+zDsPvd6PRO4c2Lv5jSaVwl3HMihJZIVBUNZZ1g6C1lVQaFb2nSWcp7W82cXzjTCaTQd20yDhvGWOglLLKsgyCwIcw2kAYRhCsQ4g2G+BFAfQucBK7KGesNcZE+ckJA3+IWiKcWzpY25OAxJsGkzTD3X6Px+MRG9obkrqusabnnjR9ZhG32+3A8RaLYUsvKSnBuqUpKs9DMZuhoGcuBJZliQBgRfRWz3uSlgDWkHowcNabzRC7WoDlyzKEKEIRBJgT2VOS4Ikxa8yK4kUFHSI6afpOdizpwPlNhNi2qKMINHSQajzGcjpFTmZpnmNBZiZeQ7Vu2k7S0FKJiFaTrGGSJAMnvrsbou+jHo1AEwnS6crEXa3wdDjgkYhTEhX+Je5fkaXsGcbx68imhvM5CjokJ8MsZy+EFdXaNKZvbAjhUsPOMAg6w7oGTWS4WKAiOmPIqIaHJLVNMUb9prw27Eder2lsNOqqAr3bmVYhbLco4hhPRPtEhukpt3SmZmDivhnZGPYjX+awIINclHg8MTyQxIXyfD5fx75qynPkviGRmLFIcm4Hu27qrrNkJC/Re4vi6aumnE6ofv2S+uFB43is4f5ei+lUp/FWU5e1EIW+XhcyK7gQ0o2iOXx8/GLPqSpt5pEyId0vrDhHe8dFhS0ofGspk93eieyz+bf5aIrdnM+8lbI0qtu2TLKsTHNulTFeCiH+KxorbuoaRdGHP06Xvi0j2WSQAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;appsync gui datasource&quot;
         title=&quot;&quot;
-        src=&quot;/static/3922725fe1779d95ac25006d11451b73/fb8a0/appsync-gui-datasource.png&quot;
-        srcset=&quot;/static/3922725fe1779d95ac25006d11451b73/1a291/appsync-gui-datasource.png 148w,
-/static/3922725fe1779d95ac25006d11451b73/2bc4a/appsync-gui-datasource.png 295w,
-/static/3922725fe1779d95ac25006d11451b73/fb8a0/appsync-gui-datasource.png 590w,
-/static/3922725fe1779d95ac25006d11451b73/526de/appsync-gui-datasource.png 885w,
-/static/3922725fe1779d95ac25006d11451b73/fa2eb/appsync-gui-datasource.png 1180w,
-/static/3922725fe1779d95ac25006d11451b73/08352/appsync-gui-datasource.png 1424w&quot;
+        src=&quot;/static/ce7642343b110f652569cb878bcb890a/fb8a0/appsync-gui-datasource.png&quot;
+        srcset=&quot;/static/ce7642343b110f652569cb878bcb890a/1a291/appsync-gui-datasource.png 148w,
+/static/ce7642343b110f652569cb878bcb890a/2bc4a/appsync-gui-datasource.png 295w,
+/static/ce7642343b110f652569cb878bcb890a/fb8a0/appsync-gui-datasource.png 590w,
+/static/ce7642343b110f652569cb878bcb890a/526de/appsync-gui-datasource.png 885w,
+/static/ce7642343b110f652569cb878bcb890a/fa2eb/appsync-gui-datasource.png 1180w,
+/static/ce7642343b110f652569cb878bcb890a/08352/appsync-gui-datasource.png 1424w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
