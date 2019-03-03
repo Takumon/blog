@@ -1,4 +1,541 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com</link><generator>RSS for Node</generator><lastBuildDate>Sat, 02 Mar 2019 03:30:44 GMT</lastBuildDate><item><title><![CDATA[Vuetify + VeeValidate + VueI18nでエラーメッセージ共通化]]></title><description><![CDATA[なにこれ Vuetify  +  VeeValidate で入力チェックする際に、 VueI18n を使ってエラーメッセージを多言語対応・共通化する方法について紹介します。 定義方法 VeeValidate VeeValidate…]]></description><link>https://takumon.com/vuetify-and-vee-validate-and-vue-i18n</link><guid isPermaLink="false">https://takumon.com/vuetify-and-vee-validate-and-vue-i18n</guid><pubDate>Sat, 02 Mar 2019 03:30:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/03/vuetify-and-vee-validate-and-vue-i18n.png&quot; alt=&quot;vuetify-and-vee-validate-and-vue-i18n&quot;&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 03 Mar 2019 09:34:35 GMT</lastBuildDate><item><title><![CDATA[AppSync + serverlessによるソースコードの構成管理]]></title><description><![CDATA[なにこれ AWSのGraphQLマネージドサービス「 AppSync 」はGUIで簡単に設定ができて便利ですが、
+本格的に開発を進めていくとGUIポチポチでソースコードを管理するのはつらくなってきます。
+ serverless というツールと serverless-appsync…]]></description><link>https://takumon.com/aws-appsync-and-serverless-framework</link><guid isPermaLink="false">https://takumon.com/aws-appsync-and-serverless-framework</guid><pubDate>Sun, 03 Mar 2019 22:50:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/03/aws-appsync-and-serverless-framework.png&quot; alt=&quot;aws-appsync-and-serverless-framework&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
+&lt;p&gt;AWSのGraphQLマネージドサービス「&lt;a href=&quot;https://aws.amazon.com/jp/appsync/&quot;&gt;AppSync&lt;/a&gt;」はGUIで簡単に設定ができて便利ですが、
+本格的に開発を進めていくとGUIポチポチでソースコードを管理するのはつらくなってきます。
+&lt;strong&gt;&lt;a href=&quot;https://serverless.com/&quot;&gt;serverless&lt;/a&gt;というツールと&lt;a href=&quot;https://github.com/sid88in/serverless-appsync-plugin&quot;&gt;serverless-appsync-plugin&lt;/a&gt;（serverlessのプラグイン）を使うと、AppSyncの設定をymlファイルで管理し、CLIでAWS上にデプロイできるので、GitHub等で構成管理が可能になります。&lt;/strong&gt;
+今回はAppSyncからDynamoDBのユーザー情報を1件取得する場合を例にしてAppSync + serverlessの使い方をご紹介します。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/b4e940dd98c7ab5be67d93e353ffd018/bf025/image.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 27.04186684969115%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAABcRAAAXEQHKJvM/AAABOUlEQVQY012PvU7DQAzH8xLwQuwdmVh4ERbUhVfgY+ABWBgQLMwIUEWhLbS95tK4adLQpvm4JJc7n7lmQAJLP/kv27L/djjn90QUK6XmFmiaBogMGGNavaOqqjZLKS11S13XgFpBWTWwLSQY1Is8z5kDAG9aa9okCQkhyBgiz5uT7wMphbSLLMvJDtP/yERNh6c3dHByR+9+aiuoHMbYi4UAfDUafeLMX2Pvg+Frf4LM6kW4xvGYoet6GKxShFWBPEgQwhSfh3Pc63Rx/+gKrx8n1ooRThAse4PBiM4vLs1kykhbU0Uh7IEFxXFM9lUKlhGFkdVKt27DMCKPc8pFRcdnt9TpPlCfJ3afrp2Z6z2lJdL3tq4yoaSopLTefynKRg5ZJL94bPXfXrwRcgZbOfWT2oWNLMsq/QGLmW71JK3q7AAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;image&quot;
+        title=&quot;&quot;
+        src=&quot;/static/b4e940dd98c7ab5be67d93e353ffd018/fb8a0/image.png&quot;
+        srcset=&quot;/static/b4e940dd98c7ab5be67d93e353ffd018/1a291/image.png 148w,
+/static/b4e940dd98c7ab5be67d93e353ffd018/2bc4a/image.png 295w,
+/static/b4e940dd98c7ab5be67d93e353ffd018/fb8a0/image.png 590w,
+/static/b4e940dd98c7ab5be67d93e353ffd018/526de/image.png 885w,
+/static/b4e940dd98c7ab5be67d93e353ffd018/fa2eb/image.png 1180w,
+/static/b4e940dd98c7ab5be67d93e353ffd018/08f6a/image.png 1770w,
+/static/b4e940dd98c7ab5be67d93e353ffd018/bf025/image.png 2914w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;#1-serverless%E3%81%AE%E8%A8%AD%E5%AE%9A&quot;&gt;🔰 serverlessの設定&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E3%81%B2%E3%81%AA%E5%9E%8B%E4%BD%9C%E6%88%90&quot;&gt;💪 プロジェクトのひな型作成&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3-%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E4%BD%9C%E6%88%90&quot;&gt;📝 設定ファイル作成&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#4-%E3%83%AA%E3%82%BE%E3%83%AB%E3%83%90%E3%83%BC%E4%BD%9C%E6%88%90&quot;&gt;💖 リゾルバー作成&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#5-%E3%82%B9%E3%82%AD%E3%83%BC%E3%83%9E%E4%BD%9C%E6%88%90&quot;&gt;💎 スキーマ作成&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#6-aws%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4&quot;&gt;🎊 AWSにデプロイ&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;1-serverlessの設定&quot;&gt;&lt;a href=&quot;#1-serverless%E3%81%AE%E8%A8%AD%E5%AE%9A&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. serverlessの設定&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;serverlessはnpmで提供されるCLIツールです。まずはnpmでインストールします。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;npm i -g serverless&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;クレデンシャルを設定します（事前にIAMでユーザを作成しておいてください）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;serverless config credentials --provider aws --key AKIAIOSFODNN7EXAMPLE --secret wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;small&gt;※詳細：&lt;a href=&quot;https://serverless.com/framework/docs/providers/aws/guide/credentials#using-aws-profiles&quot;&gt;Serverless Framework - AWS Lambda Guide - Credentials&lt;/a&gt;&lt;/small&gt;&lt;/p&gt;
+&lt;h2 id=&quot;2-プロジェクトのひな型作成&quot;&gt;&lt;a href=&quot;#2-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E3%81%B2%E3%81%AA%E5%9E%8B%E4%BD%9C%E6%88%90&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. プロジェクトのひな型作成&lt;/h2&gt;
+&lt;p&gt;プロジェクトのひな型を作ります。
+serverlessでAppSync資産を扱えるように、&lt;a href=&quot;https://github.com/sid88in/serverless-appsync-plugin&quot;&gt;serverless-appsync-plugin&lt;/a&gt;と&lt;a href=&quot;https://github.com/aws/aws-sdk-js&quot;&gt;aws-sdk&lt;/a&gt;をインストールします。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;mkdir appsync-sample-with-serverless
+cd appsync-sample-with-serverless
+npm init -y
+npm i serverless-appsync-plugin aws-sdk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;h2 id=&quot;3-設定ファイル作成&quot;&gt;&lt;a href=&quot;#3-%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E4%BD%9C%E6%88%90&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. 設定ファイル作成&lt;/h2&gt;
+&lt;p&gt;プロジェクト直下にserverlessの設定ファイル&lt;code class=&quot;language-text&quot;&gt;servserless.yml&lt;/code&gt;を作ります。&lt;br/&gt;
+&lt;small&gt;※ここではserverless.ymlの全量を示して、次のセクションでブロックごとに詳細を説明します。&lt;/small&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;servserless.yml&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# サービス名&lt;/span&gt;
+&lt;span class=&quot;token key atrule&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; appsync&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;sample&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;with&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;serverless
+&lt;span class=&quot;token key atrule&quot;&gt;provider&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; aws
+  &lt;span class=&quot;token comment&quot;&gt;# ステージ、デプロイ先を開発、運用などで分けたい場合はココを切り替えます&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;stage&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; production
+  &lt;span class=&quot;token comment&quot;&gt;# デプロイ先のリージョンです&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;region&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ap&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;northeast&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# AppSyncのプラグインを指定します&lt;/span&gt;
+&lt;span class=&quot;token key atrule&quot;&gt;plugins&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; serverless&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;appsync&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;plugin
+&lt;span class=&quot;token comment&quot;&gt;# serverlessではプラグイン関連の設定はcustomで行います&lt;/span&gt;
+&lt;span class=&quot;token key atrule&quot;&gt;custom&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# ここでAppSyncの設定を行います&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;appSync&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# エンドポイントの名前を指定します&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; appsync&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;serverless&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;sample
+    &lt;span class=&quot;token comment&quot;&gt;# AppSyncの認証方法を指定します&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# ここではCognitoによる認証方法を指定しています&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;authenticationType&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; AMAZON_COGNITO_USER_POOLS
+    &lt;span class=&quot;token comment&quot;&gt;# Cogtnitoによる認証方法の場合、Cognito側の情報を指定する必要があります&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;userPoolConfig&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# Cognitoが存在するリージョンを指定します&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# デフォルトだとproviderのregionで指定した値になります&lt;/span&gt;
+      &lt;span class=&quot;token key atrule&quot;&gt;awsRegion&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ap&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;northeast&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# CognitoのユーザープールのIDを指定します&lt;/span&gt;
+      &lt;span class=&quot;token key atrule&quot;&gt;userPoolId&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ap&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;northeast&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;1_U0e7zFRLQ
+      &lt;span class=&quot;token comment&quot;&gt;# スキーマ定義で認証設定が記述されていない場合の挙動を指定します&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# DENYを指定すると、認証されたいかなるユーザーも認可エラーに倒します&lt;/span&gt;
+      &lt;span class=&quot;token key atrule&quot;&gt;defaultAction&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; DENY
+    &lt;span class=&quot;token comment&quot;&gt;# AppSyncのスキーマ定義ファイルのパスを指定します&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# デフォルトだとschema.graphqlです&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;schema&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; schema.graphql
+    &lt;span class=&quot;token comment&quot;&gt;# データソースを指定します(複数指定可能)&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;dataSources&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# データソースの型を指定します&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# 以下が指定できます&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# AMAZON_DYNAMODB ・・・DynamoDB&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# AMAZON_ELASTICSEARCH ・・・Elasticsearch&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# AWS_LAMBDA ・・・Lambda関数&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; AMAZON_DYNAMODB
+        &lt;span class=&quot;token comment&quot;&gt;# データソース名を指定します&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; dynamo_user
+        &lt;span class=&quot;token comment&quot;&gt;# DynamoDBのテーブルの説明を指定します&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;ユーザー情報テーブル&apos;&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token comment&quot;&gt;# 参照するテーブル名を指定します&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;tableName&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; dynamo_user
+          &lt;span class=&quot;token comment&quot;&gt;# データソースのロールARNを指定します&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;serviceRoleArn&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; arn&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;aws&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;iam&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;999999999999&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;role/sample_role_arn
+          &lt;span class=&quot;token comment&quot;&gt;# データソースのリージョンを指定します&lt;/span&gt;
+          &lt;span class=&quot;token comment&quot;&gt;# デフォルトだとproviderのregionで指定した値になります&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;region&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ap&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;northeast&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# マッピングテンプレートのVTLファイルの格納先を指定します&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# デフォルトはmapping-templatesです&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;mappingTemplatesLocation&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; mapping&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;templates
+    &lt;span class=&quot;token comment&quot;&gt;# リゾルバー定義を指定します&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# ※ここではPipeline Resolverの例を示します&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;mappingTemplates&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# リゾルバーの方を指定します&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Query
+        &lt;span class=&quot;token comment&quot;&gt;# リゾルバーを紐づけるスキーマ中のフィールド名を指定します&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; user
+        &lt;span class=&quot;token comment&quot;&gt;# Pipeline Resolverを使い場合、以下を指定します&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; PIPELINE
+        &lt;span class=&quot;token comment&quot;&gt;# リクエストマッピングテンプレートのファイルパスを指定します&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# ファイルパスはmappingTemplatesLocationで指定したパスからの相対パスになります&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;start.vtl&apos;&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# レスポンスマッピングテンプレートのファイルパスを指定します&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;end.vtl&apos;&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# リゾルバーで使う関数を実行順に指定します&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;functions&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; GetUser
+    &lt;span class=&quot;token comment&quot;&gt;# 関数定義を指定します&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;functionConfigurations&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# ユーザー一覧取得&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# 関数で扱うデータソース名を指定します&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;dataSource&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; dynamo_user
+        &lt;span class=&quot;token comment&quot;&gt;# 関数名を指定します&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;GetUser&apos;&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# 関数のリクエストマッピングテンプレートのファイルパスを指定します&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# ファイルパスはmappingTemplatesLocationで指定したパスからの相対パスになります&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;GetUser.req.vtl&apos;&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# 関数のレスポンスマッピングテンプレートのファイルパスを指定します&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;GetUser.res.vtl&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;以下で、実際serverlessに定義したプロパティがAWSコンソール上のどの項目に紐づくかを説明します。&lt;/p&gt;
+&lt;h3 id=&quot;appsyncの基本設定&quot;&gt;&lt;a href=&quot;#appsync%E3%81%AE%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;AppSyncの基本設定&lt;/h3&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;serverless.ymlからAppSyncの基本設定を抜粋&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;  &lt;span class=&quot;token comment&quot;&gt;# ここでAppSyncの設定を行います&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;appSync&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# エンドポイントの名前を指定します&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; appsync&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;serverless&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;sample
+    &lt;span class=&quot;token comment&quot;&gt;# AppSyncの認証方法を指定します&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# ここではCognitoによる認証方法を指定しています&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;authenticationType&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; AMAZON_COGNITO_USER_POOLS
+    &lt;span class=&quot;token comment&quot;&gt;# Cogtnitoによる認証方法の場合、Cognito側の情報を指定する必要があります&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;userPoolConfig&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# Cognitoが存在するリージョンを指定します&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# デフォルトだとproviderのregionで指定した値になります&lt;/span&gt;
+      &lt;span class=&quot;token key atrule&quot;&gt;awsRegion&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ap&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;northeast&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# CognitoのユーザープールのIDを指定します&lt;/span&gt;
+      &lt;span class=&quot;token key atrule&quot;&gt;userPoolId&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ap&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;northeast&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;1_U0e7zFRLQ
+      &lt;span class=&quot;token comment&quot;&gt;# スキーマ定義で認証設定が記述されていない場合の挙動を指定します&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# DENYを指定すると、認証されたいかなるユーザーも認可エラーに倒します&lt;/span&gt;
+      &lt;span class=&quot;token key atrule&quot;&gt;defaultAction&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; DENY&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;AWSコンソールのAppSyncの画面で、エンドポイント一覧が表示されます。
+serverless.ymlで定義したエンドポイント名はココで確認できます。
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/0d72e5f2831b7d4fea63c5eda934a0c0/90b21/appsync-gui-main-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 53.31715210355987%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAABcRAAAXEQHKJvM/AAAB1ElEQVQoz42Sy3KbMBSGebv2JdpF+3bNNLvaronKrvY6m8TZkICpAWNA3C8H/T2SGceTZlHNfHMkwfl1bpbn+VvXde/CMHKklI7McydNUyeKY2cfBM6L7zvPnud4bPX5Lf5+r63g75tvNzcfLfBq2xbvLcXIokAmCwxE5jwp9Q8jf9NrvV5/sWbfniGllEHvx3Gkoixpt9vR84tHVV1TLuW78KNDw0EtV6tPRnCappGFzlHNlvhVHV3BHJMEZVmiaRrUTHMFnxWLkfaybfuzNYuMOkF1JcgRGrE0y8B1Ms76bhiGtyidjfb55Tivguq8gZproP/IqxplXaPtOnSMTqudaV4xEWqfOyFmQU5ZixlBXWApQWEI6XsoeV9UDUoWl0xxsRW4rhrFaZNuzI/FYhbkDC+d1cIPD6DtFtVmgzJO4Gc1orxCkJYI2e7TCnVP18NgDtwUFuS6TIdDr5KE1OlE2iJNiXgvgz/UZpnptu5y3/fU9R1x3S4Tca6/mRIslkvuMhcej4+A5wG+D7guEATA0xNwf89D2mCYJvzPWq5+frW6adpU42jX4yjqYRDGMkXXicPpJKKEiWIRRpE4hOGFMI5FfDyKiImPic13v7/f3n74C7W6OcaoFOEsAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;appsync gui main 1&quot;
+        title=&quot;&quot;
+        src=&quot;/static/0d72e5f2831b7d4fea63c5eda934a0c0/fb8a0/appsync-gui-main-1.png&quot;
+        srcset=&quot;/static/0d72e5f2831b7d4fea63c5eda934a0c0/1a291/appsync-gui-main-1.png 148w,
+/static/0d72e5f2831b7d4fea63c5eda934a0c0/2bc4a/appsync-gui-main-1.png 295w,
+/static/0d72e5f2831b7d4fea63c5eda934a0c0/fb8a0/appsync-gui-main-1.png 590w,
+/static/0d72e5f2831b7d4fea63c5eda934a0c0/526de/appsync-gui-main-1.png 885w,
+/static/0d72e5f2831b7d4fea63c5eda934a0c0/fa2eb/appsync-gui-main-1.png 1180w,
+/static/0d72e5f2831b7d4fea63c5eda934a0c0/90b21/appsync-gui-main-1.png 1236w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;エンドポイントの画面を開き&lt;code class=&quot;language-text&quot;&gt;Settings&lt;/code&gt;を確認するとuserPoolConfigなどの詳細が確認できます。
+ほぼ&lt;code class=&quot;language-text&quot;&gt;serverless.yml&lt;/code&gt;のプロパティ名と一致しているので、なんとなく紐づけがわかると思います。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ebbcece7c06dbe507ee4c1450e51f3f6/8014e/appsync-gui-main-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 85.01818181818183%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAABcRAAAXEQHKJvM/AAACvElEQVQ4y41UXW/TQBD07+d/ICHBM4qgQfQBtQ+tGjVx3NKq8Wdix46/z46b8y2zF5eaUCROWmd9uZvbmZ2zcX5+/s40lz8sy/oahtE0vLycBh8/Te2zs6mFfDZfTE3TnDqOM3Vd983Af2ee5327vr7+YNi2/Z3Go+uIkoQoy0i1Lcle0f+OLYYxXyw+d0pR2e67rBbyQCQBISspZdG2cpemsqwq2e73kkff938FHgc+NoqilfFoWZPm4YGEZcnetkm5LqmnJxKYq5FnRUFZnlOKikXT0B4MAE77UeBdHaQkPwgc48lcTCQA5GqFGY+IAX2fGnNJ+cUFhbsdn0xpmlIDQDFEMwq8q+fnZ2x1HcNznQnzV0eqNORUY2GN6nJEVVXUQE8FaThAk8B+HHprGIaO4XveEZBnsRCrOada1FSKBkLHBA2pKEoqypLKsqIW4HrPcIDix7EpqPAFcFQhYEFDUFo1FAEwirYakGm9gJwMPRHH8QiwaaSCwFBZ26UCVVHXg17tsRmYFyMdX6IWQnU4zNEarlYT3QjTlAgiyyK1WJBYLikNAgq3WwqCNS/WneYq9yddRijW1ff9AZCpJIlUAKGbGwYn8fMnVQDMUaXehAq77hlG76kfGjMKTRluGACZMkysYA9yHFLwo0BF5TaiDTSMkx0xJfYfVyjf6DIjrjebAZA7K4RU9/dEbO7HRxLzOQl4MOfuQk/22+Fw0A05AfsNuNGArjshXnh1JdXdHdHtLSmANdCyhNE3cUJ5Xmi7sBe5UgZ+rbL/04ee72vKfZoeVJ4rVRSqzzIl4ljlaapw7RRfLQAp6KhzAHITtHWH6FnX9XptG0EQfHnry9Hh9AaaVWhK0+5fm8GUkfPdPR3woWfMZrP3WZYhj1cJjJkkicMG5XsZrNdOiM5tQOVfER5/bZjfw3fz8heLbQepoY3dIgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;appsync gui main 2&quot;
+        title=&quot;&quot;
+        src=&quot;/static/ebbcece7c06dbe507ee4c1450e51f3f6/fb8a0/appsync-gui-main-2.png&quot;
+        srcset=&quot;/static/ebbcece7c06dbe507ee4c1450e51f3f6/1a291/appsync-gui-main-2.png 148w,
+/static/ebbcece7c06dbe507ee4c1450e51f3f6/2bc4a/appsync-gui-main-2.png 295w,
+/static/ebbcece7c06dbe507ee4c1450e51f3f6/fb8a0/appsync-gui-main-2.png 590w,
+/static/ebbcece7c06dbe507ee4c1450e51f3f6/526de/appsync-gui-main-2.png 885w,
+/static/ebbcece7c06dbe507ee4c1450e51f3f6/fa2eb/appsync-gui-main-2.png 1180w,
+/static/ebbcece7c06dbe507ee4c1450e51f3f6/8014e/appsync-gui-main-2.png 1375w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br/&gt;&lt;/p&gt;
+&lt;h3 id=&quot;データソース定義&quot;&gt;&lt;a href=&quot;#%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BD%E3%83%BC%E3%82%B9%E5%AE%9A%E7%BE%A9&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;データソース定義&lt;/h3&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;serverless.ymlからデータソース定義を抜粋&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;    &lt;span class=&quot;token comment&quot;&gt;# データソースを指定します(複数指定可能)&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;dataSources&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# データソースの型を指定します&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# 以下が指定できます&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# AMAZON_DYNAMODB ・・・DynamoDB&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# AMAZON_ELASTICSEARCH ・・・Elasticsearch&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# AWS_LAMBDA ・・・Lambda関数&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; AMAZON_DYNAMODB
+        &lt;span class=&quot;token comment&quot;&gt;# データソース名を指定します&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; dynamo_user
+        &lt;span class=&quot;token comment&quot;&gt;# DynamoDBのテーブルの説明を指定します&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;ユーザー情報テーブル&apos;&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token comment&quot;&gt;# 参照するテーブル名を指定します&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;tableName&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; dynamo_user
+          &lt;span class=&quot;token comment&quot;&gt;# データソースのロールARNを指定します&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;serviceRoleArn&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; arn&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;aws&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;iam&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;999999999999&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;role/sample_role_arn
+          &lt;span class=&quot;token comment&quot;&gt;# データソースのリージョンを指定します&lt;/span&gt;
+          &lt;span class=&quot;token comment&quot;&gt;# デフォルトだとproviderのregionで指定した値になります&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;region&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ap&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;northeast&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;エンドポイントの画面を開き&lt;code class=&quot;language-text&quot;&gt;Data Sources&lt;/code&gt;を確認すると
+データソースが一覧表示されるので、一覧から今回&lt;code class=&quot;language-text&quot;&gt;serverless.yml&lt;/code&gt;に定義したデータソースを選択すると、以下のように詳細が確認できます。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/3922725fe1779d95ac25006d11451b73/08352/appsync-gui-datasource.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 82.09269662921349%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAABcRAAAXEQHKJvM/AAAClUlEQVQ4y32Ub2/aMBDG8/WnfZhpmhia1OVF30xVqcSgKxBISMgoFJIQO84/fPbt7FBE2VZLPymG5PHz3F3i3N7efpxMpj/m88X33W7nbrdbN45jd+777uCX5z56C3c8m7uj6cIynnrE3P058Vxv4bt+ELi+798sw/DufjD44NDGxX8sqRRuMo5ZUSIrBIqqxrJuELS2SKVR0X2aOEppn1nF8Y0zGo16ddMi47xljIFSypJlGQSBD2G0gjCMIFiGEK1WwIsC6F7gBDuRM9YaYXL5xQkDv49aIhxbOljbk4DgTYNJmuFmu8X9fo8N7Y2Tuq6xpusLNP1mLa7X657jzWb9lm5SUoJVS1NUnodiMkFB11wILMsSAcBC7i2ve0JLACtIPeg5y9Wqj10twPrLMoQoQhEEmJOzlyTBA2NWmBXFmYIOER2a/pOdl7Tn/CaH2Laoowg0dCbVcIjleIycxNI8x4LETLyGat20HdK4pRKRW01YwSRJek58f99H30c9GIAmJ0inKxN3scDDbod7cpwSVPhz3L8iS3khGMdvI5saTqco6JCcBLOcnR1WVGvTmEth4xBONewEg6ATrGvQ5AxnM1TkzggyquEuSW2tjsfjm6a8FbyMvFzS2GjUVQV6szGtQlivUcQxHkjshch5gS0JnuO+G9kIXkY+zWFB8XJR4j7nuD+wziU9Z5xexb5qymvkS0FybMYiITEz2GaYbWdJyACnaTgtiqevmnI4oHp6kvrxUeNwqOHhQYvxWKfxWlOXtRCFvl4nZxY4OaQ3iubw+fmbPaeqtJlHyoRkCSvO0b7josIWFL63lMlu34nsq/nafDYD2hyPvJWyNNRtWyZZVqY5t2SMl0KI/0JjxU1doyj69Adnfb48dosZtwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;appsync gui datasource&quot;
+        title=&quot;&quot;
+        src=&quot;/static/3922725fe1779d95ac25006d11451b73/fb8a0/appsync-gui-datasource.png&quot;
+        srcset=&quot;/static/3922725fe1779d95ac25006d11451b73/1a291/appsync-gui-datasource.png 148w,
+/static/3922725fe1779d95ac25006d11451b73/2bc4a/appsync-gui-datasource.png 295w,
+/static/3922725fe1779d95ac25006d11451b73/fb8a0/appsync-gui-datasource.png 590w,
+/static/3922725fe1779d95ac25006d11451b73/526de/appsync-gui-datasource.png 885w,
+/static/3922725fe1779d95ac25006d11451b73/fa2eb/appsync-gui-datasource.png 1180w,
+/static/3922725fe1779d95ac25006d11451b73/08352/appsync-gui-datasource.png 1424w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br/&gt;&lt;/p&gt;
+&lt;h3 id=&quot;リゾルバー定義&quot;&gt;&lt;a href=&quot;#%E3%83%AA%E3%82%BE%E3%83%AB%E3%83%90%E3%83%BC%E5%AE%9A%E7%BE%A9&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;リゾルバー定義&lt;/h3&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;serverless.ymlからリゾルバー定義を抜粋&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;    &lt;span class=&quot;token comment&quot;&gt;# リゾルバー定義を指定します&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# ※ここではPipeline Resolverの例を示します&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;mappingTemplates&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# リゾルバーの方を指定します&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Query
+        &lt;span class=&quot;token comment&quot;&gt;# リゾルバーを紐づけるスキーマ中のフィールド名を指定します&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; user
+        &lt;span class=&quot;token comment&quot;&gt;# Pipeline Resolverを使い場合、以下を指定します&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; PIPELINE
+        &lt;span class=&quot;token comment&quot;&gt;# リクエストマッピングテンプレートのファイルパスを指定します&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# ファイルパスはmappingTemplatesLocationで指定したパスからの相対パスになります&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;start.vtl&apos;&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# レスポンスマッピングテンプレートのファイルパスを指定します&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;end.vtl&apos;&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# リゾルバーで使う関数を実行順に指定します&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;functions&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; GetUser&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;リゾルバー定義は、エンドポイントの画面を開き&lt;code class=&quot;language-text&quot;&gt;Schema&lt;/code&gt;を確認します。
+今回は&lt;code class=&quot;language-text&quot;&gt;user&lt;/code&gt;というフィールド名のクエリに対してリゾルバーを割り当てているので、右側のペインで以下のように確認できます。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/9433457c9ebfa1de9cb0d571d6625d1c/b789f/appsync-gui-resolver.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 66.11990950226244%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABcRAAAXEQHKJvM/AAACJUlEQVQ4y4WTyXLaQBRF+f9vyAdk50UW9tIsUsEuVXAqZZshoAEJEEIIoaFnvdxuBifErnTVlbpeN6dvP11634fDT4tF/HO9Xj/u93svyzIvXCy851ng/Qojb+RH3us88sZ+6PlB4EVYi5PEW8TxRVEUPSbL5dPg4eFzz/f9b3Q1hFQUxgnlRUE141S1nJiQqEuSSlPTMmpRl0oR48e3HZPp9LU3HY/uWVVSWR6kEMKgbvZlafwgNIs4MclyZdJsa/JdbtZparJtjnlhtnludkVhDlVlpSx0NB4Pe0EQ9E3X2QO0fXSYV3VNxW5HTVWQVoyM1nAnXB0HE4erPN9Rjj0KoJMR6/BHD/fvn0DawqwOVU2CASQho6m77gn2wB2lmw3VOERw/gZMkuQC/NNh2zQkOYNDTkY1rm7BZ6EtVOPghgtiWjvg1ALjOP4HaB02AApuQXB4ctnhqlRVZCDWtm6vzDLSq5UDznz/fYdoMoAtgBVgwllywCAgursjGgxoG0VU4wD18kL85sYQWjANgo+B9spKwI3mgB672IUh0e0tdYBW69RFSRpDZcOODmezD3oI4Dlb55pziK9NhwN1WHf9wy04Pl7D5RsQPbw//cgSkKDOZUtK6eZ/ya6fZHPIGDNtCzWNMzOZTJ6sw6/XqeBC0P+GUo6BWBmq0R475vP5s83hF8xrBDTVWmcKQiQyRCdrGXtXTdte1nGbDAHfwESJf0r/N4rd3ksu3UVVAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;appsync gui resolver&quot;
+        title=&quot;&quot;
+        src=&quot;/static/9433457c9ebfa1de9cb0d571d6625d1c/fb8a0/appsync-gui-resolver.png&quot;
+        srcset=&quot;/static/9433457c9ebfa1de9cb0d571d6625d1c/1a291/appsync-gui-resolver.png 148w,
+/static/9433457c9ebfa1de9cb0d571d6625d1c/2bc4a/appsync-gui-resolver.png 295w,
+/static/9433457c9ebfa1de9cb0d571d6625d1c/fb8a0/appsync-gui-resolver.png 590w,
+/static/9433457c9ebfa1de9cb0d571d6625d1c/526de/appsync-gui-resolver.png 885w,
+/static/9433457c9ebfa1de9cb0d571d6625d1c/fa2eb/appsync-gui-resolver.png 1180w,
+/static/9433457c9ebfa1de9cb0d571d6625d1c/b789f/appsync-gui-resolver.png 1768w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;上記画面の&lt;code class=&quot;language-text&quot;&gt;Pipeline&lt;/code&gt;のリンクを開くとリゾルバーの詳細が確認できます。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ec96f8926f756713f045671cd3c5f466/a95f7/appsync-gui-resolver-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 62.8494623655914%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABcRAAAXEQHKJvM/AAACKUlEQVQ4y4WUbW+bMBSF8/9/w77sR0yapn5Zt7CNuFpWRdWaJiFA3iDhzRgDqe2za2BRulWbpaNDMDk89/omoyAIZnEcu3meM3LmhyH76QVsHW7Zwg/Zk79hT+uALQYtSSuffLViS89j4XY/CeOcBVE6+XBz83aEP1bbtvA3W/jhBrtDTL5FzkvUdF82DZrzGS2ppmvZ0jU/4XnloPVcMPfr3Ui1DQohzi2gKU8nnOunpad9P9B+EOi173cehBtSqKM41kma6iRJdHRKdbpdqvz7O539eK++OZ/GI2OxskyBMejpFNV8jrzg2O33nba7HdIsQ2PpiPLiJFtNc1aGYCAVjMvYl75kIZQ5HGCOR5RWQiBNUySDbCAvS1RSvlRVQVTCVPR8WXLjum4faOZzhft7mNkM4vERG8+j/kXg1LuCcxREnBcFFZJ34enwkqqSlthYUlnXxp1MhkBAWdfGdHQl0VgiSRQdWU/SXdv9mKo4JemwJ41tAxFfBRrTB2pN1dMX8hIH0pFXiIsKUS6QCdn1ra7rvn/DaROdsf6S8DqQaOwDSmsM9Jdl9y2hUup60syw93qgbbbtSWZ7RaKBt2/HP1YXqK4DqXet6e5pRQSKKBXnXBW8JC/ps1RU5utqeqeXPlPguB+bxQJ4eABoBkGzZ0l/n6yVHsr/35owNh1ReXc0R5+lEA6dpkMn6NCvwaGhdmioL36IIud4Ov2tY+/0PzD+eHv75hdnwtP/gHqLVwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;appsync gui resolver 2&quot;
+        title=&quot;&quot;
+        src=&quot;/static/ec96f8926f756713f045671cd3c5f466/fb8a0/appsync-gui-resolver-2.png&quot;
+        srcset=&quot;/static/ec96f8926f756713f045671cd3c5f466/1a291/appsync-gui-resolver-2.png 148w,
+/static/ec96f8926f756713f045671cd3c5f466/2bc4a/appsync-gui-resolver-2.png 295w,
+/static/ec96f8926f756713f045671cd3c5f466/fb8a0/appsync-gui-resolver-2.png 590w,
+/static/ec96f8926f756713f045671cd3c5f466/526de/appsync-gui-resolver-2.png 885w,
+/static/ec96f8926f756713f045671cd3c5f466/fa2eb/appsync-gui-resolver-2.png 1180w,
+/static/ec96f8926f756713f045671cd3c5f466/08f6a/appsync-gui-resolver-2.png 1770w,
+/static/ec96f8926f756713f045671cd3c5f466/a95f7/appsync-gui-resolver-2.png 1860w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br/&gt;&lt;/p&gt;
+&lt;h3 id=&quot;関数定義&quot;&gt;&lt;a href=&quot;#%E9%96%A2%E6%95%B0%E5%AE%9A%E7%BE%A9&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;関数定義&lt;/h3&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;serverless.ymlから関数定義を抜粋&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;    &lt;span class=&quot;token comment&quot;&gt;# 関数定義を指定します&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;functionConfigurations&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# ユーザー一覧取得&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# 関数で扱うデータソース名を指定します&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;dataSource&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; dynamo_user
+        &lt;span class=&quot;token comment&quot;&gt;# 関数名を指定します&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;GetUser&apos;&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# 関数のリクエストマッピングテンプレートのファイルパスを指定します&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# ファイルパスはmappingTemplatesLocationで指定したパスからの相対パスになります&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;GetUser.req.vtl&apos;&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;# 関数のレスポンスマッピングテンプレートのファイルパスを指定します&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;GetUser.res.vtl&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;関数定義は、エンドポイントの画面を開き&lt;code class=&quot;language-text&quot;&gt;Functions&lt;/code&gt;を確認します。
+関数が一覧表示されるので、一覧から今回&lt;code class=&quot;language-text&quot;&gt;serverless.yml&lt;/code&gt;に定義した関数を選択すると、以下のように詳細が確認できます。
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/435d0863a69c0fbe6ef7d6fe1f99ab06/4d911/appsync-gui-function.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 96.86520376175548%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAYAAACQjC21AAAACXBIWXMAABcRAAAXEQHKJvM/AAAC3klEQVQ4y31U23LTMBTM//8AL3wIPJBhmBZMYSgT2iZpEqeJHd/vF1myZR3Okd00U1w8s5FlxetzdleaGYbxfrczby3L/hZFkeE4jmHu98af9c5Yb03jYWMa9487Y7nZGSucr3C8W29xfQDdr5/sr09evPi5eHg3M03zBl5dnZRwtB1wPB9sx4U0L6ERLTDOQbQdcATTcwFN1wM7/AYIbuH4a349Wy6XX+q6hjzLW865RD6ZFYV83GwGbE15OFrSsm2NMIpkkqYyjmMZhKGMk0ym629tb16D+f3Dp9nBOl6B74K6+SFhsQB1fw/1agVJloEfBBDFCQghoG1brK7V9xwhRnDBoZFAhYDlhfPZfr+/ookSQiJANQ3UeQ4ZIk4SaHCulJpE3/fDfS81oes689nJtgdCGL5Cf6gYg6IsIS+Koao30KCmpDdCv4uGzmf2M2Hfy5EYyoZjqzF4vg9pmgGjqvEjpHVdsxeMz6q61u8ejscLQqowikChjuzxEQpsmcgaJO+6DqgIavENDBW67ivCqgJ1OgHzPIxKpg3J8gLQVShxjcygFiWSyHEc9Rw09LzplivUBttAogQwStCPBgy4MOXFoAnCZ1NIQyRpxzZ1qxcE2gRcI7QvUky0TMK6mEfHgdq2Uc4IMLg4xnqkTNJIrTM0g0CmFDjHNGjCp8PhgpAe3t2BQrDtFnBHnEloDCMkj6MxKt25SpIEU6AJkWu6ZdKQdkaps1jqiOgFBGk4cel3vTc1xNxRXAQeAIJ3ILAA3nQajNE2RO16eXZaTgbbdSVg/tR2A7VlQTC2SfCxbWqdZCD3z0Efd1Q2pWGfJBINUcrzVO37KvRD5Zx8FQSRCqNYJUmmMOiKc6FQuzMwm7j9sfRnDbHM61GHszgNii0YtlvTxscFOeA/V08/aN5nOmDnJAFvmkpwznjDWZqmLPAj5rsJi4KIpUmOz3JW1RWrqn+B5pVkIp70H/8CGYSmIXpWVBIAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;appsync gui function&quot;
+        title=&quot;&quot;
+        src=&quot;/static/435d0863a69c0fbe6ef7d6fe1f99ab06/fb8a0/appsync-gui-function.png&quot;
+        srcset=&quot;/static/435d0863a69c0fbe6ef7d6fe1f99ab06/1a291/appsync-gui-function.png 148w,
+/static/435d0863a69c0fbe6ef7d6fe1f99ab06/2bc4a/appsync-gui-function.png 295w,
+/static/435d0863a69c0fbe6ef7d6fe1f99ab06/fb8a0/appsync-gui-function.png 590w,
+/static/435d0863a69c0fbe6ef7d6fe1f99ab06/526de/appsync-gui-function.png 885w,
+/static/435d0863a69c0fbe6ef7d6fe1f99ab06/fa2eb/appsync-gui-function.png 1180w,
+/static/435d0863a69c0fbe6ef7d6fe1f99ab06/08f6a/appsync-gui-function.png 1770w,
+/static/435d0863a69c0fbe6ef7d6fe1f99ab06/4d911/appsync-gui-function.png 1914w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;設定ファイルの説明は以上です。次にリゾルバーとスキーマの定義について説明します。&lt;/p&gt;
+&lt;h2 id=&quot;4-リゾルバー作成&quot;&gt;&lt;a href=&quot;#4-%E3%83%AA%E3%82%BE%E3%83%AB%E3%83%90%E3%83%BC%E4%BD%9C%E6%88%90&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;4. リゾルバー作成&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;mapping-templates&lt;/code&gt;フォルダを作成し、その中にリクエストマッピングテンプレートとレスポンスマッピングテンプレートを作成します。&lt;/p&gt;
+&lt;p&gt;PipelineResolver用のマッピングテンプレート&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;mapping-templates/start.vtl&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;velocity&quot;&gt;&lt;pre class=&quot;language-velocity&quot;&gt;&lt;code class=&quot;language-velocity&quot;&gt;{}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;PipelineResolver用のマッピングテンプレート&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;mapping-templates/end.vtl&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;velocity&quot;&gt;&lt;pre class=&quot;language-velocity&quot;&gt;&lt;code class=&quot;language-velocity&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;$util&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;toJson&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$ctx&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;result&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;ユーザー1件取得用の関数ではDynamoDBのGetItemを呼び出します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;mapping-templates/GetUser.req.vtl&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;velocity&quot;&gt;&lt;pre class=&quot;language-velocity&quot;&gt;&lt;code class=&quot;language-velocity&quot;&gt;{
+    &quot;version&quot;: &quot;2018-05-29&quot;,
+    &quot;operation&quot;: &quot;GetItem&quot;,
+    &quot;key&quot;: {
+        &quot;id&quot;: &lt;span class=&quot;token variable&quot;&gt;$util&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;dynamodb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;toDynamoDBJson&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$ctx&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;args&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;id&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/span&gt;,
+    }
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;取得情報をレスポンスにて返却します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;mapping-templates/GetUser.res.vtl&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;velocity&quot;&gt;&lt;pre class=&quot;language-velocity&quot;&gt;&lt;code class=&quot;language-velocity&quot;&gt;&lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;#if&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token variable&quot;&gt;$ctx&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;error&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+  &lt;span class=&quot;token variable&quot;&gt;$util&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$ctx&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;error&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;message&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; $ctx&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;error&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;type&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;#end&lt;/span&gt;&lt;/span&gt;
+
+&lt;span class=&quot;token directive&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;#set&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token variable&quot;&gt;$res&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;user&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token variable&quot;&gt;$ctx&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;result&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token variable&quot;&gt;$util&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;toJson&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$res&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;h2 id=&quot;5-スキーマ作成&quot;&gt;&lt;a href=&quot;#5-%E3%82%B9%E3%82%AD%E3%83%BC%E3%83%9E%E4%BD%9C%E6%88%90&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;5. スキーマ作成&lt;/h2&gt;
+&lt;p&gt;ユーザー情報（ID、名前）を1件検索するだけのシンプルなスキーマ定義です。
+&lt;code class=&quot;language-text&quot;&gt;serverless.yml&lt;/code&gt;の&lt;code class=&quot;language-text&quot;&gt;schema&lt;/code&gt;で指定した通り、プロジェクトルートに&lt;code class=&quot;language-text&quot;&gt;schema.graphql&lt;/code&gt;ファイルを作成します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;schema.graphql&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;graphql&quot;&gt;&lt;pre class=&quot;language-graphql&quot;&gt;&lt;code class=&quot;language-graphql&quot;&gt;type User &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ID&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; String
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+type UserResponse &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token attr-name&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; User
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+input GetUserInput &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token attr-name&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ID&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# ユーザー1件取得&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;type Query &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    user&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ID&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; UserResponse
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;6-awsにデプロイ&quot;&gt;&lt;a href=&quot;#6-aws%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;6. AWSにデプロイ&lt;/h2&gt;
+&lt;p&gt;以下コマンドを実行します。とても簡単にデプロイできます。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;serverless deploy -v&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;h2 id=&quot;まとめ&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ&lt;/h2&gt;
+&lt;p&gt;今回はAppSync + serverlessによるAppSync資産の構成管理方法についてご紹介しました。
+複数人開発においてGUI操作の場合、意図せず変更が加えられてデグレするリスクがあるので、serverlessを使って構成管理するのが得策です。
+またserverlessの利点はなんといっても1コマンドでAWSにデプロイという手軽さです。
+AppSync資産だけでなく、Lambdaや他資産もserverlessで管理できるので、AWSでサーバーレスなアプリを開発するときは是非使ってみてください🍅&lt;/p&gt;
+&lt;h2 id=&quot;参考&quot;&gt;&lt;a href=&quot;#%E5%8F%82%E8%80%83&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://foobar123.com/building-an-appsync-serverless-framework-backend-foobar-c383a840de0d&quot;&gt;Building an AppSync + Serverless Framework Backend | FooBar&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Vuetify + VeeValidate + VueI18nでエラーメッセージ共通化]]></title><description><![CDATA[なにこれ Vuetify  +  VeeValidate で入力チェックする際に、 VueI18n を使ってエラーメッセージを多言語対応・共通化する方法について紹介します。 定義方法 VeeValidate VeeValidate…]]></description><link>https://takumon.com/vuetify-and-vee-validate-and-vue-i18n</link><guid isPermaLink="false">https://takumon.com/vuetify-and-vee-validate-and-vue-i18n</guid><pubDate>Sat, 02 Mar 2019 03:30:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/03/vuetify-and-vee-validate-and-vue-i18n.png&quot; alt=&quot;vuetify-and-vee-validate-and-vue-i18n&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://vuetifyjs.com/ja/&quot;&gt;Vuetify&lt;/a&gt; + &lt;a href=&quot;https://baianat.github.io/vee-validate/&quot;&gt;VeeValidate&lt;/a&gt;で入力チェックする際に、&lt;a href=&quot;https://kazupon.github.io/vue-i18n/&quot;&gt;VueI18n&lt;/a&gt;を使ってエラーメッセージを多言語対応・共通化する方法について紹介します。&lt;/p&gt;
 &lt;h2 id=&quot;定義方法&quot;&gt;&lt;a href=&quot;#%E5%AE%9A%E7%BE%A9%E6%96%B9%E6%B3%95&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;定義方法&lt;/h2&gt;
