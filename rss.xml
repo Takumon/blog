@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 03 Mar 2019 14:06:19 GMT</lastBuildDate><item><title><![CDATA[AppSync + serverlessによるソースコードの構成管理]]></title><description><![CDATA[なにこれ AWSのGraphQLマネージドサービス「 AppSync 」はGUIで簡単に設定ができて便利ですが、
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 03 Mar 2019 14:47:07 GMT</lastBuildDate><item><title><![CDATA[AppSync + Serverless Frameworkによるソースコードの構成管理]]></title><description><![CDATA[なにこれ AWSのGraphQLマネージドサービス「 AppSync 」はGUIで簡単に設定ができて便利ですが、
 本格的に開発を進めていくとGUIポチポチでソースコードを管理するのはつらくなってきます。
- serverless というツールと serverless-appsync…]]></description><link>https://takumon.com/aws-appsync-and-serverless-framework</link><guid isPermaLink="false">https://takumon.com/aws-appsync-and-serverless-framework</guid><pubDate>Sun, 03 Mar 2019 22:50:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/03/aws-appsync-and-serverless-framework.png&quot; alt=&quot;aws-appsync-and-serverless-framework&quot;&gt;&lt;/p&gt;
+ Serverless Framework…]]></description><link>https://takumon.com/aws-appsync-and-serverless-framework</link><guid isPermaLink="false">https://takumon.com/aws-appsync-and-serverless-framework</guid><pubDate>Sun, 03 Mar 2019 22:50:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/03/aws-appsync-and-serverless-framework.png&quot; alt=&quot;aws-appsync-and-serverless-framework&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;AWSのGraphQLマネージドサービス「&lt;a href=&quot;https://aws.amazon.com/jp/appsync/&quot;&gt;AppSync&lt;/a&gt;」はGUIで簡単に設定ができて便利ですが、
 本格的に開発を進めていくとGUIポチポチでソースコードを管理するのはつらくなってきます。
-&lt;strong&gt;&lt;a href=&quot;https://serverless.com/&quot;&gt;serverless&lt;/a&gt;というツールと&lt;a href=&quot;https://github.com/sid88in/serverless-appsync-plugin&quot;&gt;serverless-appsync-plugin&lt;/a&gt;（serverlessのプラグイン）を使うと、AppSyncの設定をymlファイルで管理し、CLIでAWS上にデプロイできるので、GitHub等で構成管理が可能になります。&lt;/strong&gt;
-今回はAppSyncからDynamoDBのユーザー情報を1件取得する場合を例にしてAppSync + serverlessの使い方をご紹介します。&lt;/p&gt;
+&lt;strong&gt;&lt;a href=&quot;https://serverless.com/&quot;&gt;Serverless Framework&lt;/a&gt;というツールと&lt;a href=&quot;https://github.com/sid88in/serverless-appsync-plugin&quot;&gt;serverless-appsync-plugin&lt;/a&gt;（Serverless Frameworkのプラグイン）を使うと、AppSyncの設定をymlファイルで管理し、CLIでAWS上にデプロイできるので、GitHub等で構成管理が可能になります。&lt;/strong&gt;
+今回はAppSyncからDynamoDBのユーザー情報を1件取得する場合を例にしてAppSync + Serverless Frameworkの使い方をご紹介します。&lt;/p&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -44,16 +44,16 @@
   &lt;/a&gt;
     &lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&quot;#1-serverless%E3%81%AE%E8%A8%AD%E5%AE%9A&quot;&gt;🔰 serverlessの設定&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#1-serverless-framework%E3%81%AE%E8%A8%AD%E5%AE%9A&quot;&gt;🔰 Serverless Frameworkの設定&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#2-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E3%81%B2%E3%81%AA%E5%9E%8B%E4%BD%9C%E6%88%90&quot;&gt;💪 プロジェクトのひな型作成&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#3-%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E4%BD%9C%E6%88%90&quot;&gt;📝 設定ファイル作成&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#4-%E3%83%AA%E3%82%BE%E3%83%AB%E3%83%90%E3%83%BC%E4%BD%9C%E6%88%90&quot;&gt;💖 リゾルバー作成&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#5-%E3%82%B9%E3%82%AD%E3%83%BC%E3%83%9E%E4%BD%9C%E6%88%90&quot;&gt;💎 スキーマ作成&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#6-aws%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4&quot;&gt;🎊 AWSにデプロイ&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&quot;1-serverlessの設定&quot;&gt;&lt;a href=&quot;#1-serverless%E3%81%AE%E8%A8%AD%E5%AE%9A&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. serverlessの設定&lt;/h2&gt;
+&lt;h2 id=&quot;1-serverless-frameworkの設定&quot;&gt;&lt;a href=&quot;#1-serverless-framework%E3%81%AE%E8%A8%AD%E5%AE%9A&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. Serverless Frameworkの設定&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;serverlessはnpmで提供されるCLIツールです。まずはnpmでインストールします。&lt;/li&gt;
+&lt;li&gt;Serverless Frameworkはnpmで提供されるCLIツールです。まずはnpmでインストールします。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;npm i -g serverless&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
@@ -63,14 +63,14 @@
 &lt;p&gt;&lt;small&gt;※詳細：&lt;a href=&quot;https://serverless.com/framework/docs/providers/aws/guide/credentials#using-aws-profiles&quot;&gt;Serverless Framework - AWS Lambda Guide - Credentials&lt;/a&gt;&lt;/small&gt;&lt;/p&gt;
 &lt;h2 id=&quot;2-プロジェクトのひな型作成&quot;&gt;&lt;a href=&quot;#2-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E3%81%B2%E3%81%AA%E5%9E%8B%E4%BD%9C%E6%88%90&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. プロジェクトのひな型作成&lt;/h2&gt;
 &lt;p&gt;プロジェクトのひな型を作ります。
-serverlessでAppSync資産を扱えるように、&lt;a href=&quot;https://github.com/sid88in/serverless-appsync-plugin&quot;&gt;serverless-appsync-plugin&lt;/a&gt;と&lt;a href=&quot;https://github.com/aws/aws-sdk-js&quot;&gt;aws-sdk&lt;/a&gt;をインストールします。&lt;/p&gt;
+Serverless FrameworkでAppSync資産を扱えるように、&lt;a href=&quot;https://github.com/sid88in/serverless-appsync-plugin&quot;&gt;serverless-appsync-plugin&lt;/a&gt;と&lt;a href=&quot;https://github.com/aws/aws-sdk-js&quot;&gt;aws-sdk&lt;/a&gt;をインストールします。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;mkdir appsync-sample-with-serverless
 cd appsync-sample-with-serverless
 npm init -y
 npm i serverless-appsync-plugin aws-sdk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;br/&gt;
 &lt;h2 id=&quot;3-設定ファイル作成&quot;&gt;&lt;a href=&quot;#3-%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E4%BD%9C%E6%88%90&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. 設定ファイル作成&lt;/h2&gt;
-&lt;p&gt;プロジェクト直下にserverlessの設定ファイル&lt;code class=&quot;language-text&quot;&gt;servserless.yml&lt;/code&gt;を作ります。&lt;br/&gt;
+&lt;p&gt;プロジェクト直下にServerless Frameworkの設定ファイル&lt;code class=&quot;language-text&quot;&gt;servserless.yml&lt;/code&gt;を作ります。&lt;br/&gt;
 &lt;small&gt;※ここではserverless.ymlの全量を示して、次のセクションでブロックごとに詳細を説明します。&lt;/small&gt;&lt;/p&gt;
 &lt;div class=&quot;gatsby-code-title&quot;&gt;servserless.yml&lt;/div&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# サービス名&lt;/span&gt;
@@ -84,7 +84,7 @@ npm i serverless-appsync-plugin aws-sdk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;span class=&quot;token comment&quot;&gt;# AppSyncのプラグインを指定します&lt;/span&gt;
 &lt;span class=&quot;token key atrule&quot;&gt;plugins&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
   &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; serverless&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;appsync&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;plugin
-&lt;span class=&quot;token comment&quot;&gt;# serverlessではプラグイン関連の設定はcustomで行います&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# プラグイン関連の設定はcustomで行います&lt;/span&gt;
 &lt;span class=&quot;token key atrule&quot;&gt;custom&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
   &lt;span class=&quot;token comment&quot;&gt;# ここでAppSyncの設定を行います&lt;/span&gt;
   &lt;span class=&quot;token key atrule&quot;&gt;appSync&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
@@ -159,7 +159,7 @@ npm i serverless-appsync-plugin aws-sdk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
         &lt;span class=&quot;token comment&quot;&gt;# 関数のレスポンスマッピングテンプレートのファイルパスを指定します&lt;/span&gt;
         &lt;span class=&quot;token key atrule&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;GetUser.res.vtl&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;br/&gt;
-&lt;p&gt;以下で、実際serverlessに定義したプロパティがAWSコンソール上のどの項目に紐づくかを説明します。&lt;/p&gt;
+&lt;p&gt;以下で、&lt;code class=&quot;language-text&quot;&gt;serverless.yml&lt;/code&gt;に定義したプロパティがAWSコンソール上のどの項目に紐づくかを説明します。&lt;/p&gt;
 &lt;h3 id=&quot;appsyncの基本設定&quot;&gt;&lt;a href=&quot;#appsync%E3%81%AE%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;AppSyncの基本設定&lt;/h3&gt;
 &lt;div class=&quot;gatsby-code-title&quot;&gt;serverless.ymlからAppSyncの基本設定を抜粋&lt;/div&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;  &lt;span class=&quot;token comment&quot;&gt;# ここでAppSyncの設定を行います&lt;/span&gt;
@@ -181,7 +181,7 @@ npm i serverless-appsync-plugin aws-sdk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
       &lt;span class=&quot;token key atrule&quot;&gt;defaultAction&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; DENY&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;br/&gt;
 &lt;p&gt;AWSコンソールのAppSyncの画面で、エンドポイント一覧が表示されます。
-serverless.ymlで定義したエンドポイント名はココで確認できます。
+&lt;code class=&quot;language-text&quot;&gt;serverless.yml&lt;/code&gt;で定義したエンドポイント名はココで確認できます。
 
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -528,10 +528,10 @@ input GetUserInput &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;serverless deploy -v&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;br/&gt;
 &lt;h2 id=&quot;まとめ&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ&lt;/h2&gt;
-&lt;p&gt;今回はAppSync + serverlessによるAppSync資産の構成管理方法についてご紹介しました。
-複数人開発においてGUI操作の場合、意図せず変更が加えられてデグレするリスクがあるので、serverlessを使って構成管理するのが得策です。
-またserverlessの利点はなんといっても1コマンドでAWSにデプロイという手軽さです。
-AppSync資産だけでなく、Lambdaや他資産もserverlessで管理できるので、AWSでサーバーレスなアプリを開発するときは是非使ってみてください🍅&lt;/p&gt;
+&lt;p&gt;今回はAppSync + Serverless FrameworkによるAppSync資産の構成管理についてご紹介しました。
+複数人開発においてGUI操作の場合、意図せず変更が加えられてデグレするリスクがあるので、Serverless Frameworkを使って構成管理するのが得策です。
+またServerless Frameworkの利点はなんといっても1コマンドでAWSにデプロイという手軽さです。
+AppSync資産だけでなく、Lambdaや他資産もServerless Frameworkで管理できるので、AWSでサーバーレスなアプリを開発するときは是非使ってみてください🍅&lt;/p&gt;
 &lt;h2 id=&quot;参考&quot;&gt;&lt;a href=&quot;#%E5%8F%82%E8%80%83&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;参考&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://foobar123.com/building-an-appsync-serverless-framework-backend-foobar-c383a840de0d&quot;&gt;Building an AppSync + Serverless Framework Backend | FooBar&lt;/a&gt;&lt;/li&gt;
