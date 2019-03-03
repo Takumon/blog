@@ -16,10 +16,12 @@ thumbnail: /thumbnail/2019/03/aws-appsync-and-serverless-framework.png
 
 ## なにこれ
 
-AWSのGraphQLマネージドサービス「[AppSync](https://aws.amazon.com/jp/appsync/)」はGUIで簡単に定義ができて非常に便利ですが、
+AWSのGraphQLマネージドサービス「[AppSync](https://aws.amazon.com/jp/appsync/)」はGUIで簡単に設定ができて便利ですが、
 本格的に開発を進めていくとGUIポチポチでソースコードを管理するのはつらくなってきます。
-**[Serverless](https://serverless.com/)というツールと[serverless-appsync-plugin](https://github.com/sid88in/serverless-appsync-plugin)（serverlessのプラグイン）を使うと、AppSyncの設定をymlファイルで管理し、CLIでAWS上にアップできるので、GitHub等で構成管理が可能になります。**
-AppSyncからDynamoDBのユーザー情報を1件取得する場合を例にしてご紹介します。
+**[serverless](https://serverless.com/)というツールと[serverless-appsync-plugin](https://github.com/sid88in/serverless-appsync-plugin)（serverlessのプラグイン）を使うと、AppSyncの設定をymlファイルで管理し、CLIでAWS上にデプロイできるので、GitHub等で構成管理が可能になります。**
+今回はAppSyncからDynamoDBのユーザー情報を1件取得する場合を例にしてAppSync + serverlessの使い方をご紹介します。
+
+![](image.png)
 
 1. [🔰 serverlessの設定](#1-serverlessの設定)
 2. [💪 プロジェクトのひな型作成](#2-プロジェクトのひな型作成)
@@ -27,6 +29,8 @@ AppSyncからDynamoDBのユーザー情報を1件取得する場合を例にし�
 4. [💖 リゾルバー作成](#4-リゾルバー作成)
 5. [💎 スキーマ作成](#5-スキーマ作成)
 6. [🎊 AWSにデプロイ](#6-awsにデプロイ)
+
+
 
 ## 1. serverlessの設定
 
@@ -49,7 +53,7 @@ serverless config credentials --provider aws --key AKIAIOSFODNN7EXAMPLE --secret
 ## 2. プロジェクトのひな型作成
 
 プロジェクトのひな型を作ります。
-[serverless-appsync-plugin](https://github.com/sid88in/serverless-appsync-plugin)は[aws-sdk](https://github.com/aws/aws-sdk-js)とあわせてインストールします。
+serverlessでAppSync資産を扱えるように、[serverless-appsync-plugin](https://github.com/sid88in/serverless-appsync-plugin)と[aws-sdk](https://github.com/aws/aws-sdk-js)をインストールします。
 ```
 mkdir appsync-sample-with-serverless
 cd appsync-sample-with-serverless
@@ -60,12 +64,12 @@ npm i serverless-appsync-plugin aws-sdk
 
 ## 3. 設定ファイル作成
 
-プロジェクト直下にserverlessの設定ファイル`servserless.yml`を作ります。
-まずは全量を示します。
-  
+プロジェクト直下にserverlessの設定ファイル`servserless.yml`を作ります。<br/>
+<small>※ここではserverless.ymlの全量を示して、次のセクションでブロックごとに詳細を説明します。</small>
+
 ```yaml:title=servserless.yml
 # サービス名
-service: appsync-serverless-sample
+service: appsync-sample-with-serverless
 provider:
   name: aws
   # ステージ、デプロイ先を開発、運用などで分けたい場合はココを切り替えます
@@ -89,11 +93,11 @@ custom:
       # Cognitoが存在するリージョンを指定します
       # デフォルトだとproviderのregionで指定した値になります
       awsRegion: ap-northeast-1
+      # CognitoのユーザープールのIDを指定します
+      userPoolId: ap-northeast-1_U0e7zFRLQ
       # スキーマ定義で認証設定が記述されていない場合の挙動を指定します
       # DENYを指定すると、認証されたいかなるユーザーも認可エラーに倒します
       defaultAction: DENY
-      # CognitoのユーザープールのIDを指定します
-      userPoolId: ap-northeast-1_U0e7zFRLQ
     # AppSyncのスキーマ定義ファイルのパスを指定します
     # デフォルトだとschema.graphqlです
     schema: schema.graphql
@@ -153,11 +157,12 @@ custom:
 <br/>
 
 
-以下で、ブロックごとにGUIとの紐づけを説明します。
+以下で、実際serverlessに定義したプロパティがAWSコンソール上のどの項目に紐づくかを説明します。
+
 
 ### AppSyncの基本設定
 
-```yaml
+```yaml:title=serverless.ymlからAppSyncの基本設定を抜粋
   # ここでAppSyncの設定を行います
   appSync:
     # エンドポイントの名前を指定します
@@ -170,24 +175,30 @@ custom:
       # Cognitoが存在するリージョンを指定します
       # デフォルトだとproviderのregionで指定した値になります
       awsRegion: ap-northeast-1
+      # CognitoのユーザープールのIDを指定します
+      userPoolId: ap-northeast-1_U0e7zFRLQ
       # スキーマ定義で認証設定が記述されていない場合の挙動を指定します
       # DENYを指定すると、認証されたいかなるユーザーも認可エラーに倒します
       defaultAction: DENY
-      # CognitoのユーザープールのIDを指定します
-      userPoolId: ap-northeast-1_U0e7zFRLQ
-    # AppSyncのスキーマ定義ファイルのパスを指定します
-    # デフォルトだとschema.graphqlです
 ```
+<br/>
 
-![](appsync-gui-main.png)
+AWSコンソールのAppSyncの画面で、エンドポイント一覧が表示されます。
+serverless.ymlで定義したエンドポイント名はココで確認できます。
+![](appsync-gui-main-1.png)
 
+
+エンドポイントの画面を開き`Settings`を確認するとuserPoolConfigなどの詳細が確認できます。
+ほぼ`serverless.yml`のプロパティ名と一致しているので、なんとなく紐づけがわかると思います。
+
+![](appsync-gui-main-2.png)
 <br/>
 
 
 
 ### データソース定義
 
-```yaml
+```yaml:title=serverless.ymlからデータソース定義を抜粋
     # データソースを指定します(複数指定可能)
     dataSources:
       # データソースの型を指定します
@@ -209,15 +220,18 @@ custom:
           # デフォルトだとproviderのregionで指定した値になります
           region: ap-northeast-1
 ```
+<br/>
+
+エンドポイントの画面を開き`Data Sources`を確認すると
+データソースが一覧表示されるので、一覧から今回`serverless.yml`に定義したデータソースを選択すると、以下のように詳細が確認できます。
 
 ![](appsync-gui-datasource.png)
-
 <br/>
 
 
 ### リゾルバー定義
 
-```yaml
+```yaml:title=serverless.ymlからリゾルバー定義を抜粋
     # リゾルバー定義を指定します
     # ※ここではPipeline Resolverの例を示します
     mappingTemplates:
@@ -236,14 +250,21 @@ custom:
         functions:
           - GetUser
 ```
+<br/>
+
+リゾルバー定義は、エンドポイントの画面を開き`Schema`を確認します。
+今回は`user`というフィールド名のクエリに対してリゾルバーを割り当てているので、右側のペインで以下のように確認できます。
 
 ![](appsync-gui-resolver.png)
+
+上記画面の`Pipeline`のリンクを開くとリゾルバーの詳細が確認できます。
+
 ![](appsync-gui-resolver-2.png)
 <br/>
 
 ### 関数定義
 
-```yaml
+```yaml:title=serverless.ymlから関数定義を抜粋
     # 関数定義を指定します
     functionConfigurations:
         # ユーザー一覧取得
@@ -257,13 +278,15 @@ custom:
         # 関数のレスポンスマッピングテンプレートのファイルパスを指定します
         response: 'GetUser.res.vtl'
 ```
+<br/>
 
+関数定義は、エンドポイントの画面を開き`Functions`を確認します。
+関数が一覧表示されるので、一覧から今回`serverless.yml`に定義した関数を選択すると、以下のように詳細が確認できます。
 ![](appsync-gui-function.png)
 
 <br/>
-<br/>
 
-設定ファイルの説明は以上です。以下では設定ファイルで指定した、リゾルバーとスキーマの定義について説明します。
+設定ファイルの説明は以上です。次にリゾルバーとスキーマの定義について説明します。
 
 
 ## 4. リゾルバー作成
@@ -309,6 +332,9 @@ $util.toJson($res)
 ## 5. スキーマ作成
 
 
+ユーザー情報（ID、名前）を1件検索するだけのシンプルなスキーマ定義です。
+`serverless.yml`の`schema`で指定した通り、プロジェクトルートに`schema.graphql`ファイルを作成します。
+
 ```graphql{14-20}:title=schema.graphql
 type User {
     id: ID!
@@ -333,7 +359,7 @@ type Query {
 
 ## 6. AWSにデプロイ
 
-以下コマンドを実行します。
+以下コマンドを実行します。とても簡単にデプロイできます。
 
 ```
 serverless deploy -v
@@ -344,7 +370,9 @@ serverless deploy -v
 ## まとめ
 
 今回はAppSync + serverlessによるAppSync資産の構成管理方法についてご紹介しました。
-複数人で開発する場合は、GUIだと意図せず変更が加えられてデグレするリスクがあるので、serverlessを使って構成管理するのが得策です🍅
+複数人開発においてGUI操作の場合、意図せず変更が加えられてデグレするリスクがあるので、serverlessを使って構成管理するのが得策です。
+またserverlessの利点はなんといっても1コマンドでAWSにデプロイという手軽さです。
+AppSync資産だけでなく、Lambdaや他資産もserverlessで管理できるので、AWSでサーバーレスなアプリを開発するときは是非使ってみてください🍅
 
 ## 参考
 * [Building an AppSync + Serverless Framework Backend | FooBar](https://foobar123.com/building-an-appsync-serverless-framework-backend-foobar-c383a840de0d)
