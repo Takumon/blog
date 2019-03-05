@@ -64,10 +64,10 @@ npm i serverless-appsync-plugin aws-sdk
 
 ## 3. 設定ファイル作成
 
-プロジェクト直下にServerless Frameworkの設定ファイル`servserless.yml`を作ります。<br/>
+プロジェクト直下にServerless Frameworkの設定ファイル`serverless.yml`を作ります。<br/>
 <small>※ここではserverless.ymlの全量を示して、次のセクションでブロックごとに詳細を説明します。</small>
 
-```yaml:title=servserless.yml
+```yaml:title=serverless.yml
 # サービス名
 service: appsync-sample-with-serverless
 provider:
