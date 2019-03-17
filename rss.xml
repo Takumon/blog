@@ -1,4 +1,346 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com</link><generator>RSS for Node</generator><lastBuildDate>Mon, 04 Mar 2019 03:02:54 GMT</lastBuildDate><item><title><![CDATA[AppSync + Serverless Frameworkによるソースコードの構成管理]]></title><description><![CDATA[なにこれ AWSのGraphQLマネージドサービス「 AppSync 」はGUIで簡単に設定ができて便利ですが、
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 17 Mar 2019 09:01:37 GMT</lastBuildDate><item><title><![CDATA[AppSync + Cognitoによる認可制御]]></title><description><![CDATA[なにこれ AppSyncはCognitoと連携して認可制御ができます。
+今回はそのやり方についてご紹介します。
+ざっくりいうと以下のようなことが実現可能です。 ✨スキーマ定義におけるQueryやMutation…]]></description><link>https://takumon.com/aws-appsync-auth-with-cognito</link><guid isPermaLink="false">https://takumon.com/aws-appsync-auth-with-cognito</guid><pubDate>Sun, 17 Mar 2019 08:45:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/03/aws-appsync-auth-with-cognito.png&quot; alt=&quot;aws-appsync-auth-with-cognito&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
+&lt;p&gt;AppSyncはCognitoと連携して認可制御ができます。
+今回はそのやり方についてご紹介します。
+ざっくりいうと以下のようなことが実現可能です。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#%E3%82%B9%E3%82%AD%E3%83%BC%E3%83%9E%E5%AE%9A%E7%BE%A9%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8Bquery%E3%82%84mutation%E3%81%94%E3%81%A8%E3%81%AE%E8%AA%8D%E5%8F%AF%E5%88%B6%E5%BE%A1%EF%BC%88%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%EF%BC%89&quot;&gt;✨スキーマ定義におけるQueryやMutationごとの認可制御（ユーザーグループ）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#%E3%83%AA%E3%82%BE%E3%83%AB%E3%83%90%E3%83%BC%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E9%A0%85%E7%9B%AE%E3%81%94%E3%81%A8%E3%81%AE%E8%AA%8D%E5%8F%AF%E5%88%B6%E5%BE%A1%EF%BC%88%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%EF%BC%89&quot;&gt;💎リゾルバーにおける項目ごとの認可制御（ユーザーグループ）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#%E3%83%AA%E3%82%BE%E3%83%AB%E3%83%90%E3%83%BC%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E7%B4%B0%E3%81%8B%E3%81%AA%E8%AA%8D%E5%8F%AF%E5%88%B6%E5%BE%A1%EF%BC%88%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%E3%80%81%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E5%90%8D%EF%BC%89&quot;&gt;🎊リゾルバーにおける細かな認可制御（ユーザーグループ、ユーザー名）&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;スキーマ定義におけるqueryやmutationごとの認可制御（ユーザーグループ）&quot;&gt;&lt;a href=&quot;#%E3%82%B9%E3%82%AD%E3%83%BC%E3%83%9E%E5%AE%9A%E7%BE%A9%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8Bquery%E3%82%84mutation%E3%81%94%E3%81%A8%E3%81%AE%E8%AA%8D%E5%8F%AF%E5%88%B6%E5%BE%A1%EF%BC%88%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%EF%BC%89&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;スキーマ定義におけるQueryやMutationごとの認可制御（ユーザーグループ）&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;@aws_auth&lt;/code&gt;アノテーションをQueryやMutationに付与します。
+以下の例ではCognitoのユーザーグループごとに&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;管理者&lt;/code&gt;は登録、参照、更新、削除&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;営業&lt;/code&gt;は登録、参照、更新&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;一般メンバー&lt;/code&gt;は参照&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;のように認可制御しています。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;スキーマ定義における@aws_authを使った認可制御の例&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;graphql&quot;&gt;&lt;pre class=&quot;language-graphql&quot;&gt;&lt;code class=&quot;language-graphql&quot;&gt;type Mutation &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  createTask&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; CreateTaskInput&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; CraeteTaskPayload
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token directive function&quot;&gt;@aws_auth&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;cognito_groups&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token string&quot;&gt;&quot;admin&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token string&quot;&gt;&quot;sales&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;	updateTask&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; UpdateTaskInput&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; UpdateTaskPayload
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token directive function&quot;&gt;@aws_auth&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;cognito_groups&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token string&quot;&gt;&quot;admin&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token string&quot;&gt;&quot;sales&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;  deleteTask&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; DeleteTaskInput&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; DeleteTaskPayload
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token directive function&quot;&gt;@aws_auth&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;cognito_groups&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token string&quot;&gt;&quot;admin&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+type Query &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  getTask&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ID&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Task
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token directive function&quot;&gt;@aws_auth&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;cognito_groups&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token string&quot;&gt;&quot;admin&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token string&quot;&gt;&quot;sales&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      &lt;span class=&quot;token string&quot;&gt;&quot;member&quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;h3 id=&quot;デフォルトの認可制御&quot;&gt;&lt;a href=&quot;#%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88%E3%81%AE%E8%AA%8D%E5%8F%AF%E5%88%B6%E5%BE%A1&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;デフォルトの認可制御&lt;/h3&gt;
+&lt;p&gt;AppSyncではエンドポイントごとに&lt;code class=&quot;language-text&quot;&gt;@aws_auth&lt;/code&gt;未定義の場合の挙動を以下2つから選択できます。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;ALLOW&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;認証済ユーザーであれば、すべてのユーザーを許可する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;DENY&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;認証済ユーザーであっても、すべてのユーザーを許可しない　※&lt;code class=&quot;language-text&quot;&gt;@aws_auth&lt;/code&gt;を定義しないとアクセスできない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/66615087c57f76bc681a0cebe9d816fd/3e67c/default-setting.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 73.24561403508771%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABcRAAAXEQHKJvM/AAACjUlEQVQ4y42U208TQRTG98+XPpi0JRESSfQBE6AY6YtKSpfgEqMh2GBrsFJwe9nupd3tXrrX2fk8s7QVIhAn+TJ7mfn2d+acs5Isy5V2p3PW6fw4MQxDMU1TGY/HitrvK79VVbm6ulJ+drtKt/tL6fWuleFwqAxIw/v6NBqNTlVVbUr9fv8Ej4ycc4RRBC8I4PoBkjTDUyPLGKRna2uHlUoF6+vVtFwus2q1ykqlEmtdXDAGsCQI2NyZMbE6jyK6n7M4jlmapoxzvhL5cXo2l1qtVsMwTOi6zmzbhtCU5Ds2vA/vMfhyht7pKc1fMT7/Bvv8HIFlIYxjsuBLOH5LmEVS7/q6kTEOxnJ2F5++Bl/TEE/JXDcwJxPu+wCJEztR0R62VGEYJwkZdi8byCLkeS7Qi4ViJEkCdz7H1HEwIVlErZOp7boIwhABvZsvRNc8ImLP9yNp2FcbBTPPi8/cNfSJxrEd2NMpLNOCQaQBJUesofBWomg4ASGiIQ0Gg4UhF3GsDAm/oJiQmWGaKxrP8wSJiAjLiPhiUyrO8J7hA4R7tRrKVAUbm5uFXmxs4OXWFmazGZnyYt0yKU8biqSQDhsNbG+/Qa22j4N6He8ODlCnWZCKhCRZ9p+Gngv/uAll/y3qr16jsbODo91dmnfR3NuDd3ODnJKUjTSq1owvKuNxw5g6JPh+gWQyQf5AVzCREDrHzDJB2fhrSK13WLRZnierqifFFE9AHaJedpnh+iyIU+aGMfPCpJC499Kc+ZrOEIbZqlNEUz/anHSG0dhE5PhIZsE/ikjc8e5tkdrt9nPK5mfHcY4oc7KQ67qyZVnyUNNkazqVTcuU6S90O9+VeDaxZN00m1RaxyNN+/gHAsxfCs2vzccAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;default setting&quot;
+        title=&quot;&quot;
+        src=&quot;/static/66615087c57f76bc681a0cebe9d816fd/fb8a0/default-setting.png&quot;
+        srcset=&quot;/static/66615087c57f76bc681a0cebe9d816fd/1a291/default-setting.png 148w,
+/static/66615087c57f76bc681a0cebe9d816fd/2bc4a/default-setting.png 295w,
+/static/66615087c57f76bc681a0cebe9d816fd/fb8a0/default-setting.png 590w,
+/static/66615087c57f76bc681a0cebe9d816fd/526de/default-setting.png 885w,
+/static/66615087c57f76bc681a0cebe9d816fd/fa2eb/default-setting.png 1180w,
+/static/66615087c57f76bc681a0cebe9d816fd/3e67c/default-setting.png 1596w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br/&gt;&lt;/p&gt;
+&lt;h2 id=&quot;リゾルバーにおける項目ごとの認可制御（ユーザーグループ）&quot;&gt;&lt;a href=&quot;#%E3%83%AA%E3%82%BE%E3%83%AB%E3%83%90%E3%83%BC%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E9%A0%85%E7%9B%AE%E3%81%94%E3%81%A8%E3%81%AE%E8%AA%8D%E5%8F%AF%E5%88%B6%E5%BE%A1%EF%BC%88%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%EF%BC%89&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;リゾルバーにおける項目ごとの認可制御（ユーザーグループ）&lt;/h2&gt;
+&lt;p&gt;リゾルバー中でユーザーグループを参照できるので、それを使って項目ごとの認可制御ができます。
+以下の例では、&lt;code class=&quot;language-text&quot;&gt;管理者&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;営業&lt;/code&gt;、&lt;code class=&quot;language-text&quot;&gt;一般ユーザー&lt;/code&gt;のCognitoユーザーグループがある場合に、
+タスク情報の登録日と更新日については、&lt;code class=&quot;language-text&quot;&gt;管理者&lt;/code&gt;と&lt;code class=&quot;language-text&quot;&gt;営業&lt;/code&gt;のみが参照可能できるように制御しています。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;ユーザーグループごとにレスポンス項目を制御する例&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;## 一般メンバーか判定
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;#&lt;span class=&quot;token function&quot;&gt;foreach&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$group &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; $context&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;identity&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;claims&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;cognito:groups&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;    #&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$group &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;member&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        #&lt;span class=&quot;token keyword&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$isMember &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    #end
+#end
+
+#&lt;span class=&quot;token keyword&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$result&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+$util&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;qr&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$result&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; $ctx&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;result&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;id&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+$util&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;qr&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$result&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;discription&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; $ctx&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;result&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;discription&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+$util&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;qr&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$result&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;owner&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; $ctx&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;result&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;owner&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+## &lt;span class=&quot;token function&quot;&gt;一般メンバーには返さない&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;管理者と営業のみ参照できる&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;#&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;$isMember&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  $util&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;qr&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$result&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;created&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; $ctx&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;result&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;created&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  $util&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;qr&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$result&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;updated&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; $ctx&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;result&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;updated&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;#end
+&lt;/span&gt;
+$util&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;toJson&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$result&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;リゾルバーにおける細かな認可制御（ユーザーグループ、ユーザー名）&quot;&gt;&lt;a href=&quot;#%E3%83%AA%E3%82%BE%E3%83%AB%E3%83%90%E3%83%BC%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E7%B4%B0%E3%81%8B%E3%81%AA%E8%AA%8D%E5%8F%AF%E5%88%B6%E5%BE%A1%EF%BC%88%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%E3%80%81%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E5%90%8D%EF%BC%89&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;リゾルバーにおける細かな認可制御（ユーザーグループ、ユーザー名）&lt;/h2&gt;
+&lt;p&gt;ユーザーグループだけではなくユーザー名でも認可制御が可能です。
+例えば「&lt;code class=&quot;language-text&quot;&gt;一般ユーザー&lt;/code&gt;は自分が登録した情報のみ参照でき、&lt;code class=&quot;language-text&quot;&gt;管理者&lt;/code&gt;はすべて参照できる」のような要件を実現する場合です。
+ここではAppSync + Cognito + Dynamoの例を考えます。
+まずタスクテーブルに「owner」カラムを設けて、タスクを登録者のCognitoユーザー名を登録しておきます。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;タスクテーブル&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;id&lt;/th&gt;
+&lt;th&gt;description&lt;/th&gt;
+&lt;th&gt;owner&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;123&lt;/td&gt;
+&lt;td&gt;今週のブログ書く&lt;/td&gt;
+&lt;td&gt;takumon&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;124&lt;/td&gt;
+&lt;td&gt;CodeBuildとGitHubのプルリク連携を調べる&lt;/td&gt;
+&lt;td&gt;takumon&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;125&lt;/td&gt;
+&lt;td&gt;今週のGoogle Cloud Platform Podcast聞く&lt;/td&gt;
+&lt;td&gt;inoue&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;br/&gt;
+&lt;p&gt;そして更新用レスポンスマッピングテンプレートで以下のようにします。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;ユーザーグループとユーザー名で認可制御する例&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;## 管理者か判定
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;#&lt;span class=&quot;token function&quot;&gt;foreach&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$group &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; $context&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;identity&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;claims&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;cognito:groups&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;  #&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$group &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;admin&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    #&lt;span class=&quot;token keyword&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$isAdmin &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  #end
+#end
+
+#&lt;span class=&quot;token keyword&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$result &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+## 管理者はすべてのタスクを参照できる
+#&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$isAdmin&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  #&lt;span class=&quot;token keyword&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$result &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; $context&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;result&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;items&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+#&lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
+  ## 一般ユーザーは自分が登録したタスクのみ参照できる
+  #&lt;span class=&quot;token function&quot;&gt;foreach&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$item &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; $context&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;result&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;items&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    #&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$item&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;owner &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; $context&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;identity&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;username&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;      #&lt;span class=&quot;token keyword&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$myResults&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$item&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    #end
+  #end
+#end
+$utils&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;toJson&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$results&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;これで&lt;code class=&quot;language-text&quot;&gt;takumon&lt;/code&gt;の場合は2件、&lt;code class=&quot;language-text&quot;&gt;inoue&lt;/code&gt;の場合は1件、&lt;code class=&quot;language-text&quot;&gt;管理者&lt;/code&gt;の場合は3件参照できるようになります。
+なお&lt;code class=&quot;language-text&quot;&gt;$util.unauthorized()&lt;/code&gt;を使えば認可エラーを返せます。
+リゾルバーの書き方しだいで複雑な要件も実現できるでしょう。&lt;/p&gt;
+&lt;h2 id=&quot;クライアント側&quot;&gt;&lt;a href=&quot;#%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E5%81%B4&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;クライアント側&lt;/h2&gt;
+&lt;p&gt;なおCognitoと連携する場合、クライアント側も対応が必要です。&lt;/p&gt;
+&lt;h3 id=&quot;vue--apmlifyの場合&quot;&gt;&lt;a href=&quot;#vue--apmlify%E3%81%AE%E5%A0%B4%E5%90%88&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Vue + Apmlifyの場合&lt;/h3&gt;
+&lt;p&gt;Vue + Apmlifyの場合は以下のようにします。&lt;a href=&quot;https://github.com/Takumon/vue-amplify-sample/blob/master/src/main.js&quot;&gt;参考ソースコード&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;Vue   Apmlifyの場合のCognito連携設定&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; Amplify&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; Auth &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;aws-amplify&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; AmplifyPlugin &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;aws-amplify-vue&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// 環境変数から読み込み&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; config &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  aws_project_region&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;VUE_APP_AWS_PROJECT_REGION&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  aws_appsync_graphqlEndpoint&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;VUE_APP_AWS_APPSYNC_GRAPHQLENDPOINT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  aws_appsync_region&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;VUE_APP_AWS_APPSYNC_REGION&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  aws_appsync_authenticationType&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;VUE_APP_AWS_APPSYNC_AUTHENTICATIONT_TYPE&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  Auth&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    identityPoolId&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;VUE_APP_AWS_COGNIT_IDENTITY_POOL_ID&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    region&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;VUE_APP_AWS_COGNIT_REGION&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    identityPoolRegion&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;VUE_APP_AWS_COGNIT_IDENTITY_POOL_REGION&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    userPoolId&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;VUE_APP_AWS_COGNIT_USER_POOL_ID&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    userPoolWebClientId&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;VUE_APP_AWS_COGNIT_USER_POOL_WEB_CLIENT_ID&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+Amplify&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;configure&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;config&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+Vue&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;AmplifyPlugin&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Amplify&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;次にログイン画面を作ります。
+Amplifyが用意している&lt;code class=&quot;language-text&quot;&gt;&amp;lt;amplify-authenticator&amp;gt;&lt;/code&gt;タグで簡単に実現できます。&lt;a href=&quot;https://github.com/Takumon/vue-amplify-sample/blob/master/src/views/Home.vue#L3-L5&quot;&gt;参考ソースコード&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/4aba593574476fd281b449a2c68fc6a0/b76b9/how-to-client-login-0.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 91.44254278728607%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAB30lEQVQ4y61UTWvbQBDVpf+jkH/aXvoPkh56a9OzHUwDodAefHCupjWFOJGFEiLbkr3SytJqVzOdWa2NSCw7LRl4aD/fvn2aWW84HL4Pw/CH7/sDwrf/xIA4fo5Go3febDa7wlcKIr3yptNpjztaa5VJafJ8Y/LNxsg8N0opQ1MGAI5BMQeJ6zHhBXeKsjR/bm7x4THC8OERp36AyWptT6YNx6B5XRAEFzvCuq4NkWJZKrtoG+12V+wlVKoy88US58sYN0XBB1gYY46C1ml35ScKiShNU5RS4nq9tiBvO6/N4Uj3E/I4E1RVRYoVq7b9Q+p4fq9CIjEizTDNpCVqe3gInR4yYZys7J9ldS/1r9NDzqfGQ4FZlmGSJLiyHhqnAv/NQxo0jW/KesjQqkCjlUPVfKuyNVairtR+hUy4/cOsMJM5ajlHzO8R5D3llXief4fy0JVQK5lhd9VdRCPadUlF+90CuB1d05pGYdBWyHUrhEAhSGVGJSduSVmIkPoIlbT08PktwgcP4eMbhFOvaX85QaiNI/QtYX8rG1xYeTv3a3A6Ae96gL/OACefGnDb78NWIXnY9/gte2nNdgWnmHu+Bt54PP5KVy3iOI4Iy4NYLgjzJ1jwXEQc5WTy+/wvgXZYEkac9X0AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;how to client login 0&quot;
+        title=&quot;&quot;
+        src=&quot;/static/4aba593574476fd281b449a2c68fc6a0/fb8a0/how-to-client-login-0.png&quot;
+        srcset=&quot;/static/4aba593574476fd281b449a2c68fc6a0/1a291/how-to-client-login-0.png 148w,
+/static/4aba593574476fd281b449a2c68fc6a0/2bc4a/how-to-client-login-0.png 295w,
+/static/4aba593574476fd281b449a2c68fc6a0/fb8a0/how-to-client-login-0.png 590w,
+/static/4aba593574476fd281b449a2c68fc6a0/b76b9/how-to-client-login-0.png 818w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br/&gt;&lt;/p&gt;
+&lt;h3 id=&quot;awsコンソールの場合&quot;&gt;&lt;a href=&quot;#aws%E3%82%B3%E3%83%B3%E3%82%BD%E3%83%BC%E3%83%AB%E3%81%AE%E5%A0%B4%E5%90%88&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;AWSコンソールの場合&lt;/h3&gt;
+&lt;p&gt;手っ取り早く試すなら、AppSyncのQuery実行画面に認証機能があるので、そちらで試しましょう。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Query実行画面の実行ボタン左側の&lt;code class=&quot;language-text&quot;&gt;Login with User Pools&lt;/code&gt;というボタンをクリックします。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/7341229eaff50b2d6dfb9de94d6314d3/89d6b/how-to-client-login-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 81.74825174825175%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAABcRAAAXEQHKJvM/AAACp0lEQVQ4y6WT30/TUBTH+//oI5vCoiiRaIiLGhP5V+SF+KRG/wYNGBABhQFuA5X6YNgwEQgBgmTJxmzZxtqxtve2XdvbHs+92/wRfCB4kpNzTnvPp99z7610oefq876BZD55b3i1dyApX791X07cuCMPJoflwdsP5Hj/kJwYvCvHr9yUY5f65NjlBMaE3IN5T7xXjieu8fWfYv1D6xdj/c+k3b19GdAopdA1Qm2oN5qgaAYcFIrw5PFTGB19BCMPR2AhtQC63oDacR3qdQ3qmo65Bn4QwebW9qqUy61ltjY3IZ/Lebm1NVYqFRkymWEYbL9wyFStydTjY6ZUquxHtcZ0x2VOy2O27TCH5+g2tT0uRNf1tLSUTmcnXk/Bq4kJNjY2Bvl8XqhsmhSq3zeg9iUFJ1vboO/sQGN3D6xsBmitCnbLAwQBIRRMkwS85+iokpG0UikLrgNgWaw7MmMBENsF/0SBoPAVWsUS2IeH4JXL4G58A1vXwfV8cN0W2LjOtKgAVioILK+vZ6FYAO/ggAWeB2EYCrcsC4IQThmfDRWBicpsBDro1HF+AxVVzfICISzqNHEgHyUIfF5AFEUQhfgWo4+ARq0JVbUBRDOBGhSI+YdCRVEEEJsYb+wCLUIQKNa1gZ13LQQSg4DtuDiuI0am1Dk/0MNtoQjjo/4a2f4PoO/7Qp0AduKZgYyxU4dybiA/FMdxxB/EI1fLvcXv37kUWkTsVxcUitMOxbM2yP03sFwuZ9uXmQUsDCNsjHz8MQ3DxOhHXePPuaHCCAHCSSdapH1tVPUoI+m6ttLZngjOaPjhv2r+MR4No7ksvRyfTC1//Bwtpj8YmRWZYE5m5pbI5PQ8mX63KPKZ+SURu/WbtykyPbdIpmZTZBZrjEbq/TK8GJ+c+wlB44Hd5Xg1rQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;how to client login 1&quot;
+        title=&quot;&quot;
+        src=&quot;/static/7341229eaff50b2d6dfb9de94d6314d3/fb8a0/how-to-client-login-1.png&quot;
+        srcset=&quot;/static/7341229eaff50b2d6dfb9de94d6314d3/1a291/how-to-client-login-1.png 148w,
+/static/7341229eaff50b2d6dfb9de94d6314d3/2bc4a/how-to-client-login-1.png 295w,
+/static/7341229eaff50b2d6dfb9de94d6314d3/fb8a0/how-to-client-login-1.png 590w,
+/static/7341229eaff50b2d6dfb9de94d6314d3/526de/how-to-client-login-1.png 885w,
+/static/7341229eaff50b2d6dfb9de94d6314d3/fa2eb/how-to-client-login-1.png 1180w,
+/static/7341229eaff50b2d6dfb9de94d6314d3/89d6b/how-to-client-login-1.png 1430w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br/&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ログインモーダルが出てきます。接続先のCognitのクライアントID、ユーザー名、パスワードを入力すればOKです。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/51c151c89e8ba601da492acc018d707d/50784/how-to-client-login-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 80.06849315068494%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAABcRAAAXEQHKJvM/AAACI0lEQVQ4y32U227TQBCG/Zw8BC+C4AaJt6jEDWplUDGiSIDaoh5SJXF8aAiNT7G9PiW21zvMrO3IITWRPu3YO/v7353JKhcX394sl7+/m6Z1jmiGYWqmaWvG9EEz7q40Y6FrRve+nbM0y7IPoLW2/fjz8vLqlaLriy+Av6YRMPYT4v/UNZd5aOxcmU5nZ/QQhlHlOC73PJ+v1w6n2HU9OeZ5wXe7Hd9ut0cURcGTJC3JEDr9QIIqCUZRjIsd8H0fnp7W4LguoDjiAYqhi/qAqh+rSpAoaeD2T/eCZVVxZGTLYpR2WrSCpoWC9lKF2xtI5jP+xw+kQ3KH2wDOeesIRxkP6D9EQ9M0A4f6QsXVkAUB98MI8jyHsqxoK1JkjHFB+1GFyT3kxoL7cSzPCxPQRXdefHB2g3hccK6rUBTA/A1frT1gCTqsG9hV41Q4T/2CSrLfms5y5xDP8O4GopnOLTeFlcMgSGrwWQ3BM9D7JK//bdPjKjddpbqc52rdrUaHaKjEwvH7H8hXwc3JoMqDtqGO76u6j/e0xcBmhnUYgvPpM7C3LyF690KkJ69bQcM4VWazuRSMGeOMJRDHDOOkheIOmjug2ELsh8BWjoi9zfGWse94mmYCRwnFY8gclogEY5blgqVpvRdEhx/pARMb/M9CluUSisfoc7I0k+AHGtLAG+dMub7+9T4INiVeAhu8DCIcJRSP0ef04GUS4Pt6Mnk4+QteTLjEAbZcWwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;how to client login 2&quot;
+        title=&quot;&quot;
+        src=&quot;/static/51c151c89e8ba601da492acc018d707d/fb8a0/how-to-client-login-2.png&quot;
+        srcset=&quot;/static/51c151c89e8ba601da492acc018d707d/1a291/how-to-client-login-2.png 148w,
+/static/51c151c89e8ba601da492acc018d707d/2bc4a/how-to-client-login-2.png 295w,
+/static/51c151c89e8ba601da492acc018d707d/fb8a0/how-to-client-login-2.png 590w,
+/static/51c151c89e8ba601da492acc018d707d/526de/how-to-client-login-2.png 885w,
+/static/51c151c89e8ba601da492acc018d707d/fa2eb/how-to-client-login-2.png 1180w,
+/static/51c151c89e8ba601da492acc018d707d/50784/how-to-client-login-2.png 1460w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br/&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;あとは通常のAppSyncのQuery実行画面と同じようにQueryやMutaitonを発行すれば認可制御されたレスポンスが確認できます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;まとめ&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ&lt;/h2&gt;
+&lt;p&gt;今回はAppSync + Cognitoによる認可制御について紹介しました。&lt;br/&gt;
+QueryとMutation単位の認可制御であれば&lt;code class=&quot;language-text&quot;&gt;@aws_auth&lt;/code&gt;を使い、
+項目単位の認可制御はリゾルバーに任せるのがポイントです。&lt;/p&gt;
+&lt;p&gt;余談ですが、&lt;code class=&quot;language-text&quot;&gt;@aws_auth&lt;/code&gt;は今のところユーザーグループ単位の認可制御しかできません。
+ただ構文的にはユーザーグループ以外でも認可制御ができそうなので将来的に機能が追加されるのかもしれませんね🍅&lt;/p&gt;
+&lt;h2 id=&quot;参考&quot;&gt;&lt;a href=&quot;#%E5%8F%82%E8%80%83&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/ja_jp/appsync/latest/devguide/security.html#amazon-cognito-user-pools-authorization&quot;&gt;AWS公式ドキュメント &gt; AppSync &gt; セキュリティ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/ja_jp/appsync/latest/devguide/security-authorization-use-cases.html&quot;&gt;AWS公式ドキュメント &gt; AppSync &gt; セキュリティ &gt; 認証のユースケース&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[AppSync + Serverless Frameworkによるソースコードの構成管理]]></title><description><![CDATA[なにこれ AWSのGraphQLマネージドサービス「 AppSync 」はGUIで簡単に設定ができて便利ですが、
 本格的に開発を進めていくとGUIポチポチでソースコードを管理するのはつらくなってきます。
  Serverless Framework…]]></description><link>https://takumon.com/aws-appsync-and-serverless-framework</link><guid isPermaLink="false">https://takumon.com/aws-appsync-and-serverless-framework</guid><pubDate>Sun, 03 Mar 2019 22:50:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/03/aws-appsync-and-serverless-framework.png&quot; alt=&quot;aws-appsync-and-serverless-framework&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
