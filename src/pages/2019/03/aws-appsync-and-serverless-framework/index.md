@@ -1,5 +1,5 @@
 ---
-title: 'AppSync + serverlessによるソースコードの構成管理'
+title: 'AppSync + Serverless Frameworkによるソースコードの構成管理'
 date: '2019-03-04T07:50:00.000+09:00'
 tags:
   - AppSync
@@ -18,12 +18,12 @@ thumbnail: /thumbnail/2019/03/aws-appsync-and-serverless-framework.png
 
 AWSのGraphQLマネージドサービス「[AppSync](https://aws.amazon.com/jp/appsync/)」はGUIで簡単に設定ができて便利ですが、
 本格的に開発を進めていくとGUIポチポチでソースコードを管理するのはつらくなってきます。
-**[serverless](https://serverless.com/)というツールと[serverless-appsync-plugin](https://github.com/sid88in/serverless-appsync-plugin)（serverlessのプラグイン）を使うと、AppSyncの設定をymlファイルで管理し、CLIでAWS上にデプロイできるので、GitHub等で構成管理が可能になります。**
-今回はAppSyncからDynamoDBのユーザー情報を1件取得する場合を例にしてAppSync + serverlessの使い方をご紹介します。
+**[Serverless Framework](https://serverless.com/)というツールと[serverless-appsync-plugin](https://github.com/sid88in/serverless-appsync-plugin)（Serverless Frameworkのプラグイン）を使うと、AppSyncの設定をymlファイルで管理し、CLIでAWS上にデプロイできるので、GitHub等で構成管理が可能になります。**
+今回はAppSyncからDynamoDBのユーザー情報を1件取得する場合を例にしてAppSync + Serverless Frameworkの使い方をご紹介します。
 
 ![](image.png)
 
-1. [🔰 serverlessの設定](#1-serverlessの設定)
+1. [🔰 Serverless Frameworkの設定](#1-serverless-frameworkの設定)
 2. [💪 プロジェクトのひな型作成](#2-プロジェクトのひな型作成)
 3. [📝 設定ファイル作成](#3-設定ファイル作成)
 4. [💖 リゾルバー作成](#4-リゾルバー作成)
@@ -32,9 +32,9 @@ AWSのGraphQLマネージドサービス「[AppSync](https://aws.amazon.com/jp/a
 
 
 
-## 1. serverlessの設定
+## 1. Serverless Frameworkの設定
 
-* serverlessはnpmで提供されるCLIツールです。まずはnpmでインストールします。
+* Serverless Frameworkはnpmで提供されるCLIツールです。まずはnpmでインストールします。
 
 ```
 npm i -g serverless
@@ -53,7 +53,7 @@ serverless config credentials --provider aws --key AKIAIOSFODNN7EXAMPLE --secret
 ## 2. プロジェクトのひな型作成
 
 プロジェクトのひな型を作ります。
-serverlessでAppSync資産を扱えるように、[serverless-appsync-plugin](https://github.com/sid88in/serverless-appsync-plugin)と[aws-sdk](https://github.com/aws/aws-sdk-js)をインストールします。
+Serverless FrameworkでAppSync資産を扱えるように、[serverless-appsync-plugin](https://github.com/sid88in/serverless-appsync-plugin)と[aws-sdk](https://github.com/aws/aws-sdk-js)をインストールします。
 ```
 mkdir appsync-sample-with-serverless
 cd appsync-sample-with-serverless
@@ -64,10 +64,10 @@ npm i serverless-appsync-plugin aws-sdk
 
 ## 3. 設定ファイル作成
 
-プロジェクト直下にserverlessの設定ファイル`servserless.yml`を作ります。<br/>
+プロジェクト直下にServerless Frameworkの設定ファイル`serverless.yml`を作ります。<br/>
 <small>※ここではserverless.ymlの全量を示して、次のセクションでブロックごとに詳細を説明します。</small>
 
-```yaml:title=servserless.yml
+```yaml:title=serverless.yml
 # サービス名
 service: appsync-sample-with-serverless
 provider:
@@ -79,7 +79,7 @@ provider:
 # AppSyncのプラグインを指定します
 plugins:
   - serverless-appsync-plugin
-# serverlessではプラグイン関連の設定はcustomで行います
+# プラグイン関連の設定はcustomで行います
 custom:
   # ここでAppSyncの設定を行います
   appSync:
@@ -157,7 +157,7 @@ custom:
 <br/>
 
 
-以下で、実際serverlessに定義したプロパティがAWSコンソール上のどの項目に紐づくかを説明します。
+以下で、`serverless.yml`に定義したプロパティがAWSコンソール上のどの項目に紐づくかを説明します。
 
 
 ### AppSyncの基本設定
@@ -184,7 +184,7 @@ custom:
 <br/>
 
 AWSコンソールのAppSyncの画面で、エンドポイント一覧が表示されます。
-serverless.ymlで定義したエンドポイント名はココで確認できます。
+`serverless.yml`で定義したエンドポイント名はココで確認できます。
 ![](appsync-gui-main-1.png)
 
 
@@ -369,10 +369,10 @@ serverless deploy -v
 
 ## まとめ
 
-今回はAppSync + serverlessによるAppSync資産の構成管理方法についてご紹介しました。
-複数人開発においてGUI操作の場合、意図せず変更が加えられてデグレするリスクがあるので、serverlessを使って構成管理するのが得策です。
-またserverlessの利点はなんといっても1コマンドでAWSにデプロイという手軽さです。
-AppSync資産だけでなく、Lambdaや他資産もserverlessで管理できるので、AWSでサーバーレスなアプリを開発するときは是非使ってみてください🍅
+今回はAppSync + Serverless FrameworkによるAppSync資産の構成管理についてご紹介しました。
+複数人開発においてGUI操作の場合、意図せず変更が加えられてデグレするリスクがあるので、Serverless Frameworkを使って構成管理するのが得策です。
+またServerless Frameworkの利点はなんといっても1コマンドでAWSにデプロイという手軽さです。
+AppSync資産だけでなく、Lambdaや他資産もServerless Frameworkで管理できるので、AWSでサーバーレスなアプリを開発するときは是非使ってみてください🍅
 
 ## 参考
 * [Building an AppSync + Serverless Framework Backend | FooBar](https://foobar123.com/building-an-appsync-serverless-framework-backend-foobar-c383a840de0d)
