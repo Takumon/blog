@@ -145,7 +145,7 @@ $utils.toJson($results)
 <br/>
 
 
-これで`taumon`の場合は2件、`inoue`の場合は1件、`管理者`の場合は3件参照できるようになります。
+これで`takumon`の場合は2件、`inoue`の場合は1件、`管理者`の場合は3件参照できるようになります。
 なお`$util.unauthorized()`を使えば認可エラーを返せます。
 リゾルバーの書き方しだいで複雑な要件も実現できるでしょう。
 
@@ -193,12 +193,12 @@ Amplifyが用意している`<amplify-authenticator>`タグで簡単に実現で
 ### AWSコンソールの場合
 手っ取り早く試すなら、AppSyncのQuery実行画面に認証機能があるので、そちらで試しましょう。
 
-* Query画面の実行ボタン左側に`Login with User Pools`というボタンがあるのでクリックします。
+* Query実行画面の実行ボタン左側の`Login with User Pools`というボタンをクリックします。
 
 ![](./how-to-client-login-1.png)
 <br/>
 
-* するとログインモーダルが出てきます。接続先のCognitのクライアントID、ユーザー名、パスワードを入力すればOKです。
+* ログインモーダルが出てきます。接続先のCognitのクライアントID、ユーザー名、パスワードを入力すればOKです。
 
 ![](./how-to-client-login-2.png)
 <br/>
