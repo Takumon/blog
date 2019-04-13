@@ -1,6 +1,6 @@
 ---
 title: 'Amplify + Cognito + AppSyncにおいてリゾルバーでユーザのカスタム属性を取得する方法'
-date: '2019-04-13T07:14:30.000+09:00'
+date: '2019-04-13T07:14:40.000+09:00'
 tags:
   - Amplify
   - AppSync
@@ -15,7 +15,7 @@ thumbnail: /thumbnail/2019/04/how-to-get-user-custom-attributes-in-resolver-with
 ![vee-validate-custom-validation-locale-message](/thumbnail/2019/04/how-to-get-user-custom-attributes-in-resolver-with-amplify-appsync-cognito.png)
 
 ## なにこれ
-AppSync + Cognitoでの認可制御については[以前の記事](https://takumon.com/aws-appsync-auth-with-cognito)で説明しました。
+AppSync + Cognitoにおける認可制御について[以前の記事](https://takumon.com/aws-appsync-auth-with-cognito)で説明しました。
 今回は、ユーザーのカスタム属性を使った認可制御（AppSyncのリゾルバーでカスタム属性を取得する方法）についてご紹介します。
 
 ## TL;DR
@@ -25,11 +25,12 @@ AppSyncとCognitoを連携済みであれば、3ステップで実現できま�
 2. [サーバー側：AppSyncのリゾルバーにて`$ctx.identity.claims.get("custom:sampleCustomAttr")`を記述](#2-appsyncのリゾルバーにてctxidentityclaimsgetcustomsamplecustomattrを記述)
 3. [クライアント側：Amplifyのライブラリの中身の`getAccessToken`の部分を`getIdToken`に置換](#3-amplifyのライブラリの中身のgetaccesstokenの部分をgetidtokenに置換)
 
-以下で各手順を詳しく説明します。
+以下で詳しく説明します。
 
 ## 1. Cognitoの設定でカスタム属性をReadableに設定
 
-認証時にIDトークンを使えば、ユーザー情報がAppSyncのリゾルバー取得できます。
+この方法は認証時にIDトークンを使うことが前提です。<br/>
+IDトークンを使えば、ユーザー情報がAppSyncのリゾルバー取得できます。<br/>
 ただしカスタム属性はデフォルトだと取得できないので、AWSコンソールにて以下のように設定しましょう。
 
 * `AWSコンソール` > `Cognitoのユーザープール` > `全般設定` > `アプリクライアント` > `詳細を表示` を選択
@@ -47,7 +48,7 @@ AppSyncとCognitoを連携済みであれば、3ステップで実現できま�
 
 ## 2. AppSyncのリゾルバーにて$ctx.identity.claims.get("custom:sampleCustomAttr")を記述
 
-上記手順によって、IDトークンによる認証の場合、AppSyncのリゾルバー中で、ユーザーのclaimsからカスタム属性を取得可能になります。以下のようにして取得します。
+以下のようにして取得します。
 
 ```verocity:AppSyncのリゾルバー
   #set($sampleCustomAttr = $ctx.identity.claims.get("custom:sampleCustomAttr"))
@@ -56,14 +57,14 @@ AppSyncとCognitoを連携済みであれば、3ステップで実現できま�
 
 ## 3. Amplifyのライブラリの中身のgetAccessTokenの部分をgetIdTokenに置換
 
-上記手順を実施した場合、AppSyncのQueryコンソール上では正常動作しますが、
+手順2までを実施した場合、、AppSyncのQueryコンソール上では正常動作しますが、
 クライアント側からAmplify経由でクエリをたたいた場合は正常動作しません。
 
-なぜならAppSync側は、IDトークンを前提としてユーザーのカスタム属性を取得しますが、
-Amplify + Cognitoのデフォルトの認証ではアクセストークンを使用するからです。
+なぜならAppSyncのQueryコンソールは認証時にIDトークンを使いますが、
+Amplify経由の場合はアクセストークンを使うからです。
 
-そのため、Amplify側の認証をIDトークンに変更する必要があります。
-少し無理やりですが以下のようにAmplifyのライブラリの中身を直接書き換えます。<br/>
+そのため、Amplify側の認証をIDトークンに切り替える必要があります。
+少し無理やりですが以下のようにAmplifyのライブラリを直接書き換えます。<br/>
 プロジェクトのnode_modules配下にて、以下のように修正します。
 
 ```diff:title=node_modules/@aws-amplify/api/dist/aws-amplify-api.js
@@ -72,13 +73,13 @@ Amplify + Cognitoのデフォルトの認証ではアクセストークンを使
 ```
 <br/>
 これでクエリが正常動作するようになります。<br/>
-ただ直接依存ライブラリのコードを書き換えるので、本番環境デプロイ時は、CIに忘れずに書き換え処理を追加しましょう。<br/>
+ただ直接依存ライブラリを書き換えるので、本番環境デプロイ時は、CIに忘れずに書き換え処理を追加しましょう。<br/>
 
 ※この方法は、Amplipy側のGraphQLスキーマ定義で`@auth`を使っている場合に一部機能が正常動作しなくなるので注意してください。
 
 ## まとめ
 
-今回はAppSyncの認証をCognitoで実施する場合に、AppSyncのリゾルバーでユーザーのカスタム情報を取得する方法をご紹介しました。
+今回はAppSync + Cognitoにおいて、AppSyncのリゾルバーでユーザーのカスタム情報を取得する方法をご紹介しました。
 Amplify側は直接ライブラリを書き換えるので、多少無理やりな対応ですが、一応これでできます。
 ユーザーごとの認可情報をカスタム属性に持たせる場合は、この方法を試してみてください🍅
 
