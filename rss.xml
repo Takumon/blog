@@ -1,4 +1,130 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 07 Apr 2019 05:04:29 GMT</lastBuildDate><item><title><![CDATA[Vuetify + VeeValidate + VueI18nでカスタムバリデーション作成時にロケールごとのエラーメッセージを設定する方法]]></title><description><![CDATA[なにこれ Vuetify  +  VeeValidate で入力チェックする際に、 VueI18n…]]></description><link>https://takumon.com/vee-validate-custom-validation-locale-message</link><guid isPermaLink="false">https://takumon.com/vee-validate-custom-validation-locale-message</guid><pubDate>Sun, 07 Apr 2019 05:10:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/04/vee-validate-custom-validation-locale-message.png&quot; alt=&quot;vee-validate-custom-validation-locale-message&quot;&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Takumon Blog]]></title><description><![CDATA[日々の作業をつづっていきます。]]></description><link>https://takumon.com</link><generator>RSS for Node</generator><lastBuildDate>Sat, 13 Apr 2019 06:02:25 GMT</lastBuildDate><item><title><![CDATA[Amplify + Cognito + AppSyncにおいてリゾルバーでユーザのカスタム属性を取得する方法]]></title><description><![CDATA[なにこれ AppSync + Cognitoにおける認可制御について 以前の記事 で説明しました。
+今回は、ユーザーのカスタム属性を使った認可制御（AppSyncのリゾルバーでカスタム属性を取得する方法）についてご紹介します。 TL;DR AppSyncとCognito…]]></description><link>https://takumon.comhow-to-get-user-custom-attributes-in-resolver-with-amplify-appsync-cognito</link><guid isPermaLink="false">https://takumon.comhow-to-get-user-custom-attributes-in-resolver-with-amplify-appsync-cognito</guid><pubDate>Fri, 12 Apr 2019 22:14:40 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/04/how-to-get-user-custom-attributes-in-resolver-with-amplify-appsync-cognito.png&quot; alt=&quot;vee-validate-custom-validation-locale-message&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
+&lt;p&gt;AppSync + Cognitoにおける認可制御について&lt;a href=&quot;https://takumon.com/aws-appsync-auth-with-cognito&quot;&gt;以前の記事&lt;/a&gt;で説明しました。
+今回は、ユーザーのカスタム属性を使った認可制御（AppSyncのリゾルバーでカスタム属性を取得する方法）についてご紹介します。&lt;/p&gt;
+&lt;h2 id=&quot;tldr&quot;&gt;&lt;a href=&quot;#tldr&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;TL;DR&lt;/h2&gt;
+&lt;p&gt;AppSyncとCognitoを連携済みであれば、3ステップで実現できます。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;#1-cognito%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%81%A7%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E5%B1%9E%E6%80%A7%E3%82%92readable%E3%81%AB%E8%A8%AD%E5%AE%9A&quot;&gt;サーバー側：Cognitoの設定でカスタム属性をReadableに設定&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-appsync%E3%81%AE%E3%83%AA%E3%82%BE%E3%83%AB%E3%83%90%E3%83%BC%E3%81%AB%E3%81%A6ctxidentityclaimsgetcustomsamplecustomattr%E3%82%92%E8%A8%98%E8%BF%B0&quot;&gt;サーバー側：AppSyncのリゾルバーにて&lt;code class=&quot;language-text&quot;&gt;$ctx.identity.claims.get(&amp;quot;custom:sampleCustomAttr&amp;quot;)&lt;/code&gt;を記述&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3-amplify%E3%81%AE%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E4%B8%AD%E8%BA%AB%E3%81%AEgetaccesstoken%E3%81%AE%E9%83%A8%E5%88%86%E3%82%92getidtoken%E3%81%AB%E7%BD%AE%E6%8F%9B&quot;&gt;クライアント側：Amplifyのライブラリの中身の&lt;code class=&quot;language-text&quot;&gt;getAccessToken&lt;/code&gt;の部分を&lt;code class=&quot;language-text&quot;&gt;getIdToken&lt;/code&gt;に置換&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;以下で詳しく説明します。&lt;/p&gt;
+&lt;h2 id=&quot;1-cognitoの設定でカスタム属性をreadableに設定&quot;&gt;&lt;a href=&quot;#1-cognito%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%81%A7%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E5%B1%9E%E6%80%A7%E3%82%92readable%E3%81%AB%E8%A8%AD%E5%AE%9A&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. Cognitoの設定でカスタム属性をReadableに設定&lt;/h2&gt;
+&lt;p&gt;この方法は認証時にIDトークンを使うことが前提です。&lt;br/&gt;
+IDトークンを使えば、ユーザー情報がAppSyncのリゾルバー取得できます。&lt;br/&gt;
+ただしカスタム属性はデフォルトだと取得できないので、AWSコンソールにて以下のように設定しましょう。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;AWSコンソール&lt;/code&gt; &gt; &lt;code class=&quot;language-text&quot;&gt;Cognitoのユーザープール&lt;/code&gt; &gt; &lt;code class=&quot;language-text&quot;&gt;全般設定&lt;/code&gt; &gt; &lt;code class=&quot;language-text&quot;&gt;アプリクライアント&lt;/code&gt; &gt; &lt;code class=&quot;language-text&quot;&gt;詳細を表示&lt;/code&gt; を選択&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/2fd3da2252daf17902b1c3691ab5a197/0e42e/how-to-setting-in-cognito-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 41.743400859422955%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABcRAAAXEQHKJvM/AAABsklEQVQoz42Rz2/TMBTH8y9y4LKxaWKjRROF9oIQfwnSTlyQOAxYkcqvSBMTIKhgsoR2KDRrm1/rjyyN49iJk9iP50jjwAHtSR89+2v7a79n68bm7kG792i03e6e7rS7ZLvVJa3OQ7Jzt0e27jwgG7sdsrnXIbf27pON2/fIfu8xeX7YJy9fvyGHRwPyoj8g/cH704Onz8Y3t1pPrB9fhieQMmDrBEQhkQLSLEMpAy5yoJjjhCIJLKNLiCkFnud/YVxAkqZgwplMjq1v9skH5c6ALRYll1LliOf7auZ5KpzPlR+Gauq66nwyUT/PztRvx1Hn02mje0HQjFErGeeA+99ajjO2pZTmljoTAsyCwJtlWQKaNxQ4NpRVBYXRsAqTi6s1KSvzwpnnv7N+jcd2pRSsoqhOM9aUbMyajAcqNPmXuq4xX9FojaHrB8bQsc3sMmVVzLgWUmqRppquVjrnXNdK6bIsdVEU/6MxxBag4Wh0jAdhHoaQxGuoBId86kHizkEvlnCd0FihCT8IbGs0/Nqnw49V/Nles++fKEsSyi4WNLlYUhFFFPtzHWJsk8bPe/UHbaI/rXRpOa4AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;how to setting in cognito 1&quot;
+        title=&quot;&quot;
+        src=&quot;/static/2fd3da2252daf17902b1c3691ab5a197/fb8a0/how-to-setting-in-cognito-1.png&quot;
+        srcset=&quot;/static/2fd3da2252daf17902b1c3691ab5a197/1a291/how-to-setting-in-cognito-1.png 148w,
+/static/2fd3da2252daf17902b1c3691ab5a197/2bc4a/how-to-setting-in-cognito-1.png 295w,
+/static/2fd3da2252daf17902b1c3691ab5a197/fb8a0/how-to-setting-in-cognito-1.png 590w,
+/static/2fd3da2252daf17902b1c3691ab5a197/526de/how-to-setting-in-cognito-1.png 885w,
+/static/2fd3da2252daf17902b1c3691ab5a197/fa2eb/how-to-setting-in-cognito-1.png 1180w,
+/static/2fd3da2252daf17902b1c3691ab5a197/0e42e/how-to-setting-in-cognito-1.png 1629w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br/&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;属性の読み込みおよび書き込みアクセス権限を設定する&lt;/code&gt; &gt; &lt;code class=&quot;language-text&quot;&gt;読み取り可能な属性&lt;/code&gt;　にて取得したいカスタム属性にチェックを入れて&lt;code class=&quot;language-text&quot;&gt;アプリクライアントの変更を保存&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/8ea7852e2cfc9a34840408ac5eabf86f/9b368/how-to-setting-in-cognito-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 119.22604422604424%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAYCAYAAAD6S912AAAACXBIWXMAABcRAAAXEQHKJvM/AAAD6klEQVQ4y41V247bVBTN//AERWpVqGYQ6oUiBPwQL32ooIJWoBF9QbzxAVUqI0bpAwWkgaqlnUxnEjt2kplJ4viSxNfY3vZm7ZNkko5UDZaWzsXnrLP23svHtXcuXfvmo5ufP7m89cnjK9u3tctbt7WtG19oV7Y/1d6/dkt79+p17b0PbmiXPryp+lc//kz76s7X2v0fHmr37u9o9x7saN99/+PjO3e/fbJ968uHtT/2nv2ZEbPt+uxNpsBMwfEmajz2fB6OXYWB7ah186Jgqiouykq1GcbytDumUdtrtndlkM7nGV5QURLZzphGtk2e79PYceh0OKTj0xNq6W3q9vvUPzmh3vGxmpdxx7JybzLh6Wz2b62l642ciCezGYVxwmEcQ50nY54FIU+D4Awy508lisnifRiu5imnkseu+6rWNgxFCBIKooiT+ZwLhJDnOecSGt4plCWXG6A3QRLlGWGFgYvw5FQhTNOUA6hLkkRtlgOyLF8cAmz2F+NMEUIUCPUFYZgkFCWpIoxBNJGcILwIqrHhIqwJOx29QbHN3qBFkdcDYaoU2rbNg8GAZ1C9uXmp6A3M5/M14YvXrUZR5CjAlOIkOlOIirHruhyG0RkJNipkGVqEneWFSgewJvx7/0gVxUelpGox1OWyGW2MikseQ8wHqGYIBFGMNSBFVcWHy2dN2LU6DTEn7EBiGVGYFCVHII0lfKhL0E/zjINk+R6EcqA6DDlO042Q/2ki5HJhmwgLEmzK+ifsty2eGV2gx0Gnp8aZ1VdyKggQlAK4AP014fPX7YYMcBJJuJK/0vc5GzuAu2wdzh2Px602wg8WMa68uSDdqLLZUYSRsk2iQsqwKEQrkNADySvWJAhb8ilFEiesqoy+InQ976Uy9iahqCzRInaejUY8Mk22LYsJBYEspU5IxuMxD4dDlceNopwjlJCR5BIL/W6X/V6Pp/0+hyCuQFDB7FIkqb5ATJ8vbpq3EIoHoURyKH2pvhhDUlCAAC5nOVTClkfUiS8vJKxAKMVZ+dGBwQsJGYQBiD3cRlJlx3E4APlGld9OKNeSmFny5SDUOcgWhAmPkBKp8gDtUu3FIduOCyW4naHo1LS4wJwQSg7l+xa7SBtepDASJVMoyhLkUP4NQw4MnefNJnwBX8J7K+XF8uo/T/ibIozjTEhTYNq2SH92QNZLnbp7++Q936dK16kKAnzBTEWeE7xIuBNIyIBsSfiiZpjmX3zu0Q+H/NOvBv/SMPnnXZNbBwP+Pw/+QUbt96dP71q93q7R6TwCed2wrHq/dVQfHTbrw6MD1R63Dusm5q1ut26ew3LuEX5Wu6+azZ3/AJ0c9RMhpwoOAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;how to setting in cognito 2&quot;
+        title=&quot;&quot;
+        src=&quot;/static/8ea7852e2cfc9a34840408ac5eabf86f/fb8a0/how-to-setting-in-cognito-2.png&quot;
+        srcset=&quot;/static/8ea7852e2cfc9a34840408ac5eabf86f/1a291/how-to-setting-in-cognito-2.png 148w,
+/static/8ea7852e2cfc9a34840408ac5eabf86f/2bc4a/how-to-setting-in-cognito-2.png 295w,
+/static/8ea7852e2cfc9a34840408ac5eabf86f/fb8a0/how-to-setting-in-cognito-2.png 590w,
+/static/8ea7852e2cfc9a34840408ac5eabf86f/526de/how-to-setting-in-cognito-2.png 885w,
+/static/8ea7852e2cfc9a34840408ac5eabf86f/fa2eb/how-to-setting-in-cognito-2.png 1180w,
+/static/8ea7852e2cfc9a34840408ac5eabf86f/9b368/how-to-setting-in-cognito-2.png 1628w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br/&gt;&lt;/p&gt;
+&lt;h2 id=&quot;2-appsyncのリゾルバーにてctxidentityclaimsgetcustomsamplecustomattrを記述&quot;&gt;&lt;a href=&quot;#2-appsync%E3%81%AE%E3%83%AA%E3%82%BE%E3%83%AB%E3%83%90%E3%83%BC%E3%81%AB%E3%81%A6ctxidentityclaimsgetcustomsamplecustomattr%E3%82%92%E8%A8%98%E8%BF%B0&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. AppSyncのリゾルバーにて$ctx.identity.claims.get(&quot;custom:sampleCustomAttr&quot;)を記述&lt;/h2&gt;
+&lt;p&gt;以下のようにして取得します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;verocity:appsyncのリゾルバー&quot;&gt;&lt;pre class=&quot;language-verocity:appsyncのリゾルバー&quot;&gt;&lt;code class=&quot;language-verocity:appsyncのリゾルバー&quot;&gt;  #set($sampleCustomAttr = $ctx.identity.claims.get(&amp;quot;custom:sampleCustomAttr&amp;quot;))&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+&lt;h2 id=&quot;3-amplifyのライブラリの中身のgetaccesstokenの部分をgetidtokenに置換&quot;&gt;&lt;a href=&quot;#3-amplify%E3%81%AE%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E4%B8%AD%E8%BA%AB%E3%81%AEgetaccesstoken%E3%81%AE%E9%83%A8%E5%88%86%E3%82%92getidtoken%E3%81%AB%E7%BD%AE%E6%8F%9B&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. Amplifyのライブラリの中身のgetAccessTokenの部分をgetIdTokenに置換&lt;/h2&gt;
+&lt;p&gt;手順2までを実施した場合、、AppSyncのQueryコンソール上では正常動作しますが、
+クライアント側からAmplify経由でクエリをたたいた場合は正常動作しません。&lt;/p&gt;
+&lt;p&gt;なぜならAppSyncのQueryコンソールは認証時にIDトークンを使いますが、
+Amplify経由の場合はアクセストークンを使うからです。&lt;/p&gt;
+&lt;p&gt;そのため、Amplify側の認証をIDトークンに切り替える必要があります。
+少し無理やりですが以下のようにAmplifyのライブラリを直接書き換えます。&lt;br/&gt;
+プロジェクトのnode_modules配下にて、以下のように修正します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-code-title&quot;&gt;node_modules/@aws-amplify/api/dist/aws-amplify-api.js&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;diff&quot;&gt;&lt;pre class=&quot;language-diff&quot;&gt;&lt;code class=&quot;language-diff&quot;&gt;&lt;span class=&quot;token deleted&quot;&gt;- Authorization: session.getAccessToken().getJwtToken() &lt;/span&gt;
+&lt;span class=&quot;token inserted&quot;&gt;+ Authorization: session.getIdToken().getJwtToken() &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+これでクエリが正常動作するようになります。&lt;br/&gt;
+ただ直接依存ライブラリを書き換えるので、本番環境デプロイ時は、CIに忘れずに書き換え処理を追加しましょう。&lt;br/&gt;
+&lt;p&gt;※この方法は、Amplipy側のGraphQLスキーマ定義で&lt;code class=&quot;language-text&quot;&gt;@auth&lt;/code&gt;を使っている場合に一部機能が正常動作しなくなるので注意してください。&lt;/p&gt;
+&lt;h2 id=&quot;まとめ&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ&lt;/h2&gt;
+&lt;p&gt;今回はAppSync + Cognitoにおいて、AppSyncのリゾルバーでユーザーのカスタム情報を取得する方法をご紹介しました。
+Amplify側は直接ライブラリを書き換えるので、多少無理やりな対応ですが、一応これでできます。
+ユーザーごとの認可情報をカスタム属性に持たせる場合は、この方法を試してみてください🍅&lt;/p&gt;
+&lt;h2 id=&quot;参考&quot;&gt;&lt;a href=&quot;#%E5%8F%82%E8%80%83&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/ja_jp/appsync/latest/devguide/resolver-context-reference.html#aws-appsync-resolver-context-reference-identity&quot;&gt;リゾルバーのマッピングテンプレートのコンテキストリファレンス - AWS AppSync&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://maketips.net/tip/175/include-custom-attributes-in-cognito-claims&quot;&gt;Include custom attributes in cognito claims&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/aws-amplify/amplify-js/issues/1772&quot;&gt;Aws Amplify appsync API graphql cognito custom attribute · Issue #1772 · aws-amplify/amplify-js&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/aws-amplify/amplify-cli/issues/456&quot;&gt;Clarify security implications of using ID Token vs. Access Token for AppSync authorization · Issue #456 · aws-amplify/amplify-cli&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Vuetify + VeeValidate + VueI18nでカスタムバリデーション作成時にロケールごとのエラーメッセージを設定する方法]]></title><description><![CDATA[なにこれ Vuetify  +  VeeValidate で入力チェックする際に、 VueI18n…]]></description><link>https://takumon.com/vee-validate-custom-validation-locale-message</link><guid isPermaLink="false">https://takumon.com/vee-validate-custom-validation-locale-message</guid><pubDate>Sun, 07 Apr 2019 05:10:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;img src=&quot;/thumbnail/2019/04/vee-validate-custom-validation-locale-message.png&quot; alt=&quot;vee-validate-custom-validation-locale-message&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;なにこれ&quot;&gt;&lt;a href=&quot;#%E3%81%AA%E3%81%AB%E3%81%93%E3%82%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;なにこれ&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://vuetifyjs.com/ja/&quot;&gt;Vuetify&lt;/a&gt; + &lt;a href=&quot;https://baianat.github.io/vee-validate/&quot;&gt;VeeValidate&lt;/a&gt;で入力チェックする際に、&lt;a href=&quot;https://kazupon.github.io/vue-i18n/&quot;&gt;VueI18n&lt;/a&gt;を使ってエラーメッセージを多言語対応・共通化する場合に、カスタムバリデーションのエラーメッセージをロケールごとに設定する方法について紹介します。&lt;/p&gt;
 &lt;h2 id=&quot;実装方法&quot;&gt;&lt;a href=&quot;#%E5%AE%9F%E8%A3%85%E6%96%B9%E6%B3%95&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;実装方法&lt;/h2&gt;
