@@ -8,7 +8,7 @@ tags:
   - Cognito
 keywords:
   - AWS
-slug: how-to-get-user-custom-attributes-in-resolver-with-amplify-appsync-cognito
+slug: /how-to-get-user-custom-attributes-in-resolver-with-amplify-appsync-cognito
 thumbnail: /thumbnail/2019/04/how-to-get-user-custom-attributes-in-resolver-with-amplify-appsync-cognito.png
 ---
 
