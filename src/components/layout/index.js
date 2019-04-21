@@ -40,7 +40,7 @@ export default class Layout extends React.Component {
               <Link
                 className={styles.blog_title}
                 to={'/'}
-              >{config.blogTitle} </Link>
+              >Takumon Bl<div className={styles.blog_title__tomato}>o</div>g</Link>
             </h1>
             <Bio />
           </div>
@@ -56,7 +56,7 @@ export default class Layout extends React.Component {
               <Link
                 className={styles.blog_title}
                 to={'/'}
-              >{config.blogTitle} </Link>
+              >Takumon Bl<div className={styles.blog_title__tomato}>o</div>g</Link>
             </h1>
             <Bio />
           </div>

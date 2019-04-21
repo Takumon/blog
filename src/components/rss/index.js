@@ -11,6 +11,12 @@ class Rss extends React.Component {
     return (
       <div className={styles.content}>
           <a
+            aria-label="blog_repository"
+            href={config.blogRepositoryUrl}
+            rel="noopener noreferrer"
+            className={styles.github_icon}>
+          </a>
+          <a
             aria-label="feedly"
             className={styles.button}
             href='https://feedly.com/i/subscription/feed%2Fhttps%3A%2F%2Ftakumon.com%2Frss.xml'

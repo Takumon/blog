@@ -4,7 +4,7 @@ module.exports = {
   siteMetadata: {
     title: 'Takumon Blog',
     author: 'Takuto Inoue',
-    description: '日々の作業をつづっていきます。',
+    description: "SIer's tech blog powered by Gatsby",
     siteUrl: 'https://takumon.com',
   },
   plugins: [
@@ -101,8 +101,8 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'Takumon blog',
-        short_name: 'Takumon blog',
+        name: 'Takumon Blog',
+        short_name: 'Takumon Blog',
         start_url: '/?utm_source=homescreen',
         background_color: '#333',
         theme_color: '#d23d29',
