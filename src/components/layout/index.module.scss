@@ -50,6 +50,7 @@
 
       .blog_title {
         box-shadow: none;
+        font-family: Montserrats, ans-serif;
         color: white;
         &__tomato {
           display: inline-block;
@@ -89,10 +90,7 @@
         }
     
         .blog_title__tomato:after {
-          top: 19px;
-          left: 3px;
-          height: 17px;
-          width: 17px;
+          display: none;
         }
       }
     }
