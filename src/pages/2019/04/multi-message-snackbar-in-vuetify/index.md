@@ -10,7 +10,7 @@ slug: /multi-message-snackbar-in-vuetify
 thumbnail: /thumbnail/2019/04/multi-message-snackbar-in-vuetify.png
 ---
 
-![vee-validate-custom-validation-locale-message](/thumbnail/2019/04/multi-message-snackbar-in-vuetify.png)
+![multi-message-snackbar-in-vuetify](/thumbnail/2019/04/multi-message-snackbar-in-vuetify.png)
 
 ## なにこれ
 VuetifyのSnackbarはメッセージを1つしか表示できません。こちらGitHubでもissueになっています。
@@ -40,18 +40,18 @@ VuetifyのSnackbarはメッセージを1つしか表示できません。こち�
 * Snackbareに表示するメッセージ配列を管理します。
 * メッセージ配列の要素は、メッセージテキスト以外にも以下のような情報を保持します。
   * メッセージテキスト
-  * メッセージレベル
+  * メッセージカラー
       * error, info, warn, successなど ※VuetifyのSnackbarの仕様に沿ったものです。
   * メッセージ表示時間
       * 必須ではないです。
-      * 指定しない場合、時間がたってもメッセージ削除ボタンを押さない限りずーっと表示し続けます。
+      * 指定しない場合、×ボタンを押さない限りずーっと表示し続けます。
 
 ### 複数メッセージ表示用コンポーネント
 
 * VuetifyのSnackbarをラップしたコンポーネントです。
 * VuetifyのSnackbarのメッセージ領域に、無理やり複数メッセージをねじ込むようなDOM構造＆スタイルを実装しています。
 * 個々のメッセージの識別と削除、Snackbar自体の表示制御を担います。
-* 個々のメッセージ表示は、子コンポーネントであるメッセージコンポーネントに任せます。
+* 個々のメッセージ表示は子コンポーネントに任せます。
 
 ### メッセージ表示用コンポーネント
 
@@ -135,7 +135,7 @@ export default new Vuex.Store({
     大枠を消す処理はStoreに実装する
   -->
   <v-snackbar
-    v-model="show"
+    v-model="isShow"
     color="white"
     :timeout="0"
     top
@@ -144,7 +144,7 @@ export default new Vuex.Store({
     <!-- メッセージを縦並びにするためdivタグでラップする -->
     <div style="margin: -14px auto; width: 100%;">
       <div style="margin: 0 -24px">
-        <template v-for="(message, index) in messages">
+        <template v-for="(message, index) in getMessages">
           <snackbarMessage
             :key="message.id"
             @remove="removeMessage({ id: message.id })"
@@ -163,6 +163,7 @@ export default new Vuex.Store({
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+// メッセージ表示用コンポーネント
 import snackbarMessage from './snackbar-message.vue';
 
 export default {
@@ -172,19 +173,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      isShow: getterType.snackbar.getShow,
-      messages: getterType.snackbar.getMessages,
-    }),
-
-    show: {
-      get() {
-        return this.isShow;
-      },
-      set() {
-        this.hideSnackbar();
-      },
-    },
+    ...mapGetters([
+      'isShow'
+      'getMessages'
+    ]),
 
     lastIndex() {
       return this.messages.length - 1;
@@ -193,7 +185,6 @@ export default {
 
   methods: {
     ...mapActions({
-      hideSnackbar: actionType.snackbar.HIDE_SNACKBAR,
       removeMessage: actionType.snackbar.REMOVE_MESSAGE,
     }),
   },
@@ -272,5 +263,5 @@ export default {
 
 今回はVuetifyのSnackbarで複数メッセージが表示できるようにする方法をご紹介しました。
 現在だと、[複数表示できるようにするための拡張ライブラリ](https://www.npmjs.com/package/@tozd/vue-snackbar-queue)も出ているようです。
-ライブラリを使ってもいいかもしれませんが、細かなUIはシステムに依存すると思うので、カスタムで作る際は是非参考にしてみてください🍅
+ライブラリを使ってもいいかもしれませんが、UIの細かな部分はシステムに依存すると思うので、カスタムで作る際は是非参考にしてみてください🍅
 
