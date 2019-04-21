@@ -1,7 +1,7 @@
 {
   "name": "blog",
   "description": "Takumon Blog",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "Takuto Inoue <inouetakumon@gmail.com>",
   "bugs": {
     "url": "https://github.com/takumon/blog/issues"

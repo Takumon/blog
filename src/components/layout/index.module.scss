@@ -51,6 +51,23 @@
       .blog_title {
         box-shadow: none;
         color: white;
+        &__tomato {
+          display: inline-block;
+          position: relative;
+
+          &:after {
+            position: absolute;
+            display: block;
+            content: "";
+            top: 36px;
+            left: 7px;
+            height: 28px;
+            width: 28px;
+            background-repeat: no-repeat;
+            background-image: url(../../images/app.png);
+            background-size: contain;
+          }
+        }
       }
     }
   }
@@ -59,23 +76,33 @@
 
 
 @media screen and (max-width: 600px) {
-  .blog_title_area {
-    text-align: center;
-
-    a {
-      font-size: 36px;
-    }
-  }
-
   .header_container {
     background-size: 200%;
     min-height: 40vh;
+
+    &__inner {
+      .blog_title_area {
+        text-align: center;
+    
+        a {
+          font-size: 36px;
+        }
+    
+        .blog_title__tomato:after {
+          top: 19px;
+          left: 3px;
+          height: 17px;
+          width: 17px;
+        }
+      }
+    }
   }
 }
 
 
 
 @media screen and (max-width: 500px) {
+
   .blog_title_area {
     text-align: center;
 
