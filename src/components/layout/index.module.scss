@@ -52,23 +52,6 @@
         box-shadow: none;
         font-family: Montserrats, ans-serif;
         color: white;
-        &__tomato {
-          display: inline-block;
-          position: relative;
-
-          &:after {
-            position: absolute;
-            display: block;
-            content: "";
-            top: 36px;
-            left: 7px;
-            height: 28px;
-            width: 28px;
-            background-repeat: no-repeat;
-            background-image: url(../../images/app.png);
-            background-size: contain;
-          }
-        }
       }
     }
   }
@@ -87,10 +70,6 @@
     
         a {
           font-size: 36px;
-        }
-    
-        .blog_title__tomato:after {
-          display: none;
         }
       }
     }
