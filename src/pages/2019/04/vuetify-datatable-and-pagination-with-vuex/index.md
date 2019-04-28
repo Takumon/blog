@@ -1,6 +1,6 @@
 ---
 title: 'VuetifyのDataTableとPaginationの状態をVuexで管理する'
-date: '2019-04-28T22:00:00.000+09:00'
+date: '2019-04-28T20:30:00.000+09:00'
 tags:
   - Vue.js
   - Vuetify
@@ -15,13 +15,13 @@ thumbnail: /thumbnail/2019/04/vuetify-datatable-and-pagination-with-vuex.png
 
 ## なにこれ
 
-VuetifyのDataTableとPaginationを使った検索一覧画面でページングの状態を、ルーティングをまたいで保存しておきたい。という要望を満たすためページングの状態をVuexで管理する方法をメモします。
+VuetifyのDataTableとPaginationを使った検索一覧画面でページングの状態を、ルーティングをまたいで保存しておきたい。という要望を満たすため、ページングの状態をVuexで管理する方法をメモします。
 DataTableだけだとすんなりできますが、Paginationもあわせて使う場合は少し雑な実装になってしまいます。
 
 ## やり方
 
 まずはストアに以下のように定義します。
-ミューテーションには「ページングオブジェクト保存」と「ページングオブジェクトのページのみ保存」の2種類を用意します。
+アクションには「ページングオブジェクト保存」と「ページングオブジェクトのページのみ保存」の2種類を用意します。
 
 ```javascript:title=サンプル実装（Vuex側）
 export default new Vuex.Store({
