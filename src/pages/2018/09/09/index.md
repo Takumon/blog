@@ -6,7 +6,10 @@ tags:
   - ブログ
 keywords:
   - Gatsby
+thumbnail: /thumbnail/2018/beginning-of-blog.png
 ---
+
+![](/thumbnail/2018/beginning-of-blog.png)
 
 ## ブログをやろうと思った理由
 [Qiita](https://qiita.com/)は、誰得な作業メモは載せられないし

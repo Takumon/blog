@@ -7,7 +7,12 @@ tags:
   - 読書感想
 keywords:
   - Git
+thumbnail: /thumbnail/2018/ichiyasa-git.png
 ---
+
+![](/thumbnail/2018/ichiyasa-git.png)
+
+
 
 ## なにこれ
 

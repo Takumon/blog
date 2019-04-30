@@ -6,7 +6,11 @@ tags:
   - GatsbyPlugin
 keywords:
   - GatsbyPlugin
+thumbnail: /thumbnail/2018/gatsby-plugin-graphql.png
 ---
+
+![](/thumbnail/2018/gatsby-plugin-graphql.png)
+
 
 ## なにこれ
 前回の[unifiedでMarkdownをHTMLに変換 & ReactでQiitaっぽい目次を作る](../../10/28)で、GraphQLで取得したヘッダー情報をReactコンポーネントで加工していましたが、

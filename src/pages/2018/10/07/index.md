@@ -4,10 +4,14 @@ date: "2018-10-07T12:00:00.000Z"
 tags:
   - Gatsby
   - SNS
-  - SRE
+  - SER
 keywords:
   - Gatsby
+thumbnail: /thumbnail/2018/youtube-in-gatsby.png
 ---
+
+![](/thumbnail/2018/youtube-in-gatsby.png)
+
 
 ## なにこれ
 ブログに良くあるYouTubeやTwitterの埋め込みをGatsbyでやる方法のメモです。<br>

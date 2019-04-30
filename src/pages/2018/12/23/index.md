@@ -10,7 +10,10 @@ tags:
   - スライド
 keywords:
   - mdx-deck
+thumbnail: /thumbnail/2018/mdx-and-codesufer.png
 ---
+
+![](/thumbnail/2018/mdx-and-codesufer.png)
 
 ## なにこれ
 

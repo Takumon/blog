@@ -8,7 +8,10 @@ tags:
   - SRE
 keywords:
   - JSON-LD
+thumbnail: /thumbnail/2018/react-json-ld.png
 ---
+
+![](/thumbnail/2018/react-json-ld.png)
 
 ## なにこれ
 **ググった時に自分のブログ(React製)でパンくずを表示させたい**

@@ -9,7 +9,10 @@ tags:
   - SRE
 keywords:
   - React
+thumbnail: /thumbnail/2018/react-sns.png
 ---
+
+![](/thumbnail/2018/react-sns.png)
 
 ## なにこれ
 Gatsby製ブログ(Reactアプリ)でSNS対応した時のメモです。<br>

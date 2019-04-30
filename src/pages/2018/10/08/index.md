@@ -6,7 +6,10 @@ tags:
   - PWA
 keywords:
   - Gatsby
+thumbnail: /thumbnail/2018/gatsby-pwa.png
 ---
+
+![](/thumbnail/2018/gatsby-pwa.png)
 
 ## なにこれ
 スマホでネイティブアプリっぽいUXを実現するため、GatsbyでPWA対応した時のメモです。
