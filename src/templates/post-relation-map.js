@@ -5,10 +5,26 @@ import Layout from '../components/layout';
 import cytoscape from 'cytoscape';
 import CytoscapeComponent from 'react-cytoscapejs';
 import coseBilkent from 'cytoscape-cose-bilkent';
+import Fullscreen from "react-full-screen";
 
 cytoscape.use( coseBilkent );
 
 class PostRelationMapTemplate extends React.Component {
+  constructor(props) {
+    super();
+
+    this.state = {
+      isFull: false,
+    };
+  }
+
+  goFull = () => {
+    this.setState({ isFull: true })
+  }
+
+  goNotFull = () => {
+    this.setState({ isFull: false })
+  }
 
   render() {
 
@@ -241,6 +257,16 @@ class PostRelationMapTemplate extends React.Component {
     let zoomLevel = 0.3
     const deltaZoomLevel = 0.05
 
+
+    const fullscreenButton =
+      this.state.isFull
+       ? <button
+          onClick={this.goNotFull}
+          >戻る</button>
+       : <button
+          onClick={this.goFull}
+         >フルスクリーン表示</button>
+
     return (
       <Layout location={this.props.location}>
         <h2 style={{
@@ -252,113 +278,129 @@ class PostRelationMapTemplate extends React.Component {
           width: '90%',
           marginLeft: 'auto',
           marginRight: 'auto',
+          marginBottom: '64px',
         }}>
           記事毎のタグ・キーワードをもとに関連度合いをCytoscape.jsで可視化したものです。Canvasで描画していますが、記事をクリックして記事に遷移できたりします。
           マウスホイールで拡大率を変更できます。マップの左上の+-ボタンでも変更できます。
         </div>
-        <CytoscapeComponent
-          zoom={zoomLevel}
-          pan={{
-            x: 100,
-            y: 100 
-          }}
-          minZoom={0.1}
-          maxZoom={4}
-          elements={elements}
-          layout={layout}
-          style={{
+
+        <Fullscreen
+          enabled={this.state.isFull}
+          onChange={isFull => this.setState({isFull})}
+        >
+          <div style={{
             width: '90%',
-            height: '1000px',
-            position: 'relative',
-            marginTop: '64px',
             marginLeft: 'auto',
             marginRight: 'auto',
-            border: '1px solid black',
-            'backgroundColor' : '#ffffff',
-            'backgroundImage' : `repeating-linear-gradient(to bottom,
-                transparent 21px,
-                rgba(225, 225, 225, 0.17) 22px,  rgba(225, 225, 225, 0.17) 22px,
-                transparent 23px,  transparent 43px, 
-                rgba(225, 225, 225, 0.17) 44px,  rgba(225, 225, 225, 0.17) 44px,
-                transparent 45px,  transparent 65px, 
-                rgba(225, 225, 225, 0.17) 66px,  rgba(225, 225, 225, 0.17) 66px,
-                transparent 67px,  transparent 87px, 
-                rgba(225, 225, 225, 0.17) 88px,  rgba(225, 225, 225, 0.17) 88px,
-                transparent 89px,  transparent 109px, 
-                rgba(225, 225, 225, 0.17) 110px,  rgba(225, 225, 225, 0.17) 110px),
-              repeating-linear-gradient(to right,
-                transparent 21px,
-                rgba(225, 225, 225, 0.17) 22px,  rgba(225, 225, 225, 0.17) 22px,
-                transparent 23px,  transparent 43px, 
-                rgba(225, 225, 225, 0.17) 44px,  rgba(225, 225, 225, 0.17) 44px,
-                transparent 45px,  transparent 65px, 
-                rgba(225, 225, 225, 0.17) 66px,  rgba(225, 225, 225, 0.17) 66px,
-                transparent 67px,  transparent 87px, 
-                rgba(225, 225, 225, 0.17) 88px,  rgba(225, 225, 225, 0.17) 88px,
-                transparent 89px,  transparent 109px, 
-                rgba(225, 225, 225, 0.17) 110px,  rgba(225, 225, 225, 0.17) 110px)`,
-          }}
-          stylesheet={stylesheet}
-          cy={cy => {
-            cy.on('click', 'node[id = "zoomUp"]', function (e) {
-              if(zoomLevel < 4) {
-                zoomLevel = zoomLevel + deltaZoomLevel
-              }
+            marginBottom: '-34px',
+            zIndex: 1,
+            position: 'relative',
+          }}>
+            {fullscreenButton}
+          </div>
+          <CytoscapeComponent
+            zoom={zoomLevel}
+            pan={{
+              x: 100,
+              y: 100 
+            }}
+            minZoom={0.1}
+            maxZoom={4}
+            elements={elements}
+            layout={layout}
+            style={{
+              width: this.state.isFull ? '100vw' : '90%',
+              height: '100vh',
+              position: 'relative',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              border: '1px solid black',
+              'backgroundColor' : '#ffffff',
+              'backgroundImage' : `repeating-linear-gradient(to bottom,
+                  transparent 21px,
+                  rgba(225, 225, 225, 0.17) 22px,  rgba(225, 225, 225, 0.17) 22px,
+                  transparent 23px,  transparent 43px, 
+                  rgba(225, 225, 225, 0.17) 44px,  rgba(225, 225, 225, 0.17) 44px,
+                  transparent 45px,  transparent 65px, 
+                  rgba(225, 225, 225, 0.17) 66px,  rgba(225, 225, 225, 0.17) 66px,
+                  transparent 67px,  transparent 87px, 
+                  rgba(225, 225, 225, 0.17) 88px,  rgba(225, 225, 225, 0.17) 88px,
+                  transparent 89px,  transparent 109px, 
+                  rgba(225, 225, 225, 0.17) 110px,  rgba(225, 225, 225, 0.17) 110px),
+                repeating-linear-gradient(to right,
+                  transparent 21px,
+                  rgba(225, 225, 225, 0.17) 22px,  rgba(225, 225, 225, 0.17) 22px,
+                  transparent 23px,  transparent 43px, 
+                  rgba(225, 225, 225, 0.17) 44px,  rgba(225, 225, 225, 0.17) 44px,
+                  transparent 45px,  transparent 65px, 
+                  rgba(225, 225, 225, 0.17) 66px,  rgba(225, 225, 225, 0.17) 66px,
+                  transparent 67px,  transparent 87px, 
+                  rgba(225, 225, 225, 0.17) 88px,  rgba(225, 225, 225, 0.17) 88px,
+                  transparent 89px,  transparent 109px, 
+                  rgba(225, 225, 225, 0.17) 110px,  rgba(225, 225, 225, 0.17) 110px)`,
+            }}
+            stylesheet={stylesheet}
+            cy={cy => {
+              cy.on('click', 'node[id = "zoomUp"]', function (e) {
+                if(zoomLevel < 4) {
+                  zoomLevel = zoomLevel + deltaZoomLevel
+                }
 
-              cy.zoom({
-                level: zoomLevel,
-                position: e.target.position()
+                cy.zoom({
+                  level: zoomLevel,
+                  position: e.target.position()
+                });
               });
-            });
 
-            cy.on('click', 'node[id = "zoomDown"]', function (e) {
-              if(zoomLevel > 0.1) {
-                zoomLevel = zoomLevel - deltaZoomLevel
-              }
+              cy.on('click', 'node[id = "zoomDown"]', function (e) {
+                if(zoomLevel > 0.1) {
+                  zoomLevel = zoomLevel - deltaZoomLevel
+                }
 
-              cy.zoom({
-                level: zoomLevel,
-                position: e.target.position()
+                cy.zoom({
+                  level: zoomLevel,
+                  position: e.target.position()
+                });
               });
-            });
 
 
-            cy.on('tap', 'node[id != "zoomUp"][ id != "zoomDown" ]', function(){
-              try {
-                window.open( this.data('href') );
-              } catch(e) {
-                window.location.href = this.data('href');
-              }
-            });
-            cy.on('mouseover', 'node[id != "zoomUp"][ id != "zoomDown" ]', function (e) {
-              document.body.style.cursor = 'pointer';
-              e.target.style({
-                'text-margin-x': '-500px',
-                'width': '500px',
-                'height': '270px',      
-              })
-              e.target.connectedEdges().style({
-                'line-color': 'blue',
-                'color': 'blue',
-                'text-max-width': '400px',
+              cy.on('tap', 'node[id != "zoomUp"][ id != "zoomDown" ]', function(){
+                try {
+                  window.open( this.data('href') );
+                } catch(e) {
+                  window.location.href = this.data('href');
+                }
               });
-            });
-
-            cy.on('mouseout', 'node[id != "zoomUp"][ id != "zoomDown" ]', function (e) {
-              document.body.style.cursor = 'default';
-              e.target.style({
-                'text-margin-x': '-300px',
-                'width': '300px',
-                'height': '166px', 
-              })
-              e.target.connectedEdges().style({
-                'line-color': 'gray',
-                'color': 'black',
-                'text-max-width': '300px',
+              cy.on('mouseover', 'node[id != "zoomUp"][ id != "zoomDown" ]', function (e) {
+                document.body.style.cursor = 'pointer';
+                e.target.style({
+                  'text-margin-x': '-500px',
+                  'width': '500px',
+                  'height': '270px',      
+                })
+                e.target.connectedEdges().style({
+                  'line-color': 'blue',
+                  'color': 'blue',
+                  'text-max-width': '400px',
+                });
               });
-            });
-          }}
-        />
+
+              cy.on('mouseout', 'node[id != "zoomUp"][ id != "zoomDown" ]', function (e) {
+                document.body.style.cursor = 'default';
+                e.target.style({
+                  'text-margin-x': '-300px',
+                  'width': '300px',
+                  'height': '166px', 
+                })
+                e.target.connectedEdges().style({
+                  'line-color': 'gray',
+                  'color': 'black',
+                  'text-max-width': '300px',
+                });
+              });
+            }}
+          />
+        </Fullscreen>
       </Layout>
     );
   }
