@@ -7,7 +7,11 @@ tags:
   - Qiita
 keywords:
   - GatsbyPlugin
+thumbnail: /thumbnail/2018/gatsby-plugin-qiita.png
 ---
+
+![](/thumbnail/2018/gatsby-plugin-qiita.png)
+
 
 ## なにこれ
 GatsbyにQiitaの記事を取り込めるプラグイン([gatsby-source-qiita](https://www.gatsbyjs.org/packages/gatsby-source-qiita/))を作りました

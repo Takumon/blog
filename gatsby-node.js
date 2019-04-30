@@ -23,6 +23,7 @@ exports.createPages = ({ graphql, actions }) => {
     const blogPost = path.resolve('./src/templates/blog-post.js');
     const qiitaPost = path.resolve('./src/templates/qiita-post.js');
     const tagPage =  path.resolve('./src/templates/tags.js');
+    const postRelationMapPage = path.resolve('./src/templates/post-relation-map.js');
 
     resolve(
       graphql(
@@ -100,6 +101,7 @@ exports.createPages = ({ graphql, actions }) => {
 
         const allPostNodes = _.map(posts, ({node}) => node)
 
+
         // 記事詳細ページ生成
         _.each(posts, ({type, node}, index) => {
 
@@ -135,6 +137,25 @@ exports.createPages = ({ graphql, actions }) => {
             throw new Error(`Unexpected post type = ${type}`)
           }
         })
+
+        const allPostRelations = allPostNodes.map(node => {
+
+          const conf = Object.assign({}, relatedPost.defaultConfig, { threshold: 50 })
+
+          return {
+            node,
+            relations: relatedPost.extractRelatedPostRankings(allPostNodes, node, conf),
+          }
+        })
+
+        createPage({
+          path: '/map/',
+          component: postRelationMapPage,
+          context: {
+            allPostRelations,
+          },
+        })
+
 
 
         // タグ別一覧ページ生成

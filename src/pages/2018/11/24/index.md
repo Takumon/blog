@@ -6,7 +6,10 @@ tags:
   - Gatsby theme
 keywords:
   - Gatsby
+thumbnail: /thumbnail/2018/gatsby-theme.png
 ---
+
+![](/thumbnail/2018/gatsby-theme.png)
 
 ## なにこれ
 

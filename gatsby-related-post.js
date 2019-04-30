@@ -229,40 +229,64 @@ function _extractRelatedPostRankings(idx, query, upperDate) {
 
 
         q.keywords
-        .map(kw => setm[kw]) // 索引に紐づく記事のノード一覧を取得
-        .filter(postNodes => !postNodes || postNodes.length > 0) // 見つからない場合、空配列の場合は除外
-        .forEach(postNodes => {
-            postNodes
-            // 対象記事より新しい記事を関連記事から除外
-            .filter(postNode => idx.cfg.includeNewer || upperDate.getTime() < new Date(postNode.fields.date).getTime())
-            .forEach(postNode => {
-                const slug = postNode.fields.slug
-                const r = rangings[slug]
+            .map(keyword => ({ // 索引に紐づく記事のノード一覧を取得
+                keyword,
+                postNodes: setm[keyword],
+            })) 
+            .filter(({ postNodes }) => !postNodes || postNodes.length > 0) // 見つからない場合、空配列の場合は除外
+            .forEach(({ keyword, postNodes }) => {
+                
+                postNodes
+                    .filter(postNode => {
+                        if (idx.cfg.includeNewer) {
+                            return true;
+                        }
+                        // includeNewerを指定していない場合、対象記事より新しい記事を関連記事から除外する
+                        return new Date(postNode.fields.date).getTime() <= upperDate.getTime();
+                    })
+                    .forEach(postNode => {
+                        const slug = postNode.fields.slug
+                        const r = rangings[slug]
 
-                // ランキングが存在する場合は、情報追加
-                if (r) {
-                    r.weight += config.weight
-                    r.matches++
-                    // 存在しない場合は、新規作成
-                } else {
-                    rangings[slug] = {
-                        node: postNode,
-                        matches: 1,
-                        weight: config.weight
-                    }
-                }
+                        // ランキングが存在する場合は、情報追加
+                        if (r) {
+                            r.weight += config.weight
+                            r.matches++
+                            r.details.push({
+                                weight: config.weight,
+                                keyword
+                            })
+                        // 存在しない場合は、新規作成
+                        } else {
+                            rangings[slug] = {
+                                node: postNode,
+                                matches: 1,
+                                weight: config.weight,
+                                details: [{
+                                    weight: config.weight,
+                                    keyword
+                                }]
+                            }
+                        }
+                    })
             })
-        })
     })
-
 
     // 収集したランキングの正規化した重み付けが、設定した閾値以上の場合を関連記事とみなす
-    return Object.values(rangings).filter(ranking => {
+    return Object.values(rangings).map(ranking => {
         const avgWeight = ranking.weight / ranking.matches
-        const weight = norm(avgWeight, idx.minWeight, idx.maxWeight)
+        const totalWeight = norm(avgWeight, idx.minWeight, idx.maxWeight)
         const threshold = idx.cfg.threshold / ranking.matches
-        return weight >= threshold
+        const isRelated = totalWeight >= threshold
+
+        return Object.assign({}, ranking, {
+            avgWeight,
+            totalWeight,
+            threshold,
+            isRelated,
+        })
     })
+    .filter(ranking => ranking.isRelated)
     .sort((a, b) => {
         // 第一ソートキーは重み　降順（関連が多い記事を先に）
         if (a.weight > b.weight) {

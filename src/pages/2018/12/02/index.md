@@ -7,7 +7,10 @@ tags:
   - React
 keywords:
   - React
+thumbnail: /thumbnail/2018/react-slit-animation.png
 ---
+
+![](/thumbnail/2018/react-slit-animation.png)
 
 ## なにこれ
 

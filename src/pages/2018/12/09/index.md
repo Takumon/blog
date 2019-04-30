@@ -6,7 +6,11 @@ tags:
   - Vimium
 keywords:
   - Vim
+thumbnail: /thumbnail/2018/vim-beginners.png
 ---
+
+![](/thumbnail/2018/vim-beginners.png)
+
 
 ## なにこれ
 

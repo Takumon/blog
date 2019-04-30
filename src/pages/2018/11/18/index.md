@@ -6,7 +6,12 @@ tags:
   - ランチャー
 keywords:
   - ランチャー
+thumbnail: /thumbnail/2018/windows-r-rancher.png
 ---
+
+![](/thumbnail/2018/windows-r-rancher.png)
+
+
 
 ## なにこれ
 

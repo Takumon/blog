@@ -6,7 +6,11 @@ tags:
   - GatsbyPlugin
 keywords:
   - GatsbyPlugin
+thumbnail: /thumbnail/2018/getsby-plugin-best-45.png
 ---
+
+![](/thumbnail/2018/getsby-plugin-best-45.png)
+
 
 ## なにこれ
 [Gatsbyのプラグイン](https://www.gatsbyjs.org/plugins/)は、[公式プラグイン](https://github.com/gatsbyjs/gatsby/tree/master/packages)とコミュニティ提供のものをあわせると、なんと502個もあります。（2018/10/21現在）
