@@ -53,6 +53,7 @@
 <url> <loc>https://takumon.com/386efa75-7773-5424-94a8-1a2b3ae52a6b/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/4bf6ffd5-8640-508e-ab47-1a55df05d72e/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/e6e81f10-e1df-58fa-ad49-6da5d018abc4/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://takumon.com/map/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/vue-js/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/vuetify/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/vuex/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -114,9 +115,10 @@
 <url> <loc>https://takumon.com/tags/css-modules/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/pwa/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/sns/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://takumon.com/tags/sre/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://takumon.com/tags/ser/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/schema-org/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/json-ld/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://takumon.com/tags/sre/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/ogp/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/カスタムドメイン/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/https化/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
