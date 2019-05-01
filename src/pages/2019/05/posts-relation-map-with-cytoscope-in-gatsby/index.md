@@ -3,17 +3,18 @@ title: 'GatsbyでCytoscape.jsを使って記事関連マップを作ってみた
 date: '2019-05-01T21:00:00.000+09:00'
 tags:
   - Gatsby
-  - Cytoscope.js
+  - Cytoscape.js
 keywords:
   - Gatsby
-slug: /posts-relation-map-with-cytoscope-in-gatsby
-thumbnail: /thumbnail/2019/05/posts-relation-map-with-cytoscope-in-gatsby.png
+slug: /posts-relation-map-with-cytoscape-in-gatsby
+thumbnail: /thumbnail/2019/05/posts-relation-map-with-cytoscape-in-gatsby.png
 ---
 
-![](/thumbnail/2019/05/posts-relation-map-with-cytoscope-in-gatsby.png)
+![](/thumbnail/2019/05/posts-relation-map-with-cytoscape-in-gatsby.png)
 
 ## なにこれ
-[以前紹介したタグとキーワードから関連記事を算出するロジック](https://takumon.com/gatsby-related-posts-like-hugo)と、 [Cytoscope.js](http://js.cytoscape.org/)を用いて記事の関連情報を視覚的に確認できるページを作りました。今回はそのページとCytoscape.jsを使ってみた感想をご紹介します。
+[以前紹介したタグとキーワードから関連記事を算出するロジック](https://takumon.com/gatsby-related-posts-like-hugo)と、[Cytoscape.js](http://js.cytoscape.org/)を用いて記事の関連情報を視覚的に確認できる記事関連マップを作りました。
+今回は記事関連マップの紹介とCytoscape.jsを使ってみた感想を記します。
 
 ## 記事関連マップ
 
@@ -23,73 +24,142 @@ URL: https://takumon.com/map <br/>
 ![](./map-link.png)
 <br/>
 
-マップをフルスクリーン表示できたり...
-![](./fullscreen-button.png)
-<br/>
+
+記事のサムネイル画像が関連の線でつながっています。
+記事はドラッグ＆ドロップでグリグリ動かせます。
+![](./map.png)
+
+関連線はタグよりもキーワードのほうが太くなっています。
+![](./map-relation.png)
+
 
 記事にマウスカーソルを合わせると拡大され、関連線が青にハイライトされたり...
 ![](./hover-style.png)
 <br/>
 
-記事をクリックすると記事ページに飛べたりします。
+記事関連マップをフルスクリーン表示できたり...
+![](./fullscreen-button.png)
+<br/>
 
 
-### 自分が書いてきた記事が視覚的に俯瞰できるのでとても良い
+記事クリックで記事ページに遷移できたりします。
 
-以前から関連記事機能は実装していましたが、マップにするとそれらを視覚的に俯瞰できるので、改めて気付いたことがいくつかありました。
 
-マップを見る限り自分のブログのメインコンテンツとしては以下ですね。フロントエンド多めです。
+### 過去記事を視覚的に俯瞰できるのでとても良い
 
+以前から関連記事機能は実装していましたが、記事関連マップにすると俯瞰できるので、改めて気付いたことがありました。
+記事関連マップを見る限り自分のブログのメインコンテンツとしては以下ですね。フロントエンド多めです。
 * Gatsby(ちょっとReact)
 * Vue.js + AppSync
 * Angular
 
-
-まったく関連記事が存在しないも幾つかあることがわかります（Git,Vimあたり）。知識は点よりも線にしたほうが強みになるので、今後記事を書く際は、そこらへんの記事の関連線を増やしていく方向で学習を進めていきたいです。
-
-
-今は関連度をタグとキーワードの重み付けという簡素なロジックで測っていますが、今後は記事の中身を解析して詳細な関連度をだしたり、記事の傾向を見たりとう追加機能を実装していきたいです。あとはWordCloudを出すのみ楽しそうです。自作ブログはいろいろ自分の好きな機能を追加できるのが良いですね。
+また、まったく関連が存在しない記事も幾つかあることがわかります（Git,Vimあたり）。知識は点よりも線にしたほうが強みになるので、今後記事を書く際は、そこらへんの記事の関連線を増やしていく方向で学習を進めようと思います。
 
 
-## Cytoscape.js
+### 今後の予定
+今は関連度をタグとキーワードの重み付けという簡素なロジックで測っていますが、
+今後は記事本文を解析して詳細な関連度をだしたり、記事の傾向を解析する、WordCloudなどの機能を追加していきたいです。
 
-### 使ってみた感想
+## Cytoscape.jsを使ってみた感想
 
-Canvasで描画するので、オブジェクトのスタイル指定でCSSは使えません。
-若干もどかしい感じですが、CSSに似たプロパティをオブジェクトに指定しることでかなり細かい調整ができます。
+### 概要
 
-またオブジェクト毎にhover時、Click時、Mouseover時の挙動を指定できたりします。ここはjQueryっぽい実装です。
+公式ドキュメントは充実しているので実装方法に悩むことはありません。
+Canvasで描画するので、オブジェクトのスタイル指定でCSSは使えないのが若干もどかしいですが、CSSに似たプロパティ設定することで非常に細かいレイアウト調整ができます。
+またオブジェクト毎にイベント発火時（hover, click, mouseover, etc...）の処理を指定できます。こちらはjQueryっぽい実装です。
 
-サンプルが豊富で、拡張機能も多数存在します。ただjQuery依存の拡張機能もあったりして、今回はReactベースなのでいくつか採用をあきらめたものもあります。
 
-今回ZOOMボタンを拡張機能で担保しようとしましたが、jQuery依存だったので自前実装しました。実装が難しいというよりは、スタイルや細かい挙動など設定すべきプロパティが非常におおいので、結構めんどくさいです。
-公式ドキュメントは充実しているので、それを読めば実装方法がわからないということはありませんでした。
+### テーマ
 
-### react-cytoscope.jsハマりポイント
+公式サイトでは多くのサンプルが紹介されており、テーマもライブラリとして提供しています。
+テーマはインストールしてuseするだけで簡単に使えます。
 
-今回GatsbyでCytoscape.jsを使えるようにするため[react-cytoscope.js](https://github.com/plotly/react-cytoscapejs)を採用しました。
+
+```javascript:title=テーマの使い方
+import cytoscape from 'cytoscape';
+import coseBilkent from 'cytoscape-cose-bilkent';
+
+cytoscape.use( coseBilkent );
+```
+<br/>
+
+テーマごとに豊富なオプションが用意されており、以下のように調査できます。
+
+```jsx:title=テーマの調整
+<CytoscapeComponent
+  layout={{
+    name: 'cose-bilkent',
+    // Whether to include labels in node dimensions. Useful for avoiding label overlap
+    nodeDimensionsIncludeLabels: false,
+    // number of ticks per frame; higher is faster but more jerky
+    refresh: 30,
+    // Whether to fit the network view after when done
+    fit: true,
+    // Padding on fit
+    padding: 10,
+    // Whether to enable incremental mode
+    randomize: true,
+    // Node repulsion (non overlapping) multiplier
+    nodeRepulsion: 100000000,
+    // Ideal (intra-graph) edge length
+    idealEdgeLength: 700,
+    // Divisor to compute edge forces
+    edgeElasticity: 0.45,
+    // Nesting factor (multiplier) to compute ideal edge length for inter-graph edges
+    nestingFactor: 0.1,
+    // Gravity force (constant)
+    gravity: 0.20,
+    // Maximum number of iterations to perform
+    numIter: 2500,
+    // Whether to tile disconnected nodes
+    tile: true,
+    // Type of layout animation. The option set is {'during', 'end', false}
+    animate: 'end',
+    // Amount of vertical space to put between degree zero nodes during tiling (can also be a function)
+    tilingPaddingVertical: 400,
+    // Amount of horizontal space to put between degree zero nodes during tiling (can also be a function)
+    tilingPaddingHorizontal: 300,
+    // Gravity range (constant) for compounds
+    gravityRangeCompound: 1.5,
+    // Gravity force (constant) for compounds
+    gravityCompound: 1.0,
+    // Gravity range (constant)
+    gravityRange: 3.8,
+    // Initial cooling factor for incremental layout
+    initialEnergyOnIncremental: 0.5,
+  }}
+/>
+```
+<br/>
+
+
+### 拡張機能
+
+拡張機能も豊富です。ただ一部拡張機能はjQuery依存もあります。たとえば、ZOOM機能を提供する[cytoscape.js-panzoom](https://github.com/cytoscape/cytoscape.js-panzoom)などです。今回jQueryは使えないので（GatsbyでReactベースなので）、ZOOM機能は自前実装しましたが、スタイルや細かい挙動など設定項目が非常に多く、結構手間でした。
+
+
+### react-cytoscape.jsハマりポイント
+
+今回GatsbyでCytoscape.jsを使えるようにするため[react-cytoscape.js](https://github.com/plotly/react-cytoscapejs)を採用しました。
 ただ2点困ったことがありました・
 
 
 #### 1. wheelsensitivityが使えない
 本家ではwheelsensitivityというプロパティでマウスホイールでの拡大時の拡大率を調整できます。これを設定しないとマウスホイールで拡大したときに、いきなしめっちゃ拡大されて、自分が今どこにいるのかわからなくなります。それを防ぐために少しずつ拡大できるようにするためのプロパティです。
-
-ただコレreact-cytoscopeではサポートしていません。ので今回はwheelsensitivityの指定はあきらめました。
+ただコレreact-cytoscapeではサポートしていません。そのため今回はwheelsensitivityの指定はあきらめました。
 
 #### 2. Gatsbyビルド時にエラー
-`WebpackError: ReferenceError: window is not defined`というエラーが出ます。react-cytoscope.jsではwindowオブジェクトを直参照しており、Gatsbyのビルド時にWebpackに怒られます。Gatsbyではwindowオブジェクトを直参照できないようです。
+`WebpackError: ReferenceError: window is not defined`というエラーが出ます。react-cytoscape.jsではwindowオブジェクトを直参照しており、Gatsbyビルド時に、webpackに怒られます。Gatsbyではwindowオブジェクトを直参照できないようです。
 
-対策としては、[Gatsgyでイシュー](https://github.com/gatsbyjs/gatsby/issues/309#issuecomment-302043875)があがっており、そちらを参考にして、ライブラリの中身を直接書き換えました。
+対策は、[Gatsgyでイシュー](https://github.com/gatsbyjs/gatsby/issues/309#issuecomment-302043875)にもあがっており、そちらを参考にして、以下のようにライブラリの中身を直接書き換えました。
 
-* 対象ファイルはnode_modules\react-cytoscapejs\dist\react-cytoscape.js
-* 冒頭に`const windowGlobal = typeof window !== 'undefined' && window;`を追記
-* `window`を`windowGlobal `に置換
+* `node_modules\react-cytoscapejs\dist\react-cytoscape.js`を書き換えます。
+* `window`を`windowGlobal `に置換します
+* 冒頭に`const windowGlobal = typeof window !== 'undefined' && window;`を追記します
 
-これでビルドが通りデプロイ後の正常動作しました。ただ手動でやるのは無理やり感があるので、将来的にはnpmのpostinstallでライブラリの中身を書き換える
-スクリプトを追加したいと考えています。
+これでビルドできるようになりました。デプロイ後も正常動作します。ただ手動でやるのは無理やり感があるので、将来的にはnpmのpostinstallのスクリプトで書き換える方法を検討中です。
 
 
 ## まとめ
-今回は、記事関連マップの紹介と[Cytoscope.js](http://js.cytoscape.org/)を使ってみた感想をご紹介しました。
-Webで可視化したいという要件は割とある気がするので、そんなときはCytoscope.jsを使おうと思います。
-自作ブログは、色々自分好みにカスタマイズできるし、カスタマイズしたこと自体が知見として記事にできるので、はてなブログなどのブログプラットフォームにはない良さがあるなぁと改めて認識しました🍅
+今回は、記事関連マップの紹介と[Cytoscape.js](http://js.cytoscape.org/)を使ってみた感想をご紹介しました。
+業務でもWebアプリでデータを可視化したいという要件は割とある気がするので、そんなときはCytoscape.jsの導入を検討しようと思います🍅
