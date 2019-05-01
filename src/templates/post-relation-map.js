@@ -154,7 +154,7 @@ class PostRelationMapTemplate extends React.Component {
 
     const posts = this.props.pathContext.allPostRelations
 
-    const nodes = posts.flatMap(postRelation => {
+    const nodes = posts.map(postRelation => {
       const title = postRelation.node.fields.title.replace(/ /g,'')
       let devicedTitle;
       if(title.length > 25) {
@@ -211,14 +211,15 @@ class PostRelationMapTemplate extends React.Component {
       locked: true,
     })
 
-    const _edges = posts.flatMap(postRelation => {
-      return postRelation.relations.flatMap(({
+    const edges = [];
+    posts.forEach(postRelation => {
+      postRelation.relations.forEach(({
         details,
         node,
       }) =>
-        details.map(d => {
+        details.forEach(d => {
           const k = (d.weight / 30) * 1;  
-          return {
+          const newOne = {
              data: {
               source: postRelation.node.fields.slug,
               target: node.fields.slug,
@@ -228,26 +229,23 @@ class PostRelationMapTemplate extends React.Component {
               keyword: d.keyword,
             }
           }
+
+          // source-targetの重複を除く
+          const isContain = edges.some(b => {
+            const isSameConnection = (newOne.data.source === b.data.source && newOne.data.target === b.data.target) || (newOne.data.target === b.data.source && newOne.data.source === b.data.target)
+    
+            return isSameConnection
+              && newOne.data.width === b.data.width
+              && newOne.data.keyword === b.data.keyword
+          })
+    
+          if(!isContain) {
+            edges.push(newOne)
+          }
         })
       )
     })
 
-
-    // source-targetの重複を除く
-    const edges = [];
-    _edges.forEach(a => {
-      const isContain = edges.some(b => {
-        const isSameConnection = (a.data.source === b.data.source && a.data.target === b.data.target) || (a.data.target === b.data.source && a.data.source === b.data.target)
-
-        return isSameConnection
-          && a.data.width === b.data.width
-          && a.data.keyword === b.data.keyword
-      })
-
-      if(!isContain) {
-        edges.push(a)
-      }
-    })
 
     const elements = CytoscapeComponent.normalizeElements({
       nodes,
