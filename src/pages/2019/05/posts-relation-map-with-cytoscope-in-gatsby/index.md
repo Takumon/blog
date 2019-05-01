@@ -1,6 +1,6 @@
 ---
-title: 'GatsbyでCytoscape.jsを使って記事関連マップを作ってみた'
-date: '2019-05-01T21:00:00.000+09:00'
+title: 'GatsbyでCytoscape.jsを使って記事関連マップを作った'
+date: '2019-05-01T18:00:00.000+09:00'
 tags:
   - Gatsby
   - Cytoscape.js
@@ -13,19 +13,19 @@ thumbnail: /thumbnail/2019/05/posts-relation-map-with-cytoscape-in-gatsby.png
 ![](/thumbnail/2019/05/posts-relation-map-with-cytoscape-in-gatsby.png)
 
 ## なにこれ
-[以前紹介したタグとキーワードから関連記事を算出するロジック](https://takumon.com/gatsby-related-posts-like-hugo)と、[Cytoscape.js](http://js.cytoscape.org/)を用いて記事の関連情報を視覚的に確認できる記事関連マップを作りました。
-今回は記事関連マップの紹介とCytoscape.jsを使ってみた感想を記します。
+[以前の記事](https://takumon.com/gatsby-related-posts-like-hugo)で紹介した**タグとキーワードから関連記事を算出するロジック**と、[**Cytoscape.js**](http://js.cytoscape.org/)を用いて記事の関連情報を視覚的に確認できる記事関連マップを作りました。
+今回は記事関連マップの紹介とCytoscape.jsを使ってみた感想です。
 
 ## 記事関連マップ
 
 ### 使い方
 URL: https://takumon.com/map <br/>
-遷移方法: 一覧ページから遷移できます。 <br/>
+遷移方法: 一覧ページのCytoscapleアイコンから遷移できます。 <br/>
 ![](./map-link.png)
 <br/>
 
 
-記事のサムネイル画像が関連の線でつながっています。
+記事のサムネイル画像が、タグ・キーワードの関連線でつながっています。
 記事はドラッグ＆ドロップでグリグリ動かせます。
 ![](./map.png)
 
@@ -53,12 +53,17 @@ URL: https://takumon.com/map <br/>
 * Vue.js + AppSync
 * Angular
 
-また、まったく関連が存在しない記事も幾つかあることがわかります（Git,Vimあたり）。知識は点よりも線にしたほうが強みになるので、今後記事を書く際は、そこらへんの記事の関連線を増やしていく方向で学習を進めようと思います。
+また、まったく関連が存在しない記事も幾つかあることがわかります（Git,Vimあたり）。
+
+![](./no-relation-posts.png)
+<br/>
+
+知識は点よりも線にしたほうが強みになるので、今後記事を書く際は、そこらへんの記事の関連線を増やしていく方向で学習を進めようと思います。
 
 
 ### 今後の予定
-今は関連度をタグとキーワードの重み付けという簡素なロジックで測っていますが、
-今後は記事本文を解析して詳細な関連度をだしたり、記事の傾向を解析する、WordCloudなどの機能を追加していきたいです。
+現在、関連度算出はタグとキーワードの重み付けという非常に簡素なロジックです。
+今後は、記事本文を解析して関連度を詳細に出したり、記事の傾向を解析したり、WordCloudを出したりと色々機能追加できそうです。
 
 ## Cytoscape.jsを使ってみた感想
 
@@ -71,8 +76,8 @@ Canvasで描画するので、オブジェクトのスタイル指定でCSSは�
 
 ### テーマ
 
-公式サイトでは多くのサンプルが紹介されており、テーマもライブラリとして提供しています。
-テーマはインストールしてuseするだけで簡単に使えます。
+公式サイトでは多くのテーマが紹介されています。
+インストールしてuseするだけで簡単に使えます。
 
 
 ```javascript:title=テーマの使い方
@@ -135,31 +140,30 @@ cytoscape.use( coseBilkent );
 
 ### 拡張機能
 
-拡張機能も豊富です。ただ一部拡張機能はjQuery依存もあります。たとえば、ZOOM機能を提供する[cytoscape.js-panzoom](https://github.com/cytoscape/cytoscape.js-panzoom)などです。今回jQueryは使えないので（GatsbyでReactベースなので）、ZOOM機能は自前実装しましたが、スタイルや細かい挙動など設定項目が非常に多く、結構手間でした。
+拡張機能も豊富です。ただ一部jQuery依存の拡張機能もあります。たとえば、ズーム機能を提供する[cytoscape.js-panzoom](https://github.com/cytoscape/cytoscape.js-panzoom)などです。今回jQueryは使えないので（GatsbyでReactベースなので）、ズーム機能は自前実装しました。スタイルや細かい挙動など設定項目が非常に多く、結構手間なので自前実装はオススメしません。
 
 
 ### react-cytoscape.jsハマりポイント
 
-今回GatsbyでCytoscape.jsを使えるようにするため[react-cytoscape.js](https://github.com/plotly/react-cytoscapejs)を採用しました。
-ただ2点困ったことがありました・
+GatsbyでCytoscape.jsを使えるようにするため[react-cytoscape.js](https://github.com/plotly/react-cytoscapejs)を採用しました。
+ただ2点ハマりポイントがあったので紹介します。
 
 
 #### 1. wheelsensitivityが使えない
-本家ではwheelsensitivityというプロパティでマウスホイールでの拡大時の拡大率を調整できます。これを設定しないとマウスホイールで拡大したときに、いきなしめっちゃ拡大されて、自分が今どこにいるのかわからなくなります。それを防ぐために少しずつ拡大できるようにするためのプロパティです。
-ただコレreact-cytoscapeではサポートしていません。そのため今回はwheelsensitivityの指定はあきらめました。
+Cytoscape.jsは、wheelsensitivityというプロパティを指定すれば、マウスホイールで拡大・縮小する時の拡大率を調整できます。これを設定しないとマウスホイールで拡大したときに、急に拡大されて、自分が今どこにいるのかわからなくなります。wheelsensitivityを使えば拡大率を調整できるので、それを防ぐことができます。
+ただコレreact-cytoscapeではサポートしていません。そのため今回は拡大率調整を断念しました。
 
 #### 2. Gatsbyビルド時にエラー
 `WebpackError: ReferenceError: window is not defined`というエラーが出ます。react-cytoscape.jsではwindowオブジェクトを直参照しており、Gatsbyビルド時に、webpackに怒られます。Gatsbyではwindowオブジェクトを直参照できないようです。
 
-対策は、[Gatsgyでイシュー](https://github.com/gatsbyjs/gatsby/issues/309#issuecomment-302043875)にもあがっており、そちらを参考にして、以下のようにライブラリの中身を直接書き換えました。
+対策は[GatsgyのIssue](https://github.com/gatsbyjs/gatsby/issues/309#issuecomment-302043875)にもあがっており、以下のようにライブラリの中身を直接書き換えました。
 
 * `node_modules\react-cytoscapejs\dist\react-cytoscape.js`を書き換えます。
 * `window`を`windowGlobal `に置換します
 * 冒頭に`const windowGlobal = typeof window !== 'undefined' && window;`を追記します
 
-これでビルドできるようになりました。デプロイ後も正常動作します。ただ手動でやるのは無理やり感があるので、将来的にはnpmのpostinstallのスクリプトで書き換える方法を検討中です。
+これでビルドが通ります。ただ手動でやるのは無理やり感があるので、npmのpostinstallのスクリプトで書き換える方法を検討中です。
 
 
 ## まとめ
-今回は、記事関連マップの紹介と[Cytoscape.js](http://js.cytoscape.org/)を使ってみた感想をご紹介しました。
-業務でもWebアプリでデータを可視化したいという要件は割とある気がするので、そんなときはCytoscape.jsの導入を検討しようと思います🍅
+今回は、記事関連マップの紹介と[Cytoscape.js](http://js.cytoscape.org/)の使用感をご紹介しました。業務でもWebアプリでデータを可視化したいという要件は割とある気がするので、そんなときはCytoscape.jsの導入を検討しようと思います🍅
