@@ -156,7 +156,7 @@ Cytoscape.jsは、wheelsensitivityというプロパティを指定すれば、�
 #### 2. Gatsbyビルド時にエラー
 `WebpackError: ReferenceError: window is not defined`というエラーが出ます。react-cytoscape.jsではwindowオブジェクトを直参照しており、Gatsbyビルド時に、webpackに怒られます。Gatsbyではwindowオブジェクトを直参照できないようです。
 
-対策は[GatsgyのIssue](https://github.com/gatsbyjs/gatsby/issues/309#issuecomment-302043875)にもあがっており、以下のようにライブラリの中身を直接書き換えました。
+対策は[GatsbyのIssue](https://github.com/gatsbyjs/gatsby/issues/309#issuecomment-302043875)にもあがっており、以下のようにライブラリの中身を直接書き換えました。
 
 * `node_modules\react-cytoscapejs\dist\react-cytoscape.js`を書き換えます。
 * `window`を`windowGlobal `に置換します
