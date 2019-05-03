@@ -1,5 +1,5 @@
 ---
-title: 'kuromoji.js + D3-Cloud + Node.jsでWordCloudを作る'
+title: 'Node.js + kuromoji.js + D3-CloudでWordCloudを作る'
 date: '2019-05-04T21:00:00.000+09:00'
 tags:
   - Node.js
