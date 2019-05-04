@@ -65,7 +65,7 @@ https://github.com/Takumon/playbox2019/blob/master/node-kuromoji-d3cloud-sample/
 kuromoji.jsによるデータ加工については[前回記事のReactアプリ](/wordcloud-with-kuromoji-d3cloud-react#1-文章を解析して単語出現回数をデータ化-1)と同様です。
 今回はブラウザではなくNode.jsで動かすのでkuromoji.jsの辞書はnode_modules配下から移動する必要はありません。
 
-```javascript
+```javascript:title=kuromoji.jsによる解析処理
 const kuromoji = require('kuromoji')
 
 
@@ -159,8 +159,7 @@ D3-Cloudでは解析情報に以下を追加するだけです。
 
 なおD3-CloudはbodyタグかCanvasが必須なので、今回は[node-canvas](https://github.com/Automattic/node-canvas)を使います。
 
-
-```javascript:title=kuromoji.jsによる解析からD3-Cloudによるデータ加工まで
+```javascript:title=D3-Cloudによる解析処理
 const cloud = require('d3-cloud')
 // Node.jsでCanvasをエミュレートするためnode-canvasを使う
 const { createCanvas } = require('canvas')
