@@ -1,6 +1,6 @@
 ---
 title: 'Node.js + kuromoji.js + D3-CloudでWordCloudの画像を出力'
-date: '2019-05-04T21:00:00.000+09:00'
+date: '2019-05-05T12:00:00.000+09:00'
 tags:
   - Node.js
   - kuromoji.js
@@ -17,19 +17,55 @@ thumbnail: /thumbnail/2019/05/wordcloud-with-kuromoji-d3cloud-nodejs.png
 ![](/thumbnail/2019/05/wordcloud-with-kuromoji-d3cloud-nodejs.png)
 
 ## なにこれ
-[前回記事](/wordcloud-with-kuromoji-d3cloud-react)ではReactでWordCloudを出力できるようになりましたが、実際は、過去大量データから出力するようなツールとして使えたほうが便利です。
-そこで[前回をサンプル](https://github.com/Takumon/playbox2019/blob/master/react-kuromoji-sample/src/App.js)をベースにNode.jsだけでWordCloudのSVGファイルを出力できるようなツールを作成しました。
-今回はそのツールの実装方法といくつかハマったポイントがあるので、そちらをご紹介します。
+[前回記事](/wordcloud-with-kuromoji-d3cloud-react)ではReactでWordCloudを出力しました。しかし実際は、過去大量データから出力するようなツールとして使えたほうが便利です。
+そこで[前回のサンプル](https://github.com/Takumon/playbox2019/blob/master/react-kuromoji-sample/src/App.js)をベースにNode.jsでWordCloudのSVGファイルを出力するサンプルを作成しました。
+今回はサンプルの実装方法と、いくつかハマったポイントがあるので、そちらをご紹介します。
 
-※サンプルコードは以下に置いております。
+※サンプルは以下に置いております。
 https://github.com/Takumon/playbox2019/blob/master/node-kuromoji-d3cloud-sample/index.js
 
-## 工夫
+## 処理手順
 
-kuromoji.jsによりデータ加工についてはReactアプリの時と同様です。
+以下4ステップです。
+
+1. kuromoji.jsで文章を解析して単語出現回数をデータ化
+2. D3-Cloudで上記データに以下情報追加
+   1. フォントの大きさ
+   2. フォントの回転位置
+   3. フォントの種類
+   4. 表示位置
+3. d3.jsで配色を決定SVGを**仮想DOM**に出力
+4. SVGをファイル出力
+
+## ハマりポイント
+
+### 1:D3-Cloud + Canvasだけでは不十分なのでd3.jsを使う
+
+最初は、D3-CloudがCanvasを使えるので、node-canvasを使えばNode.jsでもReactの時と同じように画像を生成できるのでは？と考えたのですが、やってみるとうまくいきません。以下のような画像が出力されます。
+
+![](./wordcloud-by-canvas.png)
+
+そのためD3-Cloud + Canvasオンリーの組み合わせはあきらめて、
+[react-d3-cloud](https://github.com/Yoctol/react-d3-cloud)の内部実装と同じようにd3.jsを使ってSVGに出力するような処理を実装しました。
+
+### 2:DOMエミュレート用にnode-canvasとjsdomを使う
+
+[d3.js](https://github.com/d3/d3)は、ブラウザ上での動作を前提としているためDOMが必要です。Node.jsでDOMをエミュレートするために[jsdom](https://github.com/jsdom/jsdom)を使いました。<br/>
+[D3-Cloud](https://github.com/jasondavies/d3-cloud)も同様にCanvasの指定が必須です。
+そのためCanvasをエミュレートする[node-canvas](https://github.com/Automattic/node-canvas)を使いました。
 
 
-```javascript:title=kuromoji.jsによる解析からD3-Cloudによるデータ加工まで
+## 実装
+
+ハマりポイントを踏まえたうえで4ステップごとに実装方法を説明します。
+
+
+### 1. kuromoji.jsで文章を解析して単語出現回数をデータ化
+
+kuromoji.jsによりデータ加工については[前回記事のReactアプリ](/wordcloud-with-kuromoji-d3cloud-react#1-文章を解析して単語出現回数をデータ化-1)と同様です。
+今回はブラウザではなくNode.jsで動かすのでkuromoji.jsの辞書はnode_modules配下から移動する必要はありません。
+
+```javascript
 const kuromoji = require('kuromoji')
 
 
@@ -54,6 +90,7 @@ const NO_CONTENT = '*'
 
 async function main() {
 
+  // kuromoji.jsによる解析処理
   const words = await new Promise((resolve, reject) => {
     // 辞書を読み混んでトークナイザー（形態素解析するための関数）を生成
     kuromoji.builder({ dicPath: DIC_URL }).build((err, tokenizer) => {
@@ -86,8 +123,13 @@ async function main() {
 
 
   // D3-Cloudによる解析処理
+  // (略)
 
   // d3.jsによる描画処理
+  // (略)
+
+  // SVGファイル出力処理
+  // (略)
 }
 
 main()
@@ -95,8 +137,28 @@ main()
 <br/>
 
 
+これで以下のような情報が得られます。
+```javascript
+[ 
+  {
+    text: '相違', // 単語
+    size: 19, // 出現回数
+  },
+]
+```
+<br/>
 
-今回は単語ごとの出現回数のデータをもとにNode.jsでどうやってWordCloudの画像を出力するかについて説明します。
+### 2. D3-Cloudで上記データに以下情報追加
+
+D3-Cloudでは解析情報に以下を追加するだけです。
+* フォントの回転位置 ☚自分で定義
+* フォントの重み ☚自分で定義
+* フォントの大きさ ☚自分で定義
+* フォントの種類 ☚自分で定義
+* 表示位置 ☚D3-Cloudが定義してくれる
+
+なおD3-CloudはbodyタグのDOMか、Canvasを必要とするので、今回は[node-canvas](https://github.com/Automattic/node-canvas)を使います。
+
 
 ```javascript:title=kuromoji.jsによる解析からD3-Cloudによるデータ加工まで
 const cloud = require('d3-cloud')
@@ -114,7 +176,9 @@ const h = 1000
 async function main() {
 
   // kuromoji.jsによる解析処理
+  // (略)
 
+  // D3-Cloudによる解析処理
   // D3-Cloudの解析によってwordsForCloudには
   // 出現回数の他にフォントの回転位置、大きさ、重み、種類が追加された状態になる
   const wordsForCloud = await new Promise(resolve => {
@@ -138,17 +202,53 @@ async function main() {
   })
 
   // d3.jsによる描画処理
+  // (略)
+
+  // SVGファイル出力処理
+  // (略)
 }
 
 main()
 ```
+<br/>
 
-TODO D3-Cloudによる解析結果の各プロパティを列挙
+これで以下のような情報が得られます。
+```javascript
+[
+  { 
+    text: '相違',
+    size: 19,
+    // D3-Cloudによって追加された情報
+    font: 'meiryo',
+    style: 'normal',
+    weight: 19.952623149688797,
+    rotate: 90,
+    padding: 1,
+    width: 64,
+    height: 59,
+    xoff: 192,
+    yoff: 957,
+    x1: 32,
+    y1: 28,
+    x0: -32,
+    y0: -22,
+    hasText: true,
+    x: -199,
+    y: 294 
+  },
+}
+```
+<br/>
 
-で最終的にd3.jsでjsdomにSVGを描画して、それをファイル出力します。
+
+### 3. d3.jsで配色を決定SVGを**仮想DOM**に出力
+
+D3-Cloudの情報にさらに文字色や配置情報を追加してSVGを仮想DOM上に出力します。
+仮想DOMはjsdomを使って生成します。<br/>
+今回フォント色のテーマは[schemeCategory10]()を使っています。他にもいろいろテーマがあるようです。<br/>
+参考：[D3.js v5 カラーテーマまとめ (d3-scale-chromatic) – データビジュアライゼーション・ラボ](https://wizardace.com/d3v5-scale-chromatic/)
 
 ```javascript:title=d3.jsによるSVG描画処理
-const fs = require('fs')
 const d3 = require('d3')
 const { JSDOM } = require("jsdom")
 
@@ -165,9 +265,12 @@ const h = 1000
 async function main() {
 
   // kuromoji.jsによる形態素解析
+  // (略)
 
   // D3-Cloudによる解析処理
+  // (略)
 
+  // d3.jsによるSVG描画処理
   // 仮想DOMのbodyタグを指定
   d3.select(document.body)
     // SVG形式で仮想DOMに描画
@@ -189,7 +292,7 @@ async function main() {
       // フォントの大きさは解析結果通りに指定
       .style('font-size', d => `${d.size}px`)
       // フォントの種類は解析結果通りに指定
-      .style('font-family', d => d.XX)
+      .style('font-family', d => d.font)
       // フォントの配色は、schemeCategory10を指定
       .style('fill', (d, i) => d3.schemeCategory10[i % 10])
       // テキストの真ん中を表示位置のポイントに指定
@@ -199,56 +302,58 @@ async function main() {
       // 単語は解析結果通りに指定
       .text(d => d.text)
 
-    // 仮想DOMに描画されたSVGをファイル出力
-    fs.writeFileSync('wordcloud.svg', document.body.innerHTML)
+    // SVGファイル出力処理
+    // (略)
 }
 
 main()
 ```
+<br/>
 
-TODO kuromoji.jsの解析とD3-Cloudの解析はパートを分ける
-TODO フォント種類は、解析結果通りでいけるか試す。あと解析結果のフォントの種類のプロパティ名が不明
-TODO 位置と回転位置はD3-Cloudの解析結果通り？
+### 4. SVGをファイル出力
 
+仮想DOMに描画したSVGをファイル出力します。
 
-## ハマりポイント
+```javascript:title=d3.jsによるSVG描画処理
+const fs = require('fs')
 
+async function main() {
 
-### D3-Cloud + Canvasでは不十分
+  // kuromoji.jsによる形態素解析
+  // (略)
 
-最初は、D3-CloudがCanvasを使えるので、node-canvasを使えばNode.jsでもReactの時と同じように画像を生成できるのでは？と考えたのですが、実際D3-Cloudだけだと、
+  // D3-Cloudによる解析処理
+  // (略)
 
-* フォントの大きさ
-* フォントの回転位置
-* フォントの種類
+  // d3.jsによるSVG描画処理
+  // (略)
 
-しか定義していないので、やってみると以下のような画像になりました。
+  // 仮想DOMに描画されたSVGをファイル出力
+  fs.writeFileSync('wordcloud.svg', document.body.innerHTML)
+}
 
-![](./wordcloud-by-using-canvas.png)
-
-
-Reactの時にうまくいっていたのは、はreact-d3-cloudが
-
-* フォントの色
-* フォントのスタイル
-* 表示位置
-
-をよしなり決めてくれたからです。今回はそれを自前実装しないとうまくいきません。
-そのためD3-Cloud + Canvasオンリーの組み合わせはあきらめて、
-ract-d3-cloudの内部実装と同じようにd3.jsを使ってSVGに出力するような処理を実装しました。
-
-#### D3-Cloudでnode-canvasは必要
-
-さて、結局d3.jsを使ってWordCloudを表示するなら、
-D3-Cloudの責務はデータ加工（単語の出現回数に、フォントの大きさ、回転位置、種類を追加）に限定されるなのでnode-canvasは不要かなと思いました。がCanvas指定抜きで実行するとD3-Cloudに描画する場所がないと怒られます。
-D3-CloudはCanvasを指定するか、指定しない場合はDOMがあることを前提とした処理になっているからです。
-そのため、結局ムダになりますがCanvasの指定は必須であることがわかりました。
-しかたなく以下のような実装にしています。
-
-```javascript:title=D3-Cloud実行時にnode-canvasを指定する
+main()
 ```
+<br/>
 
+すると以下のようなファイルが出力されます。
+```html:SVGファイルの中身
+<svg class="ui fluid image" viewBox="0 0 1600 1000" width="100%" height="100%">
+  <g transform="translate(800,500)">
+    <text style="font-size: 466px; font-family: meiryo; fill: #1f77b4;" transform="translate(48, 35)rotate(0)" text-anchor="middle">ある</text>
+    <text style="font-size: 269px; font-family: meiryo; fill: #ff7f0e;" transform="translate(460, 15)rotate(90)" text-anchor="middle">よう</text><text style="font-size: 245px; font-family: meiryo; fill: #2ca02c;" transform="translate(-263, -290)rotate(0)" text-anchor="middle">云う</text>
+    <text style="font-size: 191px; font-family: meiryo; fill: #d62728;" transform="translate(-265, 193)rotate(0)" text-anchor="middle">それ</text>
+   ・
+   ・
+   ・
+  </g>
+</svg>
+```
+<br/>
 
+描画すると以下のようになります。
+
+![](./wordcloud.png)
 
 
 ## まとめ
@@ -257,7 +362,3 @@ WordCloud生成をNode.jsのツールとして実行できるようになりま�
 今回の実装で、ブラウザ処理はnode-canvasとjsdomを使えばNode.jsでも再現できることがわかったので、いろんな場面で応用できそうです。
 次は本ツールを用いて自分のブログのWordCloudを生成してみようと思います🍅
 
-
-## 参考
-
-* [D3.js v5 カラーテーマまとめ (d3-scale-chromatic) – データビジュアライゼーション・ラボ](https://wizardace.com/d3v5-scale-chromatic/)
