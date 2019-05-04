@@ -71,7 +71,6 @@ WordCloudは文章をインプットにして画像をアウトプットしま�
 * フォントの回転位置
 * フォントの種類
 * フォントの色
-* フォントのスタイル
 * 表示位置
 
 大体のWordCloud系ライブラリは出現回数が多い単語を大きく中心に配置し、
@@ -249,14 +248,15 @@ export default App;
 2. フォントの回転位置・・・・☚コンポーネントで定義した👍
 3. フォントの種類・・・・・・☚コンポーネントで定義した👍
 4. フォントの色・・・・・・・☚コンポーネントで定義してない🤔
-5. フォントのスタイル・・・・☚コンポーネントで定義してない🤔
-6. 表示位置・・・・・・・・・☚コンポーネントで定義してない🤔
+5. 表示位置・・・・・・・・・☚コンポーネントで定義してない🤔
 
-4～6どうやって決めるのでしょうか？
-実は4～6はライブラリ内部でよしなり定義してくれています。
+`4`,`5`どうやって決めるのでしょうか？
+実は`4`はreact-d3-cloud内部でよしなり定義してくれていて、
+`5`はD3-Cloudがイイ感じに決めてくれています。
 
-[**↓react-d3-cloud内部ロジック：WordCloud.js#L91-L93**](https://github.com/Yoctol/react-d3-cloud/blob/master/src/WordCloud.js#L91-L93)
-```javascript{numberLines: 68}{24-26}
+
+[**↓react-d3-cloud内部ロジック 色定義：WordCloud.js#L91**](https://github.com/Yoctol/react-d3-cloud/blob/master/src/WordCloud.js#L91)
+```javascript{numberLines: 68}{24}
    const layout = cloud()
       .size([width, height])
       .font(font)
@@ -287,6 +287,35 @@ export default App;
 ```
 <br/>
 
+
+[**↓D3-Cloud内部ロジック 表示位置定義：d3.layout.cloud.js#L59-L73**](https://github.com/jasondavies/d3-cloud/blob/master/build/d3.layout.cloud.js#L59-L73
+)
+```javascript{numberLines: 57}{3-17}
+    function step() {
+      var start = Date.now();
+      while (Date.now() - start < timeInterval && ++i < n && timer) {
+        var d = data[i];
+        d.x = (size[0] * (random() + .5)) >> 1;
+        d.y = (size[1] * (random() + .5)) >> 1;
+        cloudSprite(contextAndRatio, d, data, i);
+        if (d.hasText && place(board, d, bounds)) {
+          tags.push(d);
+          event.call("word", cloud, d);
+          if (bounds) cloudBounds(bounds, d);
+          else bounds = [{x: d.x + d.x0, y: d.y + d.y0}, {x: d.x + d.x1, y: d.y + d.y1}];
+          // Temporary hack
+          d.x -= size[0] >> 1;
+          d.y -= size[1] >> 1;
+        }
+      }
+      if (i >= n) {
+        cloud.stop();
+        event.call("end", cloud, tags, bounds);
+      }
+    }
+  }
+```
+<br/>
 
 これによって以下のようなイイ感じのWordCloudを出力することができるのですね。
 ![](./wordcloud-sample.png)
