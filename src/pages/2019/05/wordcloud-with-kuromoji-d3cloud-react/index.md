@@ -1,6 +1,6 @@
 ---
-title: 'React + kuromoji.js + D3-CloudでWordCloudを作る'
-date: '2019-05-03T21:00:00.000+09:00'
+title: 'React + kuromoji.js + D3-CloudでWordCloudをブラウザに描画'
+date: '2019-05-04T12:40:00.000+09:00'
 tags:
   - React
   - kuromoji.js
@@ -252,7 +252,7 @@ export default App;
 5. フォントのスタイル・・・・☚コンポーネントで定義してない🤔
 6. 表示位置・・・・・・・・・☚コンポーネントで定義してない🤔
 
-4～6どうやって決めるのでしょうか?
+4～6どうやって決めるのでしょうか？
 実は4～6はライブラリ内部でよしなり定義してくれています。
 
 [**↓react-d3-cloud内部ロジック：WordCloud.js#L91-L93**](https://github.com/Yoctol/react-d3-cloud/blob/master/src/WordCloud.js#L91-L93)
