@@ -1,6 +1,6 @@
 ---
 title: 'Node.js + kuromoji.js + D3-CloudでWordCloudの画像を出力'
-date: '2019-05-05T12:00:00.000+09:00'
+date: '2019-05-04T18:00:00.000+09:00'
 tags:
   - Node.js
   - kuromoji.js
@@ -19,7 +19,7 @@ thumbnail: /thumbnail/2019/05/wordcloud-with-kuromoji-d3cloud-nodejs.png
 ## なにこれ
 [前回記事](/wordcloud-with-kuromoji-d3cloud-react)ではReactでWordCloudを出力しました。しかし実際は、過去大量データから出力するようなツールとして使えたほうが便利です。
 そこで[前回のサンプル](https://github.com/Takumon/playbox2019/blob/master/react-kuromoji-sample/src/App.js)をベースにNode.jsでWordCloudのSVGファイルを出力するサンプルを作成しました。
-今回はサンプルの実装方法と、いくつかハマったポイントがあるので、そちらをご紹介します。
+今回はサンプルの実装方法をポイントと合わせてご紹介します。
 
 ※サンプルは以下に置いております。
 https://github.com/Takumon/playbox2019/blob/master/node-kuromoji-d3cloud-sample/index.js
@@ -34,21 +34,21 @@ https://github.com/Takumon/playbox2019/blob/master/node-kuromoji-d3cloud-sample/
    2. フォントの回転位置
    3. フォントの種類
    4. 表示位置
-3. d3.jsで配色を決定SVGを**仮想DOM**に出力
+3. d3.jsで配色を決定しSVGを**仮想DOM**に描画
 4. SVGをファイル出力
 
-## ハマりポイント
+## 実装のポイント
 
-### 1:D3-Cloud + Canvasだけでは不十分なのでd3.jsを使う
+### 1. D3-Cloud + Canvasだけでは不十分なのでd3.jsを使う
 
-最初は、D3-CloudがCanvasを使えるので、node-canvasを使えばNode.jsでもReactの時と同じように画像を生成できるのでは？と考えたのですが、やってみるとうまくいきません。以下のような画像が出力されます。
+最初は、D3-CloudでCanvasを使えるので、[node-canvas](https://github.com/Automattic/node-canvas)を使えばNode.jsでも画像を生成できるのでは？と考えたのですが、やってみるとうまくいきません。以下のような画像が出力されます。
 
 ![](./wordcloud-by-canvas.png)
 
-そのためD3-Cloud + Canvasオンリーの組み合わせはあきらめて、
-[react-d3-cloud](https://github.com/Yoctol/react-d3-cloud)の内部実装と同じようにd3.jsを使ってSVGに出力するような処理を実装しました。
+そのためD3-Cloud + Canvasだけの組み合わせはあきらめて、
+[react-d3-cloud](https://github.com/Yoctol/react-d3-cloud)の内部実装と同じようにd3.jsを使ってSVGを描画して、そこからファイル出力処理するようにしました。
 
-### 2:DOMエミュレート用にnode-canvasとjsdomを使う
+### 2. DOMエミュレート用にnode-canvasとjsdomを使う
 
 [d3.js](https://github.com/d3/d3)は、ブラウザ上での動作を前提としているためDOMが必要です。Node.jsでDOMをエミュレートするために[jsdom](https://github.com/jsdom/jsdom)を使いました。<br/>
 [D3-Cloud](https://github.com/jasondavies/d3-cloud)も同様にCanvasの指定が必須です。
@@ -57,12 +57,12 @@ https://github.com/Takumon/playbox2019/blob/master/node-kuromoji-d3cloud-sample/
 
 ## 実装
 
-ハマりポイントを踏まえたうえで4ステップごとに実装方法を説明します。
+ポイントを踏まえたうえで4ステップごとに実装方法を説明します。
 
 
 ### 1. kuromoji.jsで文章を解析して単語出現回数をデータ化
 
-kuromoji.jsによりデータ加工については[前回記事のReactアプリ](/wordcloud-with-kuromoji-d3cloud-react#1-文章を解析して単語出現回数をデータ化-1)と同様です。
+kuromoji.jsによるデータ加工については[前回記事のReactアプリ](/wordcloud-with-kuromoji-d3cloud-react#1-文章を解析して単語出現回数をデータ化-1)と同様です。
 今回はブラウザではなくNode.jsで動かすのでkuromoji.jsの辞書はnode_modules配下から移動する必要はありません。
 
 ```javascript
@@ -157,7 +157,7 @@ D3-Cloudでは解析情報に以下を追加するだけです。
 * フォントの種類 ☚自分で定義
 * 表示位置 ☚D3-Cloudが定義してくれる
 
-なおD3-CloudはbodyタグのDOMか、Canvasを必要とするので、今回は[node-canvas](https://github.com/Automattic/node-canvas)を使います。
+なおD3-CloudはbodyタグかCanvasが必須なので、今回は[node-canvas](https://github.com/Automattic/node-canvas)を使います。
 
 
 ```javascript:title=kuromoji.jsによる解析からD3-Cloudによるデータ加工まで
@@ -171,7 +171,6 @@ const w = 1600
 // Canvasの高さ(px)
 const h = 1000
 
-`
 
 async function main() {
 
@@ -241,11 +240,11 @@ main()
 <br/>
 
 
-### 3. d3.jsで配色を決定SVGを**仮想DOM**に出力
+### 3. d3.jsで配色を決定しSVGを**仮想DOM**に描画
 
-D3-Cloudの情報にさらに文字色や配置情報を追加してSVGを仮想DOM上に出力します。
-仮想DOMはjsdomを使って生成します。<br/>
-今回フォント色のテーマは[schemeCategory10]()を使っています。他にもいろいろテーマがあるようです。<br/>
+D3-Cloudの解析情報に文字色や配置情報を追加してSVGを仮想DOM上に描画します。
+仮想DOMは[jsdom](https://github.com/jsdom/jsdom)を使って生成します。<br/>
+フォント色のテーマは`schemeCategory10`を使いました。他にもいろいろテーマがあるようです。<br/>
 参考：[D3.js v5 カラーテーマまとめ (d3-scale-chromatic) – データビジュアライゼーション・ラボ](https://wizardace.com/d3v5-scale-chromatic/)
 
 ```javascript:title=d3.jsによるSVG描画処理
@@ -255,10 +254,10 @@ const { JSDOM } = require("jsdom")
 // 仮想documentオブジェクトを生成
 const document = new JSDOM(`<body></body>`).window.document
 
-// WordCloud描画領域の幅(px)
+// WordCloud描画領域の幅(px) ※Canvasのやつを使いまわし
 const w = 1600
 
-// WordCloud描画領域の高さ(px)
+// WordCloud描画領域の高さ(px) ※Canvasのやつを使いまわし
 const h = 1000
 
 
@@ -356,9 +355,10 @@ main()
 ![](./wordcloud.png)
 
 
+
 ## まとめ
 
-WordCloud生成をNode.jsのツールとして実行できるようになりました。
+Node.jsでWordCloudのSVGファイルを出力する方法についてご紹介しました。
 今回の実装で、ブラウザ処理はnode-canvasとjsdomを使えばNode.jsでも再現できることがわかったので、いろんな場面で応用できそうです。
-次は本ツールを用いて自分のブログのWordCloudを生成してみようと思います🍅
+次回は、今回の実装をベースにして自分のブログのWordCloudを生成してみようと思います🍅
 
