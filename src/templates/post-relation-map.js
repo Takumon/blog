@@ -152,7 +152,27 @@ class PostRelationMapTemplate extends React.Component {
       },
     ]
 
-    const posts = this.props.pathContext.allPostRelations
+    const { 
+      allPostRelations: posts,
+      wordCloudText,
+      wordCloudTag,
+    } = this.props.pathContext
+
+    const wordCloudTextSvg = <div
+      dangerouslySetInnerHTML={{__html: wordCloudText}}
+      style={{
+        width: 1200,
+        height: 630,
+      }}
+    />
+
+    const wordCloudTagSvg = <div
+      dangerouslySetInnerHTML={{__html: wordCloudTag}}
+      style={{
+        width: 1200,
+        height: 630,
+      }}
+    />
 
     const nodes = posts.map(postRelation => {
       const title = postRelation.node.fields.title.replace(/ /g,'')
@@ -267,11 +287,48 @@ class PostRelationMapTemplate extends React.Component {
 
     return (
       <Layout location={this.props.location}>
+        
         <h2 style={{
           width: '90%',
           marginLeft: 'auto',
           marginRight: 'auto',
-        }}>記事関連度マップ</h2>
+        }}>WordCloud</h2>
+        <div style={{
+          width: '90%',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          marginBottom: '64px',
+        }}>
+          記事本文とタグをインプットにしてWordCloudを作成しました。
+        </div>
+
+        <div style={{
+          width: '90%',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          marginBottom: '64px',
+        }}>
+          {wordCloudTagSvg}
+        </div>
+
+        <div style={{
+          width: '90%',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          marginBottom: '64px',
+        }}>
+          {wordCloudTextSvg}
+        </div>
+
+
+
+        <h2 style={{
+          width: '90%',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}>
+          記事関連度マップ
+        </h2>
         <div style={{
           width: '90%',
           marginLeft: 'auto',
