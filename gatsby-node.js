@@ -34,215 +34,220 @@ exports.createPages = ({ graphql, actions }) => {
     const tagPage =  path.resolve('./src/templates/tags.js');
     const postRelationMapPage = path.resolve('./src/templates/post-relation-map.js');
 
-    resolve(
-      graphql(
-        `
-          {
-            allMarkdownRemark(sort: { fields: [fields___date], order: DESC }, limit: 1000) {
-              edges {
-                node {
-                  html
-                  fields {
-                    slug
-                    title
-                    date
-                    excerpt
-                    tags
-                    keywords
-                    thumbnail
-                  }
-                }
-              }
-            }
-            allQiitaPost(sort: { fields: [fields___date], order: DESC }, limit: 1000) {
-              edges {
-                node {
-                  fields {
-                    slug
-                    title
-                    date
-                    excerpt
-                    tags
-                    keywords
-                    thumbnail
-                  }
-                  id
+    graphql(
+      `
+        {
+          allMarkdownRemark(sort: { fields: [fields___date], order: DESC }, limit: 1000) {
+            edges {
+              node {
+                html
+                fields {
+                  slug
                   title
-                  rendered_body
-                  body
-                  comments_count
-                  created_at
-                  likes_count
-                  reactions_count
+                  date
+                  excerpt
+                  tags
+                  keywords
+                  thumbnail
                 }
               }
             }
           }
-        `
-      ).then(result => {
-        if (result.errors) {
-          console.log(result.errors)
-          reject(result.errors)
+          allQiitaPost(sort: { fields: [fields___date], order: DESC }, limit: 1000) {
+            edges {
+              node {
+                fields {
+                  slug
+                  title
+                  date
+                  excerpt
+                  tags
+                  keywords
+                  thumbnail
+                }
+                id
+                title
+                rendered_body
+                body
+                comments_count
+                created_at
+                likes_count
+                reactions_count
+              }
+            }
+          }
         }
+      `
+    ).then(result => {
+      if (result.errors) {
+        console.log(result.errors)
+        reject(result.errors)
+      }
 
 
-        // オリジナル記事とQiitaの記事を1つのリストにする
-        const originalPosts = result.data.allMarkdownRemark.edges.map(p => {
-          return {
-            type: POST_TYPE.ORIGINAL,
-            date: new Date(p.node.fields.date),
-            node: p.node
-          }
-        })
+      // オリジナル記事とQiitaの記事を1つのリストにする
+      const originalPosts = result.data.allMarkdownRemark.edges.map(p => {
+        return {
+          type: POST_TYPE.ORIGINAL,
+          date: new Date(p.node.fields.date),
+          node: p.node
+        }
+      })
 
-        const qiitaPosts = result.data.allQiitaPost.edges.map(p => {
-          return {
-            type: POST_TYPE.QIITA,
-            date: new Date(p.node.fields.date),
-            node: p.node
-          }
-        })
+      const qiitaPosts = result.data.allQiitaPost.edges.map(p => {
+        return {
+          type: POST_TYPE.QIITA,
+          date: new Date(p.node.fields.date),
+          node: p.node
+        }
+      })
 
-        const posts = [...originalPosts, ...qiitaPosts].sort((a,b) => {
-          if( a.date < b.date ) return 1
-          if( a.date > b.date ) return -1
-          return 0
-        })
+      const posts = [...originalPosts, ...qiitaPosts].sort((a,b) => {
+        if( a.date < b.date ) return 1
+        if( a.date > b.date ) return -1
+        return 0
+      })
 
-        const allPostNodes = _.map(posts, ({node}) => node)
+      const allPostNodes = _.map(posts, ({node}) => node)
 
 
-        // 記事詳細ページ生成
-        _.each(posts, ({type, node}, index) => {
+      // 記事詳細ページ生成
+      _.each(posts, ({type, node}, index) => {
 
-          // 最大5つ関連記事を取得
-          const relatedPosts = relatedPost.extractRelatedPosts(allPostNodes, node, relatedPost.defaultConfig).slice(0,5)
-          const latestPosts = allPostNodes.slice(0,5)
+        // 最大5つ関連記事を取得
+        const relatedPosts = relatedPost.extractRelatedPosts(allPostNodes, node, relatedPost.defaultConfig).slice(0,5)
+        const latestPosts = allPostNodes.slice(0,5)
 
+        if (type === POST_TYPE.ORIGINAL) {
+          createPage({
+            path: node.fields.slug,
+            component: blogPost,
+            context: {
+              slug: node.fields.slug,
+              relatedPosts,
+              latestPosts,
+              ...previouseAndNext(posts, index)
+            },
+          })
+
+        } else if (type === POST_TYPE.QIITA) {
+          createPage({
+            path: node.fields.slug,
+            component: qiitaPost,
+            context: {
+              slug: node.fields.slug,
+              relatedPosts,
+              latestPosts,
+              ...previouseAndNext(posts, index)
+            },
+          })
+
+        } else {
+          throw new Error(`Unexpected post type = ${type}`)
+        }
+      })
+
+      // 記事関連情報生成
+      const allPostRelations = allPostNodes.map(node => {
+
+        const conf = Object.assign({}, relatedPost.defaultConfig, { threshold: 50 })
+
+        return {
+          node,
+          relations: relatedPost.extractRelatedPostRankings(allPostNodes, node, conf),
+        }
+      })
+
+
+      // WordCloud用データ加工処理
+      const alltext = posts
+        .map(({ type, node }) => {
           if (type === POST_TYPE.ORIGINAL) {
-            createPage({
-              path: node.fields.slug,
-              component: blogPost,
-              context: {
-                slug: node.fields.slug,
-                relatedPosts,
-                latestPosts,
-                ...previouseAndNext(posts, index)
-              },
-            })
-
-          } else if (type === POST_TYPE.QIITA) {
-            createPage({
-              path: node.fields.slug,
-              component: qiitaPost,
-              context: {
-                slug: node.fields.slug,
-                relatedPosts,
-                latestPosts,
-                ...previouseAndNext(posts, index)
-              },
-            })
-
+            return rawText(node.html)
           } else {
-            throw new Error(`Unexpected post type = ${type}`)
+            return rawText(node.rendered_body)
           }
         })
+        .join('\n')
+      
 
-        const allPostRelations = allPostNodes.map(node => {
+      const tagDatas = []
 
-          const conf = Object.assign({}, relatedPost.defaultConfig, { threshold: 50 })
+      posts.forEach(post => {
+        post.node.fields.tags.forEach(t => {
+          if ('Qiita' === t) {
+            return
+          }
 
-          return {
-            node,
-            relations: relatedPost.extractRelatedPostRankings(allPostNodes, node, conf),
+          const targetData = tagDatas.find(data => data.text === t)
+          if (targetData) {
+            targetData.size = targetData.size + 1
+          } else {
+            tagDatas.push({
+              text: t,
+              size: 1,
+            })
           }
         })
+      })
 
-        const alltext = posts
-          .map(({ type, node }) => {
-            if (type === POST_TYPE.ORIGINAL) {
-              return rawText(node.html)
-            } else {
-              return rawText(node.rendered_body)
-            }
-          })
-          .join('\n')
-        
 
-        const tagDatas = []
+      // WordCloud生成
+      const paramForTag = {
+        words: tagDatas,
+        w: 1200,
+        h: 630,
+        fontSizePow: 0.8,
+        fontSizeZoom: 18,
+        padding: 2,
+      }
 
-        posts.forEach(post => {
-          post.node.fields.tags.forEach(t => {
-            if ('Qiita' === t) {
-              return
-            }
+      const paramForText = {
+        words: data,
+        w: 1200,
+        h: 630,
+        fontSizePow: 0.6,
+        fontSizeZoom: 3.1,
+        padding: 0.2,
+      }
 
-            const targetData = tagDatas.find(data => data.text === t)
-            if (targetData) {
-              targetData.size = targetData.size + 1
-            } else {
-              tagDatas.push({
-                text: t,
-                size: 1,
-              })
-            }
-          })
-        })
+      createWordCloud(paramForTag).then(tagSvg => {
+        craeteWordCount(alltext)
+          .then(data => createWordCloud(paramForText))
+          .then(textSvg => {
 
-        createWordCloud({
-          words: tagDatas,
-          w: 1200,
-          h: 630,
-          fontSizePow: 0.8,
-          fontSizeZoom: 18,
-          padding: 2,
-        })
-          .then(tagSvg => {
-            craeteWordCount(alltext)
-              .then(data => 
-                createWordCloud({
-                  words: data,
-                  w: 1200,
-                  h: 630,
-                  fontSizePow: 0.6,
-                  fontSizeZoom: 3.1,
-                  padding: 0.2,
-                })
-              )
-              .then(textSvg => {
+            // 記事分析ページ生成
+            createPage({
+              path: '/map/',
+              component: postRelationMapPage,
+              context: {
+                allPostRelations,
+                wordCloudText : textSvg,
+                wordCloudTag: tagSvg,
+              },
+            })
+
+            // タグ別一覧ページ生成
+            _flow(
+              _flatMap(post => post.node.fields.tags),
+              _uniq(),
+              _forEach(tag => {
                 createPage({
-                  path: '/map/',
-                  component: postRelationMapPage,
+                  path: `/tags/${_.kebabCase(tag)}/`,
+                  component: tagPage,
                   context: {
-                    allPostRelations,
-                    wordCloudText : textSvg,
-                    wordCloudTag: tagSvg,
+                    tag
                   },
                 })
               })
+            )(posts)
+
+            // 処理終了
+            resolve('OK')
           })
-
-        
-
-
-
-
-        // タグ別一覧ページ生成
-        _flow(
-          _flatMap(post => post.node.fields.tags),
-          _uniq(),
-          _forEach(tag => {
-            createPage({
-              path: `/tags/${_.kebabCase(tag)}/`,
-              component: tagPage,
-              context: {
-                tag
-              },
-            })
-          })
-        )(posts)
       })
-    )
+    })
+
   })
 }
 
