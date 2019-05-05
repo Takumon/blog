@@ -24,6 +24,12 @@ thumbnail: /thumbnail/2019/05/wordcloud-with-kuromoji-d3cloud-nodejs.png
 ※サンプルは以下に置いております。
 https://github.com/Takumon/playbox2019/blob/master/node-kuromoji-d3cloud-sample/index.js
 
+この記事は、[challenge-every-month全員でアウトプット芸人 Advent Calendar] 9日目の記事です。<br/>
+前日の記事は、[@kojirock5260](https://twitter.com/kojirock5260)さんの記事です。
+
+<iframe src="https://hatenablog-parts.com/embed?url=https%3A%2F%2Fkojirooooocks.hatenablog.com%2Fentry%2F2019%2F05%2F04%2F163742" style="border: 0; width: 100%; height: 190px;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media"></iframe>
+
+
 ## 処理手順
 
 以下4ステップです。
