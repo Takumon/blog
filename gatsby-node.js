@@ -202,18 +202,21 @@ exports.createPages = ({ graphql, actions }) => {
         padding: 2,
       }
 
-      const paramForText = {
-        words: data,
-        w: 1200,
-        h: 630,
-        fontSizePow: 0.6,
-        fontSizeZoom: 3.1,
-        padding: 0.2,
-      }
-
       createWordCloud(paramForTag).then(tagSvg => {
         craeteWordCount(alltext)
-          .then(data => createWordCloud(paramForText))
+          .then(data => {
+
+            const paramForText = {
+              words: data,
+              w: 1200,
+              h: 630,
+              fontSizePow: 0.6,
+              fontSizeZoom: 3.1,
+              padding: 0.2,
+            }
+
+            return createWordCloud(paramForText)
+          })
           .then(textSvg => {
 
             // 記事分析ページ生成
