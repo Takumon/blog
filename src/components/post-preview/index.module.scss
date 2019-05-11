@@ -1,70 +1,107 @@
 .content {
   border-bottom: 1px solid #ebf2f6;
-  max-width: 710px;
-  position: relative;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(63,63,68,.05), 0 1px 3px rgba(63,63,68,.1), 0 1px 2px rgba(0,0,0,.05);
+  padding: .75rem 1.75rem;
+  background: white;
+  max-width: 100%;
+}
 
-  &:after {
-    display: block;
-    content: "";
-    width: 7px;
-    height: 7px;
-    border: 1px solid #e7eef2;
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    margin-left: -5px;
-    background: #fff;
-    border-radius: 100%;
-    box-shadow: 0 0 0 5px #fff;
+.content_thumbnail {
+  margin-bottom: .75rem;
+  margin-left: -1.75rem;
+  margin-right: -1.75rem;
+  margin-top: -.75rem;
+
+
+  .content_thumbnail_image {
+    object-fit: contain;
+    width: 100%;
+    max-height: 230px;
+    height: 100%;
+    margin: 0;
   }
 }
 
-.title {
-  margin-bottom: 0.3em;
-
-  &_link {
-    box-shadow: none;
-    color: #4a4a4a;
-    font-size: 1.2em;
-    line-height: 1em;
-  }
-}
+.content_post_info {
+  display: table-cell;
+  vertical-align: middle;
+  height: 5rem;
+  padding: 0 .5rem;
 
 
-.meta_info {
-  color: #99a;
-  font-family: sans-serif;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  margin: -0.5em 0 2em;
+  .title {
+    margin-top: 0;
+    margin-bottom: 0.3em;
+    font-size: 16px;
 
-  &__date {
-    margin-right:2em;
-    font-size: 1.1em;
-
-    & > svg {
-      margin-right: 0.5em;
+    &_link {
+      box-shadow: none;
+      color: #4a4a4a;
+      font-size: 1.2em;
+      line-height: 1em;
     }
   }
 
-  &__tags {
+  .content_text {
+    font-size: 12px;
+    word-break: break-all;
+  }
+
+
+  .meta_info {
+    color: #99a;
+    font-family: sans-serif;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    & > svg {
-      margin-right: 0.5em;
+    margin: -0.5em 0 2em;
+
+    &__date {
+      margin-right:2em;
+      font-size: 1.1em;
+
+      & > svg {
+        margin-right: 0.5em;
+      }
+    }
+
+    &__tags {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      & > svg {
+        margin-right: 0.5em;
+      }
     }
   }
 }
 
 
 @media screen and (max-width: 400px) {
-  .title {
-    line-height: 1.1;
+  .content {
+    padding: .75rem .75rem;
 
-    &_link {
-      font-size: .8em;
+    .content_thumbnail {
+      margin-bottom: .75rem;
+      margin-left: -.75rem;
+      margin-right: -.75rem;
+      margin-top: -.75rem;
+    
+      .content_thumbnail_image {
+      }
+    }
+    
+    .content_post_info {
+      padding: 0 .1rem;
+
+      .title {
+        line-height: 1.1;
+        
+        &_link {
+          font-size: .8em;
+        }
+      }
     }
   }
 
