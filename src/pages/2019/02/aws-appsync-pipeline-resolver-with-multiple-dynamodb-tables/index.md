@@ -9,11 +9,8 @@ tags:
 keywords:
   - GraphQL
 slug: /aws-appsync-pipeline-resolver-with-multiple-dynamodb-tables
-thumbnail: /thumbnail/2019/02/aws-appsync-pipeline-resolver-with-multiple-dynamodb-tables.png
+thumbnail: thumbnail/2019/02/aws-appsync-pipeline-resolver-with-multiple-dynamodb-tables.png
 ---
-
-![aws-appsync-pipeline-resolver-with-multiple-dynamodb-tables](/thumbnail/2019/02/aws-appsync-pipeline-resolver-with-multiple-dynamodb-tables.png)
-
 
 ## なにこれ 
 

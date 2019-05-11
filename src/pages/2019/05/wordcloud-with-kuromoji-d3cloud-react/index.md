@@ -11,10 +11,8 @@ tags:
 keywords:
   - React
 slug: /wordcloud-with-kuromoji-d3cloud-react
-thumbnail: /thumbnail/2019/05/wordcloud-with-kuromoji-d3cloud-react.png
+thumbnail: thumbnail/2019/05/wordcloud-with-kuromoji-d3cloud-react.png
 ---
-
-![](/thumbnail/2019/05/wordcloud-with-kuromoji-d3cloud-react.png)
 
 ## なにこれ
 

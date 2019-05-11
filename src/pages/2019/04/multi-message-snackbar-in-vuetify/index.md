@@ -7,10 +7,8 @@ tags:
 keywords:
   - Vue.js
 slug: /multi-message-snackbar-in-vuetify
-thumbnail: /thumbnail/2019/04/multi-message-snackbar-in-vuetify.png
+thumbnail: thumbnail/2019/04/multi-message-snackbar-in-vuetify.png
 ---
-
-![multi-message-snackbar-in-vuetify](/thumbnail/2019/04/multi-message-snackbar-in-vuetify.png)
 
 ## なにこれ
 VuetifyのSnackbarはメッセージを1つしか表示できません。こちらGitHubでもissueになっています。

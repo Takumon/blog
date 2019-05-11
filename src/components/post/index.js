@@ -11,7 +11,8 @@ import PostMetaInfo from '../post-meta-info'
 import Seo from '../seo';
 import Iframely from '../iframely';
 import ScrollSyncToc from '../toc/scroll-sync-toc';
-import Paging from '..//paging';
+import Image from '../image';
+import Paging from '../paging';
 import styles from './index.module.scss';
 
 
@@ -69,10 +70,7 @@ class Post extends React.Component {
       [`${styles.sns_share_hide}`]: !this.state.isShowSnsShare,
     })
 
-    const largeImage = 
-      fields.thumbnail 
-      ? config.blogUrl + fields.thumbnail
-      : undefined
+    const thumbnailFileName = fields.thumbnail || config.blogImageUrl
 
     return (
       <article>
@@ -84,7 +82,7 @@ class Post extends React.Component {
           description={fields.excerpt}
           postUrl={postUrl}
           postDate={fields.date}
-          largeImage={largeImage}
+          largeImage={thumbnailFileName}
           />
 
         <div className={styles.header}>
@@ -116,7 +114,16 @@ class Post extends React.Component {
         </div>
 
         <div className={styles.container}>
-          <div className={styles.post} dangerouslySetInnerHTML={{ __html: html }}>
+          <div className={styles.post}>
+            <div className={styles.post_thumbnail}>
+              <Image
+                filename={thumbnailFileName}
+                alt={'thumbnail'}
+              />
+            </div>
+            <div
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
           </div>
           <div className={styles.toc}>
             <ScrollSyncToc headings={headings} />

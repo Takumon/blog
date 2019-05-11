@@ -7,10 +7,8 @@ tags:
   - CSSModules
 keywords:
   - Gatsby
-thumbnail: /thumbnail/2018/gatsby-css-modules.png
+thumbnail: thumbnail/2018/gatsby-css-modules.png
 ---
-
-![](/thumbnail/2018/gatsby-css-modules.png)
 
 ## なにこれ
 [Gatsby](https://www.gatsbyjs.org/)でブログを作っていて、機能拡張とともにテンプレートが肥大化してきたので、下記図の青枠単位でコンポーネント分割しました。

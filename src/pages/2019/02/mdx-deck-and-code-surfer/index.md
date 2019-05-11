@@ -13,7 +13,7 @@ tags:
 keywords:
   - mdx-deck
 slug: /mdx-deck-and-code-surfer
-thumbnail: /thumbnail/2019/02/mdx-deck-and-code-surfer.png
+thumbnail: thumbnail/2019/02/mdx-deck-and-code-surfer.png
 ---
 
 

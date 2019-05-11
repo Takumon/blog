@@ -8,11 +8,8 @@ tags:
   - React
   - Gatsby
 slug: /iframely
-thumbnail: /thumbnail/2019/01/iframely.png
+thumbnail: thumbnail/2019/01/iframely.png
 ---
-
-
-![iframely](/thumbnail/2019/01/iframely.png)
 
 ## なにこれ
 

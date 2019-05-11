@@ -9,11 +9,8 @@ tags:
 keywords:
   - GraphQL
 slug: /nuxt-apollo-with-graphpack
-thumbnail: /thumbnail/2019/02/nuxt-apollo-with-graphpack.png
+thumbnail: thumbnail/2019/02/nuxt-apollo-with-graphpack.png
 ---
-
-![nuxt-apollo-with-graphpack](/thumbnail/2019/02/nuxt-apollo-with-graphpack.png)
-
 
 ## なにこれ 
 

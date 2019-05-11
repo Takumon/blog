@@ -8,10 +8,8 @@ tags:
 keywords:
   - Vue.js
 slug: /vuetify-datatable-and-pagination-with-vuex
-thumbnail: /thumbnail/2019/04/vuetify-datatable-and-pagination-with-vuex.png
+thumbnail: thumbnail/2019/04/vuetify-datatable-and-pagination-with-vuex.png
 ---
-
-![vuetify-datatable-and-pagination-with-vuex](/thumbnail/2019/04/vuetify-datatable-and-pagination-with-vuex.png)
 
 ## なにこれ
 

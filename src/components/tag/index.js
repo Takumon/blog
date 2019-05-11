@@ -8,7 +8,11 @@ import styles from './index.module.scss';
 
 class Tag extends React.Component {
   render() {
-    const { value, count, color } = this.props;
+    const {
+      value,
+      count,
+      color
+    } = this.props;
 
     if (count) {
       return (

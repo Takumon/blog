@@ -7,10 +7,8 @@ tags:
 keywords:
   - Vue.js
 slug: /vuetify-select-tag
-thumbnail: /thumbnail/2019/03/vuetify-select-tag.png
+thumbnail: thumbnail/2019/03/vuetify-select-tag.png
 ---
-
-![vuetify-select-tag](/thumbnail/2019/03/vuetify-select-tag.png)
 
 ## なにこれ
 

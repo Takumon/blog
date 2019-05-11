@@ -7,12 +7,11 @@ tags:
 keywords:
   - Gatsby
 slug: /posts-relation-map-with-cytoscape-in-gatsby
-thumbnail: /thumbnail/2019/05/posts-relation-map-with-cytoscape-in-gatsby.png
+thumbnail: thumbnail/2019/05/posts-relation-map-with-cytoscape-in-gatsby.png
 ---
 
-![](/thumbnail/2019/05/posts-relation-map-with-cytoscape-in-gatsby.png)
-
 ## なにこれ
+
 [以前の記事](https://takumon.com/gatsby-related-posts-like-hugo)で紹介した**タグとキーワードから関連記事を算出するロジック**と、[**Cytoscape.js**](http://js.cytoscape.org/)を用いて記事の関連情報を視覚的に確認できるマップを作りました。
 今回はそのマップの紹介とCytoscape.jsを使ってみた感想です。
 

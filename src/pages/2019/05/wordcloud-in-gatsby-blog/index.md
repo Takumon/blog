@@ -11,10 +11,8 @@ tags:
 keywords:
   - Gatsby
 slug: /wordcloud-in-gatsby-blog
-thumbnail: /thumbnail/2019/05/wordcloud-in-gatsby-blog.png
+thumbnail: thumbnail/2019/05/wordcloud-in-gatsby-blog.png
 ---
-
-![](/thumbnail/2019/05/wordcloud-in-gatsby-blog.png)
 
 ## なにこれ
 

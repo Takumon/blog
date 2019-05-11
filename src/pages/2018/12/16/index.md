@@ -8,10 +8,8 @@ tags:
   - イベントレポート
 keywords:
   - Java
-thumbnail: /thumbnail/2018/jjug-ccc-2018-fall.png
+thumbnail: thumbnail/2018/jjug-ccc-2018-fall.png
 ---
-
-![](/thumbnail/2018/jjug-ccc-2018-fall.png)
 
 ## なにこれ
 

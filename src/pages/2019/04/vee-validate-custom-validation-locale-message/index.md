@@ -9,10 +9,8 @@ tags:
 keywords:
   - Vue.js
 slug: /vee-validate-custom-validation-locale-message
-thumbnail: /thumbnail/2019/04/vee-validate-custom-validation-locale-message.png
+thumbnail: thumbnail/2019/04/vee-validate-custom-validation-locale-message.png
 ---
-
-![vee-validate-custom-validation-locale-message](/thumbnail/2019/04/vee-validate-custom-validation-locale-message.png)
 
 ## なにこれ
 

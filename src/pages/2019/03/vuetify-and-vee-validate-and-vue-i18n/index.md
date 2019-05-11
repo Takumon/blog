@@ -9,10 +9,8 @@ tags:
 keywords:
   - Vue.js
 slug: /vuetify-and-vee-validate-and-vue-i18n
-thumbnail: /thumbnail/2019/03/vuetify-and-vee-validate-and-vue-i18n.png
+thumbnail: thumbnail/2019/03/vuetify-and-vee-validate-and-vue-i18n.png
 ---
-
-![vuetify-and-vee-validate-and-vue-i18n](/thumbnail/2019/03/vuetify-and-vee-validate-and-vue-i18n.png)
 
 ## なにこれ
 

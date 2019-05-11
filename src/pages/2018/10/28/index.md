@@ -8,10 +8,8 @@ tags:
   - rehype
 keywords:
   - React
-thumbnail: /thumbnail/2018/qiita-like-top-of-content-with-unified.png
+thumbnail: thumbnail/2018/qiita-like-top-of-content-with-unified.png
 ---
-
-![](/thumbnail/2018/qiita-like-top-of-content-with-unified.png)
 
 ## なにこれ
 自分のブログの目次をQiitaっぽくしたい...現在表示中の章をハイライトする目次を作りたい...ということで作りました。

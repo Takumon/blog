@@ -6,11 +6,8 @@ tags:
 keywords:
   - Gatsby
 slug: /how-to-register-your-blog-in-gatsby-showcase
-thumbnail: /thumbnail/2019/01/how-to-register-your-blog-in-gatsby-showcase.png
+thumbnail: thumbnail/2019/01/how-to-register-your-blog-in-gatsby-showcase.png
 ---
-
-
-![gatsby-showcase](/thumbnail/2019/01/how-to-register-your-blog-in-gatsby-showcase.png)
 
 ## なにこれ
 
