@@ -9,11 +9,8 @@ tags:
 keywords:
   - 勉強会
 slug: /impression-of-cherrypick-js-20190119
-thumbnail: /thumbnail/2019/01/impression-of-cherrypick-js-20190119.png
+thumbnail: thumbnail/2019/01/impression-of-cherrypick-js-20190119.png
 ---
-
-
-![Graphpack](/thumbnail/2019/01/impression-of-cherrypick-js-20190119.png)
 
 ## なにこれ 
 

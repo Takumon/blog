@@ -8,10 +8,9 @@ tags:
   - Gatsby
 keywords:
   - カスタムドメイン
-thumbnail: /thumbnail/2018/github-pages-https.png
+thumbnail: thumbnail/2018/github-pages-https.png
 ---
 
-![](/thumbnail/2018/github-pages-https.png)
 
 ## なにこれ
 GitHub Pagesでブログを開設した後、

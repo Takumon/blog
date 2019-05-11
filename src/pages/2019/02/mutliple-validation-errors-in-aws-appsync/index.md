@@ -8,11 +8,8 @@ tags:
 keywords:
   - AppSync
 slug: /mutliple-validation-errors-in-aws-appsync
-thumbnail: /thumbnail/2019/02/mutliple-validation-errors-in-aws-appsync.png
+thumbnail: thumbnail/2019/02/mutliple-validation-errors-in-aws-appsync.png
 ---
-
-![mutliple-validation-errors-in-aws-appsync](/thumbnail/2019/02/mutliple-validation-errors-in-aws-appsync.png)
-
 
 ## なにこれ
 AppSyncのリゾルバーでDynamoDBのデータを更新する場合、更新処理の前に入力チェックは必ず実施すると思います。
@@ -154,7 +151,7 @@ mutation {
 [AppSyncの公式ドキュメント](https://docs.aws.amazon.com/ja_jp/appsync/latest/devguide/resolver-util-reference.html)を見ると、`$util.appendError`が使えそうだと思ったのですが、いざ書こうとすると、以下2点につまづきました。
 
 1. 「1つ以上入力チェックエラーがある」ことをどうやって判定するのか
-3. 複数エラー情報をどうやってレスポンスとして返すのか
+2. 複数エラー情報をどうやってレスポンスとして返すのか
 
 ### 1. 「1つ以上入力チェックエラーがある」ことをどうやって判定するのか
 

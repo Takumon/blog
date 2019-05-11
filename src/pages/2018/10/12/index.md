@@ -5,10 +5,8 @@ tags:
   - Gatsby
 keywords:
   - Gatsby
-thumbnail: /thumbnail/2018/gatsby-v2.png
+thumbnail: thumbnail/2018/gatsby-v2.png
 ---
-
-![](/thumbnail/2018/gatsby-v2.png)
 
 ## なにこれ
 [Gatsby](https://www.gatsbyjs.org/)（React製の静的サイトジェネレーター）が2018年9月に2系にアップデートしたそうです。

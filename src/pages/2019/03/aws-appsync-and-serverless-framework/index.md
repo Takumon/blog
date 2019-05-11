@@ -9,10 +9,8 @@ tags:
 keywords:
   - AppSync
 slug: /aws-appsync-and-serverless-framework
-thumbnail: /thumbnail/2019/03/aws-appsync-and-serverless-framework.png
+thumbnail: thumbnail/2019/03/aws-appsync-and-serverless-framework.png
 ---
-
-![aws-appsync-and-serverless-framework](/thumbnail/2019/03/aws-appsync-and-serverless-framework.png)
 
 ## なにこれ
 

@@ -7,11 +7,8 @@ tags:
 keywords:
   - Vue.js
 slug: /vue-i18n-in-script-tag
-thumbnail: /thumbnail/2019/02/vue-i18n-in-script-tag.png
+thumbnail: thumbnail/2019/02/vue-i18n-in-script-tag.png
 ---
-
-![vue-i18n-in-script-tag](/thumbnail/2019/02/vue-i18n-in-script-tag.png)
-
 
 ## なにこれ 
 [**VueI18n**](https://kazupon.github.io/vue-i18n/)はVue.jsの多言語対応ライブラリです。vueファイルのtemplateタグでは、`<p>{{$t('message.hello')}}</p>`のように使います。ただ**vueファイルのscriptタグや、他のJavaScriptファイルでの使い方**は[ガイド](https://kazupon.github.io/vue-i18n/guide/formatting.html)に明記されていません。今回はそのやり方についてご紹介します。

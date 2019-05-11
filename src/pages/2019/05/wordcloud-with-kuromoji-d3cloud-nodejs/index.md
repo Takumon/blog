@@ -11,10 +11,8 @@ tags:
 keywords:
   - WordCloud
 slug: /wordcloud-with-kuromoji-d3cloud-nodejs
-thumbnail: /thumbnail/2019/05/wordcloud-with-kuromoji-d3cloud-nodejs.png
+thumbnail: thumbnail/2019/05/wordcloud-with-kuromoji-d3cloud-nodejs.png
 ---
-
-![](/thumbnail/2019/05/wordcloud-with-kuromoji-d3cloud-nodejs.png)
 
 ## なにこれ
 [前回記事](/wordcloud-with-kuromoji-d3cloud-react)ではReactでWordCloudを出力しました。しかし実際は、過去大量データから出力するようなツールとして使えたほうが便利です。

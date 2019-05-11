@@ -10,7 +10,7 @@ tags:
 keywords:
   - GraphQL
 slug: /hello-nuxt-graphql-with-apollo-client
-thumbnail: /thumbnail/2019/01/hello-nuxt-graphql-with-apollo-client.png
+thumbnail: thumbnail/2019/01/hello-nuxt-graphql-with-apollo-client.png
 ---
 
 ## なにこれ

@@ -9,10 +9,8 @@ tags:
 keywords:
   - AWS
 slug: /how-to-get-user-custom-attributes-in-resolver-with-amplify-appsync-cognito
-thumbnail: /thumbnail/2019/04/how-to-get-user-custom-attributes-in-resolver-with-amplify-appsync-cognito.png
+thumbnail: thumbnail/2019/04/how-to-get-user-custom-attributes-in-resolver-with-amplify-appsync-cognito.png
 ---
-
-![vee-validate-custom-validation-locale-message](/thumbnail/2019/04/how-to-get-user-custom-attributes-in-resolver-with-amplify-appsync-cognito.png)
 
 ## なにこれ
 AppSync + Cognitoにおける認可制御について[以前の記事](https://takumon.com/aws-appsync-auth-with-cognito)で説明しました。

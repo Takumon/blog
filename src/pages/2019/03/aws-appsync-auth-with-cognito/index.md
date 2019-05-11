@@ -8,10 +8,8 @@ tags:
 keywords:
   - AWS
 slug: /aws-appsync-auth-with-cognito
-thumbnail: /thumbnail/2019/03/aws-appsync-auth-with-cognito.png
+thumbnail: thumbnail/2019/03/aws-appsync-auth-with-cognito.png
 ---
-
-![aws-appsync-auth-with-cognito](/thumbnail/2019/03/aws-appsync-auth-with-cognito.png)
 
 ## なにこれ
 AppSyncはCognitoと連携して認可制御ができます。

@@ -6,10 +6,8 @@ tags:
   - GatsbyPlugin
 keywords:
   - GatsbyPlugin
-thumbnail: /thumbnail/2018/gatsby-plugin.png
+thumbnail: thumbnail/2018/gatsby-plugin.png
 ---
-
-![](/thumbnail/2018/gatsby-plugin.png)
 
 ## なにこれ
 Gatsby公式サイトの[プラグイン](https://www.gatsbyjs.org/docs/plugins/)の章のまとめ。

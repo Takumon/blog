@@ -6,10 +6,8 @@ tags:
   - ブログ
 keywords:
   - Gatsby
-thumbnail: /thumbnail/2018/how-to-start-a-blog-with-gatsby.png
+thumbnail: thumbnail/2018/how-to-start-a-blog-with-gatsby.png
 ---
-
-![](/thumbnail/2018/how-to-start-a-blog-with-gatsby.png)
 
 ## ブログ開設手順
 Gatsbyってなにって状態から30分程度でブログを開設できました。

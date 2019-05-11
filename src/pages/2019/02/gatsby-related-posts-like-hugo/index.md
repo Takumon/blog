@@ -8,11 +8,8 @@ tags:
 keywords:
   - Gatsby
 slug: /gatsby-related-posts-like-hugo
-thumbnail: /thumbnail/2019/02/gatsby-related-posts-like-hugo.png
+thumbnail: thumbnail/2019/02/gatsby-related-posts-like-hugo.png
 ---
-
-![gatsby-related-posts-like-hugo](/thumbnail/2019/02/gatsby-related-posts-like-hugo.png)
-
 
 ## なにこれ 
 

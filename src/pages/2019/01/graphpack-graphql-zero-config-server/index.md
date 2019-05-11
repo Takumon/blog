@@ -7,11 +7,9 @@ tags:
 keywords:
   - GraphQL
 slug: /graphpack-graphql-zero-config-server
-thumbnail: /thumbnail/2019/01/graphpack-graphql-zero-config-server.png
+thumbnail: thumbnail/2019/01/graphpack-graphql-zero-config-server.png
 ---
 
-
-![Graphpack](/thumbnail/2019/01/graphpack-graphql-zero-config-server.png)
 
 ## なにこれ
 
