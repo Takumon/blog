@@ -47,13 +47,17 @@
   .content {
     padding: 36px;
     grid-gap: 20px;
-  }
-  
+  }  
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 580px) {
   .content {
     padding: 72px 10px 10px 10px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .content {
     grid-gap: 10px;
     grid-template-columns: repeat(auto-fit, minmax(90%, 1fr));
   }
