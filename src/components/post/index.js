@@ -70,7 +70,6 @@ class Post extends React.Component {
       [`${styles.sns_share_hide}`]: !this.state.isShowSnsShare,
     })
 
-    const thumbnailFileName = fields.thumbnail || config.blogImageUrl
 
     return (
       <article>
@@ -82,7 +81,7 @@ class Post extends React.Component {
           description={fields.excerpt}
           postUrl={postUrl}
           postDate={fields.date}
-          largeImage={thumbnailFileName}
+          largeImage={fields.thumbnail}
           />
 
         <div className={styles.header}>
@@ -117,7 +116,7 @@ class Post extends React.Component {
           <div className={styles.post}>
             <div className={styles.post_thumbnail}>
               <Image
-                filename={thumbnailFileName}
+                filename={fields.thumbnail || config.defaultThumbnailImagePath}
                 alt={'thumbnail'}
               />
             </div>

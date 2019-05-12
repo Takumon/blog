@@ -44,18 +44,11 @@ export default function Seo({
 
       render={(data) => {
         const imageNode = data.images.edges.find(n => {
-          return n.node.relativePath.includes(largeImage);
-        });
+          return n.node.relativePath.includes(largeImage || config.defaultThumbnailImagePath)
+        })
         
-        const image =
-          imageNode
-            ? config.blogUrl + imageNode.node.childImageSharp.sizes.src
-            : config.blogImageUrl
-        
-        const twitterCard = 
-          largeImage
-            ? 'summary_large_image'
-            : 'summary';
+        const image = config.blogUrl + imageNode.node.childImageSharp.sizes.src
+        const twitterCard = 'summary_large_image'
 
         return (<Helmet>
           {/* General tags */}
