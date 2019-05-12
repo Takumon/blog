@@ -19,23 +19,15 @@ class PostPreview extends React.Component {
       thumbnail,
     } = this.props.postField;
 
-    const thumbnailArea = thumbnail
-    ? <Image
-        className={styles.content_thumbnail_image}
-        filename={thumbnail}
-        alt={'thumbnail'}
-      />
-    : <img
-        className={styles.content_thumbnail_image}
-        src={config.blogImageUrl}
-        alt={'thumbnail'}
-      />
-
     return (
       <article key={slug} className={styles.content}>
         <Link className={styles.title_link} to={slug}>
           <div className={styles.content_thumbnail}>
-            {thumbnailArea}
+            <Image
+              className={styles.content_thumbnail_image}
+              filename={thumbnail || config.defaultThumbnailImagePath}
+              alt={'thumbnail'}
+            />
           </div>
           <div className={styles.content_post_info}>
             <h3 className={styles.title} >
