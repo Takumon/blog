@@ -32,5 +32,40 @@ exports.createPages = ({ actions }) => {
 }
 ```
 
+## 実装方法
+
+gatsby-node.jsでは[`onCreatePage`](https://www.gatsbyjs.org/docs/node-apis/#onCreatePage)というAPIが用意されており、ページ生成時の処理を定義できます。これを使って以下のような処理を実行します。
+
+やり方は原始的で、ルートページ生成されたときに、
+いったん削除して、自分でルートページを再生成します。
+この時`createPage`のオプションでContextを渡せば、Contextを追加できます。
+
+```js{4-7,9-10,15-18}:title=gatsby-node.js
+exports.onCreatePage = ({ page, actions }) => {
+  const { createPage, deletePage } = actions
+
+  // ルートページの場合のみ処理継続
+  if (page.path === '/') {
+    return;
+  }
+
+  // いったんルートページを削除
+  deletePage(page)
+
+  // pageオブジェクトをもとにページ再生成
+  createPage({
+    ...page,
+    context: {
+      ...page.context,
+      house: `Gryffindor`,
+    },
+  })
+}
+```
+
+
+## 参考
+* [Creating and Modifying Pages | GatsbyJS](https://www.gatsbyjs.org/docs/creating-and-modifying-pages/#pass-context-to-pages)
+
 
 以上です🍅
