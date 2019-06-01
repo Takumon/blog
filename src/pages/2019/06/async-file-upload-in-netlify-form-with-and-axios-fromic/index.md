@@ -2,10 +2,12 @@
 title: 'Netlify Formでファイルを非同期アップロード with React + Formic + Axios'
 date: '2019-06-1T12:00:00.000-07:00'
 tags:
-  - Gatsby
-  - gatsby-image
+  - Netlify
+  - React
+  - Fromic
+  - Axios
 keywords:
-  - Gatsby
+  - Netlify
 slug: /async-file-upload-in-netlify-form-with-and-axios-fromic
 thumbnail: thumbnail/2019/06/async-file-upload-in-netlify-form-with-and-axios-fromic.png
 ---
