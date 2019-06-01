@@ -54,8 +54,155 @@ Netlify Formはサーバー側のバリデーション機能はないので、
 SPAで非同期でやりたいケースが多いと思います、そういった時にReact + FormicにさらにAxiosを追加して、
 以下のように実装できます。
 
-```jsx
+
+
+```jsx:title=ErrorMessage.jsx
+import React from "react"
+import { Field, getIn } from 'formik';
+
+// Formicエラーメッセージ表示用コンポーネント
+export default ({ name }) => (
+  <Field
+    name={name}
+    render={({ form }) => {
+      const error = getIn(form.errors, name);
+      const touch = getIn(form.touched, name);
+      cosnt isShowError = touch && error;
+
+      return isShowError
+        ? <div>{error}</div>
+        : null;
+    }}
+  />
+);
 ```
+
+
+```jsx
+import React from 'react';
+import { navigate } from "gatsby"
+import axios from "axios";
+import { Formik, Field } from 'formik';
+import ErrorMessage from './ErrorMessage';
+
+
+// フォームの値を初期化
+const initialValues = {
+  'form-name': 'contact', // NetlifyFormで必要な値
+  'bot-field': '', // NetlifyFormで必要な値
+  sampleText] '',
+  sampleFile: null,
+};
+
+
+// 入力チェック
+const handleValidate = (values) => {
+  let errors = {}
+
+  // sampleText
+  if (!values.sampleText) {
+    errors.sampleText = `テキストを記入してください`;
+  }
+
+  // sampleFile
+  if (!values.sampleFile) {
+    errors.sampleFile = `ファイルを添付してください`;
+  } else if (values.sampleFile.size > 100000000) {
+    errors.sampleFile = `100MB以下のファイルを添付してください`;
+  }
+
+  return errors;
+}
+
+
+// サブミット処理
+const handleSubmit = (values, actions) => {
+
+  // FormData作成
+  const  params = new FormData();
+
+  params.append('form-name', values['form-name']);  // for Netlify Form
+  params.append('bot-field', values['bot-field']);  // for Netlify Form
+  params.append('sampleText', values['sampleText']);
+  params.append('sampleFile', values['sampleFile']);
+
+  // Formicの送信中フラグをオンにする
+  actions.setSubmitting(true);
+  // axiosで非同期にお問い合わせフォームを送信
+  axios({
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    data: params,
+    url: "/"
+  }).then(res => {
+    // フォーム送信完了後
+    // 他画面に遷移（同期遷移ではなくSPAとしての遷移）
+    navigate('/application-complete');
+    // フォーム内容初期化
+    actions.resetForm();
+
+    // 最後にFormicの送信中フラグをオフにする
+    actions.setSubmitting(false);
+  }).catch(err => {
+    // なにかしらエラーハンドリング
+    actions.setSubmitting(false);
+
+    /* (中略) */
+  });
+}
+
+
+// Form描画処理
+const renderForm = ({
+  handleSubmit,
+  dirty,
+  isSubmitting,
+  setFieldValue,
+}) => (
+  <form
+    name="contact" {/* Formの名前NetlifyのおけるFormの識別子となる */}
+    method="POST"
+    novalidate="true" {/* Formicで入力チェックするためブラウザの入力チェックはオフ */}
+    data-netlify="true"  {/* NetlifyでFormを認識させるための属性 */}
+    netlify-honeypot="bot-field" {/* NetlifyでFormを認識させるための属性 */}
+    onSubmit={handleSubmit}
+  >
+    <Field type="hidden" name="bot-field" /> {/* NetlifyFormで必要な値 */}
+    <Field type="hidden" name="form-name" /> {/* NetlifyFormで必要な値 */}
+
+    <Field type="text" name="sampleText"/>
+    <ErrorMessage name="sampleText" />
+
+    {/* FormicのFieldタグではなくHTMLのinputタグを使う */}
+    <input
+      id="sampleFile"
+      name="sampleFile"
+      type="file"
+      {/* ファイル変更時に、手動でFormicの値に設定 */}
+      onChange={event => setFieldValue("sampleFile", event.currentTarget.files[0])}
+    />
+    <ErrorMessage name="sampleFile" />
+    
+    {/* 送信ボタン */}
+    <button type="submit" disabled={isSubmitting} >
+      { isSubmitting ? 'SUBMITTING...' : 'SUBMIT APPLICATION'}
+    <button>
+  </form>
+);
+
+
+// Form用Reactコンポーネント
+export default ({ job }) =>  (
+  <Formik
+    initialValues={initialValues}
+    validate={handleValidate}
+    onSubmit={handleSubmit}
+    render={renderForm}
+  />
+);
+```
+<br />
+
 
 
 ## まとめ
