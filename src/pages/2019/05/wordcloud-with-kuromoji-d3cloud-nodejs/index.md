@@ -6,6 +6,7 @@ tags:
   - kuromoji.js
   - d3.js
   - d3Cloud
+  - データ可視化
   - 形態素解析
   - WordCloud
 keywords:

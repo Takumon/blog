@@ -7,6 +7,7 @@ tags:
   - d3.js
   - d3Cloud
   - 形態素解析
+  - データ可視化
   - WordCloud
 keywords:
   - Gatsby
