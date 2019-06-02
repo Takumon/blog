@@ -5,8 +5,8 @@ tags:
   - Gatsby
 keywords:
   - Gatsby
-slug: /how-to-distinc-2-kinds-of-markdown-in-gatsby
-thumbnail: thumbnail/2019/06/how-to-distinc-2-kinds-of-markdown-in-gatsby.png
+slug: /how-to-distinct-2-kinds-of-markdown-in-gatsby
+thumbnail: thumbnail/2019/06/how-to-distinct-2-kinds-of-markdown-in-gatsby.png
 ---
 
 ## なにこれ
