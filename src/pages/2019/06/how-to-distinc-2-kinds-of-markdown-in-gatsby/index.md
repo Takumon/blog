@@ -1,6 +1,6 @@
 ---
 title: 'Gatsbyで2種類のマークダウンファイルの区別する方法'
-date: '2019-06-1T21:00:00.000-07:00'
+date: '2019-06-01T21:00:00.000-07:00'
 tags:
   - Gatsby
 keywords:
@@ -11,14 +11,14 @@ thumbnail: thumbnail/2019/06/how-to-distinc-2-kinds-of-markdown-in-gatsby.png
 
 ## なにこれ
 
-GatsbyでWebサイトを作るときに、ブログ記事や職種紹介など2種類のマークダウンファイルを管理する場合があると思います。通常だとMarkdownRemarkのabsoluteFilePathでしか両者のマークダウンファイルを見分ける術がありませんが、ここではもっとスマートなやり方を紹介します。簡単に言うとFileNodeのsourceInstanceNameをMarkdownRemarkに引き継ぐことによりGraphQLのfilterで区別するという方法です。
+GatsbyでWebサイトを作るときに、ブログや職種紹介など2種類以上のマークダウンファイルを管理する場合があると思います。通常だとMarkdownRemarkNodeの`fileAbsolutePath`でしか両者のマークダウンファイルを見分ける術がありませんが、ここではもっとスマートなやり方を紹介します。簡単に言うとFileNodeの`sourceInstanceName`をMarkdownRemarkNodeに引き継ぐことにより、GraphQLのfilterで簡単に区別できるという方法です。
 
 ## 実装方法
 
-### それぞれのMarkdownでFileNodeのnameを定義
+### Step1. マークダウンファイルのFleNodeでsourceInstanceNameを定義
 
 マークダウンファイルの読み込み設定はgatsby-config.jsで以下のようにします。
-`name`を付けることでFileNodeの`sourceInstanceName`が設定できます。
+`name`を付けることでマークダウンファイルのFileNodeにおいて`sourceInstanceName`が設定できます。
 
 ```js{10-11,18-19}:title=gatsby-config.js
 module.exports = {
@@ -54,24 +54,24 @@ module.exports = {
 <br/>
 
 
-### FileNodeのnameをMarkdownFileNodeに引継ぐ
+### Step2. FileNodeのnameをMarkdownFileNodeに引継ぐ
 
-何もしないとFileNodeの`sourceInstanceName`はMarkdownRemarkに引き継がれません。
-そのため以下のようにして引継ぎ処理を実装します。
+何もしないとFileNodeの`sourceInstanceName`はMarkdownRemarkNodeに引き継がれません。
+そのため`gatsby-node.js`で引継ぎ処理を実装します。
 
-```js:title=gatsby-config.js
+```js:title=gatsby-node.js
 exports.onCreateNode  = ({ node, boundActionCreators, getNode }) => {
   const { createNodeField } = boundActionCreators
 
-  // FileNodeを親にMarkdownRemarkノードが生成された場合
+  // MarkdownRemarkNodeの場合のみ処処
   if (node && node.internal && node.internal.type === 'MarkdownRemark') {
 
     // 親のFileNodeを取得して
     const parent = getNode(node.parent)
 
     // gatsby-config.jsで設定したFileNodeのsourceInstanceNameを
-    // MarkdownRemarkのフィールドとして定義
-    // 名前はMarkdownRemarkの他プロパティとかぶらないようにCollectionとしている
+    // MarkdownRemarkのフィールドに引き継ぐ
+    // 名前はMarkdownRemarkの他プロパティとかぶらないようにcollectionとしている
     createNodeField({
       node,
       name: 'collection',
@@ -82,12 +82,11 @@ exports.onCreateNode  = ({ node, boundActionCreators, getNode }) => {
 ```
 <br/>
 
-### GraphQLでnameをもとにマークダウンを区別する
+### Step3. GraphQLでnameをもとにマークダウンを区別
 
-上記引継ぎ処理をすれば`name`をMarkdownFileNodeのプロパティとして扱えます。
-GraphQLでは以下のようにそれぞれを区別できるようになります。
+GraphQLではcollectionフィールドで、それぞれを区別します。
 
-```graphql
+```graphql{3-4}
 query {
   allMarkdownRemark(
     # collectionにて記事のNodeのみ抽出
@@ -95,7 +94,7 @@ query {
   ) {
     edges {
       node {
-        # 中略
+        # (中略)
       }
     }
   }
@@ -107,9 +106,9 @@ query {
 ## まとめ
 
 簡単ですがGatsbyで良く困る事例の1つを紹介しました。
-Gatsbyは多くのフックポイントを設けているので、今回のように無理やりやろうと思えば結構いろんなことができますね🍅
+Gatsbyは多くのフックポイントを設けているので、今回のよう、やろうと思えば結構いろんなことができます🍅
 
 ## 参考
 
-
+* [Question: How do I query based on gatsby-source-filesystem name? · Issue #1634 · gatsbyjs/gatsby](https://github.com/gatsbyjs/gatsby/issues/1634)
 

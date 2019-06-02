@@ -1,6 +1,6 @@
 ---
-title: 'Gatsbyでビルド時に取得した画像に対してgatsby-imageを適用する方法'
-date: '2019-06-1T21:30:00.000-07:00'
+title: 'Gatsbyにおける外部取得画像へのgatsby-image適用方法'
+date: '2019-06-01T21:30:00.000-07:00'
 tags:
   - Gatsby
   - gatsby-image
@@ -17,10 +17,11 @@ Webサイトのリポジトリ内の画像については`gatsby-config.js`で�
 
 ## 実装方法
 
+### Step1. 外部画像ファイルノード生成
+
 Gatsbyの[gatsby-source-filesystem]()では、外部画像を扱うためのAPI(`createRemoteFileNode`)が用意されています。
-コチラを`gatsby-node.js`の`sourceNodes`で呼び出してノードを生成すればOKです。
-あと、ちょっとしたハックとして、Reactコンポーネント側で他ファイルノードと区別できるように、ノード生成時に識別子を付けましょう。
-これは後述する外部画像表示用コンポーネントで使うためのものです。
+コチラを`gatsby-node.js`の`sourceNodes`で呼び出せば外部画像にgatsby-imageを適用できます。
+あと、ちょっとしたハックとして、Reactコンポーネント側で他ファイルノードと区別できるように、ノード生成時に識別子を付けましょう。これは後述する外部画像表示用コンポーネントで使うためのものです。
 
 
 ```javascript:title=gatsby-node.js
@@ -31,11 +32,11 @@ exports.sourceNodes = async ({ actions, createNodeId, cache, store }) => {
   /* (中略) */
 
   // ここでは外部画像のURLの配列を処理するサンプルを示す
-  await Promise.all(someImageUrls.map(async imageUrl => {
+  await Promise.all(sampleImageUrls.map(async sampleImageUrl => {
 
     // createRemoteFileNodeで外部の画像のファイルノードを作成する
     const fileNode = await createRemoteFileNode({
-      url: imageUrl,
+      url: sampleImageUrl,
       cache,
       store,
       createNode: actions.createNode,
@@ -45,7 +46,7 @@ exports.sourceNodes = async ({ actions, createNodeId, cache, store }) => {
     // 他ファイルノードと区別するための識別子を付与
     await actions.createNodeField({
       node: fileNode,
-      name: 'AuthorImage',
+      name: 'SampleImage',
       value: 'true',
     });
 
@@ -53,7 +54,7 @@ exports.sourceNodes = async ({ actions, createNodeId, cache, store }) => {
     await actions.createNodeField({
       node: fileNode,
       name: 'link',
-      value: imageUrl,
+      value: sampleImageUrl,
     });
 
     return fileNode;
@@ -64,16 +65,14 @@ exports.sourceNodes = async ({ actions, createNodeId, cache, store }) => {
 ```
 <br/>
 
+### Step2. 外部画像表示用Reactコンポーネント作成
 
-ビルドで外部画像をファイルノードとして取り込めたら、
-今度はReactのコンポーネント側で、それを`gatsby-iamge`として扱うコンポーネントを実装します。
-ビルド時に付与した識別子を使い、すべてのファイルノードから外部画像のノードだけをGraphQLで抽出するようにしましょう。
-こうすることでGraphQL実行時に全ファイルノードを読み込むコストを省きます。
-GatsbyではGraphQLはビルド時に実行されますが、これをやらないとビルドに相当時間がかかるります。
-
+外部画像のファイルノードを生成できたら、
+今度はReactコンポーネント側で、それに`gatsby-iamge`を適用して表示します。
+GraphQLのクエリで、ファイルノードを生成時に付与した識別子を使い、すべてのファイルノードから外部画像だけを抽出するようにしましょう。
 
 
-```jsx:title=ogp-image.jsx
+```jsx{6, 11-13,34-35}:title=sample-image.jsx
 import React from 'react';
 import GatsbyImage from 'gatsby-image';
 import { StaticQuery, graphql } from 'gatsby';
@@ -86,7 +85,7 @@ export default ({ url }) => (
         allFile(
           # Gatsby Buildで付与した識別子をもとに
           # 全ファイルからOPG画像のみ抽出
-          filter: {fields: {OgpImage: {eq: "true"}}}
+          filter: {fields: {SampleImage: {eq: "true"}}}
         ){
           edges {
             node {
@@ -98,7 +97,7 @@ export default ({ url }) => (
               id
               fields {
                 # 一応メタ情報も取得する
-                OgpImage
+                SampleImage
                 link
               }
             }
@@ -110,7 +109,7 @@ export default ({ url }) => (
       // OGP画像リストの中から、コンポーネント引数で指定したURLの画像を抽出する
       const targetEdge = data.allFile.edges.find(edge => edge.node.fields.link === url);
 
-      // 画像が取得できた場合のみGatsby-imageのコンポーネントを返す
+      // 画像が取得できた場合のみgatsby-imageのコンポーネントを返す
       return (
         targetEdge && targetEdge.node.childImageSharp
           && <GatsbyImage resolutions={targetEdge.node.childImageSharp.resolutions} />
@@ -122,15 +121,16 @@ export default ({ url }) => (
 ```
 <br/>
 
+### Step3. 上記で作成したコンポーネントの呼び出し
 
-最後に上記コンポーネントの呼び出します。以下のようにOGP画像のURLを指定してあげましょう。
+最後に上記コンポーネントの呼び出します。以下のように外部画像のURLを指定してあげましょう。
 
 ```jsx
-  <OgpImage url={ogpImageUrl} />
+  <SampleImage url={SampleImageUrl} />
 ```
 <br/>
 
-これで外部画像を`gatsby-image`イイ感じに最適化して表示できます！
+これで外部画像に`gatsby-image`を適用してイイ感じに表示できます！
 
 
 ## 例：WEBサイトURLからOGP画像を取得する場合
@@ -203,7 +203,7 @@ Reactのコンポーネントの定義、呼び出し側定義は[実装方法](
 
 ## まとめ
 
-今回の方法を使えば、外部から画像をかき集めてリッチなWebサイトを構築する場合でも、Gatsby側で画面表示を最適化してくれて、画面表示が遅くなる心配もありません。
+今回の方法を使えば、外部から画像をかき集めてリッチなWebサイトを構築する場合でも、Gatsby側でブラウザ表示を最適化してくれて、画面表示が遅くなる心配もありません。
 是非参考にしてみてください🍅
 
 

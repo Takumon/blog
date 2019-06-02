@@ -1,6 +1,6 @@
 ---
 title: 'Netlify Formsでファイルを非同期アップロード with React + Formik + Axios'
-date: '2019-06-1T22:00:00.000-07:00'
+date: '2019-06-01T22:00:00.000-07:00'
 tags:
   - Netlify
   - NetlifyForms
@@ -15,18 +15,17 @@ thumbnail: thumbnail/2019/06/async-file-upload-in-netlify-forms-with-react-formi
 
 ## なにこれ
 
-[Netlify Forms](https://www.netlify.com/docs/form-handling/)はNetlifyにホストしている静的サイトでお問い合わせフォームを作れる機能です。ユーザーがフォームで入力した値はNetlify側で保持してくれてCSVダウンロードなどもできます。
-Zapiarなどと連携すると、お問い合わフォームで入力したEMail宛てに定型フォーマットのメールを送信できたりもします。
-そんな便利なNetlify Formsですが、ググってみても同期的にFormを送信する簡単は方法しかサンプルが載っていません。
-そこで今回はもう少し実用的な例として、
-* ReactでFornバリデーションに[Formik](https://jaredpalmer.com/formik/)を使いつつ
-* ファイルアップロードを含むお問い合わせフォームを実装し
-* [axios]()で非同期に送信する
-方法をご紹介します。
+[Netlify Forms](https://www.netlify.com/docs/form-handling/)はNetlifyにホストしている静的サイトでお問い合わせフォームを作れる機能です。DBを用意しなくても、お問い合わせフォーム送信結果はNetlify側で保持しれくれます。Netlifyの管理画面からCSVダウンロードなども可能です。
+さらに[Zapier](https://zapier.com/)と連携すると、お問い合わフォームで入力したメールアドレス宛てに定型フォーマットのメールを送信できたりもします。
+そんな便利なNetlify Formsですが、ググっても、お問い合わせフォームを同期的に送信する簡単な方法しか実装サンプルを見つけられませんでした。そこで今回は以下のような実用的サンプルの実装方法をご紹介します。
+* お問い合わせフォームにファイルアップロードを含む
+* Reactを使う
+* 入力チェックに[Formik](https://jaredpalmer.com/formik/)を使う
+* [axios](https://github.com/axios/axios)で非同期にお問い合わせフォームを送信する
 
-## Step.1 単純なHMLT、ファイル同期送信
+## Step.1 ファイルアップロード + 単純なHMLT + 同期送信
 
-モットも単純なパターン、こちら[Netlifyの公式サイト](https://www.netlify.com/docs/form-handling/)に書いてある情報を参考に実装します。
+もっとも単純なパターン、こちら[Netlifyの公式サイト](https://www.netlify.com/docs/form-handling/)に書いてある情報を参考に実装します。
 
 ```html{8-12}:title=index.html
 <!-- (中略) -->
@@ -54,7 +53,7 @@ Zapiarなどと連携すると、お問い合わフォームで入力したEMail
 <br/>
 
 
-## Step.2 React、ファイル同期送信
+## Step.2 ファイルアップロード + React + 同期送信
 
 次にReactの場合です。Reactの場合はフォーム情報に`bot-field`と`form-name`を付与する必要があります。
 これらは`<input type="hidden">`で実装します。
@@ -86,11 +85,11 @@ export default () =>  (
 ```
 <br/>
 
-## Step.4 React + Formik、ファイル同期送信
+## Step.3 ファイルアップロード + React + Formik + 同期送信
 
 Netlify Formsはサーバー側のバリデーション機能はないので、
 実際使うときはフロント側のバリデーションが必要です。
-ここでは、Reactのバリデーションライブラリ[Fromic]()を使ってバリデーションを追加します。
+ここでは、Reactのバリデーションライブラリ[Fromik](https://jaredpalmer.com/formik/)を使ってバリデーションを追加します。
 
 入力チェックエラーメッセージ表示はコンポーネント化します。そのほうがすっきりするので。
 
@@ -117,11 +116,11 @@ export default ({ name }) => (
 <br/>
 
 
-入力フォームのコンポーネントはFormikの作法にしたがって
+入力フォームのコンポーネントはFormikの作法にしたがって以下を実装します。<br/>
 * `initialValues`:入力フォーム初期値設定処理
 * `validate`: 入力チェック処理
 * `render`: 入力フォーム描画処理
-を実装します。<br/>
+
 ただしファイルについてはFormikが用意している`Field`タグは`type=file`をサポートしていないので、HTMLの`input`タグでファイル変更時に手動でFormikにファイルを追加します。
 
 ```jsx:title=SampleForm.jsx
@@ -208,22 +207,20 @@ export default () =>  (
 ```
 <br />
 
-これでNetlify FormsへのFileアップロードが同期通信で可能になりました。
 
-
-## Step.5 React + Formik + Axios、ファイル非同期送信
+## Step.5 ファイルアップロード + React + Formik + 非同期送信(Axios)
 
 Reactを使っている場合、SPAなので同期通信は極力控えたほうが良いです。
 そのため入力フォームの送信も非同期でやるのが現実的でしょう。
+ここでは、`Formik`の`onSubmit`でAxiosを使ってお問い合わせフォームを非同期送信する例を示します。<br/>
 `Formik`タグは`onSubmit`プロパティでサブミット処理を自分で定義できます。
-この`onSubmit`にて、axiosを使うことで非同期処理が可能になります。
-以下に実装詳細を示しますが、大半は前セクションと同じなので差分にフォーカスして説明します。
+この`onSubmit`にて、axiosを使うことで非同期処理が可能です。<br/>
 
+<small>大半は前セクションと同じなので差分にフォーカスして説明します</small>
 
 エラーメッセージ用コンポーネントは前回と同じなので割愛します。
 
 以下フォーム用コンポーネントです。
-
 
 ```jsx{5,14-44}:title=SampleForm.jsx
 import React from 'react';
@@ -307,18 +304,11 @@ export default () =>  (
 ```
 <br />
 
-これでようやくNetlify Formsにおいて非同期でファイルアップロードできるようになりました！
+これでようやくNetlify FormsにおいてReactを使って非同期でファイルアップロードできるようになりました！
 
 
 ## まとめ
 
 自分の復習も兼ねてステップごとに実装方法をご紹介しました。
-静的サイトを作るときにお問い合わせフォームが必要でWordPressを採用するケースは多いと思いますが、
-Netlify Formsを使えば、手間いらずでReactなどの単純なSPAでもお問い合わせフォームを作ることができます。
-最近話題のReact製静的サイトジェネレーターGatsbyと組み合わせても良いでしょう🍅
-
-
-## 参考
-
-
-
+AngluarとVueで実装する場合も今回紹介した実装と似たような感じになると思います。
+参考にしてみてください🍅
