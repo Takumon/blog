@@ -1,13 +1,13 @@
 ---
 title: 'Gatsbyでビルド時に取得した画像に対してgatsby-imageを適用する方法'
-date: '2019-06-1T12:00:00.000-07:00'
+date: '2019-06-1T21:30:00.000-07:00'
 tags:
   - Gatsby
   - gatsby-image
 keywords:
   - Gatsby
 slug: /gatsby-image-of-remote-in-building-by-using-create-remote-file-node
-thumbnail: thumbnail/2019/06/how-to-attach-context-to-root-page-in-gatsby.png
+thumbnail: thumbnail/2019/06/gatsby-image-of-remote-in-building-by-using-create-remote-file-node.png
 ---
 
 ## なにこれ
