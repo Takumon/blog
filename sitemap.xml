@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url> <loc>https://takumon.com/shinjuku-mokumoku-programming</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/gatsby-rss-reader-with-netlify-and-zapier</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/async-file-upload-in-netlify-forms-with-react-formik-axios</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/gatsby-image-of-remote-in-building-by-using-create-remote-file-node</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -64,6 +65,7 @@
 <url> <loc>https://takumon.com/4bf6ffd5-8640-508e-ab47-1a55df05d72e/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/e6e81f10-e1df-58fa-ad49-6da5d018abc4/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/map/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://takumon.com/tags/勉強会/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/gatsby/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/netlify/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/zapier/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -99,7 +101,6 @@
 <url> <loc>https://takumon.com/tags/apollo-client/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/hugo/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/golang/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://takumon.com/tags/勉強会/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/lt/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/mdx-deck/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://takumon.com/tags/mdx/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
