@@ -13,14 +13,14 @@ thumbnail: thumbnail/2019/06/shinjuku-mokumoku-programming.png
 
 一時期いろんな勉強会に行きましたが、「勉強会に参加すると勉強している気になるだけで実際そうじゃない」ので最近はモクモク会にしか顔を出さなくなりました。
 その中でも[Shinjuku Mokumoku Programming](https://shinjuku-moku.connpass.com/)(通称「新宿もくもく」)にはほぼ毎週参加していた覚えがあります。
-僕は2019年6月に転勤で東京を離れてしって行けなくなりましたが、一番お気に入りの勉強会だったので、この記事で紹介したいと思います。
+僕は2019年6月に転勤で東京を離れてしまって行けなくなりましたが、一番お気に入りの勉強会だったので、この記事で紹介したいと思います。
 
 ## 必ず毎週開催される
 
 [コンパスイベントページ](https://shinjuku-moku.connpass.com/)
 
 ![](./connpass-event-list.png)を見るとわかりますが、週次で開催されています。
-勉強会は開催が不定期のものもあって、開催予定日を常にウォッチしておく必要がありますが、
+勉強会のなかには開催が不定期で開催予定日を常にウォッチしておく必要がありますが、
 新宿もくもくはほぼ毎週欠かさず開催されるのでウォッチ不要です。
 自分の生活の一部として週一モクモク会参加を習慣化できます。
 
@@ -48,7 +48,7 @@ thumbnail: thumbnail/2019/06/shinjuku-mokumoku-programming.png
 午前中2時間もくもくして、おいしいランチを食べて、午後また集中してもくもくするといった流れです。
 立て込んでいる場合はランチに行かずに会場に残って作業することもできます。
 
-## コーヒ
+## おいしいコーヒ
 
 電源、Wifiはもちろん用意されているのですが、ウォーターサーバーとコーヒーサーバーもあります。
 コーヒーサーバーはちょっと高級なものらしく、とてもおいしいコーヒーが飲めます。
@@ -58,7 +58,7 @@ thumbnail: thumbnail/2019/06/shinjuku-mokumoku-programming.png
 ![](./image.png)
 
 勉強会の名前自体は「新宿もくもく」なんですが、開催場所は代々木です。
-会場を提供してくださっている[Repro](https://www.wantedly.com/companies/repro?aql=gaFxpXJlcHJvで開催されます。
+会場提供は[Repro](https://www.wantedly.com/companies/repro?aql=gaFxpXJlcHJv)さん。
 2019年6月からは、オフィス拡張に伴い新設したフロアでやっているらしいです。
 僕は6月に転勤になって東京を離れてしまったのでフロア移動後の勉強会には参加していませんが、
 5月に工事中のフロアを見せてもらった時は、こんなに素敵な空間でもくもく会できるなんて！と思いました。
@@ -66,4 +66,4 @@ thumbnail: thumbnail/2019/06/shinjuku-mokumoku-programming.png
 
 ## まとめ
 
-みなさん是非[「新宿もくもく」](https://shinjuku-moku.connpass.com/)に参加してみてください🍅
+みなさん是非、[新宿もくもく](https://shinjuku-moku.connpass.com/)に参加してみてください🍅
