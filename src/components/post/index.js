@@ -6,6 +6,7 @@ import 'katex/dist/katex.min.css';
 
 import config from '../../config/blog-config';
 import Title from '../title';
+import Adsense from '../adsense';
 import SNSShare from '../sns-share'
 import PostMetaInfo from '../post-meta-info'
 import Seo from '../seo';
@@ -123,9 +124,15 @@ class Post extends React.Component {
             <div
               dangerouslySetInnerHTML={{ __html: html }}
             />
+            {/* <div>
+              <Adsense />
+            </div> */}
           </div>
           <div className={styles.toc}>
             <ScrollSyncToc headings={headings} />
+            {/* <div>
+              <Adsense />
+            </div> */}
           </div>
           <div className={classNameSnsShare}>
             <SNSShare
