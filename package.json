@@ -60,6 +60,7 @@
     "normalize-scss": "^7.0.1",
     "prismjs": "^1.15.0",
     "react": "^16.5.2",
+    "react-adsense": "^0.1.0",
     "react-cytoscapejs": "^1.1.0",
     "react-dom": "^16.5.2",
     "react-full-screen": "^0.2.4",
@@ -96,6 +97,7 @@
     "develop": "gatsby develop",
     "build": "gatsby build",
     "deploy": "gatsby build && gh-pages -d public",
+    "publish": "gh-pages -d public",
     "fix-semi": "eslint --quiet --ignore-pattern node_modules --ignore-pattern public --parser babel-eslint --no-eslintrc --rule '{\"semi\": [2, \"never\"], \"no-extra-semi\": [2]}' --fix gatsby-node.js",
     "rm": "rm -rf ./.cache && rm -rf ./public"
   }
