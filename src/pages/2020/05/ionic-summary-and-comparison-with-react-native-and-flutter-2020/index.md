@@ -128,7 +128,7 @@ Ionicのスターター、プラグイン、テーマが公開されているマ
 |使えるSPAフレームワーク|Angular, React, Vue（Beta版）|-|-|
 |プラットフォーム|iOS, Android, Web（PWAも対応可能）, Electron|iOS, Android, Web|iOS, Android, Web, Windows, Mac, Linux|
 |UI|Web Component <br />（WebView上で動作）|ネイティブUI|独自UI|
-|採用事例|`NASA`、 `McDonald's`、 `Diesel`、 `MarketWatch`、 `Pacifica`、 `Sworkit`|`Facebook`、`Airbnb`、`Skype`、`Instagram`、`Walmart`、`Uber Eats`|`Alibaba`, `Tencent`, `Square`, `Groupon`, `ebay`, `Google Assistant` , `Grab`|
+|採用事例|`NASA`、 `McDonald's`、 `Diesel`、 `MarketWatch`、 `Pacifica`、 `Sworkit`|`Facebook`、`Skype`、`Instagram`、`Walmart`、`Uber Eats`、~~`Airbnb`~~  <br/> <small>📝AirbnbはReact Nativeからネイティブ開発にシフトしています。[参考記事](https://medium.com/airbnb-engineering/sunsetting-react-native-1868ba28e30a)</small>|`Alibaba`, `Tencent`, `Square`, `Groupon`, `ebay`, `Google Assistant` , `Grab`|
 |ネイティブ上で動作する時のレイヤー|<img src="./layers-ionic.png" alt="layers-ionic" style="width:200px; min-width:200px;hight:200px; min-hight:200px;"/>|<img src="./layers-react-native.png" alt="layers-react-native" style="width:200px; min-width:200px;hight:200px; min-hight:200px;"/>|<img src="./layers-flutter.png" alt="layers-flutter" style="width:200px; min-width:200px;hight:200px; min-hight:200px;"/>|
 |Qiitaの記事数とフォロワー数|546記事、290人|1501記事、741人<br/><small>タグが`reactnative`と`react-native`に分かれていたので実際はこれより多いかもしれません。</small>|1585記事、1155人|
 
@@ -139,13 +139,13 @@ Ionicのスターター、プラグイン、テーマが公開されているマ
 👍 「現在世の中に広く普及しているWebの技術をつかって、1つのコードを書けばどこでも動くアプリ」というのがIonicのコンセプトにもなっているので、最大限Web開発の恩恵を受けることができます。SPAフレームワークやさまざまなHTML/CSS/JSライブラリ、Webを取り巻くエコシステム、チームで培ってきたWeb開発のやり方やノウハウ、これらを全て活かせますし、採用面においてもWeb開発のエンジニアを雇うことは、React NativeやFlutterのエンジニアを雇うより容易です。またフレームワークだけでなくCI/CD自動化やマーケットなども充実しており、企業向け有償サポートもあります。
 Web開発をしてきた企業がモバイル開発に取り組む際は有力な選択肢の1つとなるでしょう。
 
-❌ WebViewを使っているため、他2つと比べてパフォーマンス面はそれほど良くありません。ゲームなどを作る場合は他2つを検討したほうが良さそうです。
+❌ WebViewのためレンダリングパフォーマンスに限界があります。ゲームなどを作る場合は他2つを検討したほうが良さそうです。
 
-<small>📝パフォーマンスについては、[この記事](https://dev.to/rubensdemelo/flutter-react-native-ionic-and-native-platform-a-visual-guide-2ff8)のMike Hartingtonさんのコメントいはく「アプリ起動時のCordovaプラグインのロードが遅いゆえに『Ionicは遅い』と言われていたが、Capacitorプラグインになってからは遅くはない」らしいです。Ionic公式ブログの記事にも、度々「Ionicは遅くない」と書かれていました。</small>
+<small>📝ネイティブ機能の呼び出しに関しては、[この記事](https://dev.to/rubensdemelo/flutter-react-native-ionic-and-native-platform-a-visual-guide-2ff8)のMike Hartingtonさんのコメントいはく「アプリ起動時のCordovaプラグインのロードが遅いと言われていたが、Capacitorプラグインになってから解消されている」らしいです。</small>
 
 
 ### React Native
-👍 ネイティブのUIを使っているのでパフォーマンスはIonicより良いです。Reactの有識者であれば学習コストは低いですFacebookをバックにした強大なコミュニティ、Airbnbなど大手での採用事例も魅力です。日本語記事も多くあります。
+👍 ネイティブのUIを使っているのでサクサク動きます。Reactの有識者であれば学習コストは低いですFacebookをバックにした強大なコミュニティ、Instagramなど大手での採用事例も魅力です。日本語記事も多くあります。
 
 ❌ 用意されていないオリジナルのUIを作る場合はNativeの知識（Swift/iOS Kotlin/Android）が必要です。あとReact Nativeは`JSスレッド <===> ブリッジ <===> ネイティブスレッド`のような仕組みで動作しますが、実装方法によってはJSスレッドに負荷がかかって遅くなることがあります。アニメーションにはとくに気を付けなければいけません。実際、パフォーマンスチューニング系の記事は多数あるのでハマりやすいポイントなのでしょう。
 
