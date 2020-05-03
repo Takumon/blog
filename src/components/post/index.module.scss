@@ -190,6 +190,11 @@
       font-size: .8rem;
     }
 
+    // ブラウザ幅が狭くなった時にテーブルを横スクロールさせて、スマホでも大きいテーブルが見れるようにする
+    table {
+      display: block;
+      overflow: auto;
+    }
   }
 
   .toc {
