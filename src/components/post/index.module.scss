@@ -439,6 +439,12 @@
       margin-right: 0;
     }
   }
+
+  .header {
+    min-height: 400px;
+    background-attachment: scroll,	scroll, scroll;
+    background-image: url('../../images/overlay2.png'),	url('../../images/overlay4.svg'), linear-gradient(45deg, #bf002a 30%, #bf002a 60%, #fd5210 90%, #ffa711);
+  }
 }
 
 
@@ -448,11 +454,6 @@
     h1 {
       font-size: 1.7em;
     }
-  }
-
-  .header {
-    min-height: 40px;
-    background-image: url('../../images/overlay2.png'),	url('../../images/overlay4.svg'), linear-gradient(45deg, #bf002a 30%, #bf002a 60%, #fd5210 90%, #ffa711);
   }
 
   .post {
@@ -475,7 +476,7 @@
   }
 
   .header {
-    min-height: 30px;
+    min-height: 300px;
     background-image: url('../../images/overlay2.png'),	url('../../images/overlay4.svg'), linear-gradient(45deg, #bf002a 30%, #bf002a 60%, #fd5210 90%, #ffa711);
   }
 
