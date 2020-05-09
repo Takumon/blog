@@ -58,10 +58,16 @@
 }
 
 
+@media screen and (max-width: 720px) {
+  .header_container {
+    background-attachment: scroll;
+  }
+}
+
+
 
 @media screen and (max-width: 600px) {
   .header_container {
-    background-size: 200%;
     min-height: 40vh;
 
     &__inner {
