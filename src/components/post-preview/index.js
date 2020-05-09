@@ -22,12 +22,14 @@ class PostPreview extends React.Component {
     return (
       <article key={slug} className={styles.content}>
         <Link className={styles.title_link} to={slug}>
-          <div className={styles.content_thumbnail}>
-            <Image
-              className={styles.content_thumbnail_image}
-              filename={thumbnail || config.defaultThumbnailImagePath}
-              alt={'thumbnail'}
-            />
+          <div className={styles.content_thumbnail_container}>
+            <div className={styles.content_thumbnail}>
+              <Image
+                className={styles.content_thumbnail_image}
+                filename={thumbnail || config.defaultThumbnailImagePath}
+                alt={'thumbnail'}
+              />
+            </div>
           </div>
           <div className={styles.content_post_info}>
             <h3 className={styles.title} >
