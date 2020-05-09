@@ -186,16 +186,20 @@ class PostRelationMapTemplate extends React.Component {
           const wordCloudTextSvg = <div
             dangerouslySetInnerHTML={{__html: wordCloudText}}
             style={{
-              width: 1200,
-              height: 630,
+              width: '100%',
+              paddingTop: '12px',
+              paddingBottom: '12px',
+              background: '#f7f7f7',
             }}
           />
 
           const wordCloudTagSvg = <div
             dangerouslySetInnerHTML={{__html: wordCloudTag}}
             style={{
-              width: 1200,
-              height: 630,
+              width: '100%',
+              paddingTop: '12px',
+              paddingBottom: '12px',
+              background: '#f7f7f7',
             }}
           />
 
@@ -332,7 +336,7 @@ class PostRelationMapTemplate extends React.Component {
                 marginRight: 'auto',
                 marginBottom: '64px',
               }}>
-                記事本文とタグをインプットにしてWordCloudを作成しました。
+                自分の記事の本文とタグをインプットにして作成したWordCloudです。
               </div>
 
               <div style={{
