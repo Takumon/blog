@@ -251,12 +251,14 @@ function createPostEdges({posts}) {
 
 class PostRelationSection extends React.Component {
   constructor(props) {
-    super();
+    super()
 
     this.state = {
       isFull: false,
       cytoscapeElements: null,
-    };
+    }
+    this.goFull = this.goFull.bind(this)
+    this.goNotFull = this.goNotFull.bind(this)
   }
 
   componentDidMount() {
@@ -287,8 +289,8 @@ class PostRelationSection extends React.Component {
 
     const fullscreenButton =
       this.state.isFull 
-        ? <button onClick={this.goNotFull}>戻る</button>
-        : <button onClick={this.goFull}>フルスクリーン表示</button>
+        ? <button onClick={this.goNotFull} style={{cursor: 'pointer'}}>戻る</button>
+        : <button onClick={this.goFull} style={{cursor: 'pointer'}}>フルスクリーン表示</button>
 
     return (
       <>
