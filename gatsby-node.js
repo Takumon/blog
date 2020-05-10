@@ -474,3 +474,22 @@ function createWordCloud({ words, w, h, fontSizePow, fontSizeZoom, padding }) {
 function rawText(html) {
   return striptags(html, '<pre>').replace(/<pre[\s\S]+?>[\s\S]+?<\/pre>/g, '').trim();
 }
+
+
+// 参考
+// https://github.com/plotly/react-cytoscapejs/issues/28
+// https://www.gatsbyjs.org/docs/debugging-html-builds/#fixing-third-party-modules
+exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
+  if (stage === 'build-html') {
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            test: /react-cytoscapejs/,
+            use: loaders.null(),
+          },
+        ],
+      },
+    })
+  }
+}
