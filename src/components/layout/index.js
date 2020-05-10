@@ -56,8 +56,8 @@ export default class Layout extends React.Component {
     } else if(isTag) {
       header = (
         <div className={styles.header_container}>
-         <Seo isRoot={true} />
-         <div className={styles.header_container__inner}>
+          <Seo isRoot={true} />
+          <div className={styles.header_container__inner}>
             <h1 className={styles.blog_title_area}>
               <Link
                 className={styles.blog_title}
@@ -72,8 +72,8 @@ export default class Layout extends React.Component {
     } else if(isMap) {
       header = (
         <div className={styles.header_container}>
-         <Seo isRoot={true} />
-         <div className={styles.header_container__inner}>
+          <Seo isRoot={true} />
+          <div className={styles.header_container__inner}>
             <h1 className={styles.blog_title_area}>
               <Link
                 className={styles.blog_title}
