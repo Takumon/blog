@@ -281,7 +281,6 @@ const PostRelationSection = ({ posts, allImage }) => {
   const goNotFull = () => setIsFull(false)
 
   useEffect(() => {
-    console.log("hogege")
     const nodes = createPostNode({ posts, allImage })
     nodes.push(CYTOSCAPE_ZOOM_UP_ELEMENT)
     nodes.push(CYTOSCAPE_ZOOM_DOWN_ELEMENT)
