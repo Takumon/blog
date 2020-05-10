@@ -1,0 +1,5 @@
+[build]
+  Command = "npm run build"
+  Publish = "public"
+[[plugins]]
+package = "netlify-plugin-gatsby-cache"

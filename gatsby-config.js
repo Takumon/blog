@@ -176,6 +176,7 @@ module.exports = {
       options: {
         openAnalyzer: false
       }
-    }
+    },
+    `gatsby-plugin-netlify`,
   ],
 }
