@@ -248,6 +248,30 @@ function createPostEdges({posts}) {
 }
 
 
+const graphPaperBackGroundImage = `repeating-linear-gradient(to bottom,
+  transparent 21px,
+  rgba(225, 225, 225, 0.17) 22px,  rgba(225, 225, 225, 0.17) 22px,
+  transparent 23px,  transparent 43px, 
+  rgba(225, 225, 225, 0.17) 44px,  rgba(225, 225, 225, 0.17) 44px,
+  transparent 45px,  transparent 65px, 
+  rgba(225, 225, 225, 0.17) 66px,  rgba(225, 225, 225, 0.17) 66px,
+  transparent 67px,  transparent 87px, 
+  rgba(225, 225, 225, 0.17) 88px,  rgba(225, 225, 225, 0.17) 88px,
+  transparent 89px,  transparent 109px, 
+  rgba(225, 225, 225, 0.17) 110px,  rgba(225, 225, 225, 0.17) 110px),
+repeating-linear-gradient(to right,
+  transparent 21px,
+  rgba(225, 225, 225, 0.17) 22px,  rgba(225, 225, 225, 0.17) 22px,
+  transparent 23px,  transparent 43px, 
+  rgba(225, 225, 225, 0.17) 44px,  rgba(225, 225, 225, 0.17) 44px,
+  transparent 45px,  transparent 65px, 
+  rgba(225, 225, 225, 0.17) 66px,  rgba(225, 225, 225, 0.17) 66px,
+  transparent 67px,  transparent 87px, 
+  rgba(225, 225, 225, 0.17) 88px,  rgba(225, 225, 225, 0.17) 88px,
+  transparent 89px,  transparent 109px, 
+  rgba(225, 225, 225, 0.17) 110px,  rgba(225, 225, 225, 0.17) 110px)`
+
+
 
 class PostRelationSection extends React.Component {
   constructor(props) {
@@ -315,120 +339,117 @@ class PostRelationSection extends React.Component {
           enabled={this.state.isFull}
           onChange={isFull => this.setState({isFull})}
         >
-          <div style={{
-            width: '90%',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            marginBottom: '-34px',
-            zIndex: 1,
-            position: 'relative',
-          }}>
-            {fullscreenButton}
-          </div>
-          {this.state.cytoscapeElements
-            ? <CytoscapeComponent
-              zoom={zoomLevel}
-              pan={{
-                x: 100,
-                y: 100 
-              }}
-              minZoom={0.1}
-              maxZoom={4}
-              elements={this.state.cytoscapeElements}
-              layout={CYTOSCAPE_COMPONENT_LAYOUT}
-              style={{
-                width: this.state.isFull ? '100vw' : '90%',
-                height: '100vh',
-                position: 'relative',
+          {!this.state.cytoscapeElements
+            ? (
+              <div style={{
+                width: '90%',
+                textAlign: 'center',
+                fontSize: '2rem',
+                color: '#555555',
                 marginLeft: 'auto',
                 marginRight: 'auto',
+                marginBottom: '42px',
                 border: '1px solid black',
                 'backgroundColor' : '#ffffff',
-                'backgroundImage' : `repeating-linear-gradient(to bottom,
-                    transparent 21px,
-                    rgba(225, 225, 225, 0.17) 22px,  rgba(225, 225, 225, 0.17) 22px,
-                    transparent 23px,  transparent 43px, 
-                    rgba(225, 225, 225, 0.17) 44px,  rgba(225, 225, 225, 0.17) 44px,
-                    transparent 45px,  transparent 65px, 
-                    rgba(225, 225, 225, 0.17) 66px,  rgba(225, 225, 225, 0.17) 66px,
-                    transparent 67px,  transparent 87px, 
-                    rgba(225, 225, 225, 0.17) 88px,  rgba(225, 225, 225, 0.17) 88px,
-                    transparent 89px,  transparent 109px, 
-                    rgba(225, 225, 225, 0.17) 110px,  rgba(225, 225, 225, 0.17) 110px),
-                  repeating-linear-gradient(to right,
-                    transparent 21px,
-                    rgba(225, 225, 225, 0.17) 22px,  rgba(225, 225, 225, 0.17) 22px,
-                    transparent 23px,  transparent 43px, 
-                    rgba(225, 225, 225, 0.17) 44px,  rgba(225, 225, 225, 0.17) 44px,
-                    transparent 45px,  transparent 65px, 
-                    rgba(225, 225, 225, 0.17) 66px,  rgba(225, 225, 225, 0.17) 66px,
-                    transparent 67px,  transparent 87px, 
-                    rgba(225, 225, 225, 0.17) 88px,  rgba(225, 225, 225, 0.17) 88px,
-                    transparent 89px,  transparent 109px, 
-                    rgba(225, 225, 225, 0.17) 110px,  rgba(225, 225, 225, 0.17) 110px)`,
-              }}
-              stylesheet={CYTOSCAPE_COMPONENT_STYLE_SHEET}
-              cy={cy => {
-                cy.on('click', 'node[id = "zoomUp"]', function (e) {
-                  if(zoomLevel < 4) {
-                    zoomLevel = zoomLevel + deltaZoomLevel
-                  }
+                'backgroundImage' : graphPaperBackGroundImage,
+                minHeight: '40vh',
+                lineHeight: '40vh',
+              }}>Now loading...</div>
+            )
+            : (
+            <>
+              <div style={{
+                width: '90%',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginBottom: '-34px',
+                zIndex: 1,
+                position: 'relative',
+              }}>
+                {fullscreenButton}
+              </div>
+              <CytoscapeComponent
+                zoom={zoomLevel}
+                pan={{
+                  x: 100,
+                  y: 100 
+                }}
+                minZoom={0.1}
+                maxZoom={4}
+                elements={this.state.cytoscapeElements}
+                layout={CYTOSCAPE_COMPONENT_LAYOUT}
+                style={{
+                  width: this.state.isFull ? '100vw' : '90%',
+                  height: '100vh',
+                  position: 'relative',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  border: '1px solid black',
+                  'backgroundColor' : '#ffffff',
+                  'backgroundImage' : graphPaperBackGroundImage,
+                }}
+                stylesheet={CYTOSCAPE_COMPONENT_STYLE_SHEET}
+                cy={cy => {
+                  cy.on('click', 'node[id = "zoomUp"]', function (e) {
+                    if(zoomLevel < 4) {
+                      zoomLevel = zoomLevel + deltaZoomLevel
+                    }
 
-                  cy.zoom({
-                    level: zoomLevel,
-                    position: e.target.position()
+                    cy.zoom({
+                      level: zoomLevel,
+                      position: e.target.position()
+                    });
                   });
-                });
 
-                cy.on('click', 'node[id = "zoomDown"]', function (e) {
-                  if(zoomLevel > 0.1) {
-                    zoomLevel = zoomLevel - deltaZoomLevel
-                  }
+                  cy.on('click', 'node[id = "zoomDown"]', function (e) {
+                    if(zoomLevel > 0.1) {
+                      zoomLevel = zoomLevel - deltaZoomLevel
+                    }
 
-                  cy.zoom({
-                    level: zoomLevel,
-                    position: e.target.position()
+                    cy.zoom({
+                      level: zoomLevel,
+                      position: e.target.position()
+                    });
                   });
-                });
 
 
-                cy.on('tap', 'node[id != "zoomUp"][ id != "zoomDown" ]', function(){
-                  try {
-                    window.open( this.data('href') );
-                  } catch(e) {
-                    window.location.href = this.data('href');
-                  }
-                });
-                cy.on('mouseover', 'node[id != "zoomUp"][ id != "zoomDown" ]', function (e) {
-                  document.body.style.cursor = 'pointer';
-                  e.target.style({
-                    'text-margin-x': '-500px',
-                    'width': '500px',
-                    'height': '270px',      
-                  })
-                  e.target.connectedEdges().style({
-                    'line-color': 'blue',
-                    'color': 'blue',
-                    'text-max-width': '400px',
+                  cy.on('tap', 'node[id != "zoomUp"][ id != "zoomDown" ]', function(){
+                    try {
+                      window.open( this.data('href') );
+                    } catch(e) {
+                      window.location.href = this.data('href');
+                    }
                   });
-                });
-
-                cy.on('mouseout', 'node[id != "zoomUp"][ id != "zoomDown" ]', function (e) {
-                  document.body.style.cursor = 'default';
-                  e.target.style({
-                    'text-margin-x': '-300px',
-                    'width': '300px',
-                    'height': '166px', 
-                  })
-                  e.target.connectedEdges().style({
-                    'line-color': 'gray',
-                    'color': 'black',
-                    'text-max-width': '300px',
+                  cy.on('mouseover', 'node[id != "zoomUp"][ id != "zoomDown" ]', function (e) {
+                    document.body.style.cursor = 'pointer';
+                    e.target.style({
+                      'text-margin-x': '-500px',
+                      'width': '500px',
+                      'height': '270px',      
+                    })
+                    e.target.connectedEdges().style({
+                      'line-color': 'blue',
+                      'color': 'blue',
+                      'text-max-width': '400px',
+                    });
                   });
-                });
-              }}
-            />
-            : null
+
+                  cy.on('mouseout', 'node[id != "zoomUp"][ id != "zoomDown" ]', function (e) {
+                    document.body.style.cursor = 'default';
+                    e.target.style({
+                      'text-margin-x': '-300px',
+                      'width': '300px',
+                      'height': '166px', 
+                    })
+                    e.target.connectedEdges().style({
+                      'line-color': 'gray',
+                      'color': 'black',
+                      'text-max-width': '300px',
+                    });
+                  });
+                }}
+              />
+            </>)
           }
         </Fullscreen>
       </>
