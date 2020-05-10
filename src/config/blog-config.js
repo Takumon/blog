@@ -5,6 +5,7 @@ module.exports = {
   blogRssUrl: 'https://takumon.com/rss.xml',
   blogImageUrl: 'https://takumon.com/icons/app-sns.png', // gatsby-image経由ではない場合
   defaultThumbnailImagePath: 'thumbnail/default.png', // 記事にサムネイルが指定していない場合のデフォルトサムネイル画像の相対パス
+  thumbnailImagePathForRootPage: 'thumbnail/for-root-page.png',
   blogAuthorTwitterUserName: 'inouetakumon',
   blogRepositoryUrl: 'https://github.com/Takumon/blog',
   blogAuthorTwitterUrl: 'https://twitter.com/inouetakumon',
