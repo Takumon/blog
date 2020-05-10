@@ -6,11 +6,21 @@
   background: white;
   max-width: 100%;
 
+  .content_thumbnail_container {
+    overflow: hidden;
+    margin-bottom: .75rem;
+    margin-left: -1.75rem;
+    margin-right: -1.75rem;
+    margin-top: -.75rem;
+  }
+  
   .title_link {
     box-shadow: none;
     color: #4a4a4a;
     font-size: 1.2em;
     line-height: 1em;
+
+
 
     &:hover {
       opacity: 1;
@@ -24,13 +34,6 @@
   }
 }
 
-.content_thumbnail_container {
-  overflow: hidden;
-  margin-bottom: .75rem;
-  margin-left: -1.75rem;
-  margin-right: -1.75rem;
-  margin-top: -.75rem;
-}
 
 .content_thumbnail {
   transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -100,14 +103,11 @@
   .content {
     padding: .75rem .75rem;
 
-    .content_thumbnail {
+    .content_thumbnail_container {
       margin-bottom: .75rem;
       margin-left: -.75rem;
       margin-right: -.75rem;
       margin-top: -.75rem;
-    
-      .content_thumbnail_image {
-      }
     }
     
     .content_post_info {
