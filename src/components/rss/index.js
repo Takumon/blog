@@ -1,20 +1,17 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRss } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'gatsby'
 
-import config from '../../config/blog-config';
-import styles from './index.module.scss';
+import config from '../../config/blog-config'
+import styles from './index.module.scss'
 
 
 class Rss extends React.Component {
   render() {
     return (
       <div className={styles.content}>
-          <a
-            aria-label="blog_map"
-            href={'/map'}
-            className={styles.blog_map_link}>
-          </a>
+          <Link to={`/map`} aria-label="blog_map" className={styles.blog_map_link} />
 
           <a
             aria-label="blog_repository"
@@ -48,4 +45,4 @@ class Rss extends React.Component {
   }
 }
 
-export default Rss;
+export default Rss

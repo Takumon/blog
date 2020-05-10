@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import cytoscape from 'cytoscape'
 import CytoscapeComponent from 'react-cytoscapejs'
 import coseBilkent from 'cytoscape-cose-bilkent'
@@ -248,85 +248,109 @@ function createPostEdges({posts}) {
 }
 
 
+const graphPaperBackGroundImage = `repeating-linear-gradient(to bottom,
+  transparent 21px,
+  rgba(225, 225, 225, 0.17) 22px,  rgba(225, 225, 225, 0.17) 22px,
+  transparent 23px,  transparent 43px, 
+  rgba(225, 225, 225, 0.17) 44px,  rgba(225, 225, 225, 0.17) 44px,
+  transparent 45px,  transparent 65px, 
+  rgba(225, 225, 225, 0.17) 66px,  rgba(225, 225, 225, 0.17) 66px,
+  transparent 67px,  transparent 87px, 
+  rgba(225, 225, 225, 0.17) 88px,  rgba(225, 225, 225, 0.17) 88px,
+  transparent 89px,  transparent 109px, 
+  rgba(225, 225, 225, 0.17) 110px,  rgba(225, 225, 225, 0.17) 110px),
+repeating-linear-gradient(to right,
+  transparent 21px,
+  rgba(225, 225, 225, 0.17) 22px,  rgba(225, 225, 225, 0.17) 22px,
+  transparent 23px,  transparent 43px, 
+  rgba(225, 225, 225, 0.17) 44px,  rgba(225, 225, 225, 0.17) 44px,
+  transparent 45px,  transparent 65px, 
+  rgba(225, 225, 225, 0.17) 66px,  rgba(225, 225, 225, 0.17) 66px,
+  transparent 67px,  transparent 87px, 
+  rgba(225, 225, 225, 0.17) 88px,  rgba(225, 225, 225, 0.17) 88px,
+  transparent 89px,  transparent 109px, 
+  rgba(225, 225, 225, 0.17) 110px,  rgba(225, 225, 225, 0.17) 110px)`
 
-class PostRelationSection extends React.Component {
-  constructor(props) {
-    super()
 
-    this.state = {
-      isFull: false,
-      cytoscapeElements: null,
-    }
-    this.goFull = this.goFull.bind(this)
-    this.goNotFull = this.goNotFull.bind(this)
-  }
 
-  componentDidMount() {
-    const { posts, allImage } = this.props
+const PostRelationSection = ({ posts, allImage }) => {
+  const [ isFull, setIsFull ] = useState(false)
+  const [ cytoscapeElements, setCytoscapeElements ] = useState(null)
+
+  const goFull = () => setIsFull(true)
+  const goNotFull = () => setIsFull(false)
+
+  useEffect(() => {
     const nodes = createPostNode({ posts, allImage })
     nodes.push(CYTOSCAPE_ZOOM_UP_ELEMENT)
     nodes.push(CYTOSCAPE_ZOOM_DOWN_ELEMENT)
-
     const edges = createPostEdges({posts})
-
     const cytoscapeElements = CytoscapeComponent.normalizeElements({ nodes, edges })
-
-    this.setState({ cytoscapeElements })
-  }
-
-  goFull() {
-    this.setState({ isFull: true })
-  }
-
-  goNotFull() {
-    this.setState({ isFull: false })
-  }
-
-  render() {
-    let zoomLevel = 0.3
-    const deltaZoomLevel = 0.02
+    setCytoscapeElements(cytoscapeElements)
+  }, [posts, allImage])
 
 
-    const fullscreenButton =
-      this.state.isFull 
-        ? <button onClick={this.goNotFull} style={{cursor: 'pointer'}}>戻る</button>
-        : <button onClick={this.goFull} style={{cursor: 'pointer'}}>フルスクリーン表示</button>
+  let zoomLevel = 0.3
+  const deltaZoomLevel = 0.02
 
-    return (
-      <>
-        <h2 style={{
-          width: '90%',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-        }}>
-          記事関連度マップ
-        </h2>
-        <div style={{
-          width: '90%',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          marginBottom: '64px',
-        }}>
-          記事毎のタグ・キーワードをもとに関連度合いをCytoscape.jsで可視化したものです。Canvasで描画していますが、記事をクリックして記事に遷移できたりします。
-          マウスホイールで拡大率を変更できます。マップの左上の+-ボタンでも変更できます。
-        </div>
+  const fullscreenButton =
+    isFull 
+      ? <button onClick={goNotFull} style={{cursor: 'pointer'}}>戻る</button>
+      : <button onClick={goFull} style={{cursor: 'pointer'}}>フルスクリーン表示</button>
 
-        <Fullscreen
-          enabled={this.state.isFull}
-          onChange={isFull => this.setState({isFull})}
-        >
-          <div style={{
-            width: '90%',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            marginBottom: '-34px',
-            zIndex: 1,
-            position: 'relative',
-          }}>
-            {fullscreenButton}
-          </div>
-          {this.state.cytoscapeElements
-            ? <CytoscapeComponent
+  return (
+    <>
+      <h2 style={{
+        width: '90%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+      }}>
+        記事関連度マップ
+      </h2>
+      <div style={{
+        width: '90%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: '64px',
+      }}>
+        記事毎のタグ・キーワードをもとに関連度合いをCytoscape.jsで可視化したものです。Canvasで描画していますが、記事をクリックして記事に遷移できたりします。
+        マウスホイールで拡大率を変更できます。マップの左上の+-ボタンでも変更できます。
+      </div>
+
+      <Fullscreen
+        enabled={isFull}
+        onChange={isFull => setIsFull(isFull)}
+      >
+        {!cytoscapeElements
+          ? (
+            <div style={{
+              width: '90%',
+              textAlign: 'center',
+              fontSize: '2rem',
+              color: '#555555',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              marginBottom: '42px',
+              border: '1px solid black',
+              'backgroundColor' : '#ffffff',
+              'backgroundImage' : graphPaperBackGroundImage,
+              minHeight: '40vh',
+              lineHeight: '40vh',
+            }}>Now loading...</div>
+          )
+          : (
+          <>
+            <div style={{
+              width: '90%',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              marginBottom: '-34px',
+              zIndex: 1,
+              position: 'relative',
+            }}>
+              {fullscreenButton}
+            </div>
+            <CytoscapeComponent
               zoom={zoomLevel}
               pan={{
                 x: 100,
@@ -334,38 +358,17 @@ class PostRelationSection extends React.Component {
               }}
               minZoom={0.1}
               maxZoom={4}
-              elements={this.state.cytoscapeElements}
+              elements={cytoscapeElements}
               layout={CYTOSCAPE_COMPONENT_LAYOUT}
               style={{
-                width: this.state.isFull ? '100vw' : '90%',
+                width: isFull ? '100vw' : '90%',
                 height: '100vh',
                 position: 'relative',
                 marginLeft: 'auto',
                 marginRight: 'auto',
                 border: '1px solid black',
                 'backgroundColor' : '#ffffff',
-                'backgroundImage' : `repeating-linear-gradient(to bottom,
-                    transparent 21px,
-                    rgba(225, 225, 225, 0.17) 22px,  rgba(225, 225, 225, 0.17) 22px,
-                    transparent 23px,  transparent 43px, 
-                    rgba(225, 225, 225, 0.17) 44px,  rgba(225, 225, 225, 0.17) 44px,
-                    transparent 45px,  transparent 65px, 
-                    rgba(225, 225, 225, 0.17) 66px,  rgba(225, 225, 225, 0.17) 66px,
-                    transparent 67px,  transparent 87px, 
-                    rgba(225, 225, 225, 0.17) 88px,  rgba(225, 225, 225, 0.17) 88px,
-                    transparent 89px,  transparent 109px, 
-                    rgba(225, 225, 225, 0.17) 110px,  rgba(225, 225, 225, 0.17) 110px),
-                  repeating-linear-gradient(to right,
-                    transparent 21px,
-                    rgba(225, 225, 225, 0.17) 22px,  rgba(225, 225, 225, 0.17) 22px,
-                    transparent 23px,  transparent 43px, 
-                    rgba(225, 225, 225, 0.17) 44px,  rgba(225, 225, 225, 0.17) 44px,
-                    transparent 45px,  transparent 65px, 
-                    rgba(225, 225, 225, 0.17) 66px,  rgba(225, 225, 225, 0.17) 66px,
-                    transparent 67px,  transparent 87px, 
-                    rgba(225, 225, 225, 0.17) 88px,  rgba(225, 225, 225, 0.17) 88px,
-                    transparent 89px,  transparent 109px, 
-                    rgba(225, 225, 225, 0.17) 110px,  rgba(225, 225, 225, 0.17) 110px)`,
+                'backgroundImage' : graphPaperBackGroundImage,
               }}
               stylesheet={CYTOSCAPE_COMPONENT_STYLE_SHEET}
               cy={cy => {
@@ -428,12 +431,11 @@ class PostRelationSection extends React.Component {
                 });
               }}
             />
-            : null
-          }
-        </Fullscreen>
-      </>
-    )
-  }
+          </>)
+        }
+      </Fullscreen>
+    </>
+  )
 }
 
 export default PostRelationSection
