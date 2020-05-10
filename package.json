@@ -91,11 +91,11 @@
     "url": "git+https://github.com/takumon/blog.git"
   },
   "scripts": {
-    "dev": "gatsby develop",
+    "dev": "run-s develop",
+    "develop": "gatsby develop",
     "lint": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js' 'src/**/*.md'",
-    "develop": "gatsby develop",
     "install-local-gatsby-plugins": "run-p install-local-gatsby-plugins:**",
     "install-local-gatsby-plugins:gatsby-remark-and-qiita": "cd ./plugins/gatsby-remark-and-qiita && npm i",
     "install-local-gatsby-plugins:gatsby-remark-headings-detail": "cd ./plugins/gatsby-remark-headings-detail && npm i",
