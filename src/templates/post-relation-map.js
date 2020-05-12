@@ -3,6 +3,7 @@ import { useStaticQuery, graphql } from 'gatsby'
 import Layout from '../components/layout'
 import WordCloudSection from '../components/posts-analytics/word-cloud-section'
 import PostRelationSection from '../components/posts-analytics/posts-relation-section'
+import GitHubContributionsSection from '../components/posts-analytics/github-contributions-section'
 
 
 const PostRelationMapTemplate = ({ pathContext, location }) => {
@@ -40,6 +41,7 @@ const PostRelationMapTemplate = ({ pathContext, location }) => {
         posts={posts}
         allImage={images}
       />
+      <GitHubContributionsSection />
     </Layout>
   )
 }
