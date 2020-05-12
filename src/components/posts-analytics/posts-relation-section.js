@@ -276,18 +276,20 @@ repeating-linear-gradient(to right,
 const PostRelationSection = ({ posts, allImage }) => {
   const [ isFull, setIsFull ] = useState(false)
   const [ cytoscapeElements, setCytoscapeElements ] = useState(null)
+  const [ isShowContent, setIsShowContent ] = useState(false)
 
   const goFull = () => setIsFull(true)
   const goNotFull = () => setIsFull(false)
-
-  useEffect(() => {
+  const showContent = () => {
+    setIsShowContent(true)
+  
     const nodes = createPostNode({ posts, allImage })
     nodes.push(CYTOSCAPE_ZOOM_UP_ELEMENT)
     nodes.push(CYTOSCAPE_ZOOM_DOWN_ELEMENT)
     const edges = createPostEdges({posts})
     const cytoscapeElements = CytoscapeComponent.normalizeElements({ nodes, edges })
     setCytoscapeElements(cytoscapeElements)
-  }, [posts, allImage])
+  }
 
 
   let zoomLevel = 0.3
@@ -297,6 +299,148 @@ const PostRelationSection = ({ posts, allImage }) => {
     isFull 
       ? <button onClick={goNotFull} style={{cursor: 'pointer'}}>戻る</button>
       : <button onClick={goFull} style={{cursor: 'pointer'}}>フルスクリーン表示</button>
+
+  const ContentAlternative = (
+    <div style={{
+      width: '90%',
+      textAlign: 'center',
+      fontSize: '2rem',
+      color: '#555555',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginBottom: '42px',
+      border: '1px solid black',
+      'backgroundColor' : '#ffffff',
+      'backgroundImage' : graphPaperBackGroundImage,
+      minHeight: '40vh',
+      lineHeight: '40vh',
+    }}>
+      <button onClick={showContent} style={{
+        cursor: 'pointer',
+        height: '42px',
+        lineHeight: '42px',
+        fontSize: '1rem',
+        borderRadius: '4px',
+      }}>記事関連度マップを表示</button>
+    </div>
+  )
+
+
+  const ContentLoading = (
+    <div style={{
+      width: '90%',
+      textAlign: 'center',
+      fontSize: '2rem',
+      color: '#555555',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginBottom: '42px',
+      border: '1px solid black',
+      'backgroundColor' : '#ffffff',
+      'backgroundImage' : graphPaperBackGroundImage,
+      minHeight: '40vh',
+      lineHeight: '40vh',
+    }}>Now loading...</div>
+  )
+
+
+  const Content =  (
+    <>
+      <div style={{
+        width: '90%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: '-34px',
+        zIndex: 1,
+        position: 'relative',
+      }}>
+        {fullscreenButton}
+      </div>
+      <CytoscapeComponent
+        zoom={zoomLevel}
+        pan={{
+          x: 100,
+          y: 100 
+        }}
+        minZoom={0.1}
+        maxZoom={4}
+        elements={cytoscapeElements}
+        layout={CYTOSCAPE_COMPONENT_LAYOUT}
+        style={{
+          width: isFull ? '100vw' : '90%',
+          height: '100vh',
+          position: 'relative',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          border: '1px solid black',
+          'backgroundColor' : '#ffffff',
+          'backgroundImage' : graphPaperBackGroundImage,
+        }}
+        stylesheet={CYTOSCAPE_COMPONENT_STYLE_SHEET}
+        cy={cy => {
+          cy.on('click', 'node[id = "zoomUp"]', function (e) {
+            if(zoomLevel < 4) {
+              zoomLevel = zoomLevel + deltaZoomLevel
+            }
+
+            cy.zoom({
+              level: zoomLevel,
+              position: e.target.position()
+            });
+          });
+
+          cy.on('click', 'node[id = "zoomDown"]', function (e) {
+            if(zoomLevel > 0.1) {
+              zoomLevel = zoomLevel - deltaZoomLevel
+            }
+
+            cy.zoom({
+              level: zoomLevel,
+              position: e.target.position()
+            });
+          });
+
+
+          cy.on('tap', 'node[id != "zoomUp"][ id != "zoomDown" ]', function(){
+            try {
+              window.open( this.data('href') );
+            } catch(e) {
+              window.location.href = this.data('href');
+            }
+          });
+          cy.on('mouseover', 'node[id != "zoomUp"][ id != "zoomDown" ]', function (e) {
+            document.body.style.cursor = 'pointer';
+            e.target.style({
+              'text-margin-x': '-500px',
+              'width': '500px',
+              'height': '270px',      
+            })
+            e.target.connectedEdges().style({
+              'line-color': 'blue',
+              'color': 'blue',
+              'text-max-width': '400px',
+            });
+          });
+
+          cy.on('mouseout', 'node[id != "zoomUp"][ id != "zoomDown" ]', function (e) {
+            document.body.style.cursor = 'default';
+            e.target.style({
+              'text-margin-x': '-300px',
+              'width': '300px',
+              'height': '166px', 
+            })
+            e.target.connectedEdges().style({
+              'line-color': 'gray',
+              'color': 'black',
+              'text-max-width': '300px',
+            });
+          });
+        }}
+      />
+    </>
+  )
+
+  
 
   return (
     <>
@@ -321,117 +465,11 @@ const PostRelationSection = ({ posts, allImage }) => {
         enabled={isFull}
         onChange={isFull => setIsFull(isFull)}
       >
-        {!cytoscapeElements
-          ? (
-            <div style={{
-              width: '90%',
-              textAlign: 'center',
-              fontSize: '2rem',
-              color: '#555555',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              marginBottom: '42px',
-              border: '1px solid black',
-              'backgroundColor' : '#ffffff',
-              'backgroundImage' : graphPaperBackGroundImage,
-              minHeight: '40vh',
-              lineHeight: '40vh',
-            }}>Now loading...</div>
-          )
-          : (
-          <>
-            <div style={{
-              width: '90%',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              marginBottom: '-34px',
-              zIndex: 1,
-              position: 'relative',
-            }}>
-              {fullscreenButton}
-            </div>
-            <CytoscapeComponent
-              zoom={zoomLevel}
-              pan={{
-                x: 100,
-                y: 100 
-              }}
-              minZoom={0.1}
-              maxZoom={4}
-              elements={cytoscapeElements}
-              layout={CYTOSCAPE_COMPONENT_LAYOUT}
-              style={{
-                width: isFull ? '100vw' : '90%',
-                height: '100vh',
-                position: 'relative',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                border: '1px solid black',
-                'backgroundColor' : '#ffffff',
-                'backgroundImage' : graphPaperBackGroundImage,
-              }}
-              stylesheet={CYTOSCAPE_COMPONENT_STYLE_SHEET}
-              cy={cy => {
-                cy.on('click', 'node[id = "zoomUp"]', function (e) {
-                  if(zoomLevel < 4) {
-                    zoomLevel = zoomLevel + deltaZoomLevel
-                  }
-
-                  cy.zoom({
-                    level: zoomLevel,
-                    position: e.target.position()
-                  });
-                });
-
-                cy.on('click', 'node[id = "zoomDown"]', function (e) {
-                  if(zoomLevel > 0.1) {
-                    zoomLevel = zoomLevel - deltaZoomLevel
-                  }
-
-                  cy.zoom({
-                    level: zoomLevel,
-                    position: e.target.position()
-                  });
-                });
-
-
-                cy.on('tap', 'node[id != "zoomUp"][ id != "zoomDown" ]', function(){
-                  try {
-                    window.open( this.data('href') );
-                  } catch(e) {
-                    window.location.href = this.data('href');
-                  }
-                });
-                cy.on('mouseover', 'node[id != "zoomUp"][ id != "zoomDown" ]', function (e) {
-                  document.body.style.cursor = 'pointer';
-                  e.target.style({
-                    'text-margin-x': '-500px',
-                    'width': '500px',
-                    'height': '270px',      
-                  })
-                  e.target.connectedEdges().style({
-                    'line-color': 'blue',
-                    'color': 'blue',
-                    'text-max-width': '400px',
-                  });
-                });
-
-                cy.on('mouseout', 'node[id != "zoomUp"][ id != "zoomDown" ]', function (e) {
-                  document.body.style.cursor = 'default';
-                  e.target.style({
-                    'text-margin-x': '-300px',
-                    'width': '300px',
-                    'height': '166px', 
-                  })
-                  e.target.connectedEdges().style({
-                    'line-color': 'gray',
-                    'color': 'black',
-                    'text-max-width': '300px',
-                  });
-                });
-              }}
-            />
-          </>)
+        {!isShowContent
+          ? ContentAlternative
+          : !cytoscapeElements
+            ? ContentLoading
+            : Content
         }
       </Fullscreen>
     </>
