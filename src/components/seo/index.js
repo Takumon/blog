@@ -32,8 +32,8 @@ export default function Seo({
                 relativePath
                 name
                 childImageSharp {
-                  sizes(maxWidth: 800) {
-                    ...GatsbyImageSharpSizes
+                  fluid(maxWidth: 640) {
+                    ...GatsbyImageSharpFluid
                   }
                 }
               }
@@ -51,7 +51,7 @@ export default function Seo({
         
         const imageNode = data.images.edges.find(n => n.node.relativePath.includes(imagePath))
         
-        const image = config.blogUrl + imageNode.node.childImageSharp.sizes.src
+        const image = config.blogUrl + imageNode.node.childImageSharp.fluid.src
         const twitterCard = 'summary_large_image'
 
         return (<Helmet>

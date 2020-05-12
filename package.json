@@ -67,8 +67,10 @@
     "react-cytoscapejs": "^1.2.1",
     "react-dom": "^16.13.1",
     "react-full-screen": "^0.2.4",
+    "react-github-calendar": "^1.0.4",
     "react-helmet": "^5.2.0",
     "react-share": "^2.3.1",
+    "react-tooltip": "^4.2.6",
     "react-typography": "^0.16.13",
     "remark-html": "^8.0.0",
     "striptags": "^3.1.1",
@@ -100,7 +102,7 @@
     "install-local-gatsby-plugins:gatsby-remark-and-qiita": "cd ./plugins/gatsby-remark-and-qiita && npm i",
     "install-local-gatsby-plugins:gatsby-remark-headings-detail": "cd ./plugins/gatsby-remark-headings-detail && npm i",
     "build": "run-s install-local-gatsby-plugins build:gatsby",
-    "build:gatsby": "gatsby build",
+    "build:gatsby": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
     "fix-semi": "eslint --quiet --ignore-pattern node_modules --ignore-pattern public --parser babel-eslint --no-eslintrc --rule '{\"semi\": [2, \"never\"], \"no-extra-semi\": [2]}' --fix gatsby-node.js",
     "rm": "gatsby clean && rd /s ./public"
   }

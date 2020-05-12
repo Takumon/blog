@@ -16,8 +16,8 @@ export default ({
               relativePath
               name
               childImageSharp {
-                sizes(maxWidth: 800) {
-                  ...GatsbyImageSharpSizes
+                fluid(maxWidth: 640) {
+                  ...GatsbyImageSharpFluid
                 }
               }
             }
@@ -35,13 +35,7 @@ export default ({
         return null
       }
 
-      const imageSizes = image.node.childImageSharp.sizes
-      return (
-        <Img
-          alt={alt}
-          sizes={imageSizes}
-        />
-      );
+      return <Img alt={alt} fluid={image.node.childImageSharp.fluid} />
     }}
   />
 )
