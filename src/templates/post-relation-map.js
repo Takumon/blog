@@ -14,8 +14,8 @@ const PostRelationMapTemplate = ({ pathContext, location }) => {
             relativePath
             name
             childImageSharp {
-              sizes(maxWidth: 800) {
-                ...GatsbyImageSharpSizes
+              fluid(maxWidth: 100) {
+                ...GatsbyImageSharpFluid
               }
             }
           }

@@ -57,7 +57,7 @@ const CYTOSCAPE_COMPONENT_STYLE_SHEET = [
     selector: 'node[id != "zoomUp"][ id != "zoomDown" ]',
     style: {
       'label': 'data(title)',
-      'background-image': 'data(backgroudImage)',
+      'background-image': 'data(backgroundImage)',
       'shape': 'rectangle',
       'padding': '0px',
       'text-outline-width': '2px',
@@ -178,27 +178,27 @@ function createPostNode({posts, allImage}) {
     })
 
     // 記事サムネイルとして使う
-    const backgroudImage = config.blogUrl + imageNode.node.childImageSharp.sizes.src
+    const backgroundImage = config.blogUrl + imageNode.node.childImageSharp.fluid.src
 
 
     const title = postRelation.node.fields.title.replace(/ /g,'')
-    let devicedTitle;
+    let postTitle;
     if(title.length > 25) {
-      devicedTitle = title.match(/.{25}/g).join('\n')
+      postTitle = title.match(/.{25}/g).join('\n')
 
       const mod = title.length % 25
       if(mod) {
-        devicedTitle += '\n' + title.substring(title.length - mod)
+        postTitle += '\n' + title.substring(title.length - mod)
       }
     } else {
-      devicedTitle = title;
+      postTitle = title;
     }
     
     return {
       data: {
         id: postRelation.node.fields.slug, // slug (一意に識別するため)
-        title: devicedTitle, // 記事タイトル
-        backgroudImage,  // 記事サムネイル
+        title: postTitle, // 記事タイトル
+        backgroundImage,  // 記事サムネイル
         date: postRelation.node.fields.date,
         href: postRelation.node.fields.slug,
       }
