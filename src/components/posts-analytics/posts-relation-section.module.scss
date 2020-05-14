@@ -1,0 +1,113 @@
+
+$graphPaperBackGroundImage: repeating-linear-gradient(
+  to bottom,
+  transparent 21px,
+  rgba(225, 225, 225, 0.17) 22px,  rgba(225, 225, 225, 0.17) 22px,
+  transparent 23px,  transparent 43px, 
+  rgba(225, 225, 225, 0.17) 44px,  rgba(225, 225, 225, 0.17) 44px,
+  transparent 45px,  transparent 65px, 
+  rgba(225, 225, 225, 0.17) 66px,  rgba(225, 225, 225, 0.17) 66px,
+  transparent 67px,  transparent 87px, 
+  rgba(225, 225, 225, 0.17) 88px,  rgba(225, 225, 225, 0.17) 88px,
+  transparent 89px,  transparent 109px, 
+  rgba(225, 225, 225, 0.17) 110px,  rgba(225, 225, 225, 0.17) 110px),
+  repeating-linear-gradient(to right,
+  transparent 21px,
+  rgba(225, 225, 225, 0.17) 22px,  rgba(225, 225, 225, 0.17) 22px,
+  transparent 23px,  transparent 43px, 
+  rgba(225, 225, 225, 0.17) 44px,  rgba(225, 225, 225, 0.17) 44px,
+  transparent 45px,  transparent 65px, 
+  rgba(225, 225, 225, 0.17) 66px,  rgba(225, 225, 225, 0.17) 66px,
+  transparent 67px,  transparent 87px, 
+  rgba(225, 225, 225, 0.17) 88px,  rgba(225, 225, 225, 0.17) 88px,
+  transparent 89px,  transparent 109px, 
+  rgba(225, 225, 225, 0.17) 110px,  rgba(225, 225, 225, 0.17) 110px
+);
+
+
+.title {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.description {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 64px;
+}
+
+.icon {
+  margin-right: 8px;
+}
+
+.alternative {
+  width: 90%;
+  text-align: center;
+  font-size: 2rem;
+  color: #555555;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 42px;
+  border: 1px solid black;
+  background-color : #ffffff;
+  background-image : $graphPaperBackGroundImage;
+  min-height: 40vh;
+  line-height: 40vh;
+
+  .button {
+    text-align: center;
+    height: 36px;
+    background-size: contain;
+    box-shadow: none;
+    color: white;
+    font-weight: 600;
+    background: #f74539;
+    border-radius: 18px;
+    line-height: 35px;
+    font-size: 16px;
+    padding: 0 16px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  
+    &:hover {
+      transform: scale(1.02);
+    }
+  
+  }
+}
+
+.loading {
+  width: 90%;
+  text-align: center;
+  font-size: 2rem;
+  color: #555555;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 42px;
+  border: 1px solid black;
+  background-color : #ffffff;
+  background-image : &graphPaperBackGroundImage;
+  min-height: 40vh;
+  line-height: 40vh;
+}
+
+.fullscreen {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: -34px;
+  z-index: 1;
+  position: relative;
+}
+
+.container {
+  height: 100vh;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid black;
+  background-color : #ffffff;
+  background-image : $graphPaperBackGroundImage;
+}

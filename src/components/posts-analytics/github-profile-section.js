@@ -60,12 +60,12 @@ const GitHubProfile = () => {
   )
 
 
-  console.log(pinnedItems, viewer)
-
   return (
     <>
-      <h2 className={styles.title}>GitHub Profile</h2>
-
+      <h2 className={styles.title}>Coding Activities</h2>
+      <div className={styles.description} >
+        This is GitHub profile.
+      </div>
       <div className={styles.container}>
         <div className={styles.container__info + ' ' + styles.profile}>
 
