@@ -27,13 +27,13 @@ export default class Layout extends React.Component {
       tagPath = __PATH_PREFIX__ + tagPath;
     }
 
-    let mapPath = `/map`;
+    let mapPath = `/about`;
     if (typeof __PREFIX_PATHS__ !== `undefined` && __PREFIX_PATHS__) {
       mapPath = __PATH_PREFIX__ + mapPath;
     }
     const isRoot = location.pathname === rootPath;
     const isTag = location.pathname.startsWith(tagPath);
-    const isMap = location.pathname.startsWith(mapPath);
+    const isAbout = location.pathname.startsWith(mapPath);
 
     let header;
 
@@ -69,7 +69,7 @@ export default class Layout extends React.Component {
           <Rss />
         </div>
       );
-    } else if(isMap) {
+    } else if(isAbout) {
       header = (
         <div className={styles.header_container}>
           <Seo isRoot={true} />
@@ -78,11 +78,11 @@ export default class Layout extends React.Component {
               <Link
                 className={styles.blog_title}
                 to={'/'}
-              >Takumon Blog</Link>
+              >ABOUT ME</Link>
             </h1>
             <Bio />
           </div>
-          <Rss />
+          <Rss isAbout={isAbout}/>
         </div>
       );
     } else {

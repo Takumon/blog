@@ -22,27 +22,24 @@
       width: 24px !important;
     }
   }
-  .github_icon {
+  .link_button {
     text-align: center;
     display: block;
-    box-shadow: none;
-    margin-left: 12px;
-    height: 42px;
-    width: 30px;
-    margin-top: 2px;
-    box-shadow: none;
-    background-repeat: no-repeat;
-    background-image: url(../../images/github.svg);
-  }
-  .blog_map_link {
-    text-align: center;
-    display: block;
-    height: 44px;
-    width: 34px;
+    height: 36px;
     background-size: contain;
     box-shadow: none;
-    background-repeat: no-repeat;
-    background-image: url(../../images/map.png);
+    color: white;
+    font-weight: 600;
+    background: #f74539;
+    border-radius: 18px;
+    line-height: 35px;
+    padding: 0 16px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+    &:hover {
+      transform: scale(1.02);
+    }
   }
 }
 

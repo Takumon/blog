@@ -3,10 +3,10 @@ import { useStaticQuery, graphql } from 'gatsby'
 import Layout from '../components/layout'
 import WordCloudSection from '../components/posts-analytics/word-cloud-section'
 import PostRelationSection from '../components/posts-analytics/posts-relation-section'
-import GitHubContributionsSection from '../components/posts-analytics/github-contributions-section'
+import GitHubProfile from '../components/posts-analytics/github-profile-section'
 
 
-const PostRelationMapTemplate = ({ pathContext, location }) => {
+const AboutTemplate = ({ pathContext, location }) => {
   const { images } = useStaticQuery(graphql`
     query {
       images: allFile {
@@ -15,7 +15,7 @@ const PostRelationMapTemplate = ({ pathContext, location }) => {
             relativePath
             name
             childImageSharp {
-              fluid(maxWidth: 100) {
+              fluid(maxWidth: 300) {
                 ...GatsbyImageSharpFluid
               }
             }
@@ -33,6 +33,7 @@ const PostRelationMapTemplate = ({ pathContext, location }) => {
 
   return (
     <Layout location={location}>
+      <GitHubProfile />
       <WordCloudSection
         wordCloudText={wordCloudText}
         wordCloudTag={wordCloudTag}
@@ -41,9 +42,8 @@ const PostRelationMapTemplate = ({ pathContext, location }) => {
         posts={posts}
         allImage={images}
       />
-      <GitHubContributionsSection />
     </Layout>
   )
 }
 
-export default PostRelationMapTemplate;
+export default AboutTemplate;
