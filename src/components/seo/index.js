@@ -32,7 +32,7 @@ export default function Seo({
                 relativePath
                 name
                 childImageSharp {
-                  fluid(maxWidth: 640) {
+                  fluid(maxWidth: 1024) {
                     ...GatsbyImageSharpFluid
                   }
                 }

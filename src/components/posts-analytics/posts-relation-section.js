@@ -3,8 +3,11 @@ import cytoscape from 'cytoscape'
 import CytoscapeComponent from 'react-cytoscapejs'
 import coseBilkent from 'cytoscape-cose-bilkent'
 import Fullscreen from "react-full-screen"
-import * as config from '../../config/blog-config.js'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowsAlt, faCompress  } from '@fortawesome/free-solid-svg-icons'
 
+import * as config from '../../config/blog-config.js'
+import styles from './posts-relation-section.module.scss'
 
 cytoscape.use( coseBilkent )
 
@@ -297,63 +300,45 @@ const PostRelationSection = ({ posts, allImage }) => {
 
   const fullscreenButton =
     isFull 
-      ? <button onClick={goNotFull} style={{cursor: 'pointer'}}>戻る</button>
-      : <button onClick={goFull} style={{cursor: 'pointer'}}>フルスクリーン表示</button>
+      ? <button onClick={goNotFull} style={{cursor: 'pointer'}}>
+          <FontAwesomeIcon
+            color="#333"
+            size="sm"
+            className={styles.icon}
+            icon={faCompress}
+          />
+          Back
+        </button>
+      : <button onClick={goFull} style={{cursor: 'pointer'}}>
+          <FontAwesomeIcon
+            color="#333"
+            size="sm"
+            className={styles.icon}
+            icon={faArrowsAlt}
+          />
+          
+          Go Fullscreen
+        </button>
 
   const ContentAlternative = (
-    <div style={{
-      width: '90%',
-      textAlign: 'center',
-      fontSize: '2rem',
-      color: '#555555',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      marginBottom: '42px',
-      border: '1px solid black',
-      'backgroundColor' : '#ffffff',
-      'backgroundImage' : graphPaperBackGroundImage,
-      minHeight: '40vh',
-      lineHeight: '40vh',
-    }}>
-      <button onClick={showContent} style={{
-        cursor: 'pointer',
-        height: '42px',
-        lineHeight: '42px',
-        fontSize: '1rem',
-        borderRadius: '4px',
-      }}>記事関連度マップを表示</button>
+    <div className={styles.alternative} >
+      <button onClick={showContent}  className={styles.button} >
+        Show Map
+      </button>
     </div>
   )
 
 
   const ContentLoading = (
-    <div style={{
-      width: '90%',
-      textAlign: 'center',
-      fontSize: '2rem',
-      color: '#555555',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      marginBottom: '42px',
-      border: '1px solid black',
-      'backgroundColor' : '#ffffff',
-      'backgroundImage' : graphPaperBackGroundImage,
-      minHeight: '40vh',
-      lineHeight: '40vh',
-    }}>Now loading...</div>
+    <div className={styles.loading}>
+      Now loading...
+    </div>
   )
 
 
   const Content =  (
     <>
-      <div style={{
-        width: '90%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        marginBottom: '-34px',
-        zIndex: 1,
-        position: 'relative',
-      }}>
+      <div className={styles.fullscreen}>
         {fullscreenButton}
       </div>
       <CytoscapeComponent
@@ -366,16 +351,8 @@ const PostRelationSection = ({ posts, allImage }) => {
         maxZoom={4}
         elements={cytoscapeElements}
         layout={CYTOSCAPE_COMPONENT_LAYOUT}
-        style={{
-          width: isFull ? '100vw' : '90%',
-          height: '100vh',
-          position: 'relative',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          border: '1px solid black',
-          'backgroundColor' : '#ffffff',
-          'backgroundImage' : graphPaperBackGroundImage,
-        }}
+        className={styles.container}
+        style={{width: isFull ? '100vw' : '90%'}}
         stylesheet={CYTOSCAPE_COMPONENT_STYLE_SHEET}
         cy={cy => {
           cy.on('click', 'node[id = "zoomUp"]', function (e) {
@@ -444,21 +421,12 @@ const PostRelationSection = ({ posts, allImage }) => {
 
   return (
     <>
-      <h2 style={{
-        width: '90%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-      }}>
-        記事関連度マップ
+      <h2 className={styles.title} >
+        Posts Relation
       </h2>
-      <div style={{
-        width: '90%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        marginBottom: '64px',
-      }}>
-        記事毎のタグ・キーワードをもとに関連度合いをCytoscape.jsで可視化したものです。Canvasで描画していますが、記事をクリックして記事に遷移できたりします。
-        マウスホイールで拡大率を変更できます。マップの左上の+-ボタンでも変更できます。
+      <div className={styles.description} >
+        The relevance is visualized with Cytoscape.js based on tags and keywords for each article.
+        You can click on an article to transition to it　and change the zoom level with the mouse wheel.
       </div>
 
       <Fullscreen

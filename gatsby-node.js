@@ -32,7 +32,7 @@ exports.createPages = ({ graphql, actions }) => {
     const blogPost = path.resolve('./src/templates/blog-post.js');
     const qiitaPost = path.resolve('./src/templates/qiita-post.js');
     const tagPage =  path.resolve('./src/templates/tags.js');
-    const postRelationMapPage = path.resolve('./src/templates/post-relation-map.js');
+    const aboutPage = path.resolve('./src/templates/about.js');
 
     graphql(
       `
@@ -221,8 +221,8 @@ exports.createPages = ({ graphql, actions }) => {
 
             // 記事分析ページ生成
             createPage({
-              path: '/map/',
-              component: postRelationMapPage,
+              path: '/about/',
+              component: aboutPage,
               context: {
                 allPostRelations,
                 wordCloudText : textSvg,

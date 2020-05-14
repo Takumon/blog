@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './word-cloud-section.module.scss'
 
 
 const WordCloudSection = ({ wordCloudText, wordCloudTag }) => {
@@ -6,58 +7,29 @@ const WordCloudSection = ({ wordCloudText, wordCloudTag }) => {
   const wordCloudTextSvg = (
     <div
       dangerouslySetInnerHTML={{__html: wordCloudText}}
-      style={{
-        width: '100%',
-        paddingTop: '12px',
-        paddingBottom: '12px',
-        background: '#f7f7f7',
-      }}
+      className={styles.text_svg}
     />
   )
 
   const wordCloudTagSvg = (
     <div
       dangerouslySetInnerHTML={{__html: wordCloudTag}}
-      style={{
-        width: '100%',
-        paddingTop: '12px',
-        paddingBottom: '12px',
-        background: '#f7f7f7',
-      }}
+      className={styles.tag_svg}
     />
   )
 
   return (
     <>
-      <h2 style={{
-        width: '90%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-      }}>WordCloud</h2>
-      <div style={{
-        width: '90%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        marginBottom: '64px',
-      }}>
-        自分の記事の本文とタグをインプットにして作成したWordCloudです。
+      <h2 className={styles.title}>My Interest</h2>
+      <div className={styles.description} >
+        This is a WordCloud that express my interest based on the tags in the blog post.
       </div>
 
-      <div style={{
-        width: '90%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        marginBottom: '64px',
-      }}>
+      <div className={styles.svg_container} >
         {wordCloudTagSvg}
       </div>
 
-      <div style={{
-        width: '90%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        marginBottom: '64px',
-      }}>
+      <div className={styles.svg_container} >
         {wordCloudTextSvg}
       </div>
     </>
