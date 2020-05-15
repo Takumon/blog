@@ -9,13 +9,13 @@ import GitHubProfile from '../components/posts-analytics/github-profile-section'
 const AboutTemplate = ({ pathContext, location }) => {
   const { images } = useStaticQuery(graphql`
     query {
-      images: allFile {
+      images: allFile(filter: {relativePath: {regex: "/^thumbnail/*/"}}) {
         edges {
           node {
             relativePath
             name
             childImageSharp {
-              fluid(maxWidth: 300) {
+              fluid(maxWidth: 300, quality: 30, pngQuality: 30, pngCompressionSpeed: 10) {
                 ...GatsbyImageSharpFluid
               }
             }

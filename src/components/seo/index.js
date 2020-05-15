@@ -26,13 +26,13 @@ export default function Seo({
     <StaticQuery
       query={graphql`
         query {
-          images: allFile {
+          images: allFile(filter: {relativePath: {regex: "/^thumbnail/*/"}}) {
             edges {
               node {
                 relativePath
                 name
                 childImageSharp {
-                  fluid(maxWidth: 1024) {
+                  fluid(maxWidth: 1024, quality: 40, pngQuality: 40, pngCompressionSpeed: 10) {
                     ...GatsbyImageSharpFluid
                   }
                 }
