@@ -58,6 +58,7 @@ class Post extends React.Component {
         slug,
         relatedPosts,
         latestPosts,
+        thumbnail,
       },
       siteTitle,
     } = this.props
@@ -82,8 +83,8 @@ class Post extends React.Component {
           description={fields.excerpt}
           postUrl={postUrl}
           postDate={fields.date}
-          largeImage={fields.thumbnail}
-          />
+          thumbnailSrc={thumbnail.node.childImageSharp.fluid.src}
+        />
 
         <div className={styles.header}>
           <div className={styles.header__inner}>

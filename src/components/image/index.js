@@ -10,13 +10,13 @@ export default ({
   <StaticQuery
     query={graphql`
       query {
-        images: allFile {
+        images: allFile(filter: {relativePath: {regex: "/^thumbnail/*/"}}) {
           edges {
             node {
               relativePath
               name
               childImageSharp {
-                fluid(maxWidth: 640) {
+                fluid(maxWidth: 1200, quality: 40, pngQuality: 40, pngCompressionSpeed: 10) {
                   ...GatsbyImageSharpFluid
                 }
               }

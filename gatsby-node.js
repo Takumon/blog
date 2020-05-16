@@ -5,6 +5,7 @@ const _flow = require('lodash/fp/flow')
 const _forEach = require('lodash/fp/forEach')
 const _uniq = require('lodash/fp/uniq')
 const _flatMap = require('lodash/fp/flatMap')
+const _orderBy = require('lodash/orderBy')
 const relatedPost = require('./gatsby-related-post')
 
 const striptags = require('striptags')
@@ -17,6 +18,7 @@ const kuromoji = require('kuromoji')
 const d3 = require('d3')
 const cloud = require('d3-cloud')
 const fs = require('fs')
+const config = require('./src/config/blog-config.js')
 
 const POST_TYPE = {
   ORIGINAL: 'original',
@@ -37,10 +39,27 @@ exports.createPages = ({ graphql, actions }) => {
     graphql(
       `
         {
+          site {
+            siteMetadata {
+              title
+              author
+            }
+          }
+
           allMarkdownRemark(sort: { fields: [fields___date], order: DESC }, limit: 1000) {
             edges {
               node {
                 html
+                headingsDetail {
+                  id
+                  value
+                  depth
+                  parents {
+                    id
+                    value
+                    depth
+                  }
+                }          
                 fields {
                   slug
                   title
@@ -53,9 +72,21 @@ exports.createPages = ({ graphql, actions }) => {
               }
             }
           }
+
+
           allQiitaPost(sort: { fields: [fields___date], order: DESC }, limit: 1000) {
             edges {
               node {
+                headings {
+                  id
+                  value
+                  depth
+                  parents {
+                    id
+                    value
+                    depth
+                  }
+                }          
                 fields {
                   slug
                   title
@@ -64,6 +95,11 @@ exports.createPages = ({ graphql, actions }) => {
                   tags
                   keywords
                   thumbnail
+                }
+                user {
+                  id
+                  profile_image_url
+                  description
                 }
                 id
                 title
@@ -76,6 +112,25 @@ exports.createPages = ({ graphql, actions }) => {
               }
             }
           }
+
+
+          thumbnails: allFile(filter: {relativePath: {regex: "/^thumbnail/*/"}}) {
+            edges {
+              node {
+                relativePath
+                name
+                childImageSharp {
+                  fluid(maxWidth: 1200, quality: 40, pngQuality: 40, pngCompressionSpeed: 10) {
+                    base64
+                    aspectRatio
+                    src
+                    srcSet
+                    sizes
+                  }
+                }
+              }
+            }
+          }
         }
       `
     ).then(result => {
@@ -83,6 +138,9 @@ exports.createPages = ({ graphql, actions }) => {
         console.log(result.errors)
         reject(result.errors)
       }
+
+      const { thumbnails } = result.data
+      const { siteMetadata } = result.data.site
 
 
       // オリジナル記事とQiitaの記事を1つのリストにする
@@ -111,6 +169,8 @@ exports.createPages = ({ graphql, actions }) => {
       const allPostNodes = _.map(posts, ({node}) => node)
 
 
+      const defaultThumbnail = thumbnails.edges.find(edge => edge.node.relativePath.includes(config.defaultThumbnailImagePath))
+
       // 記事詳細ページ生成
       _.each(posts, ({type, node}, index) => {
 
@@ -119,10 +179,16 @@ exports.createPages = ({ graphql, actions }) => {
         const latestPosts = allPostNodes.slice(0,5)
 
         if (type === POST_TYPE.ORIGINAL) {
+
+          const thumbnail = thumbnails.edges.find(edge => edge.node.relativePath.includes(node.fields.thumbnail))
+
           createPage({
             path: node.fields.slug,
             component: blogPost,
             context: {
+              node,
+              thumbnail,
+              siteMetadata,
               slug: node.fields.slug,
               relatedPosts,
               latestPosts,
@@ -135,6 +201,9 @@ exports.createPages = ({ graphql, actions }) => {
             path: node.fields.slug,
             component: qiitaPost,
             context: {
+              node,
+              thumbnail: defaultThumbnail,
+              siteMetadata,
               slug: node.fields.slug,
               relatedPosts,
               latestPosts,
@@ -171,7 +240,7 @@ exports.createPages = ({ graphql, actions }) => {
         .join('\n')
       
 
-      const tagDatas = []
+      const tagData = []
 
       posts.forEach(post => {
         post.node.fields.tags.forEach(t => {
@@ -179,11 +248,11 @@ exports.createPages = ({ graphql, actions }) => {
             return
           }
 
-          const targetData = tagDatas.find(data => data.text === t)
+          const targetData = tagData.find(data => data.text === t)
           if (targetData) {
             targetData.size = targetData.size + 1
           } else {
-            tagDatas.push({
+            tagData.push({
               text: t,
               size: 1,
             })
@@ -191,10 +260,13 @@ exports.createPages = ({ graphql, actions }) => {
         })
       })
 
+      // JSON使ってDeepコピーする
+      const tagCounts = _orderBy(JSON.parse(JSON.stringify(tagData)), ['size', 'text'], ['desc', 'asc'])
+
 
       // WordCloud生成
       const paramForTag = {
-        words: tagDatas,
+        words: tagData,
         w: 1200,
         h: 630,
         fontSizePow: 0.8,
@@ -224,6 +296,7 @@ exports.createPages = ({ graphql, actions }) => {
               path: '/about/',
               component: aboutPage,
               context: {
+                thumbnails,
                 allPostRelations,
                 wordCloudText : textSvg,
                 wordCloudTag: tagSvg,
@@ -235,11 +308,19 @@ exports.createPages = ({ graphql, actions }) => {
               _flatMap(post => post.node.fields.tags),
               _uniq(),
               _forEach(tag => {
+
+                // ソートは省略する。postsはソート済だから。
+                const nodes = posts
+                  .filter(post => post.node.fields.tags.includes(tag))
+                  .map(post => post.node)
+
                 createPage({
                   path: `/tags/${_.kebabCase(tag)}/`,
                   component: tagPage,
                   context: {
-                    tag
+                    nodes,
+                    tag,
+                    tagCounts,
                   },
                 })
               })

@@ -6,13 +6,13 @@ import * as config from '../../config/blog-config.js';
 
 export default function Seo({
   isRoot,
+  thumbnailSrc,
   title,  // not required
   description, // not required
   postUrl, // not required
   postDate, // not required
-  largeImage, // not required
 }) {
-  const type = isRoot ? 'website' : 'article';
+  const type = isRoot ? 'website' : 'article'
 
   const JSONLDTag = createJSONLDTag({
     isRoot,
@@ -20,71 +20,42 @@ export default function Seo({
     description,
     postUrl,
     postDate,
-  });
+  })
+          
+  const image = config.blogUrl + thumbnailSrc
+  const twitterCard = 'summary_large_image'
 
-  return(
-    <StaticQuery
-      query={graphql`
-        query {
-          images: allFile {
-            edges {
-              node {
-                relativePath
-                name
-                childImageSharp {
-                  fluid(maxWidth: 1024) {
-                    ...GatsbyImageSharpFluid
-                  }
-                }
-              }
-            }
-          }
-        }
-      `}
+  return (
+    <Helmet>
+      {/* General tags */}
+      <meta name="description" content={description || config.blogDescription} />
+      <meta name="image" content={image} />
 
-      render={(data) => {
-        
-        const imagePath = isRoot
-          ? config.thumbnailImagePathForRootPage 
-          : largeImage || config.defaultThumbnailImagePath
+      {/* Schema.org tags */}
+      {JSONLDTag}
 
-        
-        const imageNode = data.images.edges.find(n => n.node.relativePath.includes(imagePath))
-        
-        const image = config.blogUrl + imageNode.node.childImageSharp.fluid.src
-        const twitterCard = 'summary_large_image'
+      {/* OpenGraph tags */}
+      <meta property="og:title" content={title || config.blogTitle} />
+      <meta property="og:description" content={description || config.blogDescription} />
+      <meta property="og:url" content={config.blogUrl} />
+      <meta property="og:type" content={type} />
+      <meta property="og:site_name" content={config.blogTitle} />
+      <meta property="og:image" content={image} />
 
-        return (<Helmet>
-          {/* General tags */}
-          <meta name="description" content={description || config.blogDescription} />
-          <meta name="image" content={image} />
+      {/* OpenGraph tags for facebook */}
+      <meta property="fb:app_id" content={config.facebookAppId} />
 
-          {/* Schema.org tags */}
-          {JSONLDTag}
+      {/* Twitter Card tags */}
+      <meta name="twitter:card" content={twitterCard} />
+      <meta name="twitter:image" content={image} />
+      <meta name="twitter:title" content={title || config.blogTitle} />
+      <meta name="twitter:description" content={description || config.blogDescription} />
+      <meta name="twitter:site" content={`@${config.blogAuthorTwitterUserName}`} />
 
-          {/* OpenGraph tags */}
-          <meta property="og:title" content={title || config.blogTitle} />
-          <meta property="og:description" content={description || config.blogDescription} />
-          <meta property="og:url" content={config.blogUrl} />
-          <meta property="og:type" content={type} />
-          <meta property="og:site_name" content={config.blogTitle} />
-          <meta property="og:image" content={image} />
-
-          {/* OpenGraph tags for facebook */}
-          <meta property="fb:app_id" content={config.facebookAppId} />
-
-          {/* Twitter Card tags */}
-          <meta name="twitter:card" content={twitterCard} />
-          <meta name="twitter:image" content={image} />
-          <meta name="twitter:title" content={title || config.blogTitle} />
-          <meta name="twitter:description" content={description || config.blogDescription} />
-          <meta name="twitter:site" content={`@${config.blogAuthorTwitterUserName}`} />
-
-          <link rel="canonical" href={postUrl} />
-        </Helmet>)
-      }}
-    />
+      <link rel="canonical" href={postUrl} />
+    </Helmet>
   )
+
 }
 
 

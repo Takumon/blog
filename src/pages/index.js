@@ -1,6 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { get } from 'lodash'
+import _orderBy from 'lodash/orderBy'
 
 import Layout from '../components/layout';
 import PostList from '../components/post-list';
@@ -24,11 +25,36 @@ class BlogIndex extends React.Component {
       return 0
     })
 
+
+    let tagCounts = []
+
+    posts.forEach(post => {
+      post.node.fields.tags.forEach(t => {
+        if ('Qiita' === t) {
+          return
+        }
+
+        const targetData = tagCounts.find(data => data.text === t)
+        if (targetData) {
+          targetData.size = targetData.size + 1
+        } else {
+          tagCounts.push({
+            text: t,
+            size: 1,
+          })
+        }
+      })
+    })
+
+    tagCounts = _orderBy(tagCounts, ['size', 'text'], ['desc', 'asc'])
+
+
+
     return (
       <Layout location={this.props.location}>
         <Title />
         <PostList postFields={posts.map(post => post.node.fields)} />
-        <TagList posts={posts} />
+        <TagList tagCounts={tagCounts} />
       </Layout>
     );
   }

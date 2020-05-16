@@ -6,30 +6,14 @@ import PostRelationSection from '../components/posts-analytics/posts-relation-se
 import GitHubProfile from '../components/posts-analytics/github-profile-section'
 
 
-const AboutTemplate = ({ pathContext, location }) => {
-  const { images } = useStaticQuery(graphql`
-    query {
-      images: allFile {
-        edges {
-          node {
-            relativePath
-            name
-            childImageSharp {
-              fluid(maxWidth: 300) {
-                ...GatsbyImageSharpFluid
-              }
-            }
-          }
-        }
-      }
-    }
-  `)
+const AboutTemplate = ({ pageContext, location }) => {
   
   const { 
+    thumbnails,
     allPostRelations: posts,
     wordCloudText,
     wordCloudTag,
-  } = pathContext
+  } = pageContext
 
   return (
     <Layout location={location}>
@@ -40,7 +24,7 @@ const AboutTemplate = ({ pathContext, location }) => {
       />
       <PostRelationSection
         posts={posts}
-        allImage={images}
+        thumbnails={thumbnails}
       />
     </Layout>
   )

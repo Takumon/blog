@@ -173,10 +173,10 @@ const CYTOSCAPE_ZOOM_DOWN_ELEMENT = {
 
 
 
-function createPostNode({posts, allImage}) {
+function createPostNode({posts, thumbnails}) {
 
   return posts.map(postRelation => {
-    const imageNode = allImage.edges.find(n => {
+    const imageNode = thumbnails.edges.find(n => {
       return n.node.relativePath.includes(postRelation.node.fields.thumbnail  || config.defaultThumbnailImagePath)
     })
 
@@ -276,7 +276,7 @@ repeating-linear-gradient(to right,
 
 
 
-const PostRelationSection = ({ posts, allImage }) => {
+const PostRelationSection = ({ posts, thumbnails }) => {
   const [ isFull, setIsFull ] = useState(false)
   const [ cytoscapeElements, setCytoscapeElements ] = useState(null)
   const [ isShowContent, setIsShowContent ] = useState(false)
@@ -286,7 +286,7 @@ const PostRelationSection = ({ posts, allImage }) => {
   const showContent = () => {
     setIsShowContent(true)
   
-    const nodes = createPostNode({ posts, allImage })
+    const nodes = createPostNode({ posts, thumbnails })
     nodes.push(CYTOSCAPE_ZOOM_UP_ELEMENT)
     nodes.push(CYTOSCAPE_ZOOM_DOWN_ELEMENT)
     const edges = createPostEdges({posts})
