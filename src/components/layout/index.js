@@ -36,7 +36,7 @@ import UserHeat from '../user-heat';
     query {
       file(relativePath: {eq: "thumbnail/for-root-page.png"}) {
         childImageSharp {
-          fluid(maxWidth: 640, quality: 40, pngQuality: 40, pngCompressionSpeed: 10) {
+          fluid(maxWidth: 1200, quality: 40, pngQuality: 40, pngCompressionSpeed: 10) {
             src
           }
         }
