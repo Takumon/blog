@@ -37,12 +37,12 @@ import UserHeat from '../user-heat';
       file(relativePath: {eq: "thumbnail/for-root-page.png"}) {
         childImageSharp {
           fluid(maxWidth: 640, quality: 40, pngQuality: 40, pngCompressionSpeed: 10) {
-            ...GatsbyImageSharpFluid
+            src
           }
         }
       }
     }
-  `).file.childImageSharp.fluid
+  `).file.childImageSharp.fluid.src
 
 
   let header;
