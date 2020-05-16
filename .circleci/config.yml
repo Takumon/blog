@@ -1,17 +1,53 @@
 version: 2.1
-orbs:
-  node: circleci/node@1.1.6
-jobs:
-  build-and-test:
-    executor:
-      name: node/default
+executors:
+  node-executor:
+    docker:
+      - image: circleci/node:12
+commands:
+  gatsby-build:
     steps:
       - checkout
       - node/with-cache:
           steps:
             - run: npm install
-            - run: npm run build
+            - restore_cache:
+              keys:
+              - gatsby-public-cache-{{ .Branch }}
+              - gatsby-public-cache-
+            - run: GATSBY_CPU_COUNT=2 NODE_OPTIONS="--max-old-space-size=8192" npm run build
+            - save_cache:
+              key: gatsby-public-cache-{{ .Branch }}
+              paths:
+                - ./public
 workflows:
-    build-and-test:
-      jobs:
-        - build-and-test
+  version: 2
+  build-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore:
+                - master
+      - release:
+          filters:
+            branches:
+              only:
+                - master
+jobs:
+  build:
+    executor: node-executor
+    working_directory: ~/repo
+    steps:
+      - gatsby-build
+      # - run:
+      #     name: Netlify Deploy
+      #     command: ./node_modules/.bin/netlify deploy --dir=public --message "deploy preview from $CIRCLE_BRANCH" --auth $NETLIFY_ACCESS_TOKEN
+  release:
+    executor: node-executor
+    working_directory: ~/repo
+    steps:
+      - gatsby-build
+      # - run:
+      #     name: Netlify Deploy
+      #     command: ./node_modules/.bin/netlify deploy --prod --dir=public --message "deploy from $CIRCLE_BRANCH" --auth $NETLIFY_ACCESS_TOKEN
+
