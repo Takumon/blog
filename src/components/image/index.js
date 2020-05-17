@@ -17,7 +17,7 @@ export default ({
               name
               childImageSharp {
                 fluid(maxWidth: 1200, quality: 90, pngQuality: 90) {
-                  ...GatsbyImageSharpFluid_noBase64
+                  ...GatsbyImageSharpFluid
                 }
               }
             }

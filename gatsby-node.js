@@ -110,6 +110,7 @@ const query = `
         name
         childImageSharp {
           fluid(maxWidth: 1200, quality: 90, pngQuality: 90) {
+            base64
             aspectRatio
             src
             srcSet
