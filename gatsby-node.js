@@ -26,313 +26,377 @@ const POST_TYPE = {
 }
 
 
+const query = `
+{
+  site {
+    siteMetadata {
+      title
+      author
+    }
+  }
+
+  allMarkdownRemark(sort: { fields: [fields___date], order: DESC }, limit: 1000) {
+    edges {
+      node {
+        html
+        headingsDetail {
+          id
+          value
+          depth
+          parents {
+            id
+            value
+            depth
+          }
+        }          
+        fields {
+          slug
+          title
+          date
+          excerpt
+          tags
+          keywords
+          thumbnail
+        }
+      }
+    }
+  }
+
+
+  allQiitaPost(sort: { fields: [fields___date], order: DESC }, limit: 1000) {
+    edges {
+      node {
+        headings {
+          id
+          value
+          depth
+          parents {
+            id
+            value
+            depth
+          }
+        }          
+        fields {
+          slug
+          title
+          date
+          excerpt
+          tags
+          keywords
+          thumbnail
+        }
+        user {
+          id
+          profile_image_url
+          description
+        }
+        id
+        title
+        rendered_body
+        body
+        comments_count
+        created_at
+        likes_count
+        reactions_count
+      }
+    }
+  }
+
+
+  thumbnails: allFile(filter: {relativePath: {regex: "/^thumbnail/*/"}}) {
+    edges {
+      node {
+        relativePath
+        name
+        childImageSharp {
+          fluid(maxWidth: 1200, quality: 90, pngQuality: 90) {
+            base64
+            aspectRatio
+            src
+            srcSet
+            sizes
+          }
+        }
+      }
+    }
+  }
+}
+`
+
+
+
+const excludeWordsInWordCloud = [
+  'よう',
+  'こと',
+  '指定',
+  '時',
+  '追加',
+  '設定',
+  '記事',
+  '用',
+  '情報',
+  'ため',
+  'もの',
+  'これ',
+  '/',
+  '(',
+  ')',
+  '&',
+  '+',
+  '複数',
+  '用意',
+  '構成',
+  '配下',
+  '下記',
+  '今回',
+  '確認',
+  '公開',
+  '関連',
+  '取得',
+  '作成',
+  '場合',
+  '定義',
+  '方法',
+  '生成',
+  '実行',
+  '表示',
+  '紹介',
+  '資産',
+  '参考',
+  '機能',
+  '以下',
+  '更新',
+  '化',
+  '必要',
+  '一部',
+  '側',
+  '実装',
+  'ファイル',
+  'サイト',
+  'イン',
+  '自分',
+  'プラグ',
+  '的',
+  'さん',
+  'とき',
+  'の',
+  '系',
+  '便利',
+  '簡単',
+  '使用',
+  'それ',
+  'あれ',
+  '感じ',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '0',
+  'SETTINGS',
+  'MS',
+  'CONFIG',
+  '://',
+]
+
+
 // onCreateNodeより後に実行される
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = async({ graphql, actions }) => {
   const { createPage } = actions
 
-  return new Promise((resolve, reject) => {
-    const blogPost = path.resolve('./src/templates/blog-post.js');
-    const qiitaPost = path.resolve('./src/templates/qiita-post.js');
-    const tagPage =  path.resolve('./src/templates/tags.js');
-    const aboutPage = path.resolve('./src/templates/about.js');
+  const blogPost = path.resolve('./src/templates/blog-post.js')
+  const qiitaPost = path.resolve('./src/templates/qiita-post.js')
+  const tagPage =  path.resolve('./src/templates/tags.js')
+  const aboutPage = path.resolve('./src/templates/about.js')
 
-    graphql(
-      `
-        {
-          site {
-            siteMetadata {
-              title
-              author
-            }
-          }
-
-          allMarkdownRemark(sort: { fields: [fields___date], order: DESC }, limit: 1000) {
-            edges {
-              node {
-                html
-                headingsDetail {
-                  id
-                  value
-                  depth
-                  parents {
-                    id
-                    value
-                    depth
-                  }
-                }          
-                fields {
-                  slug
-                  title
-                  date
-                  excerpt
-                  tags
-                  keywords
-                  thumbnail
-                }
-              }
-            }
-          }
+  const result = await graphql(query)
+  const { thumbnails } = result.data
+  const { siteMetadata } = result.data.site
 
 
-          allQiitaPost(sort: { fields: [fields___date], order: DESC }, limit: 1000) {
-            edges {
-              node {
-                headings {
-                  id
-                  value
-                  depth
-                  parents {
-                    id
-                    value
-                    depth
-                  }
-                }          
-                fields {
-                  slug
-                  title
-                  date
-                  excerpt
-                  tags
-                  keywords
-                  thumbnail
-                }
-                user {
-                  id
-                  profile_image_url
-                  description
-                }
-                id
-                title
-                rendered_body
-                body
-                comments_count
-                created_at
-                likes_count
-                reactions_count
-              }
-            }
-          }
+  // オリジナル記事とQiitaの記事を1つのリストにする
+  const originalPosts = result.data.allMarkdownRemark.edges.map(p => {
+    return {
+      type: POST_TYPE.ORIGINAL,
+      date: new Date(p.node.fields.date),
+      node: p.node
+    }
+  })
+
+  const qiitaPosts = result.data.allQiitaPost.edges.map(p => {
+    return {
+      type: POST_TYPE.QIITA,
+      date: new Date(p.node.fields.date),
+      node: p.node
+    }
+  })
+
+  const posts = [...originalPosts, ...qiitaPosts].sort((a,b) => {
+    if( a.date < b.date ) return 1
+    if( a.date > b.date ) return -1
+    return 0
+  })
+
+  const allPostNodes = _.map(posts, ({node}) => node)
 
 
-          thumbnails: allFile(filter: {relativePath: {regex: "/^thumbnail/*/"}}) {
-            edges {
-              node {
-                relativePath
-                name
-                childImageSharp {
-                  fluid(maxWidth: 1200, quality: 40, pngQuality: 40, pngCompressionSpeed: 10) {
-                    base64
-                    aspectRatio
-                    src
-                    srcSet
-                    sizes
-                  }
-                }
-              }
-            }
-          }
-        }
-      `
-    ).then(result => {
-      if (result.errors) {
-        console.log(result.errors)
-        reject(result.errors)
-      }
+  const defaultThumbnail = thumbnails.edges.find(edge => edge.node.relativePath.includes(config.defaultThumbnailImagePath))
 
-      const { thumbnails } = result.data
-      const { siteMetadata } = result.data.site
+  // 記事詳細ページ生成
+  _.each(posts, ({type, node}, index) => {
 
+    // 最大5つ関連記事を取得
+    const relatedPosts = relatedPost.extractRelatedPosts(allPostNodes, node, relatedPost.defaultConfig).slice(0,5)
+    const latestPosts = allPostNodes.slice(0,5)
 
-      // オリジナル記事とQiitaの記事を1つのリストにする
-      const originalPosts = result.data.allMarkdownRemark.edges.map(p => {
-        return {
-          type: POST_TYPE.ORIGINAL,
-          date: new Date(p.node.fields.date),
-          node: p.node
-        }
-      })
+    if (type === POST_TYPE.ORIGINAL) {
 
-      const qiitaPosts = result.data.allQiitaPost.edges.map(p => {
-        return {
-          type: POST_TYPE.QIITA,
-          date: new Date(p.node.fields.date),
-          node: p.node
-        }
-      })
+      const thumbnail = thumbnails.edges.find(edge => edge.node.relativePath.includes(node.fields.thumbnail))
 
-      const posts = [...originalPosts, ...qiitaPosts].sort((a,b) => {
-        if( a.date < b.date ) return 1
-        if( a.date > b.date ) return -1
-        return 0
-      })
-
-      const allPostNodes = _.map(posts, ({node}) => node)
-
-
-      const defaultThumbnail = thumbnails.edges.find(edge => edge.node.relativePath.includes(config.defaultThumbnailImagePath))
-
-      // 記事詳細ページ生成
-      _.each(posts, ({type, node}, index) => {
-
-        // 最大5つ関連記事を取得
-        const relatedPosts = relatedPost.extractRelatedPosts(allPostNodes, node, relatedPost.defaultConfig).slice(0,5)
-        const latestPosts = allPostNodes.slice(0,5)
-
-        if (type === POST_TYPE.ORIGINAL) {
-
-          const thumbnail = thumbnails.edges.find(edge => edge.node.relativePath.includes(node.fields.thumbnail))
-
-          createPage({
-            path: node.fields.slug,
-            component: blogPost,
-            context: {
-              node,
-              thumbnail,
-              siteMetadata,
-              slug: node.fields.slug,
-              relatedPosts,
-              latestPosts,
-              ...previouseAndNext(posts, index)
-            },
-          })
-
-        } else if (type === POST_TYPE.QIITA) {
-          createPage({
-            path: node.fields.slug,
-            component: qiitaPost,
-            context: {
-              node,
-              thumbnail: defaultThumbnail,
-              siteMetadata,
-              slug: node.fields.slug,
-              relatedPosts,
-              latestPosts,
-              ...previouseAndNext(posts, index)
-            },
-          })
-
-        } else {
-          throw new Error(`Unexpected post type = ${type}`)
-        }
-      })
-
-      // 記事関連情報生成
-      const allPostRelations = allPostNodes.map(node => {
-
-        const conf = Object.assign({}, relatedPost.defaultConfig, { threshold: 50 })
-
-        return {
+      createPage({
+        path: node.fields.slug,
+        component: blogPost,
+        context: {
           node,
-          relations: relatedPost.extractRelatedPostRankings(allPostNodes, node, conf),
-        }
+          thumbnail,
+          siteMetadata,
+          slug: node.fields.slug,
+          relatedPosts,
+          latestPosts,
+          ...previouseAndNext(posts, index)
+        },
       })
 
-
-      // WordCloud用データ加工処理
-      const alltext = posts
-        .map(({ type, node }) => {
-          if (type === POST_TYPE.ORIGINAL) {
-            return rawText(node.html)
-          } else {
-            return rawText(node.rendered_body)
-          }
-        })
-        .join('\n')
-      
-
-      const tagData = []
-
-      posts.forEach(post => {
-        post.node.fields.tags.forEach(t => {
-          if ('Qiita' === t) {
-            return
-          }
-
-          const targetData = tagData.find(data => data.text === t)
-          if (targetData) {
-            targetData.size = targetData.size + 1
-          } else {
-            tagData.push({
-              text: t,
-              size: 1,
-            })
-          }
-        })
+    } else if (type === POST_TYPE.QIITA) {
+      createPage({
+        path: node.fields.slug,
+        component: qiitaPost,
+        context: {
+          node,
+          thumbnail: defaultThumbnail,
+          siteMetadata,
+          slug: node.fields.slug,
+          relatedPosts,
+          latestPosts,
+          ...previouseAndNext(posts, index)
+        },
       })
 
-      // JSON使ってDeepコピーする
-      const tagCounts = _orderBy(JSON.parse(JSON.stringify(tagData)), ['size', 'text'], ['desc', 'asc'])
+    } else {
+      throw new Error(`Unexpected post type = ${type}`)
+    }
+  })
+
+  // 記事関連情報生成
+  const allPostRelations = allPostNodes.map(node => {
+
+    const conf = Object.assign({}, relatedPost.defaultConfig, { threshold: 50 })
+
+    return {
+      node,
+      relations: relatedPost.extractRelatedPostRankings(allPostNodes, node, conf),
+    }
+  })
 
 
-      // WordCloud生成
-      const paramForTag = {
-        words: tagData,
-        w: 1200,
-        h: 630,
-        fontSizePow: 0.8,
-        fontSizeZoom: 18,
-        padding: 2,
+  // WordCloud用データ加工処理
+  const allText = posts
+    .map(({ type, node }) => {
+      if (type === POST_TYPE.ORIGINAL) {
+        return rawText(node.html)
+      } else {
+        return rawText(node.rendered_body)
+      }
+    })
+    .join('\n')
+  
+
+  const tagData = []
+
+  posts.forEach(post => {
+    post.node.fields.tags.forEach(t => {
+      if ('Qiita' === t) {
+        return
       }
 
-      createWordCloud(paramForTag).then(tagSvg => {
-        craeteWordCount(alltext)
-          .then(data => {
+      const targetData = tagData.find(data => data.text === t)
+      if (targetData) {
+        targetData.size = targetData.size + 1
+      } else {
+        tagData.push({
+          text: t,
+          size: 1,
+        })
+      }
+    })
+  })
 
-            const paramForText = {
-              words: data,
-              w: 1200,
-              h: 630,
-              fontSizePow: 0.6,
-              fontSizeZoom: 3.1,
-              padding: 0.2,
-            }
+  // JSON使ってDeepコピーする
+  const tagCounts = _orderBy(JSON.parse(JSON.stringify(tagData)), ['size', 'text'], ['desc', 'asc'])
 
-            return createWordCloud(paramForText)
-          })
-          .then(textSvg => {
 
-            // 記事分析ページ生成
-            createPage({
-              path: '/about/',
-              component: aboutPage,
-              context: {
-                thumbnails,
-                allPostRelations,
-                wordCloudText : textSvg,
-                wordCloudTag: tagSvg,
-              },
-            })
+  // WordCloud生成
+  const paramForTag = {
+    words: tagData,
+    w: 1200,
+    h: 630,
+    fontSizePow: 0.8,
+    fontSizeZoom: 18,
+    padding: 2,
+  }
 
-            // タグ別一覧ページ生成
-            _flow(
-              _flatMap(post => post.node.fields.tags),
-              _uniq(),
-              _forEach(tag => {
+  const tagSvg = await createWordCloud(paramForTag)    
+  const wordCloudData = await craeteWordCount(allText)
 
-                // ソートは省略する。postsはソート済だから。
-                const nodes = posts
-                  .filter(post => post.node.fields.tags.includes(tag))
-                  .map(post => post.node)
+  const paramForText = {
+    words: wordCloudData,
+    w: 1200,
+    h: 630,
+    fontSizePow: 0.6,
+    fontSizeZoom: 3.1,
+    padding: 0.2,
+  }
 
-                createPage({
-                  path: `/tags/${_.kebabCase(tag)}/`,
-                  component: tagPage,
-                  context: {
-                    nodes,
-                    tag,
-                    tagCounts,
-                  },
-                })
-              })
-            )(posts)
+  const textSvg = await createWordCloud(paramForText)
 
-            // 処理終了
-            resolve('OK')
-          })
+  // 記事分析ページ生成
+  createPage({
+    path: '/about/',
+    component: aboutPage,
+    context: {
+      thumbnails,
+      allPostRelations,
+      wordCloudText : textSvg,
+      wordCloudTag: tagSvg,
+    },
+  })
+
+  // タグ別一覧ページ生成
+  _flow(
+    _flatMap(post => post.node.fields.tags),
+    _uniq(),
+    _forEach(tag => {
+
+      // ソートは省略する。postsはソート済だから。
+      const nodes = posts
+        .filter(post => post.node.fields.tags.includes(tag))
+        .map(post => post.node)
+
+      createPage({
+        path: `/tags/${_.kebabCase(tag)}/`,
+        component: tagPage,
+        context: {
+          nodes,
+          tag,
+          tagCounts,
+        },
       })
     })
-
-  })
+  )(posts)
 }
 
 
@@ -358,85 +422,6 @@ function countDiff(a, b) {
 }
 
 function craeteWordCount(text, w, h) {
-  
-  const excludeWords = [
-    'よう',
-    'こと',
-    '指定',
-    '時',
-    '追加',
-    '設定',
-    '記事',
-    '用',
-    '情報',
-    'ため',
-    'もの',
-    'これ',
-    '/',
-    '(',
-    ')',
-    '&',
-    '+',
-    '複数',
-    '用意',
-    '構成',
-    '配下',
-    '下記',
-    '今回',
-    '確認',
-    '公開',
-    '関連',
-    '取得',
-    '作成',
-    '場合',
-    '定義',
-    '方法',
-    '生成',
-    '実行',
-    '表示',
-    '紹介',
-    '資産',
-    '参考',
-    '機能',
-    '以下',
-    '更新',
-    '化',
-    '必要',
-    '一部',
-    '側',
-    '実装',
-    'ファイル',
-    'サイト',
-    'イン',
-    '自分',
-    'プラグ',
-    '的',
-    'さん',
-    'とき',
-    'の',
-    '系',
-    '便利',
-    '簡単',
-    '使用',
-    'それ',
-    'あれ',
-    '感じ',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '0',
-    'SETTINGS',
-    'MS',
-    'CONFIG',
-    '://',
-  ]
-
 
   /** kuromoji.jsにバンドルされている辞書の格納場所 */
   const DIC_URL = 'node_modules/kuromoji/dict'
@@ -462,7 +447,7 @@ function craeteWordCount(text, w, h) {
         .map(t => t.basic_form === NO_CONTENT ? t.surface_form : t.basic_form)
         .reduce((data, text) => {
           const upperText = text.toUpperCase()
-          if (excludeWords.includes(upperText)) {
+          if (excludeWordsInWordCloud.includes(upperText)) {
             return data
           }
 
@@ -504,10 +489,10 @@ function craeteWordCount(text, w, h) {
 }
 
 
-function createWordCloud({ words, w, h, fontSizePow, fontSizeZoom, padding }) {
+async function createWordCloud({ words, w, h, fontSizePow, fontSizeZoom, padding }) {
 
   // D3-Cloudによる解析
-  return new Promise((resolve, reject) => {
+  const wordsForCloud = await new Promise((resolve, reject) => {
     cloud().size([w, h])
       .canvas(() => createCanvas(w, h))
       .words(words)
@@ -523,33 +508,30 @@ function createWordCloud({ words, w, h, fontSizePow, fontSizeZoom, padding }) {
       .start()
   })
   // d3.jsによる解析
-  .then(wordsForCloud => {
-    return new Promise((resolve, reject) => {
-      /** 仮想DOM */
-      const document = new JSDOM(`<body></body>`).window.document
 
-      d3.select(document.body)
-        .append('svg')
-          .attr('class', 'ui fluid image')
-          .attr('viewBox', `0 0 ${w} ${h}`)
-          .attr('width', '100%')
-          .attr('height', '100%')
-        .append('g')
-          .attr('transform', `translate(${w/2},${h/2})`)
-        .selectAll('text')
-          .data(wordsForCloud)
-        .enter().append('text')
-          .style('font-size', d => `${d.size}px`)
-          .style('font-family', d => d.font)
-          .attr('transform', d => `translate(${d.x}, ${d.y})rotate(${d.rotate})`)
-          .style('fill', (d, i) => d3.schemeCategory10[i % 10])
-          .attr('text-anchor', 'middle')
-          .text(d => d.text)
-      
-      // 最終的にSVGの文字列を返す
-      resolve(document.body.innerHTML)
-    })
-  })
+  /** 仮想DOM */
+  const document = new JSDOM(`<body></body>`).window.document
+
+  d3.select(document.body)
+    .append('svg')
+      .attr('class', 'ui fluid image')
+      .attr('viewBox', `0 0 ${w} ${h}`)
+      .attr('width', '100%')
+      .attr('height', '100%')
+    .append('g')
+      .attr('transform', `translate(${w/2},${h/2})`)
+    .selectAll('text')
+      .data(wordsForCloud)
+    .enter().append('text')
+      .style('font-size', d => `${d.size}px`)
+      .style('font-family', d => d.font)
+      .attr('transform', d => `translate(${d.x}, ${d.y})rotate(${d.rotate})`)
+      .style('fill', (d, i) => d3.schemeCategory10[i % 10])
+      .attr('text-anchor', 'middle')
+      .text(d => d.text)
+  
+  // 最終的にSVGの文字列を返す
+  return document.body.innerHTML
 }
 
 function rawText(html) {

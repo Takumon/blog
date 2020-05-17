@@ -16,7 +16,7 @@ export default ({
               relativePath
               name
               childImageSharp {
-                fluid(maxWidth: 1200, quality: 40, pngQuality: 40, pngCompressionSpeed: 10) {
+                fluid(maxWidth: 1200, quality: 90, pngQuality: 90) {
                   ...GatsbyImageSharpFluid
                 }
               }
