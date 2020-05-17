@@ -36,13 +36,13 @@ import UserHeat from '../user-heat';
     query {
       file(relativePath: {eq: "thumbnail/for-root-page.png"}) {
         childImageSharp {
-          fluid(maxWidth: 1200, quality: 40, pngQuality: 40, pngCompressionSpeed: 10) {
+          resize(width: 1200, quality: 90) {
             src
           }
         }
       }
     }
-  `).file.childImageSharp.fluid.src
+  `).file.childImageSharp.resize.src
 
 
   let header;
