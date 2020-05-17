@@ -95,6 +95,9 @@
     "url": "git+https://github.com/takumon/blog.git"
   },
   "scripts": {
+    "preoptimizeImage": "run-s preoptimizeImage:**",
+    "preoptimizeImage:thumbnails": "node ./scripts/optimize-thumbnaisl.js",
+    "preoptimizeImage:markdownImages": "node ./scripts/optimize-markdown-images.js",
     "dev": "run-s develop",
     "develop": "gatsby develop",
     "lint": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public .",
