@@ -30,7 +30,7 @@ gatsby-imageまわりのビルドチューニングについて、日本の記�
 - [Gatsby build on Netlify fails(Image generation): Command did not finish within the time limit · Issue #8056 · gatsbyjs/gatsby](https://github.com/gatsbyjs/gatsby/issues/8056)
 - [Gatsby stuck on generating image thumbnails · Issue #23033 · gatsbyjs/gatsby](https://github.com/gatsbyjs/gatsby/issues/23033)
 
-あとGatsbyの公式ドキュメントでも画像の取り扱いについては言及されています。
+あとGatsbyの公式ドキュメントでも画像の取り扱いについて言及されています。
 - [Preoptimizing Your Images | GatsbyJS](https://www.gatsbyjs.org/docs/preoptimizing-images/)
 
 そのため、本記事では、いかに画像生成処理の時間を短縮するかをメインにTipsを紹介していきます。
@@ -49,31 +49,14 @@ gatsby-imageまわりのビルドチューニングについて、日本の記�
 
 ## 2. 必要な画像だけクエリで取得する
 
-以下のようにフィルタを全く指定しないクエリは、全ての画像を取得してしまうのでビルド時間が大幅に増えてしまいます。
-
-```graphql{2}:title=駄目な例(フィルタを指定せずに全ファイルを取得している)
-query {
-  allFile {
-    edges {
-      node {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-    }
-  }
-}
-```
-<br/>
-
-クエリで取得する画像は他画像とフォルダを分けて、クエリのフィルタ条件を指定するなりしましょう。
+フィルタを全く指定しないクエリは、全ての画像を取得してしまうのでビルド時間が大幅に増えてしまいます。
+そのため、クエリで取得する画像は他画像とフォルダを分けて、クエリのフィルタ条件を指定するなりしましょう。
 そうすることで不必要に画像を取得せずに済み、ビルド時間を短縮できます。
 
-```graphql{2}:title=良い例
+```diff
 query {
-  allFile(filter: {relativePath: {regex: "/^thumbnail/*/"}}) {
+-  allFile {
++  allFile(filter: {relativePath: {regex: "/^thumbnail/*/"}}) {
     edges {
       node {
         childImageSharp {
@@ -87,7 +70,6 @@ query {
 }
 ```
 <br/>
-
 
 
 ### クエリのフィルタ条件をContext経由で指定する
@@ -196,51 +178,20 @@ exports.onCreatePage = ({ page, actions }) => {
 ## 3. 生成画像の種類を減らす
 
 以下のように同じ画像でも、記事埋め込み用、OGP画像用などに違う縦横サイズ、クオリティを指定していると、画像生成枚数が増えて、ビルド時間も増えてしまいます。
-
-```graphql{1,7,16,22}:title=生成画像枚数が増えてしまうクエリの例
-  // 記事の最大幅にあわせた少し小さめで低品質な画像を取得
-  query {
-    images: allFile(filter: {relativePath: {regex: "/^thumbnail/*/"}}) {
-      edges {
-        node {
-          childImageSharp {
-            fluid(maxWidth: 800, quality: 50, pngQuality: 50) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-      }
-    }
-  }
-
-  // OGP画像用に少し大きめで高品質な画像を取得
-  query {
-    images: allFile(filter: {relativePath: {regex: "/^thumbnail/*/"}}) {
-      edges {
-        node {
-          childImageSharp {
-            fluid(maxWidth: 1200, quality: 90, pngQuality: 90) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-      }
-    }
-  }
-```
-<br/>
-
 少しの違いであれば、ある程度妥協して同じ縦横サイズ、クオリティを指定して、生成画像枚数を減らしましょう。
 これにより、大幅にビルド時間を短縮できます。
 
-```graphql{1,7}:title=生成画像枚数を減らすためのクエリの例
-  // 生成画像枚数を減らすために、あえて縦横幅、クオリティをサムネイルに合わせる
+
+```diff
   query {
     images: allFile(filter: {relativePath: {regex: "/^thumbnail/*/"}}) {
       edges {
         node {
           childImageSharp {
-            fluid(maxWidth: 1200, quality: 90, pngQuality: 90) {
+-            // 記事の最大幅にあわせた少し小さめで低品質な画像を取得
+-            fluid(maxWidth: 800, quality: 50, pngQuality: 50) {
++            // 生成画像枚数を減らすために、あえて縦横幅、クオリティをサムネイルに合わせる
++            fluid(maxWidth: 1200, quality: 90, pngQuality: 90) {
               ...GatsbyImageSharpFluid
             }
           }
@@ -605,3 +556,4 @@ Gatsbyは割とgatsby-imageとの戦いで、画像の取り扱いが面倒く�
 - [Enable Gatsby Incremental Builds on Netlify](https://www.netlify.com/blog/2020/04/23/enable-gatsby-incremental-builds-on-netlify/)
 - [Building gatsby on CircleCi and deploying on Netlify — Orestis Ioannou](https://oioannou.com/build-on-circleci-deploy-netlify)
 - [Use Imagemin to compress images](https://web.dev/use-imagemin-to-compress-images/)
+- [5 Optimizations to Get Faster Gatsby Builds Today](https://www.netlify.com/blog/2020/06/11/5-optimizations-for-faster-gatsby-builds/)
