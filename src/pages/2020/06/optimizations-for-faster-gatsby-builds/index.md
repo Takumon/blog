@@ -22,12 +22,12 @@ thumbnail: thumbnail/2020/06/optimizations-for-faster-gatsby-builds.png
 - 🚀[1. 画像生成処理を並列化する](#1-%E7%94%BB%E5%83%8F%E7%94%9F%E6%88%90%E5%87%A6%E7%90%86%E3%82%92%E4%B8%A6%E5%88%97%E5%8C%96%E3%81%99%E3%82%8B)
 - 🚅[2. 必要な画像だけクエリで取得する](#2-%E5%BF%85%E8%A6%81%E3%81%AA%E7%94%BB%E5%83%8F%E3%81%A0%E3%81%91%E3%82%AF%E3%82%A8%E3%83%AA%E3%81%A7%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B)
 - 🚂[3. 生成画像の種類を減らす](#3-%E7%94%9F%E6%88%90%E7%94%BB%E5%83%8F%E3%81%AE%E7%A8%AE%E9%A1%9E%E3%82%92%E6%B8%9B%E3%82%89%E3%81%99)
-- 🚗[4. 画像の縦横サイズを最適化する](https://5eeed5562b8cab00077a256c--modest-morse-7d9755.netlify.app/optimizations-for-faster-gatsby-builds#4-%E7%94%BB%E5%83%8F%E3%81%AE%E7%B8%A6%E6%A8%AA%E3%82%B5%E3%82%A4%E3%82%BA%E3%82%92%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%99%E3%82%8B)
+- 🚗[4. 画像の縦横サイズを最適化する](#4-%E7%94%BB%E5%83%8F%E3%81%AE%E7%B8%A6%E6%A8%AA%E3%82%B5%E3%82%A4%E3%82%BA%E3%82%92%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%99%E3%82%8B)
 - 🚴🏻[5. 画像のファイルサイズを圧縮する](#5-%E7%94%BB%E5%83%8F%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%B5%E3%82%A4%E3%82%BA%E3%82%92%E5%9C%A7%E7%B8%AE%E3%81%99%E3%82%8B)
 - 🏃🏻[6. 生成する画像をシンプル＆低クオリティにする](#6-%E7%94%9F%E6%88%90%E3%81%99%E3%82%8B%E7%94%BB%E5%83%8F%E3%82%92%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%EF%BC%86%E4%BD%8E%E3%82%AF%E3%82%AA%E3%83%AA%E3%83%86%E3%82%A3%E3%81%AB%E3%81%99%E3%82%8B)
 - 🏊🏻[7. netlify-plugin-gatsby-cacheを使う](#7-netlify-plugin-gatsby-cache%E3%82%92%E4%BD%BF%E3%81%86)
 
-## なぜビルドが遅いのか -> 画像生成に時間がかかっている
+## なぜビルドが遅いのか → 画像生成に時間がかかっている
 
 ビルド時間の内訳を見たところ、`Generating image thumbnails`に10分以上かかっており大半を締めていました。
 これは[gatsby-image](https://www.gatsbyjs.org/packages/gatsby-image/)で様々なブラウザ幅に最適化するために、サイズ違いの画像を複数枚生成するための処理です。
@@ -362,19 +362,19 @@ const addSizeInfo = (filePath) => {
 レスポンシブ対応する場合`Fluid`系の画像の指定が必須ですが、
 `GatsbyImageSharpFluid_tracedSVG`や`GatsbyImageSharpFluid_withWebp`はSVGやWebpなどの画像も併せて生成することになるので、ビルド時間は長くなってしまいます。　特にこだわりがなければ一番シンプルな`GatsbyImageSharpFluid`を選択するとビルド時間が短縮できるでしょう。
 
-- GatsbyImageSharpFixed <- Fixed系はレスポンシブだと使えない
-- GatsbyImageSharpFixed_noBase64
-- GatsbyImageSharpFixed_tracedSVG
-- GatsbyImageSharpFixed_withWebp
-- GatsbyImageSharpFixed_withWebp_noBase64
-- GatsbyImageSharpFixed_withWebp_tracedSVG
-- GatsbyImageSharpFluid <- シンプル
-- GatsbyImageSharpFluid_noBase64 <- 最初に表示するBase64のぼかし画像がないが、それでいいなら一番シンプル
-- GatsbyImageSharpFluid_tracedSVG <- SVGを生成するのでビルド時間が長くなる
-- GatsbyImageSharpFluid_withWebp <- Webpを生成するのでビルド時間が長くなる
-- GatsbyImageSharpFluid_withWebp_noBase64
-- GatsbyImageSharpFluid_withWebp_tracedSVG <-SVGとWebpを生成するのでビルド時間がかなり長くなる
-- GatsbyImageSharpFluidLimitPresentationSize
+- `GatsbyImageSharpFixed` ← Fixed系はレスポンシブだと使えない
+- `GatsbyImageSharpFixed_noBase64`
+- `GatsbyImageSharpFixed_tracedSVG`
+- `GatsbyImageSharpFixed_withWebp`
+- `GatsbyImageSharpFixed_withWebp_noBase64`
+- `GatsbyImageSharpFixed_withWebp_tracedSVG`
+- `GatsbyImageSharpFluid` ← シンプル
+- `GatsbyImageSharpFluid_noBase64` ← 最初に表示するBase64のぼかし画像がないが、それでいいなら一番シンプル
+- `GatsbyImageSharpFluid_tracedSVG` ← SVGを生成するのでビルド時間が長くなる
+- `GatsbyImageSharpFluid_withWebp` ← Webpを生成するのでビルド時間が長くなる
+- `GatsbyImageSharpFluid_withWebp_noBase64`
+- `GatsbyImageSharpFluid_withWebp_tracedSVG` <-SVGとWebpを生成するのでビルド時間がかなり長くなる
+- `GatsbyImageSharpFluidLimitPresentationSize`
 
 また、クエリで生成画像のクオリティを指定できます。
 クオリティある程度妥協できるならば、低い値を指定することでビルド時間を短縮できます。
