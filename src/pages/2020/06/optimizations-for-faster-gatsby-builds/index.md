@@ -55,7 +55,9 @@ gatsby-imageまわりのビルドチューニングについて、日本の記�
 
 ```diff
 query {
+-  // 全画像を取得してしまう
 -  allFile {
++  // 検索条件を指定して必要な画像だけ取得するようにする
 +  allFile(filter: {relativePath: {regex: "/^thumbnail/*/"}}) {
     edges {
       node {
@@ -227,7 +229,7 @@ exports.onCreatePage = ({ page, actions }) => {
 [Sharp](https://github.com/lovell/sharp)というライブラリを使えばできます。
 以下のようなスクリプトを定義して、package.jsonに`optimizeImages`のようなnpm scriptsを定義しましょう。
 
-```javascript:title=scripts/optimize-images.js
+```javascript:title=scripts/optimize-images.js(画像縦横サイズ最適化スクリプト)
 const sharp = require(`sharp`)
 const glob = require(`glob`)
 const fs = require(`fs`)
@@ -256,7 +258,7 @@ Promise.all(
 ```
 <br/>
 
-```json:title=package.json
+```json:title=package.jsonのnpm scripts
   "scripts": {
     // 中略
     "optimizeImages": "node ./scripts/optimize-images.js",
@@ -277,7 +279,7 @@ jpegは[imagemin-mozjpeg](https://www.npmjs.com/package/imagemin-mozjpeg)、png�
 
 
 
-```javascript:title=scripts/compress-images
+```javascript:title=scripts/compress-images(画像ファイルサイズ最適化スクリプト)
 const glob = require(`glob`);
 const fs = require(`fs`);
 const path = require("path");
@@ -334,7 +336,7 @@ const addSizeInfo = (filePath) => {
 ```
 <br/>
 
-```json:title=package.json
+```json:title=package.jsonのnpm scripts
   "scripts": {
     // 中略
     "compressImages": "node ./scripts/compress-images.js",
@@ -352,18 +354,18 @@ const addSizeInfo = (filePath) => {
 レスポンシブ対応する場合`Fluid`系の画像の指定が必須ですが、
 `GatsbyImageSharpFluid_tracedSVG`や`GatsbyImageSharpFluid_withWebp`はSVGやWebpなどの画像も併せて生成することになるので、ビルド時間は長くなってしまいます。　特にこだわりがなければ一番シンプルな`GatsbyImageSharpFluid`を選択するとビルド時間が短縮できるでしょう。
 
-- GatsbyImageSharpFixed
+- GatsbyImageSharpFixed <- Fixed系はレスポンシブだと使えない
 - GatsbyImageSharpFixed_noBase64
 - GatsbyImageSharpFixed_tracedSVG
 - GatsbyImageSharpFixed_withWebp
 - GatsbyImageSharpFixed_withWebp_noBase64
 - GatsbyImageSharpFixed_withWebp_tracedSVG
-- GatsbyImageSharpFluid
-- GatsbyImageSharpFluid_noBase64
-- GatsbyImageSharpFluid_tracedSVG
-- GatsbyImageSharpFluid_withWebp
+- GatsbyImageSharpFluid <- シンプル
+- GatsbyImageSharpFluid_noBase64 <- 最初に表示するBase64のぼかし画像がないが、それでいいなら一番シンプル
+- GatsbyImageSharpFluid_tracedSVG <- SVGを生成するのでビルド時間が長くなる
+- GatsbyImageSharpFluid_withWebp <- Webpを生成するのでビルド時間が長くなる
 - GatsbyImageSharpFluid_withWebp_noBase64
-- GatsbyImageSharpFluid_withWebp_tracedSVG
+- GatsbyImageSharpFluid_withWebp_tracedSVG <-SVGとWebpを生成するのでビルド時間がかなり長くなる
 - GatsbyImageSharpFluidLimitPresentationSize
 
 また、クエリで生成画像のクオリティを指定できます。
@@ -398,7 +400,7 @@ Netlifyでビルド＆ホストしているなら、[netlify-plugin-gatsby-cache
 以下のように`netlify.toml`を設定し、package.jsonのnpm scriptで`gatsby build`にちょっとした引数を指定するだけキャッシュが有効になります。
 
 
-```toml:title=netlify.toml
+```toml:title=netlify.toml(Netlifyの設定ファイル)
 // 中略
 [[plugins]]
   package = "netlify-plugin-gatsby-cache"
@@ -406,7 +408,7 @@ Netlifyでビルド＆ホストしているなら、[netlify-plugin-gatsby-cache
 ```
 <br/>
 
-```json:title=package.json
+```json:title=package.jsonのnpm scripts
   "scripts": {
     // 中略
     "build": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby-parallel-runner build --log-pages",
@@ -432,7 +434,7 @@ CircleCIはタイムアウトになる心配もないし、Netlifyより少し�
 masterブランチの場合は`--prod`を指定して本チャンdeployになるようにしています。
 deploy時は、Netlifyのトークンが必要になるので、事前にNetlifyでトークンを発行して、CircleCIの環境変数に設定してあげましょう。
 
-```yaml:title=.circleci/config.yml
+```yaml:title=.circleci/config.yml(CircleCIの設定ファイル)
 version: 2.1
 executors:
   node-executor:
