@@ -62,7 +62,7 @@ gatsby-imageまわりのビルドチューニングについて、日本の記�
 そのため、クエリで取得する画像は他画像とフォルダを分けて、クエリのフィルタ条件を指定するなりしましょう。
 そうすることで不必要に画像を取得せずに済み、ビルド時間を短縮できます。
 
-```diff
+```diff:title=フィルタ条件を付けて必要な画像だけ取得する
 query {
 -  // 全画像を取得してしまう
 -  allFile {
@@ -94,7 +94,7 @@ StaticQueryなどは、その名の通りStaticなのでJS中の変数をフィ�
 これを利用して以下のように、3つの画像だけ取得するクエリを定義でき、不必要に画像を生成せずに済み、ビルド時間を短縮できます。
 
 
-```js:title=config/featured-posts.js
+```js:title=config/featured-posts.js(クエリのフィルタ条件を設定ファイルに定義する)
 // 設定ファイルで3つの画像パスを指定する
 module.exports = {
   featuredPosts: [
@@ -106,7 +106,7 @@ module.exports = {
 ```
 <br/>
 
-```js{1-2,7,12}:title=gatsby-node.js
+```js{1-2,7,12}:title=gatsby-node.js(Contextにクエリのフィルタ条件に指定する)
 // 設定ファイルを読み込む
 const { featuredPosts } = require('./config/featured-posts.js');
 
@@ -128,10 +128,8 @@ exports.createPages = ({ graphql, actions }) => {
 <br/>
 
 
-```jsx{3,5-6}:title=src/templates/post.jsx
+```jsx{4-4}:title=src/templates/post.jsx(Contextに指定した値をクエリのフィルタ条件に指定する)
 // 中略
-
-// Contextに指定した値をクエリのフィルタ条件に指定する
 export const query = graphql`
   query($featuredPostPathList: [String]) {
     allMarkdownRemark(filter: { frontmatter: { path: { in: $featuredPostPathList } } }) {
@@ -151,7 +149,6 @@ export const query = graphql`
     }
   }
 `;
-
 // 中略
 ```
 <br/>
@@ -193,7 +190,7 @@ exports.onCreatePage = ({ page, actions }) => {
 これにより、大幅にビルド時間を短縮できます。
 
 
-```diff
+```diff:title=縦横幅、クオリティを統一して生成画像枚数を減らす
   query {
     images: allFile(filter: {relativePath: {regex: "/^thumbnail/*/"}}) {
       edges {
@@ -380,7 +377,7 @@ const addSizeInfo = (filePath) => {
 また、クエリで生成画像のクオリティを指定できます。
 クオリティある程度妥協できるならば、低い値を指定することでビルド時間を短縮できます。
 
-```graphql{8-9}
+```graphql{8-9}:title=クオリティを下げることでビルド時間を短縮する
   query {
     images: allFile(filter: {relativePath: {regex: "/^thumbnail/*/"}}) {
       edges {
@@ -530,7 +527,7 @@ jobs:
 - クエリでGraphQLのフラグメントが使えない 
   - gatsby-imagesのGatsbyImageSharpFluidなどが使えないので、以下のようにフラグメントに定義されてる全プロパティを書き出す必要があります。
 
-```graphql{7-11}:title=gatsby-node.js中で画像取得クエリを書く場合
+```graphql{7-11}:title=gatsby-node.js中で画像取得クエリを書く場合はフラグメントが使えない
 query {
   allFile(filter: {relativePath: {regex: "/^thumbnail/*/"}}) {
     edges {
