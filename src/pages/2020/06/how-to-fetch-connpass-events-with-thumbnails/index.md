@@ -1,6 +1,6 @@
 ---
 title: 'Connpass APIでサムネイル付きのイベント情報を取得する方法'
-date: '2020-06-25T21:00:00.000+09:00'
+date: '2020-06-22T08:00:00.000+09:00'
 tags:
   - Connpass
   - Node.js
@@ -11,29 +11,27 @@ thumbnail: thumbnail/2020/06/how-to-fetch-connpass-events-with-thumbnails.png
 ---
 
 ## なにこれ
-Gatsby製のサイトでConnpassのイベントを表示しなければならず、[Conpass API](https://connpass.com/about/api/)を使ったのですが、こちらサムネイル画像が取得できません。そのためサムネイルはスクレイピングで取得するようにしました。取得方法はGatsbyには依存しておらずNode.jsのスクリプトなので割と使いまわしが効くと思います。今回はその備忘録です。
-
+Gatsby製のサイトでConnpassのイベントを表示しなければならず、[Conpass API](https://connpass.com/about/api/)を使ったのですが、こちらのAPIではサムネイル画像が取得できません。そのためサムネイルはスクレイピングで取得するようにしました。取得自体は単純なNode.jsのスクリプトなので割と使いまわしが効くと思います。今回はその備忘録です。ついでにGatsbyのローカルプラグインにする方法もご紹介します。
 
 ## Connpass API所感
 
-少しだけ使いづらいです。
-今回、グループに紐づくイベントを取得したかったので`series_id`を指定しましたが、Connpassのグループの画面からは`series_id`がわからず、グループに紐づくイベントをConnpass APIで叩いて、そのレスポンスの`series_id`を確認する必要がありました。
-特徴的なのは日付の範囲指定で、From Toではなく、年月または年月日を整数で複数指定しなければなりません。
-2020年1月から3月までのイベントを取得する場合は`ym=202001, 202001, 202003`のような感じです。
+少しだけ使いづらいです。<br/>
+今回、グループに紐づくイベントを取得したかったので`series_id`を指定しましたが、Connpassのグループの画面からは`series_id`がわからず、グループに紐づくイベントをConnpass APIで叩いて、そのレスポンスの`series_id`を確認する必要がありました。<br/>
+日付の範囲指定が独特で、From Toではなく、年月または年月日を整数で複数指定しなければなりません。
+2020年1月から3月までのイベントを取得する場合は`ym=202001, 202001, 202003`のような感じです。<br/>
 なお取得件数のデフォルトは10件なので、たくさんイベントを取得する場合は100件を指定する必要があります。
 
 そしてサムネイル画像の情報がレスポンスで返ってきません。
-返ってきても良さそうですが、[Connpass APIのページ](https://connpass.com/about/api/)で紹介されているAPIを使っているサービスを見ても、
-サムネイル画像を表示しているサービスはなかったで、おそらくAPIでは取得できないのでしょう。
+返ってきても良さそうですが、[Connpass APIのページ](https://connpass.com/about/api/)で紹介されているAPIを使っているサービスを見ても、サムネイル画像を表示しているサービスはなかったで、おそらくAPIでは取得できないのでしょう。
 
 
-## 現在日付前後のイベントを取得するための検索条件
+## 現在月前後のイベントを取得するための検索条件
 
 先に述べた通り日付の検索条件が独特で、
 ここでは、現在月から過去Xヶ月、未来Yヶ月の範囲を指定する方法を示します。
 念の為、どんなロケーションでも正しく動くように[date-fns](https://date-fns.org/)という日時ライブラリを使っています。
 
-```js:title=param-of-month-range.js
+```js:title=param-of-month-range.js(Connpass APIの年月のパラメータを生成する処理)
 // 時間計算などの処理は日本のタイムゾーンで行う
 const TIME_ZONE_FOR_CONNPASS_API = 'Asia/Tokyo';
 const YEAR_MONTH_FORMAT_FOR_CONNPASS_API = 'YYYYMM';
@@ -66,7 +64,7 @@ exports.paramOfMonthRange = paramOfMonthRange;
 
 まずはConnpass APIでイベント情報を取得して、
 取得情報の中のイベントページのURLを元に、[cheerio](https://github.com/cheeriojs/cheerio)を使ってイベントページHTMLのheadタグのmeta情報からOGP画像のURLを取得します。
-スクレイピングは503エラー(リクエスト過多)にならないようPromise.allで並列処理で一気に投げることはせず、for文で直列で処理しています。
+スクレイピングで503エラーにならないようPromise.allで並列処理で一気に投げることはせず、for文で1つづつ順番にリクエストを送るようにしています。
 
 ```js:title=fetch-connpass-events-with-thumbnails.js
 const axios = require('axios');
@@ -144,7 +142,7 @@ exports.fetchConnpassEventsWithThumbnails = fetchConnpassEventsWithThumbnails;
 
 ## Gatsbyプラグインにする場合
 
-以下を実施します。
+Gatsbyのビルド時にConnpassのイベント情報を取得してコンポーネントのGraphQLのクエリで取得できるようにするためには以下を実施します。
 - 設定ファイル定義
 - gatsby-config.jsでプラグイン登録
 - Gatsbyローカルプラグインを作成、この中で先程のスクリプト`fetch-connpass-events-with-thumbnails.js`を使う
@@ -253,8 +251,8 @@ exports.sourceNodes = async (
 
 ## まとめ
 
-所感にも書いた通り、Connpass APIはなんだか怪しげな仕様です。
-標準でサムネイル画像のURLをサポートしてくれたらいいのですが、残念ながらそうではないので、今回のスクリプトを書くに至りました。今後もどこかの場面でこのスクリプトを流用しそうです。ただ、ReactアプリでConnpassのイベントを検索したい場合などリアルタイム性が求められるユースケースでは、スクレイピングに時間がかかるので、サムネイルだけLazyLoadするような仕組みが必要かと思います🍅
+所感にも書いた通り、Connpass APIは使いやすいとは言えません。
+標準でサムネイル画像のURLをサポートしてくれたらいいのですが、残念ながらそうではないので、今回のスクリプトを書くに至りました。今後もどこかの場面でこのスクリプトを流用しそうです。ただ、ReactアプリでConnpassのイベントを検索したい場合などのリアルタイム性が求められるユースケースでは、スクレイピングに時間がかかるので、サムネイルだけLazyLoadするような仕組みが必要かと思います🍅
 
 ## 参考
 
