@@ -106,7 +106,7 @@ module.exports = {
 ```
 <br/>
 
-```js{1-2,7,12}:title=gatsby-node.js(Contextにクエリのフィルタ条件に指定する)
+```js{1-2,7,12}:title=gatsby-node.js(Contextにクエリのフィルタ条件を指定する)
 // 設定ファイルを読み込む
 const { featuredPosts } = require('./config/featured-posts.js');
 
@@ -128,7 +128,7 @@ exports.createPages = ({ graphql, actions }) => {
 <br/>
 
 
-```jsx{4-4}:title=src/templates/post.jsx(Contextに指定した値をクエリのフィルタ条件に指定する)
+```jsx{3-4}:title=src/templates/post.jsx(Contextに指定した値をクエリのフィルタ条件に指定する)
 // 中略
 export const query = graphql`
   query($featuredPostPathList: [String]) {
@@ -403,7 +403,7 @@ const addSizeInfo = (filePath) => {
 
 Netlifyでビルド＆ホストしているなら、[netlify-plugin-gatsby-cache](https://github.com/jlengstorf/netlify-plugin-gatsby-cache)が使えます。
 これは前回ビルド時のキャッシュを用いてビルド時間を短縮するためのNetlifyプラグインです。
-自分は、コレを導入したおかげで、記事を追加するだけならビルド時間が2分程度で済むようになりました。
+**自分は、コレを導入したおかげで、記事を追加するだけならビルド時間が2分程度で済むようになりました。**
 
 以下のように`netlify.toml`を設定し、package.jsonのnpm scriptで`gatsby build`にちょっとした引数を指定するだけキャッシュが有効になります。
 
