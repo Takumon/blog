@@ -405,6 +405,8 @@ const addSizeInfo = (filePath) => {
 
 Netlifyでビルド＆ホストしているなら、[netlify-plugin-gatsby-cache](https://github.com/jlengstorf/netlify-plugin-gatsby-cache)が使えます。
 これは前回ビルド時のキャッシュを用いてビルド時間を短縮するためのNetlifyプラグインです。
+自分は、コレを導入したおかげで、記事を追加するだけならビルド時間が2分程度で済むようになりました。
+
 以下のように`netlify.toml`を設定し、package.jsonのnpm scriptで`gatsby build`にちょっとした引数を指定するだけキャッシュが有効になります。
 
 
