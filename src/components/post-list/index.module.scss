@@ -4,14 +4,17 @@
 
 .content {
   width: 100%;
+  background: #f1f1f1;
+  // animation: fade-in-down .7s both;
+}
+
+.content_inner {
   padding: 72px;
   animation: fade-in-down .6s both .5s;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
   // grid-auto-rows: 1fr;
   grid-gap: 40px;
-  background: #f1f1f1;
-  // animation: fade-in-down .7s both;
 }
 
 .pagination_area {

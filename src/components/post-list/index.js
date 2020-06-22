@@ -35,15 +35,17 @@ class PostList extends React.Component {
 
     return (
       <div className={styles.content}>
-        {filtered.map(postField =>
-          <PostPreview
-            key={postField.slug}
-            postField={postField}
-            />
-        )}
+        <div className={styles.content_inner} >
+          {filtered.map(postField =>
+            <PostPreview
+              key={postField.slug}
+              postField={postField}
+              />
+          )}
+        </div>
         {this.hasNextPage() ? (
           <div className={styles.pagination_area}>
-            <button onClick={this.pagination_button}>Load More</button>
+            <button className={this.pagination_button} onClick={this.loadNextPage}>Load More</button>
           </div>
         ) : null}
       </div>
