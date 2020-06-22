@@ -53,7 +53,7 @@ class BlogIndex extends React.Component {
     return (
       <Layout location={this.props.location}>
         <Title />
-        <PostList postFields={posts.map(post => post.node.fields)} />
+        <PostList postFields={posts.map(post => post.node.fields).slice(0,10)} />
         <TagList tagCounts={tagCounts} />
       </Layout>
     );
