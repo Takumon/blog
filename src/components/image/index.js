@@ -16,7 +16,7 @@ export default ({
               relativePath
               name
               childImageSharp {
-                fluid(maxWidth: 800, quality: 50, pngQuality: 50) {
+                fluid(maxWidth: 500, quality: 50, pngQuality: 50) {
                   ...GatsbyImageSharpFluid_withWebp
                 }
               }
