@@ -14,6 +14,31 @@
   // animation: fade-in-down .7s both;
 }
 
+.pagination_area {
+  text-align: center;
+  width: 100%;
+}
+
+.pagination_button {
+  text-align: center;
+  display: block;
+  height: 36px;
+  background-size: contain;
+  box-shadow: none;
+  color: white;
+  font-weight: 600;
+  background: #f74539;
+  border-radius: 18px;
+  line-height: 35px;
+  padding: 0 16px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
 
 @keyframes fade-in-down {
   0% {
