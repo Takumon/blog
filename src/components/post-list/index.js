@@ -45,7 +45,7 @@ class PostList extends React.Component {
         </div>
         {this.hasNextPage() ? (
           <div className={styles.pagination_area}>
-            <button className={this.pagination_button} onClick={this.loadNextPage}>Load More</button>
+            <button className={styles.pagination_button} onClick={this.loadNextPage}>Load More</button>
           </div>
         ) : null}
       </div>
