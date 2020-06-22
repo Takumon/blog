@@ -20,25 +20,29 @@
 .pagination_area {
   text-align: center;
   width: 100%;
+  justify-content: center;
+  padding-bottom: 72px;
 }
 
 .pagination_button {
   text-align: center;
   display: block;
-  height: 36px;
+  height: 48px;
   background-size: contain;
   box-shadow: none;
-  color: white;
-  font-weight: 600;
+  color: #fff;
   background: #f74539;
-  border-radius: 18px;
-  line-height: 35px;
-  padding: 0 16px;
+  border-radius: 24px;
+  line-height: 25px;
+  padding: 6px 24px;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  font-size: 24px;
+  transition: all .4s cubic-bezier(.645,.045,.355,1);
+  border: 0;
 
   &:hover {
     transform: scale(1.02);
+    opacity: 0.7;
   }
 }
 
