@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
-import BackgroundImage from 'gatsby-background-image'
+// import BackgroundImage from 'gatsby-background-image'
 
 import '../../css/base.scss';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
@@ -12,7 +12,7 @@ import Footer from '../footer';
 import Bio from '../bio';
 import Rss from '../rss';
 import UserHeat from '../user-heat';
-import useBackgroundImages from '../background-image'
+// import useBackgroundImages from '../background-image'
 
 
  const Layout = ({ location, children }) => {
@@ -48,18 +48,21 @@ import useBackgroundImages from '../background-image'
 
 
   const { headerImage } = useBackgroundImages()
-  const headerImageData = headerImage.childImageSharp.fluid
+  // const headerImageData = headerImage.childImageSharp.fluid
 
 
   let header;
 
   if (isRoot) {
+      // <BackgroundImage
+      //   Tag="div"
+      //   className={styles.header_container}
+      //   fluid={headerImageData}
+      // >
+      // </BackgroundImage>
+
     header = (
-      <BackgroundImage
-        Tag="div"
-        className={styles.header_container}
-        fluid={headerImageData}
-      >
+
         <Seo isRoot={true} thumbnailSrc={rootThumbnailPath}/>
         <div className={styles.header_container__inner}>
           <h1 className={styles.blog_title_area}>
@@ -71,15 +74,16 @@ import useBackgroundImages from '../background-image'
           <Bio />
         </div>
         <Rss />
-      </BackgroundImage>
     );
   } else if(isTag) {
+      // <BackgroundImage
+      //   Tag="div"
+      //   className={styles.header_container}
+      //   fluid={headerImageData}
+      // >
+      // </BackgroundImage>
+
     header = (
-      <BackgroundImage
-        Tag="div"
-        className={styles.header_container}
-        fluid={headerImageData}
-      >
         <Seo isRoot={true} thumbnailSrc={rootThumbnailPath}/>
         <div className={styles.header_container__inner}>
           <h1 className={styles.blog_title_area}>
@@ -91,15 +95,17 @@ import useBackgroundImages from '../background-image'
           <Bio />
         </div>
         <Rss />
-      </BackgroundImage>
     );
   } else if(isAbout) {
+      // <BackgroundImage
+      //   Tag="div"
+      //   className={styles.header_container}
+      //   fluid={headerImageData}
+      // >
+      // </BackgroundImage>
+
     header = (
-      <BackgroundImage
-        Tag="div"
-        className={styles.header_container}
-        fluid={headerImageData}
-      >
+
         <Seo isRoot={true} thumbnailSrc={rootThumbnailPath}/>
         <div className={styles.header_container__inner}>
           <h1 className={styles.blog_title_area}>
@@ -111,7 +117,6 @@ import useBackgroundImages from '../background-image'
           <Bio />
         </div>
         <Rss isAbout={isAbout}/>
-      </BackgroundImage>
     );
   } else {
     header = '';
@@ -123,7 +128,7 @@ import useBackgroundImages from '../background-image'
       <UserHeat />
       {header}
       {children}
-      <Footer isRoot={isRoot} />
+      {/* <Footer isRoot={isRoot} /> */}
     </div>
   )
 }
