@@ -8,9 +8,8 @@
 
 .header_container {
   @include flex-column-center();
-  background-image: url(../../images/background.jpg);
   background-size: cover;
-  background-attachment: fixed;
+  // background-attachment: fixed;
   margin: 0;
   min-height: 65vh;
   position: relative;
@@ -20,25 +19,25 @@
     color: white;
   }
 
-  &:after {
-    -moz-pointer-events: none;
-    -webkit-pointer-events: none;
-    -ms-pointer-events: none;
-    pointer-events: none;
-    background: linear-gradient(125deg,#8A5E5F,#d8bb93);
-    content: "";
-    display: block;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    animation: show-background 1.2s both 1s;
-  }
+  // &:after {
+  //   -moz-pointer-events: none;
+  //   -webkit-pointer-events: none;
+  //   -ms-pointer-events: none;
+  //   pointer-events: none;
+  //   background: linear-gradient(125deg,#8A5E5F,#d8bb93);
+  //   content: "";
+  //   display: block;
+  //   position: absolute;
+  //   height: 100%;
+  //   width: 100%;
+  //   top: 0;
+  //   left: 0;
+  //   z-index: 1;
+  //   animation: show-background 1.2s both 1s;
+  // }
 
   &__inner {
-    animation: fade-in-down .6s both .5s;
+    // animation: fade-in-down .6s both .5s;
     z-index: 2;
 
     .blog_title_area {

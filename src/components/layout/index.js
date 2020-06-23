@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
+import BackgroundImage from 'gatsby-background-image'
 
 import '../../css/base.scss';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
@@ -11,6 +12,7 @@ import Footer from '../footer';
 import Bio from '../bio';
 import Rss from '../rss';
 import UserHeat from '../user-heat';
+import useBackgroundImages from '../background-image'
 
 
  const Layout = ({ location, children }) => {
@@ -45,11 +47,20 @@ import UserHeat from '../user-heat';
   `).file.childImageSharp.resize.src
 
 
+  const { headerImage } = useBackgroundImages()
+  const headerImageData = headerImage.childImageSharp.fluid
+
+
   let header;
 
   if (isRoot) {
     header = (
-      <div className={styles.header_container}>
+      <BackgroundImage
+        Tag="div"
+        className={styles.header_container}
+        fluid={headerImageData}
+        backgroundColor={`#8A5E5F`}
+      >
         <Seo isRoot={true} thumbnailSrc={rootThumbnailPath}/>
         <div className={styles.header_container__inner}>
           <h1 className={styles.blog_title_area}>
@@ -61,11 +72,16 @@ import UserHeat from '../user-heat';
           <Bio />
         </div>
         <Rss />
-      </div>
+      </BackgroundImage>
     );
   } else if(isTag) {
     header = (
-      <div className={styles.header_container}>
+      <BackgroundImage
+        Tag="div"
+        className={styles.header_container}
+        fluid={headerImageData}
+        backgroundColor={`#8A5E5F`}
+      >
         <Seo isRoot={true} thumbnailSrc={rootThumbnailPath}/>
         <div className={styles.header_container__inner}>
           <h1 className={styles.blog_title_area}>
@@ -77,11 +93,16 @@ import UserHeat from '../user-heat';
           <Bio />
         </div>
         <Rss />
-      </div>
+      </BackgroundImage>
     );
   } else if(isAbout) {
     header = (
-      <div className={styles.header_container}>
+      <BackgroundImage
+        Tag="div"
+        className={styles.header_container}
+        fluid={headerImageData}
+        backgroundColor={`#8A5E5F`}
+      >
         <Seo isRoot={true} thumbnailSrc={rootThumbnailPath}/>
         <div className={styles.header_container__inner}>
           <h1 className={styles.blog_title_area}>
@@ -93,7 +114,7 @@ import UserHeat from '../user-heat';
           <Bio />
         </div>
         <Rss isAbout={isAbout}/>
-      </div>
+      </BackgroundImage>
     );
   } else {
     header = '';

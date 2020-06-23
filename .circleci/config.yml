@@ -22,7 +22,7 @@ commands:
           keys:
             - gatsby-public-cache-{{ .Branch }}
             - gatsby-public-cache-
-      - run: GATSBY_CPU_COUNT=2 NODE_OPTIONS="--max-old-space-size=8192" npm run build
+      - run: GATSBY_CPU_COUNT=2 NODE_OPTIONS="--max-old-space-size=8192" npm run local-build
       - save_cache:
           key: gatsby-public-cache-{{ .Branch }}
           paths:
@@ -47,14 +47,14 @@ jobs:
     working_directory: ~/repo
     steps:
       - gatsby-build
-      # - run:
-      #     name: Netlify Deploy
-      #     command: ./node_modules/.bin/netlify deploy --dir=public --message "deploy preview from $CIRCLE_BRANCH" --auth $NETLIFY_ACCESS_TOKEN
+      - run:
+          name: Netlify Deploy
+          command: ./node_modules/.bin/netlify deploy --dir=public --message "deploy preview from $CIRCLE_BRANCH" --auth $NETLIFY_ACCESS_TOKEN
   release:
     executor: node-executor
     working_directory: ~/repo
     steps:
       - gatsby-build
-      # - run:
-      #     name: Netlify Deploy
-      #     command: ./node_modules/.bin/netlify deploy --prod --dir=public --message "deploy from $CIRCLE_BRANCH" --auth $NETLIFY_ACCESS_TOKEN
+      - run:
+          name: Netlify Deploy
+          command: ./node_modules/.bin/netlify deploy --prod --dir=public --message "deploy from $CIRCLE_BRANCH" --auth $NETLIFY_ACCESS_TOKEN
