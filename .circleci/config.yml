@@ -23,6 +23,7 @@ commands:
             - gatsby-public-cache-{{ .Branch }}
             - gatsby-public-cache-
       - run: GATSBY_CPU_COUNT=2 NODE_OPTIONS="--max-old-space-size=8192" npm run build
+          no_output_timeout: 15m
       - save_cache:
           key: gatsby-public-cache-{{ .Branch }}
           paths:
