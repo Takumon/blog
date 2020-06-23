@@ -20,6 +20,7 @@
 .pagination_area {
   text-align: center;
   width: 100%;
+  display: flex;
   justify-content: center;
   padding-bottom: 72px;
 }
@@ -76,21 +77,30 @@
 }
 
 @media screen and (max-width: 680px) {
-  .content {
+  .content_inner {
     padding: 36px;
     grid-gap: 20px;
-  }  
+  }
+  .pagination_area {
+    padding-bottom: 36px; 
+  }
 }
 
 @media screen and (max-width: 580px) {
-  .content {
+  .content_inner {
     padding: 72px 10px 10px 10px;
+  }
+  .pagination_area {
+    padding-bottom: 10px; 
   }
 }
 
 @media screen and (max-width: 450px) {
-  .content {
+  .content_inner {
     grid-gap: 10px;
     grid-template-columns: repeat(auto-fit, minmax(90%, 1fr));
+  }
+  .pagination_area {
+    padding-bottom: 10px; 
   }
 }
