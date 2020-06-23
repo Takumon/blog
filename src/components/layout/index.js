@@ -62,6 +62,7 @@ import UserHeat from '../user-heat';
       // </BackgroundImage>
 
     header = (
+      <>
 
         <Seo isRoot={true} thumbnailSrc={rootThumbnailPath}/>
         <div className={styles.header_container__inner}>
@@ -74,6 +75,7 @@ import UserHeat from '../user-heat';
           <Bio />
         </div>
         <Rss />
+      </>
     );
   } else if(isTag) {
       // <BackgroundImage
@@ -84,6 +86,7 @@ import UserHeat from '../user-heat';
       // </BackgroundImage>
 
     header = (
+      <>
         <Seo isRoot={true} thumbnailSrc={rootThumbnailPath}/>
         <div className={styles.header_container__inner}>
           <h1 className={styles.blog_title_area}>
@@ -95,6 +98,7 @@ import UserHeat from '../user-heat';
           <Bio />
         </div>
         <Rss />
+      </>
     );
   } else if(isAbout) {
       // <BackgroundImage
@@ -105,7 +109,7 @@ import UserHeat from '../user-heat';
       // </BackgroundImage>
 
     header = (
-
+      <>
         <Seo isRoot={true} thumbnailSrc={rootThumbnailPath}/>
         <div className={styles.header_container__inner}>
           <h1 className={styles.blog_title_area}>
@@ -117,6 +121,8 @@ import UserHeat from '../user-heat';
           <Bio />
         </div>
         <Rss isAbout={isAbout}/>
+      </>
+
     );
   } else {
     header = '';
