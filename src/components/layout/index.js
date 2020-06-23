@@ -47,7 +47,7 @@ import UserHeat from '../user-heat';
   `).file.childImageSharp.resize.src
 
 
-  const { headerImage } = useBackgroundImages()
+  // const { headerImage } = useBackgroundImages()
   // const headerImageData = headerImage.childImageSharp.fluid
 
 

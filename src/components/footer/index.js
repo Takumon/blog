@@ -14,7 +14,7 @@ export default function Footer({isRoot}) {
     : <Bio />
 
 
-  const { footerImage } = useBackgroundImages()
+  // const { footerImage } = useBackgroundImages()
   // const imageData = footerImage.childImageSharp.fluid
   
 //   <BackgroundImage
