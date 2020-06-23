@@ -1,10 +1,12 @@
 import React, { Fragment } from 'react';
-import { Link, useStaticQuery } from 'gatsby';
+import { Link } from 'gatsby';
 import BackgroundImage from 'gatsby-background-image'
 
 import Bio from '../bio'
 import config from '../../config/blog-config';
 import styles from './index.module.scss';
+import useBackgroundImages from '../background-image'
+
 
 export default function Footer({isRoot}) {
   const bio = isRoot
@@ -12,20 +14,7 @@ export default function Footer({isRoot}) {
     : <Bio />
 
 
-  const {
-    footerImage
-  } = useStaticQuery(graphql`
-    query {
-      footerImage: file(relativePath: {eq: "background-for-footer.jpg"}) {
-        childImageSharp {
-          fluid(maxWidth: 1200, quality: 80, pngQuality: 80) {
-            ...GatsbyImageSharpFluid_withWebp
-          }
-        }
-      }
-    }
-  `)
-
+  const { footerImage } = useBackgroundImages()
   const imageData = footerImage.childImageSharp.fluid
   
 

@@ -8,7 +8,6 @@
 
 .header_container {
   @include flex-column-center();
-  background-image: url(../../images/background.jpg);
   background-size: cover;
   background-attachment: fixed;
   margin: 0;
