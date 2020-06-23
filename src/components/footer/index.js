@@ -24,6 +24,7 @@ export default function Footer({isRoot}) {
       role="contentinfo"
       className={styles.content}
       fluid={imageData}
+      backgroundColor={`#8A5E5F`}
     >
       <div className={styles.content__inner}>
         {bio}

@@ -6,3 +6,6 @@ public
 .cache/
 .env
 yarn.lock
+
+# Local Netlify folder
+.netlify

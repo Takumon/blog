@@ -59,6 +59,7 @@ import useBackgroundImages from '../background-image'
         Tag="div"
         className={styles.header_container}
         fluid={headerImageData}
+        backgroundColor={`#8A5E5F`}
       >
         <Seo isRoot={true} thumbnailSrc={rootThumbnailPath}/>
         <div className={styles.header_container__inner}>
@@ -79,6 +80,7 @@ import useBackgroundImages from '../background-image'
         Tag="div"
         className={styles.header_container}
         fluid={headerImageData}
+        backgroundColor={`#8A5E5F`}
       >
         <Seo isRoot={true} thumbnailSrc={rootThumbnailPath}/>
         <div className={styles.header_container__inner}>
@@ -99,6 +101,7 @@ import useBackgroundImages from '../background-image'
         Tag="div"
         className={styles.header_container}
         fluid={headerImageData}
+        backgroundColor={`#8A5E5F`}
       >
         <Seo isRoot={true} thumbnailSrc={rootThumbnailPath}/>
         <div className={styles.header_container__inner}>
@@ -123,7 +126,7 @@ import useBackgroundImages from '../background-image'
       <UserHeat />
       {header}
       {children}
-      {/* <Footer isRoot={isRoot} /> */}
+      <Footer isRoot={isRoot} />
     </div>
   )
 }
