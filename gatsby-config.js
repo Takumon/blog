@@ -200,8 +200,8 @@ module.exports = {
       options: {
         GAViewID: `181551797`,
         jwt: {
-          client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-          private_key: process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY,
+          client_email: `${process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL}`,
+          private_key: `${process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY}`,
         },
         minimumThreshold: 0.03,
         period: {
