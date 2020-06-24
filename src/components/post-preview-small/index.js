@@ -29,9 +29,9 @@ class PostPreviewSmall extends React.Component {
           />
         </div>
         <div className={styles.content_post_info}>
-          <h3 className={styles.title} >
+          <h2 className={styles.title} >
             {title}
-          </h3>
+          </h2>
           <div className={styles.post_meta_info}>
             <PostMetaInfo
               tags={tags}
