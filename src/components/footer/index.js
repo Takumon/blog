@@ -28,11 +28,11 @@ export default function Footer({isRoot}) {
     >
       <div className={styles.content__inner}>
         {bio}
-        <h4 className={styles.title}>
+        <h3 className={styles.title}>
           <Link className={styles.title__link} to='/'>
             {config.blogTitle}<i className={styles.tomato_icon} ></i>
           </Link>
-        </h4>
+        </h3>
 
         <div className="copyright">
           Copyright © 2018. {config.blogAuthor}
