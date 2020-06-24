@@ -1,6 +1,8 @@
 require('dotenv').config()
+const key = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, '\n')
+
 console.log('log---start----')
-console.log(process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\n/g, '\n'))
+console.log(`${key}`)
 console.log('log---end----')
 
 module.exports = {
@@ -204,7 +206,7 @@ module.exports = {
         GAViewID: `181551797`,
         jwt: {
           client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-          private_key: process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\n/g, '\n'),
+          private_key: `${key}`,
         },
         minimumThreshold: 0.03,
         period: {
