@@ -49,7 +49,7 @@ jobs:
       - gatsby-build
       - run:
           name: Netlify Deploy
-          command: ./node_modules/.bin/netlify deploy --dir=public --message "deploy preview from $CIRCLE_BRANCH" --site-id $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN
+          command: ./node_modules/.bin/netlify deploy --dir=public --message "deploy preview from $CIRCLE_BRANCH" --auth $NETLIFY_ACCESS_TOKEN
   release:
     executor: node-executor
     working_directory: ~/repo
@@ -57,4 +57,4 @@ jobs:
       - gatsby-build
       - run:
           name: Netlify Deploy
-          command: ./node_modules/.bin/netlify deploy --prod --dir=public --message "deploy from $CIRCLE_BRANCH" --site-id $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN
+          command: ./node_modules/.bin/netlify deploy --prod --dir=public --message "deploy from $CIRCLE_BRANCH" --auth $NETLIFY_ACCESS_TOKEN
