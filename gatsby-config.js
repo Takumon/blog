@@ -1,10 +1,6 @@
 require('dotenv').config()
 const key = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, '\n')
 
-console.log('log---start----')
-console.log(`${key}`)
-console.log('log---end----')
-
 module.exports = {
   siteMetadata: {
     title: 'Takumon Blog',
