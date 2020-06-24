@@ -1,4 +1,5 @@
 require('dotenv').config()
+console.log(process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY)
 
 module.exports = {
   siteMetadata: {
