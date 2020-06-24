@@ -32,9 +32,9 @@ class PostPreview extends React.Component {
             </div>
           </div>
           <div className={styles.content_post_info}>
-            <h3 className={styles.title} >
+            <h2 className={styles.title} >
                 {title}
-            </h3>
+            </h2>
             <p
               className={styles.content_text}
               dangerouslySetInnerHTML={{ __html: excerpt }}

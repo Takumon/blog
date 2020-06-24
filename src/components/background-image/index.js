@@ -19,6 +19,13 @@ export default function useBackgroundImages() {
           }
         }
       }
+      avatarImage: file(relativePath: {eq: "avatar.jpg"}) {
+        childImageSharp {
+          fluid(maxWidth: 280, quality: 100) {
+            ...GatsbyImageSharpFluid_withWebp
+          }
+        }
+      }
     }
   `)
 }

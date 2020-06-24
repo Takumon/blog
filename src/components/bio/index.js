@@ -1,19 +1,28 @@
 import React from 'react'
+import Img from 'gatsby-image'
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithubSquare, faTwitterSquare } from '@fortawesome/free-brands-svg-icons'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import config from '../../config/blog-config.js';
 import styles from './index.module.scss';
+import useBackgroundImage from '../background-image'
+
 /* highlight-range{1-3} */
 class Bio extends React.Component {
+
+
   render() {
+    const { avatarImage } = useBackgroundImage()
+
     return (
       <div className={styles.content}>
-        <img
-          src={config.blogAuthorAvatarUrl}
+        <Img
+          fluid={avatarImage.childImageSharp.fluid}
           alt={config.blogAuthor}
-          className={styles.avatar} />
+          className={styles.avatar}
+        />
         <div className={styles.main}>
           <div className={styles.description}>{config.blogDescription}</div>
           <div className={styles.profile}>
