@@ -195,5 +195,20 @@ module.exports = {
         }
       },
     },
+    {
+      resolve: "gatsby-plugin-guess-js",
+      options: {
+        GAViewID: `181551797`,
+        jwt: {
+          client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+          private_key: process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY,
+        },
+        minimumThreshold: 0.03,
+        period: {
+          startDate: new Date("2020-1-1"),
+          endDate: new Date(),
+        },
+      },
+    },
   ],
 }
