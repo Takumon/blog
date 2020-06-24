@@ -17,7 +17,7 @@ import styles from './index.module.scss';
 const TagList = ({ tagCounts }) => {
   return (
   <div className={styles.content}>
-    <h4 className={styles.title}><FontAwesomeIcon icon={faTags} className={styles.title__icon}/>タグ一覧</h4>
+    <h3 className={styles.title}><FontAwesomeIcon icon={faTags} className={styles.title__icon}/>タグ一覧</h3>
     <div className={styles.list}>
       {tagCounts.map(t => <Tag key={t.text} value={t.text} count={t.size} />)}
     </div>
