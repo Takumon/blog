@@ -1,4 +1,5 @@
 require('dotenv').config()
+const key = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, '\n')
 
 module.exports = {
   siteMetadata: {
@@ -193,6 +194,21 @@ module.exports = {
         headers: {
           Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
         }
+      },
+    },
+    {
+      resolve: "gatsby-plugin-guess-js",
+      options: {
+        GAViewID: `181551797`,
+        jwt: {
+          client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+          private_key: `${key}`,
+        },
+        minimumThreshold: 0.03,
+        period: {
+          startDate: new Date("2020-1-1"),
+          endDate: new Date(),
+        },
       },
     },
   ],
