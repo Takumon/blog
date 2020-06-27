@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { useStaticQuery, graphql } from 'gatsby'
 import cytoscape from 'cytoscape'
 import CytoscapeComponent from 'react-cytoscapejs'
 import coseBilkent from 'cytoscape-cose-bilkent'
@@ -173,18 +174,15 @@ const CYTOSCAPE_ZOOM_DOWN_ELEMENT = {
 
 
 
-function createPostNode({posts, thumbnails}) {
+const createPostNode = (posts, thumbnails) => {
 
   return posts.map(postRelation => {
-    const imageNode = thumbnails.edges.find(n => {
-      return n.node.relativePath.includes(postRelation.node.fields.thumbnail  || config.defaultThumbnailImagePath)
-    })
+     const { fields } = postRelation.node
 
     // 記事サムネイルとして使う
-    const backgroundImage = config.blogUrl + imageNode.node.childImageSharp.fluid.src
+    const backgroundImage = config.blogUrl + thumbnails[fields.thumbnail || config.defaultThumbnailImagePath]
 
-
-    const title = postRelation.node.fields.title.replace(/ /g,'')
+    const title = fields.title.replace(/ /g,'')
     let postTitle;
     if(title.length > 25) {
       postTitle = title.match(/.{25}/g).join('\n')
@@ -199,11 +197,11 @@ function createPostNode({posts, thumbnails}) {
     
     return {
       data: {
-        id: postRelation.node.fields.slug, // slug (一意に識別するため)
+        id: fields.slug, // slug (一意に識別するため)
         title: postTitle, // 記事タイトル
         backgroundImage,  // 記事サムネイル
-        date: postRelation.node.fields.date,
-        href: postRelation.node.fields.slug,
+        date: fields.date,
+        href: fields.slug,
       }
     }
   })
@@ -275,18 +273,43 @@ repeating-linear-gradient(to right,
   rgba(225, 225, 225, 0.17) 110px,  rgba(225, 225, 225, 0.17) 110px)`
 
 
+const useThumbnails = () => {
+  const result = {}
+  useStaticQuery(graphql`
+    query {
+      images: allFile(filter: {relativePath: {regex: "/^thumbnail/*/"}}) {
+        edges {
+            node {
+            relativePath
+            childImageSharp {
+              fluid(maxWidth: 400, quality: 40, pngQuality: 40) {
+                src
+              }
+            }
+          }
+        }
+      }
+    }
+  `).images.edges.map(edge => {
+    result[edge.node.relativePath] = edge.node.childImageSharp.fluid.src
+  })
 
-const PostRelationSection = ({ posts, thumbnails }) => {
+  return result
+}
+
+const PostRelationSection = ({ posts }) => {
   const [ isFull, setIsFull ] = useState(false)
   const [ cytoscapeElements, setCytoscapeElements ] = useState(null)
   const [ isShowContent, setIsShowContent ] = useState(false)
 
   const goFull = () => setIsFull(true)
   const goNotFull = () => setIsFull(false)
+  const thumbnails = useThumbnails()
+
   const showContent = () => {
     setIsShowContent(true)
   
-    const nodes = createPostNode({ posts, thumbnails })
+    const nodes = createPostNode(posts, thumbnails)
     nodes.push(CYTOSCAPE_ZOOM_UP_ELEMENT)
     nodes.push(CYTOSCAPE_ZOOM_DOWN_ELEMENT)
     const edges = createPostEdges({posts})

@@ -6,9 +6,13 @@ import Post from '../components/post';
 import '../css/qiita-code-block.css';
 
 
-const QiitaPostTemplate = ({ location, pageContext }) => {
+const QiitaPostTemplate = ({
+  pageContext,
+  location,
+  data,
+}) => {
 
-  const { node: post } = pageContext
+  const { post } = data
   const siteTitle = pageContext.siteMetadata.title
 
   return ( 
@@ -26,3 +30,30 @@ const QiitaPostTemplate = ({ location, pageContext }) => {
 
 export default QiitaPostTemplate
 
+
+export const pageQuery = graphql`
+  query($slug: String) {
+    post: qiitaPost(fields: { slug: { eq: $slug}}) {
+      rendered_body
+      headings {
+        id
+        value
+        depth
+        parents {
+          id
+          value
+          depth
+        }
+      }          
+      fields {
+        slug
+        title
+        date
+        excerpt
+        tags
+        keywords
+        thumbnail
+      }
+    }
+  }
+`

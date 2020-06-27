@@ -5,9 +5,13 @@ import Post from '../components/post';
 
 import 'katex/dist/katex.min.css';
 
-const BlogPostTemplate = ({ pageContext, location }) => {
+const BlogPostTemplate = ({
+  pageContext,
+  location,
+  data,
+}) => {
 
-  const { node: post } = pageContext
+  const { post } = data
   const siteTitle = pageContext.siteMetadata.title
 
   return (
@@ -24,3 +28,31 @@ const BlogPostTemplate = ({ pageContext, location }) => {
 }
 
 export default BlogPostTemplate
+
+
+export const pageQuery = graphql`
+  query($slug: String) {
+    post: markdownRemark(fields: { slug: { eq: $slug}}) {
+      html
+      headingsDetail {
+        id
+        value
+        depth
+        parents {
+          id
+          value
+          depth
+        }
+      }          
+      fields {
+        slug
+        title
+        date
+        excerpt
+        tags
+        keywords
+        thumbnail
+      }
+    }
+  }
+`

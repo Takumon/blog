@@ -39,16 +39,6 @@ const query = `
     edges {
       node {
         html
-        headingsDetail {
-          id
-          value
-          depth
-          parents {
-            id
-            value
-            depth
-          }
-        }          
         fields {
           slug
           title
@@ -66,16 +56,7 @@ const query = `
   allQiitaPost(sort: { fields: [fields___date], order: DESC }, limit: 1000) {
     edges {
       node {
-        headings {
-          id
-          value
-          depth
-          parents {
-            id
-            value
-            depth
-          }
-        }          
+        rendered_body
         fields {
           slug
           title
@@ -90,14 +71,6 @@ const query = `
           profile_image_url
           description
         }
-        id
-        title
-        rendered_body
-        body
-        comments_count
-        created_at
-        likes_count
-        reactions_count
       }
     }
   }
@@ -261,7 +234,6 @@ exports.createPages = async({ graphql, actions }) => {
         path: node.fields.slug,
         component: blogPost,
         context: {
-          node,
           thumbnail,
           siteMetadata,
           slug: node.fields.slug,
@@ -276,7 +248,6 @@ exports.createPages = async({ graphql, actions }) => {
         path: node.fields.slug,
         component: qiitaPost,
         context: {
-          node,
           thumbnail: defaultThumbnail,
           siteMetadata,
           slug: node.fields.slug,
@@ -292,12 +263,16 @@ exports.createPages = async({ graphql, actions }) => {
   })
 
   // 記事関連情報生成
-  const allPostRelations = allPostNodes.map(node => {
+  const allPostRelationsForAboutPage = allPostNodes.map(node => {
 
     const conf = Object.assign({}, relatedPost.defaultConfig, { threshold: 50 })
 
+    const simpleNode = {
+      fields: node.fields
+    }
+
     return {
-      node,
+      node: simpleNode,
       relations: relatedPost.extractRelatedPostRankings(allPostNodes, node, conf),
     }
   })
@@ -368,8 +343,7 @@ exports.createPages = async({ graphql, actions }) => {
     path: '/about/',
     component: aboutPage,
     context: {
-      thumbnails,
-      allPostRelations,
+      allPostRelations: allPostRelationsForAboutPage,
       wordCloudText : textSvg,
       wordCloudTag: tagSvg,
     },

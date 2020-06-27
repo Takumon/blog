@@ -9,7 +9,6 @@ import GitHubProfile from '../components/posts-analytics/github-profile-section'
 const AboutTemplate = ({ pageContext, location }) => {
   
   const { 
-    thumbnails,
     allPostRelations: posts,
     wordCloudText,
     wordCloudTag,
@@ -22,10 +21,7 @@ const AboutTemplate = ({ pageContext, location }) => {
         wordCloudText={wordCloudText}
         wordCloudTag={wordCloudTag}
       />
-      <PostRelationSection
-        posts={posts}
-        thumbnails={thumbnails}
-      />
+      <PostRelationSection posts={posts} />
     </Layout>
   )
 }
