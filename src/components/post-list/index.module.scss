@@ -3,13 +3,15 @@
 
 
 .content {
+  // to make about button clickable
+  padding-top: 72px;
   width: 100%;
   background: #f1f1f1;
   // animation: fade-in-down .7s both;
 }
 
 .content_inner {
-  padding: 72px;
+  padding: 0 72px 72px 72px;
   animation: fade-in-down .6s both .5s;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
@@ -77,8 +79,12 @@
 }
 
 @media screen and (max-width: 680px) {
+  .content {
+    // to make about button clickable
+    padding-top: 36px;
+  }
   .content_inner {
-    padding: 36px;
+    padding: 0 36px 36px 36px;
     grid-gap: 20px;
   }
   .pagination_area {
@@ -87,8 +93,12 @@
 }
 
 @media screen and (max-width: 580px) {
+  .content {
+    // to make about button clickable
+    padding-top: 72px;
+  }
   .content_inner {
-    padding: 72px 10px 10px 10px;
+    padding: 0 10px 10px 10px;
   }
   .pagination_area {
     padding-bottom: 10px; 
