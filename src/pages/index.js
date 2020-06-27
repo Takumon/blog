@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { graphql } from 'gatsby'
 import { get } from 'lodash'
 import _orderBy from 'lodash/orderBy'
@@ -8,56 +8,60 @@ import PostList from '../components/post-list';
 import TagList from '../components/tag-list';
 import Title from '../components/title';
 
-class BlogIndex extends React.Component {
-  render() {
+const BlogIndex = ({ location, data }) => {
 
-    // マージして降順で並び替え
-    // gatsby-node.jsで2つのノードに共通のfieldsを追加しているため条件分岐なし
-    const posts = [
-      ...get(this, 'props.data.allMarkdownRemark.edges', []),
-      ...get(this, 'props.data.allQiitaPost.edges', [])
+  // マージして降順で並び替え
+  // gatsby-node.jsで2つのノードに共通のfieldsを追加しているため条件分岐なし
+  const posts = useMemo(() => {
+    return [
+      ...data.allMarkdownRemark.edges,
+      ...data.allQiitaPost.edges,
     ].sort((a,b) => {
       const aDate = new Date(a.node.fields.date)
       const bDate = new Date(b.node.fields.date)
-
+  
       if( aDate < bDate ) return 1
       if( aDate > bDate ) return -1
       return 0
     })
+  }, [ data ])
 
 
-    let tagCounts = []
+  const tagCounts = useMemo(() => {
+    let _result = []
 
     posts.forEach(post => {
       post.node.fields.tags.forEach(t => {
         if ('Qiita' === t) {
           return
         }
-
-        const targetData = tagCounts.find(data => data.text === t)
+  
+        const targetData = _result.find(data => data.text === t)
         if (targetData) {
           targetData.size = targetData.size + 1
         } else {
-          tagCounts.push({
+          _result.push({
             text: t,
             size: 1,
           })
         }
       })
     })
+  
+    return _orderBy(_result, ['size', 'text'], ['desc', 'asc'])  
+  }, [ posts ])
 
-    tagCounts = _orderBy(tagCounts, ['size', 'text'], ['desc', 'asc'])
+
+  const postFields = useMemo(() => posts.map(post => post.node.fields), [ posts ])
 
 
-
-    return (
-      <Layout location={this.props.location}>
-        <Title />
-        <PostList postFields={posts.map(post => post.node.fields)} />
-        <TagList tagCounts={tagCounts} />
-      </Layout>
-    );
-  }
+  return (
+    <Layout location={location}>
+      <Title />
+      <PostList postFields={postFields} />
+      <TagList tagCounts={tagCounts} />
+    </Layout>
+  );
 }
 
 export default BlogIndex
