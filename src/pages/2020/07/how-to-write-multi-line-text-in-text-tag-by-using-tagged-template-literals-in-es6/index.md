@@ -1,6 +1,6 @@
 ---
 title: 'React NativeのTextタグで改行したいけど{"\n"}を使いたくない時はTagged Template Literalsを使う'
-date: '2020-07-24T15:30:00.000+09:00'
+date: '2020-07-24T19:45:00.000+09:00'
 tags:
   - ReactNative
   - CrossPlatform
@@ -13,8 +13,8 @@ thumbnail: thumbnail/2020/07/how-to-write-multi-line-text-in-text-tag-by-using-t
 
 ## なにこれ
 
-React NativeのTextタグで複数行テキストを書きたいけど改行がめんどくさいので、どうしようという話です。
-Tagged Template Literalsを使えばスッキリ書けます。以下に動くソースコードを用意しています。
+React NativeのTextタグで複数行テキストを書く場合、改行がめんどくさいですが、Tagged Template Literalsを使えばスッキリ書けます。
+以下に[動くソースコード](https://snack.expo.io/@takumon/multi-line-text-in-text-tag-of-react-native)を用意しています。
 
 <div class="iframely-embed">
   <div class="iframely-responsive" style="height: 140px; padding-bottom: 0;">
@@ -22,9 +22,8 @@ Tagged Template Literalsを使えばスッキリ書けます。以下に動く�
   </div>
 </div>
 
-## いろいろ調べた
 
-### 1. 公式リファレンス
+## 1. 公式リファレンス
 まずは[React Nativeの公式リファレンス](https://reactnative.dev/docs/text)を見ます。
 Textタグのプロパティには、改行をコントロールするようなものはなさそうでした。
 ただ、サンプルとして載っていたコードには`{"\n"}`で改行を指定していました。
@@ -33,7 +32,7 @@ Textタグのプロパティには、改行をコントロールするような�
 ただ、ちょっとめんどくさいし見た目が煩雑になってしまいます...
 
 
-### 2. StackOverFlow
+## 2. StackOverFlow
 
 StackOverFlowで他に方法がないか調べたところ以下の質問がヒットしました。
 
@@ -44,7 +43,7 @@ StackOverFlowで他に方法がないか調べたところ以下の質問がヒ�
 </div>
 <br/>
 
-1番いいねが多かった回答は公式リファレンスと同じやりかたです。 React Nativeでは`{"\n"}`で改行が普通なのでしょうか...
+1番いいねが多かった回答は公式リファレンスと同じ方法です。 React Nativeでは`{"\n"}`で改行が普通なのでしょうか...
 
 しかし、2番目に人気の回答は参考になりました。Template Literalsを使う方法です。
 
@@ -73,10 +72,11 @@ this is a test message.
 ![](./rendering-result.png)
 
 
-### 3. Tagged Template Literalsと組み合わせる
+## 3. Tagged Template Literalsと組み合わせる
 
 しばらく考えて、Tagged Template Literalsを使うことにしました。
-ES6で出てきた新機能で、タグ関数を定義して、Template Literalsをパースすることができます。
+Tagged Template LiteralsはES6で出てきた新機能です。
+タグ関数を定義して、Template Literalsをパースできます。
 書き方も以下のようにスッキリしています。
 
 
