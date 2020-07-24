@@ -256,9 +256,9 @@ const useThumbnails = () => {
 
   const result = useMemo(
     () => {
-      return data.images.edges.map(edge => {
-        result[edge.node.relativePath] = edge.node.childImageSharp.fluid.src
-      })
+      return data.images.edges.reduce((_result, edge) => {
+        _result[edge.node.relativePath] = edge.node.childImageSharp.fluid.src
+      }, {})
     },
     [data.images.edges]
   )
