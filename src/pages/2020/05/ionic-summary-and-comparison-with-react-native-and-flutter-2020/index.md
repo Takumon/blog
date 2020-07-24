@@ -5,9 +5,10 @@ tags:
   - Ionic
   - ReactNative
   - Flutter
+  - CrossPlatform
   - Mobile
 keywords:
-  - Ionic
+  - Mobile
 slug: /ionic-summary-and-comparison-with-react-native-and-flutter-2020
 thumbnail: thumbnail/2020/05/ionic-summary-and-comparison-with-react-native-and-flutter-2020.png
 ---
@@ -120,17 +121,17 @@ Ionicのスターター、プラグイン、テーマが公開されているマ
 
 
 
-||Ionic|React Native|Flutter|
-|---|---|---|---|
-|開発元|Ionic <br />([2012年設立](https://ionicframework.com/about))|Facebook|Google|
-|GitHubスター|40.9k|86.8k|91.5k|
-|言語|TypeScript, JavaScript|TypeScript, JavaScript|Dart|
-|使えるSPAフレームワーク|Angular, React, Vue（Beta版）|-|-|
-|プラットフォーム|iOS, Android, Web（PWAも対応可能）, Electron|iOS, Android, Web|iOS, Android, Web, Windows, Mac, Linux|
-|UI|Web Component <br />（WebView上で動作）|ネイティブUI|独自UI|
-|採用事例|`NASA`、 `McDonald's`、 `Diesel`、 `MarketWatch`、 `Pacifica`、 `Sworkit`|`Facebook`、`Skype`、`Instagram`、`Walmart`、`Uber Eats`、~~`Airbnb`~~  <br/> <small>📝AirbnbはReact Nativeからネイティブ開発にシフトしています。[参考記事](https://medium.com/airbnb-engineering/sunsetting-react-native-1868ba28e30a)</small>|`Alibaba`, `Tencent`, `Square`, `Groupon`, `ebay`, `Google Assistant` , `Grab`|
-|ネイティブ上で動作する時のレイヤー|<img src="./layers-ionic.png" alt="layers-ionic" style="width:200px; min-width:200px;hight:200px; min-hight:200px;"/>|<img src="./layers-react-native.png" alt="layers-react-native" style="width:200px; min-width:200px;hight:200px; min-hight:200px;"/>|<img src="./layers-flutter.png" alt="layers-flutter" style="width:200px; min-width:200px;hight:200px; min-hight:200px;"/>|
-|Qiitaの記事数とフォロワー数|546記事、290人|1501記事、741人<br/><small>タグが`reactnative`と`react-native`に分かれていたので実際はこれより多いかもしれません。</small>|1585記事、1155人|
+|                   | Ionic                                                                                                                 | React Native                                                                                                                                                                                                       | Flutter                                                                                                                   |
+|-------------------|-----------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
+| 開発元               | Ionic <br />([2012年設立](https://ionicframework.com/about))                                                             | Facebook                                                                                                                                                                                                           | Google                                                                                                                    |
+| GitHubスター         | 40.9k                                                                                                                 | 86.8k                                                                                                                                                                                                              | 91.5k                                                                                                                     |
+| 言語                | TypeScript, JavaScript                                                                                                | TypeScript, JavaScript                                                                                                                                                                                             | Dart                                                                                                                      |
+| 使えるSPAフレームワーク     | Angular, React, Vue（Beta版）                                                                                            | -                                                                                                                                                                                                                  | -                                                                                                                         |
+| プラットフォーム          | iOS, Android, Web（PWAも対応可能）, Electron                                                                                 | iOS, Android, Web                                                                                                                                                                                                  | iOS, Android, Web, Windows, Mac, Linux                                                                                    |
+| UI                | Web Component <br />（WebView上で動作）                                                                                     | ネイティブUI                                                                                                                                                                                                            | 独自UI                                                                                                                      |
+| 採用事例              | `NASA`、 `McDonald's`、 `Diesel`、 `MarketWatch`、 `Pacifica`、 `Sworkit`                                                  | `Facebook`、`Skype`、`Instagram`、`Walmart`、`Uber Eats`、~~`Airbnb`~~  <br/> <small>📝AirbnbはReact Nativeからネイティブ開発にシフトしています。[参考記事](https://medium.com/airbnb-engineering/sunsetting-react-native-1868ba28e30a)</small> | `Alibaba`, `Tencent`, `Square`, `Groupon`, `ebay`, `Google Assistant` , `Grab`                                            |
+| ネイティブ上で動作する時のレイヤー | <img src="./layers-ionic.png" alt="layers-ionic" style="width:200px; min-width:200px;hight:200px; min-hight:200px;"/> | <img src="./layers-react-native.png" alt="layers-react-native" style="width:200px; min-width:200px;hight:200px; min-hight:200px;"/>                                                                                | <img src="./layers-flutter.png" alt="layers-flutter" style="width:200px; min-width:200px;hight:200px; min-hight:200px;"/> |
+| Qiitaの記事数とフォロワー数  | 546記事、290人                                                                                                            | 1501記事、741人<br/><small>タグが`reactnative`と`react-native`に分かれていたので実際はこれより多いかもしれません。</small>                                                                                                                           | 1585記事、1155人                                                                                                              |
 
 
 
