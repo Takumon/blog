@@ -30,7 +30,6 @@ const ScrollSyncToc = ({ headings }) => {
   const calculateItemTopOffsets = useCallback(
     () => {
       const newItemTopOffsets = _getElementTopOffsetsById(headings)
-      console.log('newItemTopOffsets', newItemTopOffsets)
       setItemTopOffsets(newItemTopOffsets)
     },
     [headings]
@@ -38,8 +37,6 @@ const ScrollSyncToc = ({ headings }) => {
 
   // 負荷軽減のため間引く
   const [handleScroll] = useDebouncedCallback(() => {
-    console.log('handleScroll')
-
     const item = itemTopOffsets.find((current, i) => {
       const next = itemTopOffsets[i + 1]
 
@@ -50,20 +47,17 @@ const ScrollSyncToc = ({ headings }) => {
 
     const newActiveItemIds = item ? (item.parents ? [item.id, ...item.parents.map(i => i.id)] : [item.id]) : []
 
-    console.log('new active item ids =', newActiveItemIds)
     setActiveItemIds(newActiveItemIds)
   }, 100)
 
   // 負荷軽減のため間引く
   const [handleResize] = useDebouncedCallback(() => {
-    console.log('handleResize')
     calculateItemTopOffsets()
     handleScroll()
   }, 500)
 
   useEffect(
     () => {
-      console.log('useEffect')
       calculateItemTopOffsets()
       window.addEventListener(`resize`, handleResize)
       window.addEventListener(`scroll`, handleScroll)

@@ -1,5 +1,5 @@
 import React from 'react'
-import Helmet from 'react-helmet'
+import { Helmet } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
 
 // 受け取るデータ
@@ -15,16 +15,10 @@ const Title = ({ postTitle, tag }) => {
       }
     }
   `)
-  
+
   const titleText = `${tag || postTitle || ''}${data.site.siteMetadata.title}`
 
-  return (
-    <Helmet
-      htmlAttributes={{"lang": "ja"}}
-      title={titleText}
-    />
-  )
+  return <Helmet htmlAttributes={{ lang: 'ja' }} title={titleText} />
 }
 
-
-export default Title;
+export default Title
