@@ -1,13 +1,12 @@
 import React from 'react'
-import { StaticQuery, graphql } from "gatsby"
-import Helmet from 'react-helmet'
+import { Helmet } from 'react-helmet'
 
-import * as config from '../../config/blog-config.js';
+import * as config from '../../config/blog-config.js'
 
 export default function Seo({
   isRoot,
   thumbnailSrc,
-  title,  // not required
+  title, // not required
   description, // not required
   postUrl, // not required
   postDate, // not required
@@ -21,7 +20,7 @@ export default function Seo({
     postUrl,
     postDate,
   })
-          
+
   const image = config.blogUrl + thumbnailSrc
   const twitterCard = 'summary_large_image'
 
@@ -55,18 +54,15 @@ export default function Seo({
       <link rel="canonical" href={postUrl} />
     </Helmet>
   )
-
 }
-
 
 function createJSONLDTag({
   isRoot,
-  title,  // not required
+  title, // not required
   description, // not required
   postUrl, // not required
   postDate, // not required
 }) {
-
   const author = [
     {
       '@type': 'Person',
@@ -76,13 +72,10 @@ function createJSONLDTag({
         '@type': 'ImageObject',
         url: config.blogAuthorAvatarUrl,
         width: 60,
-        height: 60
+        height: 60,
       },
-      'url': config.blogUrl,
-      "sameAs": [
-        config.blogAuthorFacebookUrl,
-        config.blogAuthorTwitterUrl,
-      ]
+      url: config.blogUrl,
+      sameAs: [config.blogAuthorFacebookUrl, config.blogAuthorTwitterUrl],
     },
     {
       '@type': 'thing',
@@ -93,10 +86,10 @@ function createJSONLDTag({
         '@type': 'ImageObject',
         url: config.blogImageUrl,
         width: 60,
-        height: 60
-      }
-    }
-  ];
+        height: 60,
+      },
+    },
+  ]
 
   const publisher = {
     '@type': 'Organization',
@@ -106,8 +99,8 @@ function createJSONLDTag({
       '@type': 'ImageObject',
       url: config.blogAuthorAvatarUrl,
       width: 60,
-      height: 60
-    }
+      height: 60,
+    },
   }
 
   const result = [
@@ -123,30 +116,30 @@ function createJSONLDTag({
       author,
       publisher,
       potentialAction: {
-        '@type': "SearchAction",
+        '@type': 'SearchAction',
         target: `${config.blogUrl}/search?q={q}`,
-        'query-input': 'required name=q'
-      }
-    }
-  ];
+        'query-input': 'required name=q',
+      },
+    },
+  ]
 
   if (!isRoot) {
     result.push({
-        '@context': 'http://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            item: {
-              '@id': postUrl,
-              name: title,
-              image: config.blogImageUrl,
-            },
+      '@context': 'http://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          item: {
+            '@id': postUrl,
+            name: title,
+            image: config.blogImageUrl,
           },
-        ],
+        },
+      ],
     }),
-    result.push({
+      result.push({
         '@context': 'http://schema.org',
         '@type': 'BlogPosting',
         url: config.blogURL,
@@ -163,12 +156,12 @@ function createJSONLDTag({
         dateModified: postDate,
         mainEntityOfPage: {
           '@type': 'WebPage',
-          '@id': config.blogUrl
+          '@id': config.blogUrl,
         },
         author,
         publisher,
-      });
-  };
+      })
+  }
 
-  return <script type="application/ld+json">{JSON.stringify(result)}</script>;
+  return <script type="application/ld+json">{JSON.stringify(result)}</script>
 }
