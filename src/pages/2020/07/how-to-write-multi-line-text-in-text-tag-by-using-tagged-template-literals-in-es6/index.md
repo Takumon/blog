@@ -32,9 +32,9 @@ Textタグのプロパティには、改行をコントロールするような�
 ただ、ちょっとめんどくさいし見た目が煩雑になってしまいます...
 
 
-## 2. StackOverFlow
+## 2. Stack Overflow
 
-StackOverFlowで他に方法がないか調べたところ以下の質問がヒットしました。
+Stack Overflowで他に方法がないか調べたところ以下の質問がヒットしました。
 
 <div class="iframely-embed">
   <div class="iframely-responsive" style="height: 140px; padding-bottom: 0;">
