@@ -114,7 +114,7 @@ function removeIndent(value) {
 
 レンダリングもバッチリです。インデントは除去されています。
 
-![](./rendering-rendering-result-with-tag-function.png)
+![](./rendering-result-with-tag-function.png)
 <br/>
 
 
