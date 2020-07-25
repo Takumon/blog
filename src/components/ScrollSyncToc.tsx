@@ -1,0 +1,82 @@
+import React, { useState, useCallback, useEffect } from 'react'
+import { useDebouncedCallback } from 'use-debounce'
+import type { Headings, ItemTopOffsets, ActiveItemIds } from '../@types'
+import Toc from './Toc'
+
+/**
+ * アクティブなヘッダーの判定用オフセット
+ * ヘッダーが画面上部にくるよりちょっと前に目次も変更したい
+ */
+const OFFSET_ACTIVE_ITEM = 64
+
+const getItemTopOffsetsFromDOM: (headings: Headings) => ItemTopOffsets = headings => {
+  return headings
+    .map(({ id, parents }) => {
+      const element = document.getElementById(id)
+      return element
+        ? {
+            id,
+            offsetTop: element.offsetTop,
+            parents,
+          }
+        : null
+    })
+    .filter(item => item) // remove null
+}
+
+type Props = {
+  headings: Headings
+}
+
+const ScrollSyncToc: React.FC<Props> = ({ headings }) => {
+  const [activeItemIds, setActiveItemIds] = useState<ActiveItemIds>([])
+  const [itemTopOffsets, setItemTopOffsets] = useState<ItemTopOffsets>([])
+
+  const calculateItemTopOffsets = useCallback(
+    () => {
+      const newItemTopOffsets = getItemTopOffsetsFromDOM(headings)
+      setItemTopOffsets(newItemTopOffsets)
+    },
+    [headings]
+  )
+
+  // 負荷軽減のため間引く
+  const [handleScroll] = useDebouncedCallback(() => {
+    const item = itemTopOffsets.find((current, i) => {
+      const next = itemTopOffsets[i + 1]
+
+      return next
+        ? window.scrollY + OFFSET_ACTIVE_ITEM >= current.offsetTop && window.scrollY + OFFSET_ACTIVE_ITEM < next.offsetTop
+        : window.scrollY + OFFSET_ACTIVE_ITEM >= current.offsetTop
+    })
+
+    // const newActiveItemIds = item ? (item.parents ? [item.id, ...item.parents.map(i => i.id)] : [item.id]) : []
+    const newActiveItemIds = item ? (item.parents ? [item.id, ...item.parents.map(i => i.id)] : [item.id]) : []
+
+    setActiveItemIds(newActiveItemIds)
+  }, 100)
+
+  // 負荷軽減のため間引く
+  const [handleResize] = useDebouncedCallback(() => {
+    calculateItemTopOffsets()
+    handleScroll()
+  }, 500)
+
+  useEffect(
+    () => {
+      calculateItemTopOffsets()
+      window.addEventListener(`resize`, handleResize)
+      window.addEventListener(`scroll`, handleScroll)
+
+      return () => {
+        window.removeEventListener(`resize`, handleResize)
+        window.removeEventListener(`scroll`, handleScroll)
+      }
+    },
+    [calculateItemTopOffsets, handleResize, handleScroll]
+  )
+
+  return <Toc activeItemIds={activeItemIds} headings={headings} />
+}
+
+export default ScrollSyncToc
