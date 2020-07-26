@@ -117,11 +117,6 @@ const styles = {
     @media screen and (max-width: 720px) {
       width: 100%;
     }
-    @media screen and (max-width: 1000px) {
-      .repo {
-        width: 100%;
-      }
-    }
   `,
 
   divider: css`
@@ -225,6 +220,9 @@ const styles = {
       opacity: 1;
       transform: scale(1.02);
       color: #989eb0;
+    }
+    @media screen and (max-width: 1000px) {
+      width: 100%;
     }
   `,
 
