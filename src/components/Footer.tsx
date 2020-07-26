@@ -5,7 +5,7 @@ import BackgroundImage from 'gatsby-background-image'
 
 import Bio from './Bio'
 import config from '../config/blog-config'
-import useBackgroundImages from '../hooks/useBackgroundImages'
+import useSpecificImages from '../hooks/useSpecificImages'
 
 type Props = {
   isRoot: boolean
@@ -14,7 +14,7 @@ type Props = {
 const Footer: React.FC<Props> = ({ isRoot }) => {
   const bio = isRoot ? '' : <Bio />
 
-  const { footerImage } = useBackgroundImages()
+  const { footerImage } = useSpecificImages()
 
   return (
     footerImage && (
@@ -84,7 +84,7 @@ const styles = {
     display: inline-block;
     box-sizing: border-box;
     vertical-align: bottom;
-    background-image: url(../../images/tomato.svg);
+    background-image: url(images/tomato.svg);
     width: 1em;
     height: 1em;
     background-repeat: no-repeat;
@@ -101,6 +101,6 @@ const styles = {
     height: 32px;
     border-radius: 50%;
     box-shadow: none;
-    background-image: url(../../images/github.svg);
+    background-image: url(images/github.svg);
   `,
 }

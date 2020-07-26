@@ -9,7 +9,7 @@ type ReturnValue = {
   avatarImage: Factor,
 }
 
-export default function useBackgroundImages(): ReturnValue {
+export default function useSpecificImages(): ReturnValue {
   const data = useStaticQuery<BackgroundImagesQueryQuery>(graphql`
     query BackgroundImagesQuery {
       headerImage: file(relativePath: { eq: "background.jpg" }) {

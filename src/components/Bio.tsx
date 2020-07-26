@@ -6,11 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithubSquare, faTwitterSquare } from '@fortawesome/free-brands-svg-icons'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import config from '../config/blog-config'
-import useBackgroundImage from '../hooks/useBackgroundImages'
+import useSpecificImages from '../hooks/useSpecificImages'
 
 /* highlight-range{1-3} */
 const Bio: React.FC = () => {
-  const { avatarImage } = useBackgroundImage()
+  const { avatarImage } = useSpecificImages()
 
   return (
     <div css={styles.content}>

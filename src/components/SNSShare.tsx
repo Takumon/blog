@@ -92,9 +92,6 @@ const styles = {
   share_button: css`
     display: inline-block;
     margin: 0 8px;
-    :first-child {
-      margin-left: 0;
-    }
   `,
 
   share_button__svg: css`

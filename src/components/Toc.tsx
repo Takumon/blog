@@ -15,10 +15,12 @@ const Toc: React.FC<Props> = ({ headings, activeItemIds }) => {
         <div css={styles.container}>
           <ul css={styles.list_wrapper}>
             {headings.map(item => (
-              <li css={styles.list} key={item.id} style={{ marginLeft: `${(item.depth - 2) * 12}px` }}>
-                <Link to={`${location.pathname}#${item.id}`} css={activeItemIds.includes(item.id) ? styles.active : ''}>
-                  {item.value}
-                </Link>
+              <li
+                css={activeItemIds.includes(item.id) ? [styles.list, styles.listActive] : [styles.list]}
+                key={item.id}
+                style={{ marginLeft: `${(item.depth - 2) * 12}px` }}
+              >
+                <Link to={`${location.pathname}#${item.id}`}>{item.value}</Link>
               </li>
             ))}
           </ul>
@@ -61,9 +63,11 @@ const styles = {
     }
   `,
 
-  active: css`
-    background-color: #fffbf0;
-    color: #888;
-    transition: background-color 0.2s ease-out;
+  listActive: css`
+    a {
+      background-color: #fffbf0;
+      color: #888;
+      transition: background-color 0.2s ease-out;
+    }
   `,
 }

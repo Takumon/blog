@@ -67,6 +67,10 @@ const styles = {
       width: 24px !important;
     }
 
+    :hover {
+      box-shadow: none;
+    }
+
     @media screen and (max-width: 580px) {
       margin-left: 12px;
       height: 36px;
@@ -99,6 +103,7 @@ const styles = {
 
     &:hover {
       transform: scale(1.02);
+      box-shadow: none;
     }
   `,
 }

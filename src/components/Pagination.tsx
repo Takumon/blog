@@ -98,7 +98,7 @@ const tomato = (rotateDegree: string) => {
     display: inline-block;
     box-sizing: border-box;
     vertical-align: bottom;
-    background-image: url(../../images/tomato.svg);
+    background-image: url(images/tomato.svg);
     width: 1.2rem;
     height: 1.2rem;
     background-repeat: no-repeat;

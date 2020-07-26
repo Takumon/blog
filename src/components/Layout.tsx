@@ -16,7 +16,7 @@ import Footer from './Footer'
 import Bio from './Bio'
 import Rss from './RSS'
 import UserHeat from './UserHeat'
-import useBackgroundImages from '../hooks/useBackgroundImages'
+import useSpecificImages from '../hooks/useSpecificImages'
 import useRootThumbnailPath from '../hooks/useRootThumbnailPath'
 
 
@@ -47,7 +47,7 @@ const Layout: React.FC<Props> = ({ location, children }) => {
 
   const rootThumbnailPath = useRootThumbnailPath()
 
-  const { headerImage } = useBackgroundImages()
+  const { headerImage } = useSpecificImages()
 
   const header = useMemo(
     () => {
@@ -188,5 +188,8 @@ const styles = {
     box-shadow: none;
     font-family: Montserrats, ans-serif;
     color: white;
+    :hover {
+      box-shadow: none;
+    }
   `,
 }

@@ -4,7 +4,6 @@ import { css, keyframes } from '@emotion/core'
 import 'katex/dist/katex.min.css'
 
 import config from '../config/blog-config'
-import { maxContentWidth } from '../styles/mixinStyle'
 import Title from './Title'
 // import Adsense from './Adsense';
 import SNSShare from './SNSShare'
@@ -152,7 +151,7 @@ const styles = {
   blog_title__icon: css`
     display: inline-block;
     vertical-align: bottom;
-    background-image: url(../../images/tomato.svg);
+    background-image: url(images/tomato.svg);
     width: 1em;
     height: 1em;
     background-repeat: no-repeat;
@@ -192,7 +191,7 @@ const styles = {
     display: flex;
     align-items: center;
     background-attachment: fixed, fixed, fixed;
-    background-image: url('../../images/overlay2.png'), url('../../images/overlay4.svg'), linear-gradient(45deg, #bf002a 25%, #fd5210 70%, #ffa711);
+    background-image: url('images/overlay2.png'), url('images/overlay4.svg'), linear-gradient(45deg, #bf002a 25%, #fd5210 70%, #ffa711);
     background-position: top left, top left, top left;
     background-size: auto, cover, cover;
     overflow: hidden;
@@ -219,14 +218,12 @@ const styles = {
     @media screen and (max-width: 720px) {
       min-height: 400px;
       background-attachment: scroll, scroll, scroll;
-      background-image: url('../../images/overlay2.png'), url('../../images/overlay4.svg'),
-        linear-gradient(45deg, #bf002a 30%, #bf002a 60%, #fd5210 90%, #ffa711);
+      background-image: url('images/overlay2.png'), url('images/overlay4.svg'), linear-gradient(45deg, #bf002a 30%, #bf002a 60%, #fd5210 90%, #ffa711);
     }
 
     @media screen and (max-width: 400px) {
       min-height: 300px;
-      background-image: url('../../images/overlay2.png'), url('../../images/overlay4.svg'),
-        linear-gradient(45deg, #bf002a 30%, #bf002a 60%, #fd5210 90%, #ffa711);
+      background-image: url('images/overlay2.png'), url('images/overlay4.svg'), linear-gradient(45deg, #bf002a 30%, #bf002a 60%, #fd5210 90%, #ffa711);
     }
   `,
   header__inner: css`
@@ -449,6 +446,14 @@ const styles = {
       margin-top: 0.5rem;
       margin-bottom: 0.3rem;
       font-size: 0.8rem;
+    }
+
+    pre {
+      font-size: 0.85rem;
+    }
+
+    code {
+      font-size: 0.85rem;
     }
 
     /* ブラウザ幅が狭くなった時にテーブルを横スクロールさせて、スマホでも大きいテーブルが見れるようにする */
