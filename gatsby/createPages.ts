@@ -6,26 +6,26 @@ import _forEach from 'lodash/fp/forEach'
 import _uniq from 'lodash/fp/uniq'
 import _flatMap from 'lodash/fp/flatMap'
 import _orderBy from 'lodash/orderBy'
-import { extractRelatedPosts, extractRelatedPostRankings } from './gatsby-related-post'
-import { createWordCount, createWordCloud } from './wordCloud'
-
 import striptags from 'striptags'
 
 import config from '../src/config/blog-config.js'
+import { extractRelatedPosts, extractRelatedPostRankings } from './gatsby-related-post'
+import { createWordCount, createWordCloud } from './wordCloud'
 import { POST_TYPE, query } from './constants'
-
-import { TagData, WordCloudParam} from '../src/@types'
-import type { QueryResult, PostNodeWrapper, PostNode, OriginalPostNode, QiitaPostNode, WordCounts, TempWordCounts } from './types'
+import type {
+  TagData, WordCloudParam,
+  QueryResult, PostNodeWrapper, PostNode, OriginalPostNode, QiitaPostNode, PageContextAbout, PageContextTags
+} from '../src/@types'
 
 
 // onCreateNodeより後に実行される
-export const createPages = async ({ graphql, actions }: CreatePagesArgs) => {
+export const createPages = async({ graphql, actions }: CreatePagesArgs): Promise<void> => {
   const { createPage } = actions
 
-  const blogPost = path.resolve('./src/templates/blog-post.tsx')
-  const qiitaPost = path.resolve('./src/templates/qiita-post.tsx')
-  const tagPage = path.resolve('./src/templates/tags.tsx')
-  const aboutPage = path.resolve('./src/templates/about.tsx')
+  const BlogPostTemplate = path.resolve('./src/templates/BlogPostTemplate.tsx')
+  const QiitaPostTemplate = path.resolve('./src/templates/QiitaPostTemplate.tsx')
+  const TagsTemplate = path.resolve('./src/templates/TagsTemplate.tsx')
+  const AboutTemplate = path.resolve('./src/templates/AboutTemplate.tsx')
 
   const result = await graphql<QueryResult>(query)
   const thumbnails = result.data?.thumbnails
@@ -67,30 +67,35 @@ export const createPages = async ({ graphql, actions }: CreatePagesArgs) => {
     if (type === POST_TYPE.ORIGINAL) {
       const thumbnail = thumbnails?.edges.find(edge => edge.node.relativePath.includes(node.fields.thumbnail))
 
+      const pageContextPost = {
+        thumbnail,
+        siteMetadata,
+        slug: node.fields.slug,
+        relatedPosts,
+        latestPosts,
+        ...prevNext(posts, index),
+      }
+
       createPage({
         path: node.fields.slug,
-        component: blogPost,
-        context: {
-          thumbnail,
-          siteMetadata,
-          slug: node.fields.slug,
-          relatedPosts,
-          latestPosts,
-          ...prevNext(posts, index),
-        },
+        component: BlogPostTemplate,
+        context: pageContextPost,
       })
     } else if (type === POST_TYPE.QIITA) {
+
+      const pageContextQiita = {
+        thumbnail: defaultThumbnail,
+        siteMetadata,
+        slug: node.fields.slug,
+        relatedPosts,
+        latestPosts,
+        ...prevNext(posts, index),
+      
+      }
       createPage({
         path: node.fields.slug,
-        component: qiitaPost,
-        context: {
-          thumbnail: defaultThumbnail,
-          siteMetadata,
-          slug: node.fields.slug,
-          relatedPosts,
-          latestPosts,
-          ...prevNext(posts, index),
-        },
+        component: QiitaPostTemplate,
+        context: pageContextQiita,
       })
     } else {
       throw new Error(`Unexpected post type = ${type}`)
@@ -99,12 +104,8 @@ export const createPages = async ({ graphql, actions }: CreatePagesArgs) => {
 
   // 記事関連情報生成
   const allPostRelationsForAboutPage = allPostNodes.map(node => {
-    const simpleNode = {
-      fields: node.fields,
-    }
-
     return {
-      node: simpleNode,
+      node,
       relations: extractRelatedPostRankings(allPostNodes, node, { threshold: 50 }),
     }
   })
@@ -169,15 +170,17 @@ export const createPages = async ({ graphql, actions }: CreatePagesArgs) => {
 
   const textSvg = await createWordCloud(paramForText)
 
+  const pageContextAbout: PageContextAbout = {
+    allPostRelations: allPostRelationsForAboutPage,
+    wordCloudText: textSvg,
+    wordCloudTag: tagSvg,
+  }
+  
   // 記事分析ページ生成
   createPage({
     path: '/about/',
-    component: aboutPage,
-    context: {
-      allPostRelations: allPostRelationsForAboutPage,
-      wordCloudText: textSvg,
-      wordCloudTag: tagSvg,
-    },
+    component: AboutTemplate,
+    context: pageContextAbout,
   })
 
   // タグ別一覧ページ生成
@@ -188,14 +191,15 @@ export const createPages = async ({ graphql, actions }: CreatePagesArgs) => {
       // ソートは省略する。postsはソート済だから。
       const nodes = posts.filter(post => post.node.fields.tags.includes(tag)).map(post => post.node)
 
+      const pageContextTag: PageContextTags = {
+        nodes,
+        tag,
+        tagCounts,
+      }
       createPage({
         path: `/tags/${_kebabCase(tag)}/`,
-        component: tagPage,
-        context: {
-          nodes,
-          tag,
-          tagCounts,
-        },
+        component: TagsTemplate,
+        context: pageContextTag,
       })
     })
   )(posts)

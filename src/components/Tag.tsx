@@ -5,7 +5,7 @@ import { kebabCase } from 'lodash'
 
 type Props = {
   value: string
-  count: number
+  count?: number
   color?: string
 }
 

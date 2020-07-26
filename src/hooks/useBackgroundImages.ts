@@ -1,9 +1,17 @@
-import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
+import type { FluidObject } from 'gatsby-image'
+import { BackgroundImagesQueryQuery } from '../../types/graphql-types'
 
-export default function useBackgroundImages() {
-  return useStaticQuery(graphql`
-    query BackgroundImages {
+type Factor = FluidObject | null | undefined 
+type ReturnValue = {
+  headerImage: Factor,
+  footerImage: Factor,
+  avatarImage: Factor,
+}
+
+export default function useBackgroundImages(): ReturnValue {
+  const data = useStaticQuery<BackgroundImagesQueryQuery>(graphql`
+    query BackgroundImagesQuery {
       headerImage: file(relativePath: { eq: "background.jpg" }) {
         childImageSharp {
           fluid(maxWidth: 1500, quality: 100) {
@@ -45,4 +53,10 @@ export default function useBackgroundImages() {
       }
     }
   `)
+
+  return {
+    headerImage: data.headerImage?.childImageSharp?.fluid as FluidObject,
+    footerImage: data.footerImage?.childImageSharp?.fluid as FluidObject,
+    avatarImage: data.avatarImage?.childImageSharp?.fluid as FluidObject,
+  }
 }

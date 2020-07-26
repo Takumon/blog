@@ -19256,7 +19256,10 @@ export type SitePageContextAllPostRelationsFilterListInput = {
 };
 
 export type SitePageContextAllPostRelationsNode = {
+  html?: Maybe<Scalars['String']>;
   fields?: Maybe<SitePageContextAllPostRelationsNodeFields>;
+  rendered_body?: Maybe<Scalars['String']>;
+  user?: Maybe<SitePageContextAllPostRelationsNodeUser>;
 };
 
 export type SitePageContextAllPostRelationsNodeFields = {
@@ -19280,7 +19283,22 @@ export type SitePageContextAllPostRelationsNodeFieldsFilterInput = {
 };
 
 export type SitePageContextAllPostRelationsNodeFilterInput = {
+  html?: Maybe<StringQueryOperatorInput>;
   fields?: Maybe<SitePageContextAllPostRelationsNodeFieldsFilterInput>;
+  rendered_body?: Maybe<StringQueryOperatorInput>;
+  user?: Maybe<SitePageContextAllPostRelationsNodeUserFilterInput>;
+};
+
+export type SitePageContextAllPostRelationsNodeUser = {
+  id?: Maybe<Scalars['String']>;
+  profile_image_url?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextAllPostRelationsNodeUserFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  profile_image_url?: Maybe<StringQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageContextAllPostRelationsRelations = {
@@ -19830,6 +19848,8 @@ export type SitePageFieldsEnum =
   | 'context___next___user___profile_image_url'
   | 'context___next___user___description'
   | 'context___allPostRelations'
+  | 'context___allPostRelations___node___html'
+  | 'context___allPostRelations___node___rendered_body'
   | 'context___allPostRelations___relations'
   | 'context___allPostRelations___relations___matches'
   | 'context___allPostRelations___relations___weight'
@@ -20570,6 +20590,27 @@ export type WordCountFilterInput = {
   words?: Maybe<IntQueryOperatorInput>;
 };
 
+export type BackgroundImagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BackgroundImagesQueryQuery = { headerImage?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>> }> }>, footerImage?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>> }> }>, avatarImage?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>> }> }> };
+
+export type GitHubSectionQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GitHubSectionQuery = { github: { viewer: (
+      Pick<GitHub_User, 'name' | 'email' | 'bio' | 'url' | 'avatarUrl' | 'location' | 'websiteUrl'>
+      & { organizations: { nodes?: Maybe<Array<Maybe<Pick<GitHub_Organization, 'avatarUrl' | 'url'>>>> } }
+    ), user?: Maybe<{ pinnedItems: { nodes?: Maybe<Array<Maybe<(
+          Pick<GitHub_Repository, 'name' | 'url' | 'description' | 'forkCount'>
+          & { owner: Pick<GitHub_Organization, 'login'> | Pick<GitHub_User, 'login'>, stargazers: Pick<GitHub_StargazerConnection, 'totalCount'> }
+        )>>> } }> } };
+
+export type RootThumbnailPathQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RootThumbnailPathQueryQuery = { file?: Maybe<{ childImageSharp?: Maybe<{ resize?: Maybe<Pick<ImageSharpResize, 'src'>> }> }> };
+
 export type ThumbnailImagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -20578,51 +20619,30 @@ export type ThumbnailImagesQuery = { images: { edges: Array<{ node: (
         & { childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>> }> }
       ) }> } };
 
-export type LayoutQueryQueryVariables = Exact<{ [key: string]: never; }>;
+export type ThumbnailsForPostRelationQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LayoutQueryQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title'>> }> };
-
-export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type Unnamed_1_Query = { file?: Maybe<{ childImageSharp?: Maybe<{ resize?: Maybe<Pick<ImageSharpResize, 'src'>> }> }> };
-
-export type Unnamed_2_QueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type Unnamed_2_Query = { github: { viewer: (
-      Pick<GitHub_User, 'name' | 'email' | 'bio' | 'url' | 'avatarUrl' | 'location' | 'websiteUrl'>
-      & { organizations: { nodes?: Maybe<Array<Maybe<Pick<GitHub_Organization, 'avatarUrl' | 'url'>>>> } }
-    ), user?: Maybe<{ pinnedItems: { nodes?: Maybe<Array<Maybe<(
-          Pick<GitHub_Repository, 'name' | 'url' | 'description' | 'forkCount'>
-          & { owner: Pick<GitHub_Organization, 'login'> | Pick<GitHub_User, 'login'>, stargazers: Pick<GitHub_StargazerConnection, 'totalCount'> }
-        )>>> } }> } };
-
-export type Unnamed_3_QueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type Unnamed_3_Query = { images: { edges: Array<{ node: (
+export type ThumbnailsForPostRelationQuery = { images: { edges: Array<{ node: (
         Pick<File, 'relativePath'>
         & { childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'src'>> }> }
       ) }> } };
 
-export type BackgroundImagesQueryVariables = Exact<{ [key: string]: never; }>;
+export type LayoutQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BackgroundImagesQuery = { headerImage?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>> }> }>, footerImage?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>> }> }>, avatarImage?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>> }> }> };
+export type LayoutQueryQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title'>> }> };
 
 export type IndexPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type IndexPageQuery = { allMarkdownRemark: { edges: Array<{ node: { fields?: Maybe<Pick<MarkdownRemarkFields, 'slug' | 'title' | 'excerpt' | 'date' | 'tags' | 'thumbnail'>> } }> }, allQiitaPost: { edges: Array<{ node: { fields?: Maybe<Pick<QiitaPostFields, 'slug' | 'title' | 'excerpt' | 'date' | 'tags'>> } }> } };
 
-export type BlogPostQueryVariables = Exact<{
+export type BlogPostQueryQueryVariables = Exact<{
   slug?: Maybe<Scalars['String']>;
 }>;
 
 
-export type BlogPostQuery = { post?: Maybe<(
+export type BlogPostQueryQuery = { post?: Maybe<(
     Pick<MarkdownRemark, 'html'>
     & { headingsDetail?: Maybe<Array<Maybe<(
       Pick<MarkdownHeadingDetail, 'id' | 'value' | 'depth'>

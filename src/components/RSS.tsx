@@ -3,11 +3,15 @@ import { css } from '@emotion/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRss } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'gatsby'
-import feedlyLogo from '../../images/feedly.svg'
+import feedlyLogo from '../images/feedly.svg'
 
 import config from '../config/blog-config'
 
-const RSS = ({ isAbout }) => (
+type Props = {
+  isAbout?: boolean
+}
+
+const RSS: React.FC<Props> = ({ isAbout = false }) => (
   <div css={styles.content}>
     {isAbout ? (
       <Link to={`/`} aria-label="blog_toppage" css={styles.link_button}>

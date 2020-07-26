@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { css } from '@emotion/core'
 import { Link } from 'gatsby'
 import BackgroundImage from 'gatsby-background-image'
@@ -15,25 +15,26 @@ const Footer: React.FC<Props> = ({ isRoot }) => {
   const bio = isRoot ? '' : <Bio />
 
   const { footerImage } = useBackgroundImages()
-  const imageData = footerImage.childImageSharp.fluid
 
   return (
-    <BackgroundImage Tag="footer" role="contentinfo" css={styles.content} fluid={imageData} backgroundColor={`#8A5E5F`}>
-      <div css={styles.content__inner}>
-        {bio}
-        <h3 css={styles.title}>
-          <Link css={styles.title__link} to="/">
-            {config.blogTitle}
-            <i css={styles.tomato_icon} />
-          </Link>
-        </h3>
+    footerImage && (
+      <BackgroundImage Tag="footer" role="contentinfo" css={styles.content} fluid={footerImage} backgroundColor={`#8A5E5F`}>
+        <div css={styles.content__inner}>
+          {bio}
+          <h3 css={styles.title}>
+            <Link css={styles.title__link} to="/">
+              {config.blogTitle}
+              <i css={styles.tomato_icon} />
+            </Link>
+          </h3>
 
-        <div css="copyright">
-          Copyright © 2018. {config.blogAuthor}
-          <a aria-label="blog_repository" href={config.blogRepositoryUrl} rel="noopener noreferrer" css={styles.github_icon} />
+          <div css="copyright">
+            Copyright © 2018. {config.blogAuthor}
+            <a aria-label="blog_repository" href={config.blogRepositoryUrl} rel="noopener noreferrer" css={styles.github_icon} />
+          </div>
         </div>
-      </div>
-    </BackgroundImage>
+      </BackgroundImage>
+    )
   )
 }
 
@@ -65,12 +66,12 @@ const styles = {
     text-transform: none;
     margin: 48px auto 8px;
     font-size: 1rem;
+  `,
 
-    &__link {
-      box-shadow: none;
-      text-decoration: none;
-      color: inherit;
-    }
+  title__link: css`
+    box-shadow: none;
+    text-decoration: none;
+    color: inherit;
   `,
 
   copyright: css`

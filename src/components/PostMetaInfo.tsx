@@ -7,7 +7,13 @@ import moment from 'moment'
 import Tag from './Tag'
 import config from '../config/blog-config'
 
-const PostMetaInfo = ({ tags, date, color }) => {
+type Props = {
+  tags: string[]
+  date: string
+  color?: string
+}
+
+const PostMetaInfo: React.FC<Props> = ({ tags, date, color }) => {
   const tagList = tags.map(tag => <Tag key={tag} value={tag} color={color} />)
   const formattedDate = useMemo(() => moment(date).format(config.dateFormat), [date])
 

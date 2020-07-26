@@ -9,9 +9,7 @@ module.exports = {
     siteUrl: 'https://takumon.com',
   },
   plugins: [
-    {
-      resolve: `gatsby-plugin-styled-components`,
-    },
+    `gatsby-plugin-emotion`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -214,8 +212,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-typescript`,
-    `gatsby-plugin-sass`,
-    'gatsby-plugin-scss-typescript',
     {
       resolve: 'gatsby-plugin-graphql-codegen',
       options: {

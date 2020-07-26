@@ -9,7 +9,7 @@ const Iframely: React.FC = () => {
 
   return (
     <Helmet>
-      <script type="text/javascript" src="https://cdn.iframe.ly/embed.js" charset="utf-8" />
+      <script type="text/javascript" src="https://cdn.iframe.ly/embed.js" />
     </Helmet>
   )
 }

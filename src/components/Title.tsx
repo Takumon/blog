@@ -1,6 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import { useStaticQuery, graphql } from 'gatsby'
+import useTitle from '../hooks/useTitle'
 
 type Props = {
   postTitle?: string // 記事のタイトル
@@ -8,17 +8,9 @@ type Props = {
 }
 
 const Title: React.FC<Props> = ({ postTitle, tag }) => {
-  const data = useStaticQuery(graphql`
-    query LayoutQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
+  const title = useTitle()
 
-  const titleText = `${tag || postTitle || ''}${data.site.siteMetadata.title}`
+  const titleText = `${tag || postTitle || ''}${title}`
 
   return <Helmet htmlAttributes={{ lang: 'ja' }} title={titleText} />
 }

@@ -1,14 +1,12 @@
-
 /** 仮想DOM d3.js D3-CloudはDOMがある前提なのでNode.js実行時でも正常動作するように仮想Canvasを使う */
 import { createCanvas } from 'canvas'
 /** 仮想DOM d3.js D3-CloudはDOMがある前提なのでNode.js実行時でも正常動作するように仮想DOMを使う */
 import { JSDOM } from 'jsdom'
 import kuromoji from 'kuromoji'
-import * as d3 from "d3";
-import d3Cloud, { Word } from "d3-cloud";
+import * as d3 from 'd3'
+import d3Cloud, { Word } from 'd3-cloud'
 
-import { WordCloudParam } from '../src/@types'
-import type { WordCounts, TempWordCounts } from './types'
+import { WordCloudParam, WordCounts, TempWordCounts } from '../src/@types'
 
 /** kuromoji.jsにバンドルされている辞書の格納場所 */
 const DIC_URL = 'node_modules/kuromoji/dict'
@@ -97,9 +95,7 @@ const excludeWordsInWordCloud = [
   '://',
 ]
 
-
 export function createWordCount(text: string): Promise<WordCounts> {
-
   // kuromoji.jsで形態素解析
   // 単語ごとの出現回数を出力
   return new Promise((resolve, reject) => {
@@ -159,9 +155,9 @@ export function createWordCount(text: string): Promise<WordCounts> {
   })
 }
 
-export async function createWordCloud({ words, w, h, fontSizePow, fontSizeZoom, padding }: WordCloudParam) {
+export async function createWordCloud({ words, w, h, fontSizePow, fontSizeZoom, padding }: WordCloudParam): Promise<string> {
   // D3-Cloudによる解析
-  const wordsForCloud = await new Promise<Word[]>((resolve, reject) => {
+  const wordsForCloud = await new Promise<Word[]>(resolve => {
     d3Cloud()
       .size([w, h])
       .canvas(() => {
@@ -169,7 +165,7 @@ export async function createWordCloud({ words, w, h, fontSizePow, fontSizeZoom, 
         return result as any
       })
       .words(words)
-      .rotate(word => (word.size ? word.size % 2 === 1 ? 0 : 90: 0))
+      .rotate(word => (word.size ? (word.size % 2 === 1 ? 0 : 90) : 0))
       .fontWeight(word => (word.size ? Math.pow(word.size, fontSizePow) * fontSizeZoom : 16 * fontSizeZoom))
       .fontSize(word => (word.size ? Math.pow(word.size, fontSizePow) * fontSizeZoom : 16 * fontSizeZoom))
       .font('meiryo')
@@ -185,7 +181,8 @@ export async function createWordCloud({ words, w, h, fontSizePow, fontSizeZoom, 
   const document = new JSDOM(`<body></body>`).window.document
   const anyD3 = d3 as any
 
-  anyD3.select(document.body)
+  anyD3
+    .select(document.body)
     .append('svg')
     .attr('class', 'ui fluid image')
     .attr('viewBox', `0 0 ${w} ${h}`)
@@ -197,17 +194,16 @@ export async function createWordCloud({ words, w, h, fontSizePow, fontSizeZoom, 
     .data(wordsForCloud)
     .enter()
     .append('text')
-    .style('font-size', (d: { size: any; }) => `${d.size}px`)
-    .style('font-family', (d: { font: any; }) => d.font)
-    .attr('transform', (d: { x: any; y: any; rotate: any; }) => `translate(${d.x}, ${d.y})rotate(${d.rotate})`)
+    .style('font-size', (d: { size: number }) => `${d.size}px`)
+    .style('font-family', (d: { font: string }) => d.font)
+    .attr('transform', (d: { x: string; y: string; rotate: string }) => `translate(${d.x}, ${d.y})rotate(${d.rotate})`)
     .style('fill', (d: any, i: number) => d3.schemeCategory10[i % 10])
     .attr('text-anchor', 'middle')
-    .text((d: { text: any; }) => d.text)
+    .text((d: { text: any }) => d.text)
 
   // 最終的にSVGの文字列を返す
   return document.body.innerHTML
 }
-
 
 function countDiff(a: string, b: string) {
   return a

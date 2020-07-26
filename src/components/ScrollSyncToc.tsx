@@ -10,18 +10,23 @@ import Toc from './Toc'
 const OFFSET_ACTIVE_ITEM = 64
 
 const getItemTopOffsetsFromDOM: (headings: Headings) => ItemTopOffsets = headings => {
-  return headings
-    .map(({ id, parents }) => {
-      const element = document.getElementById(id)
-      return element
-        ? {
-            id,
-            offsetTop: element.offsetTop,
-            parents,
-          }
-        : null
+  const result: ItemTopOffsets = []
+
+  headings.forEach(({ id, parents }) => {
+    const element = document.getElementById(id)
+
+    if (!element) {
+      return
+    }
+
+    result.push({
+      id,
+      offsetTop: element.offsetTop,
+      parents,
     })
-    .filter(item => item) // remove null
+  })
+
+  return result
 }
 
 type Props = {
@@ -65,12 +70,12 @@ const ScrollSyncToc: React.FC<Props> = ({ headings }) => {
   useEffect(
     () => {
       calculateItemTopOffsets()
-      window.addEventListener(`resize`, handleResize)
-      window.addEventListener(`scroll`, handleScroll)
+      window.addEventListener('resize', handleResize)
+      window.addEventListener('scroll', handleScroll)
 
       return () => {
-        window.removeEventListener(`resize`, handleResize)
-        window.removeEventListener(`scroll`, handleScroll)
+        window.removeEventListener('resize', handleResize)
+        window.removeEventListener('scroll', handleScroll)
       }
     },
     [calculateItemTopOffsets, handleResize, handleScroll]

@@ -98,7 +98,7 @@ const styles = {
   `,
 
   share_button__svg: css`
-    :hover {
+    &:hover {
       cursor: pointer;
       opacity: 0.7;
     }

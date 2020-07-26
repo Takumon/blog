@@ -14,7 +14,7 @@ const Bio: React.FC = () => {
 
   return (
     <div css={styles.content}>
-      <Img fluid={avatarImage.childImageSharp.fluid} alt={config.blogAuthor} css={styles.avatar} />
+      {avatarImage && <Img fluid={avatarImage} alt={config.blogAuthor} css={styles.avatar} />}
       <div css={styles.main}>
         <div css={styles.description}>{config.blogDescription}</div>
         <div css={styles.profile}>

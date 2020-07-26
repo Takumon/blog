@@ -1,18 +1,19 @@
 import React, { useMemo } from 'react'
 import { graphql } from 'gatsby'
 import _orderBy from 'lodash/orderBy'
+import type { WindowLocation } from "@reach/router"
 import type { TagCounts } from '../@types'
 import type { IndexPageQuery } from '../../types/graphql-types'
-import Layout from '../components/layout'
-import PostList from '../components/post-list'
-import TagList from '../components/tag-list'
+import Layout from '../components/Layout'
+import PostList from '../components/PostList'
+import TagList from '../components/TagList'
 import Title from '../components/Title'
 
 
 
 
 type Props = {
-  location: any
+  location: WindowLocation
   data: IndexPageQuery
 }
 const BlogIndex: React.FC<Props> = ({ location, data }) => {

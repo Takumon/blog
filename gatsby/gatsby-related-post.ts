@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import type { PostNode, RelatedPostConfig, OptionalRelatedPostConfig, RelatedPostConfigIndex, InvertedIndex, RelatedPostSearchQuery, RelatedPostRankingMap, CalculatedRelatedPostRankings } from './types'
+import type { PostNode, RelatedPostConfig, OptionalRelatedPostConfig, RelatedPostConfigIndex, InvertedIndex, RelatedPostSearchQuery, RelatedPostRankingMap, CalculatedRelatedPostRankings } from '../src/@types'
 
 export const RELATED_POST_DEFAULT_CONFIG: RelatedPostConfig = {
   threshold: 80,
