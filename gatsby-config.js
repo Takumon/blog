@@ -9,6 +9,7 @@ module.exports = {
     siteUrl: 'https://takumon.com',
   },
   plugins: [
+    `gatsby-plugin-emotion`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -46,16 +47,16 @@ module.exports = {
           },
           `gatsby-remark-autolink-headers`,
           {
-            resolve: "gatsby-remark-embed-snippet",
+            resolve: 'gatsby-remark-embed-snippet',
             options: {
-              classPrefix: "language-",
+              classPrefix: 'language-',
               directory: `${__dirname}/examples/`,
             },
           },
           {
             resolve: `gatsby-remark-prismjs`,
             options: {
-              classPrefix: "language-",
+              classPrefix: 'language-',
               inlineCodeMarker: null,
               aliases: {},
               showLineNumbers: true,
@@ -65,17 +66,17 @@ module.exports = {
           {
             resolve: 'gatsby-remark-emojis',
             options: {
-              active : true,
-              size   : 64,
-              styles : {
-                display      : 'inline',
-                margin       : '0',
-                'margin-top' : '1px',
-                position     : 'relative',
-                top          : '5px',
-                width        : '25px'
-              }
-            }
+              active: true,
+              size: 64,
+              styles: {
+                display: 'inline',
+                margin: '0',
+                'margin-top': '1px',
+                position: 'relative',
+                top: '5px',
+                width: '25px',
+              },
+            },
           },
         ],
       },
@@ -85,8 +86,8 @@ module.exports = {
       options: {
         accessToken: process.env.ACCESS_TOKEN,
         userName: process.env.USER_NAME,
-        excludedPostIds: process.env.EXCLUDED_POST_IDS.split(',')
-      }
+        excludedPostIds: process.env.EXCLUDED_POST_IDS.split(','),
+      },
     },
     `gatsby-remark-headings-detail`,
     `gatsby-remark-and-qiita`,
@@ -114,53 +115,52 @@ module.exports = {
         background_color: '#333',
         theme_color: '#d23d29',
         display: 'minimal-ui',
-        "icons": [
+        icons: [
           {
-            "src": "icons/icon-72x72.png",
-            "sizes": "72x72",
-            "type": "image/png"
+            src: 'icons/icon-72x72.png',
+            sizes: '72x72',
+            type: 'image/png',
           },
           {
-            "src": "icons/icon-96x96.png",
-            "sizes": "96x96",
-            "type": "image/png"
+            src: 'icons/icon-96x96.png',
+            sizes: '96x96',
+            type: 'image/png',
           },
           {
-            "src": "icons/icon-128x128.png",
-            "sizes": "128x128",
-            "type": "image/png"
+            src: 'icons/icon-128x128.png',
+            sizes: '128x128',
+            type: 'image/png',
           },
           {
-            "src": "icons/icon-144x144.png",
-            "sizes": "144x144",
-            "type": "image/png"
+            src: 'icons/icon-144x144.png',
+            sizes: '144x144',
+            type: 'image/png',
           },
           {
-            "src": "icons/icon-152x152.png",
-            "sizes": "152x152",
-            "type": "image/png"
+            src: 'icons/icon-152x152.png',
+            sizes: '152x152',
+            type: 'image/png',
           },
           {
-            "src": "icons/icon-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
+            src: 'icons/icon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
           },
           {
-            "src": "icons/icon-384x384.png",
-            "sizes": "384x384",
-            "type": "image/png"
+            src: 'icons/icon-384x384.png',
+            sizes: '384x384',
+            type: 'image/png',
           },
           {
-            "src": "icons/icon-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-          }
+            src: 'icons/icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
         ],
       },
     },
     `gatsby-plugin-remove-serviceworker`,
     `gatsby-plugin-twitter`,
-    `gatsby-plugin-sass`,
     `gatsby-plugin-sitemap`,
     {
       resolve: 'gatsby-plugin-typography',
@@ -181,23 +181,23 @@ module.exports = {
     {
       resolve: `gatsby-plugin-webpack-bundle-analyzer`,
       options: {
-        openAnalyzer: false
-      }
+        openAnalyzer: false,
+      },
     },
     `gatsby-plugin-netlify`,
     {
-      resolve: "gatsby-source-graphql",
+      resolve: 'gatsby-source-graphql',
       options: {
-        typeName: "GitHub",
-        fieldName: "github",
-        url: "https://api.github.com/graphql",
+        typeName: 'GitHub',
+        fieldName: 'github',
+        url: 'https://api.github.com/graphql',
         headers: {
           Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
-        }
+        },
       },
     },
     {
-      resolve: "gatsby-plugin-guess-js",
+      resolve: 'gatsby-plugin-guess-js',
       options: {
         GAViewID: `181551797`,
         jwt: {
@@ -206,9 +206,16 @@ module.exports = {
         },
         minimumThreshold: 0.03,
         period: {
-          startDate: new Date("2020-1-1"),
+          startDate: new Date('2020-1-1'),
           endDate: new Date(),
         },
+      },
+    },
+    `gatsby-plugin-typescript`,
+    {
+      resolve: 'gatsby-plugin-graphql-codegen',
+      options: {
+        fileName: `types/graphql-types.d.ts`,
       },
     },
   ],
