@@ -4,7 +4,7 @@
   "dependencies": {
     "github-slugger": "1.2.0",
     "mdast-util-to-string": "1.0.5",
-    "remark": "10.0.0",
+    "remark": "10.0.1",
     "unist-util-visit": "1.4.0"
   }
 }
