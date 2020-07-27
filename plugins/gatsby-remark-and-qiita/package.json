@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "dependencies": {
     "rehype-stringify": "8.0.0",
-    "remark-parse": "6.0.3",
-    "remark-rehype": "3.0.2",
+    "remark-parse": "8.0.3",
+    "remark-rehype": "7.0.0",
     "striptags": "3.1.1",
     "unified": "9.1.0"
   }
