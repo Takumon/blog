@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "github-slugger": "1.2.0",
-    "mdast-util-to-string": "1.0.5",
+    "mdast-util-to-string": "1.1.0",
     "remark": "10.0.0",
     "unist-util-visit": "1.4.0"
   }
