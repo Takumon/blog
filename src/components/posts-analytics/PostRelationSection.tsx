@@ -380,7 +380,7 @@ const PostRelationSection: React.FC<Props> = ({ posts }) => {
       </FullScreen>
     </>
   )
-}z
+}
 
 export default PostRelationSection
 
