@@ -35,42 +35,52 @@ export default function useScrollSyncToc(headings: Headings): ActiveItemIds {
 
   const calculateItemTopOffsets = useCallback(
     () => {
-      const newItemTopOffsets = getItemTopOffsetsFromDOM(headings)
-      setItemTopOffsets(newItemTopOffsets)
+      if (window) {
+        const newItemTopOffsets = getItemTopOffsetsFromDOM(headings)
+        setItemTopOffsets(newItemTopOffsets)
+      }
     },
     [headings]
   )
 
   const [handleScroll] = useDebouncedCallback(() => {
-    const item = itemTopOffsets.find((current, i) => {
-      const next = itemTopOffsets[i + 1]
-
-      return next
-        ? window.scrollY + OFFSET_ACTIVE_ITEM >= current.offsetTop && window.scrollY + OFFSET_ACTIVE_ITEM < next.offsetTop
-        : window.scrollY + OFFSET_ACTIVE_ITEM >= current.offsetTop
-    })
-
-    // const newActiveItemIds = item ? (item.parents ? [item.id, ...item.parents.map(i => i.id)] : [item.id]) : []
-    const newActiveItemIds = item ? (item.parents ? [item.id, ...item.parents.map(i => i.id)] : [item.id]) : []
-
-    setActiveItemIds(newActiveItemIds)
+    if (window) {
+      const item = itemTopOffsets.find((current, i) => {
+        const next = itemTopOffsets[i + 1]
+  
+        return next
+          ? window.scrollY + OFFSET_ACTIVE_ITEM >= current.offsetTop && window.scrollY + OFFSET_ACTIVE_ITEM < next.offsetTop
+          : window.scrollY + OFFSET_ACTIVE_ITEM >= current.offsetTop
+      })
+  
+      // const newActiveItemIds = item ? (item.parents ? [item.id, ...item.parents.map(i => i.id)] : [item.id]) : []
+      const newActiveItemIds = item ? (item.parents ? [item.id, ...item.parents.map(i => i.id)] : [item.id]) : []
+  
+      setActiveItemIds(newActiveItemIds)
+    }
   }, 100) // 負荷軽減のため間引く
 
   const [handleResize] = useDebouncedCallback(() => {
-    calculateItemTopOffsets()
-    handleScroll()
+    if (window) {
+      calculateItemTopOffsets()
+      handleScroll()
+    }
   }, 500) // 負荷軽減のため間引く
 
 
   useEffect(
     () => {
-      calculateItemTopOffsets()
-      window.addEventListener('resize', handleResize)
-      window.addEventListener('scroll', handleScroll)
+      if (window) {
+        calculateItemTopOffsets()
+        window.addEventListener('resize', handleResize)
+        window.addEventListener('scroll', handleScroll)
+      }
 
       return () => {
-        window.removeEventListener('resize', handleResize)
-        window.removeEventListener('scroll', handleScroll)
+        if (window) {
+          window.removeEventListener('resize', handleResize)
+          window.removeEventListener('scroll', handleScroll)
+        }
       }
     },
     [calculateItemTopOffsets, handleResize, handleScroll]

@@ -4,8 +4,6 @@ import { css } from '@emotion/core'
 import {
   FacebookShareButton,
   FacebookIcon,
-  GooglePlusShareButton,
-  GooglePlusIcon,
   LinkedinShareButton,
   LinkedinIcon,
   TwitterShareButton,
@@ -28,23 +26,18 @@ const SNSShare: React.FC<Props> = ({ title, link, twitterUserName }) => {
         <script type="text/javascript" src="//widgets.getpocket.com/v1/j/btn.js?v=1" charset="utf-8" async="async" />
       </Helmet>
       <li css={styles.share_button}>
-        <FacebookShareButton additionalProps={{ 'aria-label': 'share_facebook' }} url={link}>
+        <FacebookShareButton url={link}>
           <FacebookIcon size={32} round />
         </FacebookShareButton>
       </li>
 
       <li css={styles.share_button}>
-        <GooglePlusShareButton additionalProps={{ 'aria-label': 'share_googleplus' }} url={link}>
-          <GooglePlusIcon size={32} round />
-        </GooglePlusShareButton>
-      </li>
-      <li css={styles.share_button}>
-        <LinkedinShareButton additionalProps={{ 'aria-label': 'share_linkedin' }} url={link}>
-          <LinkedinIcon title={title} size={32} round />
+        <LinkedinShareButton url={link}>
+          <LinkedinIcon size={32} round />
         </LinkedinShareButton>
       </li>
       <li css={styles.share_button}>
-        <TwitterShareButton additionalProps={{ 'aria-label': 'share_twitter' }} title={title} via={twitterUserName} url={link}>
+        <TwitterShareButton title={title} via={twitterUserName} url={link}>
           <TwitterIcon size={32} round />
         </TwitterShareButton>
       </li>
@@ -53,7 +46,16 @@ const SNSShare: React.FC<Props> = ({ title, link, twitterUserName }) => {
           aria-label="share_pocket"
           css={styles.pocket_icon_link}
           href={`https://getpocket.com/edit?url=${link}&title=${title}`}
-          onClick={`window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;`}
+          onClick={() => {
+            if (window) {
+              window.open(
+                `https://getpocket.com/edit?url=${link}&title=${title}`,
+                'PCwindow',
+                'width=550,height=350,menubar=no,toolbar=no,scrollbars=yes'
+              );
+            }
+            return false;
+          }}
         >
           <FontAwesomeIcon color="#fff" css={styles.pocket_icon} icon={faGetPocket} />
         </a>

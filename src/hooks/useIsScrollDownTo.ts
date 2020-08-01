@@ -12,9 +12,15 @@ export default function useIsScrollDownTo(offset: number): boolean {
 
   useEffect(
     () => {
-      window.addEventListener('scroll', onScroll, true) // 負荷軽減のため50msecごとにまびく
+      if (window) {
+        window.addEventListener('scroll', onScroll, true) // 負荷軽減のため50msecごとにまびく
+      }
 
-      return () => window.removeEventListener('scroll', onScroll, true)
+      return () => {
+        if (window) {
+          window.removeEventListener('scroll', onScroll, true)
+        }
+      }
     },
     [onScroll]
   )
