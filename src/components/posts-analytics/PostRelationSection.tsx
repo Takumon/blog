@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from 'react'
 import cytoscape from 'cytoscape'
+import type { ElementDefinition } from 'cytoscape'
 import { css } from '@emotion/core'
 import CytoscapeComponent from 'react-cytoscapejs'
 import coseBilkent from 'cytoscape-cose-bilkent'
-import Fullscreen from 'react-full-screen'
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowsAlt, faCompress } from '@fortawesome/free-solid-svg-icons'
 import type { PostRelations } from '../../@types'
@@ -199,8 +200,8 @@ const createPostNode = (posts: PostRelations, thumbnailSrcMap: {[path: string]: 
   })
 }
 
-function createPostEdges({ posts }) {
-  const result = []
+function createPostEdges({ posts }: { posts: PostRelations}): ElementDefinition[] {
+  const result: ElementDefinition[] = []
   posts.forEach(postRelation => {
     postRelation.relations.forEach(({ details, node }) =>
       details.forEach(d => {
@@ -241,16 +242,10 @@ type Props = {
 }
 
 const PostRelationSection: React.FC<Props> = ({ posts }) => {
-  const [isFull, setIsFull] = useState(false)
-  const [cytoscapeElements, setCytoscapeElements] = useState<cytoscape.ElementDefinition[]>([])
+  const fullScreenHandle = useFullScreenHandle();
+  const [cytoscapeElements, setCytoscapeElements] = useState<ElementDefinition[]>([])
   const [isShowContent, setIsShowContent] = useState(false)
 
-  const goFull = useCallback(() => {
-    setIsFull(true)
-  }, [])
-  const goNotFull = useCallback(() => {
-    setIsFull(false)
-  }, [])
 
   const thumbnailSrcMap = useThumbnailSrcMap()
 
@@ -265,19 +260,19 @@ const PostRelationSection: React.FC<Props> = ({ posts }) => {
       const cytoscapeElements = CytoscapeComponent.normalizeElements({ nodes, edges })
       setCytoscapeElements(cytoscapeElements)
     },
-    [posts, thumbnailSrcMap]
-  )
+      [posts, thumbnailSrcMap]
+    )
 
   let zoomLevel = 0.3
   const deltaZoomLevel = 0.02
 
-  const fullscreenButton = isFull ? (
-    <button onClick={goNotFull} style={{ cursor: 'pointer' }}>
+  const fullscreenButton = fullScreenHandle.active ? (
+    <button onClick={fullScreenHandle.exit} style={{ cursor: 'pointer' }}>
       <FontAwesomeIcon color="#333" size="sm" css={styles.icon} icon={faCompress} />
       Back
     </button>
   ) : (
-    <button onClick={goFull} style={{ cursor: 'pointer' }}>
+    <button onClick={fullScreenHandle.enter} style={{ cursor: 'pointer' }}>
       <FontAwesomeIcon color="#333" size="sm" css={styles.icon} icon={faArrowsAlt} />
       Go Fullscreen
     </button>
@@ -308,7 +303,7 @@ const PostRelationSection: React.FC<Props> = ({ posts }) => {
         elements={cytoscapeElements}
         layout={CYTOSCAPE_COMPONENT_LAYOUT}
         css={styles.container}
-        style={{ width: isFull ? '100vw' : '90%' }}
+        style={{ width: fullScreenHandle.active ? '100vw' : '90%' }}
         stylesheet={CYTOSCAPE_COMPONENT_STYLE_SHEET}
         cy={cy => {
           cy.on('click', 'node[id = "zoomUp"]', function(e) {
@@ -333,7 +328,7 @@ const PostRelationSection: React.FC<Props> = ({ posts }) => {
             })
           })
 
-          cy.on('tap', 'node[id != "zoomUp"][ id != "zoomDown" ]', function() {
+          cy.on('tap', 'node[id != "zoomUp"][ id != "zoomDown" ]', function () {
             try {
               window.open(this.data('href'))
             } catch (e) {
@@ -380,9 +375,9 @@ const PostRelationSection: React.FC<Props> = ({ posts }) => {
         change the zoom level with the mouse wheel.
       </div>
 
-      <Fullscreen enabled={isFull} onChange={isFull => setIsFull(isFull)}>
+      <FullScreen handle={fullScreenHandle}>
         {!isShowContent ? ContentAlternative : !cytoscapeElements ? ContentLoading : Content}
-      </Fullscreen>
+      </FullScreen>
     </>
   )
 }

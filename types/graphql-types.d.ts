@@ -20590,11 +20590,6 @@ export type WordCountFilterInput = {
   words?: Maybe<IntQueryOperatorInput>;
 };
 
-export type BackgroundImagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type BackgroundImagesQueryQuery = { headerImage?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>> }> }>, footerImage?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>> }> }>, avatarImage?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>> }> }> };
-
 export type GitHubSectionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -20610,6 +20605,11 @@ export type RootThumbnailPathQueryQueryVariables = Exact<{ [key: string]: never;
 
 
 export type RootThumbnailPathQueryQuery = { file?: Maybe<{ childImageSharp?: Maybe<{ resize?: Maybe<Pick<ImageSharpResize, 'src'>> }> }> };
+
+export type BackgroundImagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BackgroundImagesQueryQuery = { headerImage?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>> }> }>, footerImage?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>> }> }>, avatarImage?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>> }> }> };
 
 export type ThumbnailImagesQueryVariables = Exact<{ [key: string]: never; }>;
 

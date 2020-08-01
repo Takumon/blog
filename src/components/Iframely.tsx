@@ -4,7 +4,9 @@ import { Helmet } from 'react-helmet'
 const Iframely: React.FC = () => {
   // 記事ページから古い記事に遷移したときにもロードされるようにする
   useEffect(() => {
-    window?.iframely?.load()
+    if (window && window.iframely) {
+      window.iframely.load()
+    }
   }, [])
 
   return (
