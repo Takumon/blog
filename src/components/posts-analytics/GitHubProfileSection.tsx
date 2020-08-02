@@ -26,15 +26,15 @@ const GitHubProfileSection: React.FC = () => {
 
           <div>
             <div css={styles.userInfo__content}>
-              <FontAwesomeIcon color="#333" size="sm" css={styles.userInfo__content__icon} icon={faEnvelope} />
+              <FontAwesomeIcon color="var(--text)" size="sm" css={styles.userInfo__content__icon} icon={faEnvelope} />
               {viewer.email}
             </div>
             <div css={styles.userInfo__content}>
-              <FontAwesomeIcon color="#333" size="sm" css={styles.userInfo__content__icon} icon={faLink} />
+              <FontAwesomeIcon color="var(--text)" size="sm" css={styles.userInfo__content__icon} icon={faLink} />
               {viewer.websiteUrl}
             </div>
             <div css={styles.userInfo__content}>
-              <FontAwesomeIcon color="#333" size="sm" css={styles.userInfo__content__icon} icon={faMapMarkerAlt} />
+              <FontAwesomeIcon color="var(--text)" size="sm" css={styles.userInfo__content__icon} icon={faMapMarkerAlt} />
               {viewer.location}
             </div>
           </div>
@@ -193,6 +193,10 @@ const styles = {
     align-items: center;
     display: flex;
     font-size: 0.8rem;
+
+    svg {
+      color: var(--text);
+    }
   `,
 
   userInfo__content__icon: css`
@@ -259,6 +263,10 @@ const styles = {
     margin-right: 24px;
     font-size: 0.75rem;
     color: var(--text);
+
+    svg {
+      color: var(--text);
+    }
   `,
 
   repo__info__icon: css`
