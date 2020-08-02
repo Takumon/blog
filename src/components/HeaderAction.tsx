@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRss } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'gatsby'
 import feedlyLogo from '../images/feedly.svg'
+import { DarkToggle } from './DarkToggle'
 
 import config from '../config/blog-config'
 
@@ -11,8 +12,10 @@ type Props = {
   isAbout?: boolean
 }
 
-const RSS: React.FC<Props> = ({ isAbout = false }) => (
+const HeaderAction: React.FC<Props> = ({ isAbout = false }) => (
   <div css={styles.content}>
+    <DarkToggle />
+
     {isAbout ? (
       <Link to={`/`} aria-label="blog_toppage" css={styles.link_button}>
         Top Page
@@ -32,7 +35,7 @@ const RSS: React.FC<Props> = ({ isAbout = false }) => (
   </div>
 )
 
-export default RSS
+export default HeaderAction
 
 const styles = {
   content: css`
@@ -62,7 +65,7 @@ const styles = {
       margin: 0;
     }
     svg {
-      color: #444;
+      color: var(--textLight);
       height: 38px;
       width: 24px !important;
     }
@@ -92,9 +95,9 @@ const styles = {
     height: 36px;
     background-size: contain;
     box-shadow: none;
-    color: white;
+    color: var(--buttonColor);
     font-weight: 600;
-    background: #f74539;
+    background: var(--buttonBG);
     border-radius: 18px;
     line-height: 35px;
     padding: 0 16px;

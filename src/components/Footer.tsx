@@ -52,7 +52,12 @@ const styles = {
     background-position-x: center;
 
     a {
-      color: white;
+      color: var(--textLight);
+    }
+
+    &:after,
+    &:before {
+      filter: var(--bannerBGFilter);
     }
   `,
 

@@ -26,10 +26,10 @@ export default Tag
 
 const styles = {
   content: css`
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    border-left: 1px solid #ccc;
-    border-top: 1px solid #ccc;
+    border-right: 1px solid var(--tagBorder);
+    border-bottom: 1px solid var(--tagBorder);
+    border-left: 1px solid var(--tagBorder);
+    border-top: 1px solid var(--tagBorder);
     border-radius: 0.5em 0 0.5em 0;
     padding: 0.05em 0.75em;
     margin-right: 0.5em;
@@ -40,7 +40,7 @@ const styles = {
 
   link: css`
     box-shadow: none;
-    color: #4a4a4a;
+    color: var(--text);
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
@@ -53,9 +53,9 @@ const styles = {
 
   tag_count: css`
     display: inline-block;
-    background: #d0d0d0;
+    background: var(--bgDarkLittle);
     border-radius: 0.5em;
-    min-width: 3em; // 二桁対応
+    min-width: 3em; /* 二桁対応で少し幅広 */
     padding: 0 1em;
     line-height: 1.5em;
     text-align: center;

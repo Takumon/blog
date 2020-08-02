@@ -2,10 +2,10 @@ import React, { useMemo } from 'react'
 import { css } from '@emotion/core'
 import { Link } from 'gatsby'
 import BackgroundImage from 'gatsby-background-image'
-import type { WindowLocation } from "@reach/router"
+import type { WindowLocation } from '@reach/router'
 
 import NormalizeStyle from '../styles/NormalizeStyle'
-import BaseStyle from '../styles/BaseStyle'
+import GlobalStyle from '../styles/GlobalStyle'
 import HighlightStyle from '../styles/HighlightStyle'
 
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
@@ -14,107 +14,99 @@ import { flexColumnCenter } from '../styles/mixinStyle'
 import Seo from './SEO'
 import Footer from './Footer'
 import Bio from './Bio'
-import Rss from './RSS'
+import HeaderAction from './HeaderAction'
 import UserHeat from './UserHeat'
 import useSpecificImages from '../hooks/useSpecificImages'
 import useRootThumbnailPath from '../hooks/useRootThumbnailPath'
-
 
 type Props = {
   location: WindowLocation
 }
 
-
 const Layout: React.FC<Props> = ({ location, children }) => {
   const prefix: string = __PATH_PREFIX__ || ''
   const rootPath = `${prefix}/`
-  const tagPath =  `${prefix}/tags/`
+  const tagPath = `${prefix}/tags/`
   const mapPath = `${prefix}/about`
 
-  const { isRoot, isTag, isAbout } = useMemo(
-    () => {
-      const isRoot = location.pathname === rootPath
-      const isTag = location.pathname.startsWith(tagPath)
-      const isAbout = location.pathname.startsWith(mapPath)
-      return {
-        isRoot,
-        isTag,
-        isAbout,
-      }
-    },
-    [location.pathname, mapPath, rootPath, tagPath]
-  )
+  const { isRoot, isTag, isAbout } = useMemo(() => {
+    const isRoot = location.pathname === rootPath
+    const isTag = location.pathname.startsWith(tagPath)
+    const isAbout = location.pathname.startsWith(mapPath)
+    return {
+      isRoot,
+      isTag,
+      isAbout,
+    }
+  }, [location.pathname, mapPath, rootPath, tagPath])
 
   const rootThumbnailPath = useRootThumbnailPath()
 
   const { headerImage } = useSpecificImages()
 
-  const header = useMemo(
-    () => {
-      if (!headerImage) {
-        return null
-      }
+  const header = useMemo(() => {
+    if (!headerImage) {
+      return null
+    }
 
-      if (isRoot) {
-        return (
-          <BackgroundImage Tag="div" css={styles.header_container} fluid={headerImage} backgroundColor={`#8A5E5F`}>
-            <Seo isRoot={true} thumbnailSrc={rootThumbnailPath} />
-            <div css={styles.header_container__inner}>
-              <h1 css={styles.blog_title_area}>
-                <Link css={styles.blog_title} to={'/'}>
-                  Takumon Blog
-                </Link>
-              </h1>
-              <Bio />
-            </div>
-            <Rss />
-          </BackgroundImage>
-        )
-      }
+    if (isRoot) {
+      return (
+        <BackgroundImage Tag="div" css={styles.header_container} fluid={headerImage} backgroundColor={`#8A5E5F`}>
+          <Seo isRoot={true} thumbnailSrc={rootThumbnailPath} />
+          <div css={styles.header_container__inner}>
+            <h1 css={styles.blog_title_area}>
+              <Link css={styles.blog_title} to={'/'}>
+                Takumon Blog
+              </Link>
+            </h1>
+            <Bio />
+          </div>
+          <HeaderAction />
+        </BackgroundImage>
+      )
+    }
 
-      if (isTag) {
-        return (
-          <BackgroundImage Tag="div" css={styles.header_container} fluid={headerImage} backgroundColor={`#8A5E5F`}>
-            <Seo isRoot={true} thumbnailSrc={rootThumbnailPath} />
-            <div css={styles.header_container__inner}>
-              <h1 css={styles.blog_title_area}>
-                <Link css={styles.blog_title} to={'/'}>
-                  Takumon Blog
-                </Link>
-              </h1>
-              <Bio />
-            </div>
-            <Rss />
-          </BackgroundImage>
-        )
-      }
+    if (isTag) {
+      return (
+        <BackgroundImage Tag="div" css={styles.header_container} fluid={headerImage} backgroundColor={`#8A5E5F`}>
+          <Seo isRoot={true} thumbnailSrc={rootThumbnailPath} />
+          <div css={styles.header_container__inner}>
+            <h1 css={styles.blog_title_area}>
+              <Link css={styles.blog_title} to={'/'}>
+                Takumon Blog
+              </Link>
+            </h1>
+            <Bio />
+          </div>
+          <HeaderAction />
+        </BackgroundImage>
+      )
+    }
 
-      if (isAbout) {
-        return (
-          <BackgroundImage Tag="div" css={styles.header_container} fluid={headerImage} backgroundColor={`#8A5E5F`}>
-            <Seo isRoot={true} thumbnailSrc={rootThumbnailPath} />
-            <div css={styles.header_container__inner}>
-              <h1 css={styles.blog_title_area}>
-                <Link css={styles.blog_title} to={'/'}>
-                  ABOUT ME
-                </Link>
-              </h1>
-              <Bio />
-            </div>
-            <Rss isAbout={isAbout} />
-          </BackgroundImage>
-        )
-      }
+    if (isAbout) {
+      return (
+        <BackgroundImage Tag="div" css={styles.header_container} fluid={headerImage} backgroundColor={`#8A5E5F`}>
+          <Seo isRoot={true} thumbnailSrc={rootThumbnailPath} />
+          <div css={styles.header_container__inner}>
+            <h1 css={styles.blog_title_area}>
+              <Link css={styles.blog_title} to={'/'}>
+                ABOUT ME
+              </Link>
+            </h1>
+            <Bio />
+          </div>
+          <HeaderAction isAbout={isAbout} />
+        </BackgroundImage>
+      )
+    }
 
-      return ''
-    },
-    [isRoot, isTag, isAbout, headerImage, rootThumbnailPath]
-  )
+    return ''
+  }, [isRoot, isTag, isAbout, headerImage, rootThumbnailPath])
 
   return (
     <div css={styles.root_container}>
       <NormalizeStyle />
-      <BaseStyle />
+      <GlobalStyle />
       <HighlightStyle />
       <UserHeat />
       {header}
@@ -126,12 +118,11 @@ const Layout: React.FC<Props> = ({ location, children }) => {
 
 export default Layout
 
-
-
 const styles = {
   root_container: css`
     width: 100%;
     margin: 0;
+    background: var(--bgLight);
   `,
 
   header_container: css`
@@ -140,10 +131,17 @@ const styles = {
     margin: 0;
     min-height: 65vh;
     position: relative;
+    &:after,
+    &:before {
+      filter: var(--bannerBGFilter);
+    }
 
+    & * {
+      filter: none;
+    }
     /* boi用 */
     & div {
-      color: white;
+      color: var(--bgLight);
     }
 
     @media screen and (max-width: 720px) {
@@ -187,7 +185,7 @@ const styles = {
   blog_title: css`
     box-shadow: none;
     font-family: Montserrats, ans-serif;
-    color: white;
+    color: var(--textLight);
     :hover {
       box-shadow: none;
     }

@@ -30,14 +30,14 @@ const styles = {
     width: 100%;
     padding-top: 12px;
     padding-bottom: 12px;
-    background: #f7f7f7;
+    background: var(--bgLightLittle);
   `,
 
   tag_svg: css`
     width: 100%;
     padding-top: 12px;
     padding-bottom: 12px;
-    background: #f7f7f7;
+    background: var(--bgLightLittle);
   `,
 
   title: css`

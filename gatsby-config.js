@@ -9,6 +9,7 @@ module.exports = {
     siteUrl: 'https://takumon.com',
   },
   plugins: [
+    `gatsby-plugin-dark-mode`,
     `gatsby-plugin-emotion`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -165,7 +166,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-typography',
       options: {
-        pathToConfigModule: 'src/utils/typography',
+        pathToConfigModule: 'src/styles/typography',
       },
     },
     `gatsby-plugin-catch-links`,

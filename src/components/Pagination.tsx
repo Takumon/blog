@@ -39,7 +39,7 @@ const Pagination: React.FC<Props> = ({ previous, next, relatedPosts, latestPosts
         <div css={styles.posts_context}>
           <h2 css={styles.posts_category}>関連記事</h2>
 
-          {relatedPosts.map(p => (
+          {relatedPosts.map((p) => (
             <PostPreviewSmall key={p.fields.slug} postField={p.fields} />
           ))}
         </div>
@@ -49,14 +49,14 @@ const Pagination: React.FC<Props> = ({ previous, next, relatedPosts, latestPosts
         <div css={styles.posts_context}>
           <h2 css={styles.posts_category}>最近の記事</h2>
 
-          {latestPosts.map(p => (
+          {latestPosts.map((p) => (
             <PostPreviewSmall key={p.fields.slug} postField={p.fields} />
           ))}
         </div>
       )}
 
       <div css={styles.posts_context}>
-        <Link css={styles.link_to_list} to="/" rel="prev">
+        <Link css={styles.link_to_list} to="/">
           <i css={styles.tomato_icon_1} />
           <i css={styles.tomato_icon_2} />
           <span css={styles.tomato_icon_title}>記事一覧</span>
@@ -78,12 +78,12 @@ const pageLink = css`
   width: 100%;
   height: 100%;
   padding: 1em;
-  color: #444;
-  background-color: #ffffff;
+  color: var(--text);
+  background-color: var(--bgLight);
   transition: background-color 0.1s linear, color 0.1s linear;
   &:hover {
-    background-color: #dc3614;
-    color: black;
+    background-color: var(--accent);
+    color: var(--textHover);
     transition: background-color 0.3s linear, color 0.3s liner;
   }
 `
@@ -118,9 +118,9 @@ const rotatingTomato = (delayTime: string) => {
 const styles = {
   context: css`
     padding: 2rem 0;
-    background: rgb(238, 238, 238);
+    background: var(--bgLightLittle);
     border-radius: 4px;
-    box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px rgba(63, 63, 68, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--cardBS);
   `,
 
   context_header: css`
@@ -136,7 +136,7 @@ const styles = {
     font-size: 1rem;
     text-align: left;
     box-shadow: none;
-    border-bottom: 1px dotted gray;
+    border-bottom: 1px dotted var(--underlineDark);
     letter-spacing: 0.7rem;
     margin-top: 1rem;
     margin-bottom: 1rem;

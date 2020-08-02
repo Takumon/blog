@@ -20,7 +20,7 @@ const TagList: React.FC<Props> = ({ tagCounts }) => {
         タグ一覧
       </h3>
       <div css={styles.list}>
-        {tagCounts.map(t => (
+        {tagCounts.map((t) => (
           <Tag key={t.text} value={t.text} count={t.size} />
         ))}
       </div>
@@ -51,7 +51,7 @@ const styles = {
     flex-wrap: wrap;
     padding: 1em;
     margin: 0;
-    background: #f3f0f0;
+    background: var(--bgLightLittle);
     border-radius: 4px;
   `,
 }

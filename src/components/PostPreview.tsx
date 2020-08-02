@@ -8,11 +8,11 @@ import Image from './Thumbnail'
 import config from '../config/blog-config'
 
 const Card = styled.article`
-  border-bottom: 1px solid #ebf2f6;
+  border-bottom: 1px solid var(--cardBorder);
   border-radius: 4px;
-  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px rgba(63, 63, 68, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--cardBS);
   padding: 0.75rem 1.75rem;
-  background: white;
+  background-color: var(--bgLight);
   max-width: 100%;
 
   @media screen and (max-width: 400px) {
@@ -52,7 +52,7 @@ const Title = styled.h2`
 `
 
 const Description = styled.p`
-  color: #414141;
+  color: var(--text);
   font-size: 12px;
   word-break: break-all;
   transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -60,7 +60,7 @@ const Description = styled.p`
 
 const LinkCard = styled(Link)`
   box-shadow: none;
-  color: #4a4a4a;
+  color: var(--text);
   font-size: 1.2em;
   line-height: 1em;
 
@@ -72,7 +72,7 @@ const LinkCard = styled(Link)`
     }
     ${Title},
     ${Description} {
-      color: #989eb0;
+      color: var(--textHover);
     }
   }
   @media screen and (max-width: 400px) {

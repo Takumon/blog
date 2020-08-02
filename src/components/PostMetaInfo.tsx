@@ -14,7 +14,7 @@ type Props = {
 }
 
 const PostMetaInfo: React.FC<Props> = ({ tags, date, color }) => {
-  const tagList = tags.map(tag => <Tag key={tag} value={tag} color={color} />)
+  const tagList = tags.map((tag) => <Tag key={tag} value={tag} color={color} />)
   const formattedDate = useMemo(() => moment(date).format(config.dateFormat), [date])
 
   return (
@@ -35,7 +35,7 @@ export default PostMetaInfo
 
 const styles = {
   content: css`
-    color: #4a4a4a;
+    color: var(--textLightLittleLittle);
     font-family: sans-serif;
     display: flex;
     flex-wrap: wrap;

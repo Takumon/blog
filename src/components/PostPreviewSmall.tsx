@@ -40,11 +40,11 @@ const styles = {
     display: block;
     padding: 12px;
     border-radius: 4px;
-    box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px rgba(63, 63, 68, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--cardBS);
     box-sizing: border-box;
     margin-bottom: 1.5rem;
-    background-color: white;
-    color: black;
+    background-color: var(--bgLight);
+    color: var(--title);
     transition: background-color 0.1s linear;
   `,
 
@@ -83,7 +83,7 @@ const styles = {
     }
 
     &:hover {
-      background-color: #fcfcfc;
+      background-color: var(--bgLight);
       transition: background-color 0.3s linear;
 
       h2 {
@@ -95,12 +95,12 @@ const styles = {
   post_meta_info: css`
     font-size: 14px;
     * {
-      color: rgb(151, 151, 151);
+      color: var(--textLightLittle);
     }
   `,
 
   meta_info: css`
-    color: #99a;
+    color: var(--textLightLittle);
     font-family: sans-serif;
     display: flex;
     flex-wrap: wrap;
