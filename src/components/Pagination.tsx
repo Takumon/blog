@@ -140,7 +140,7 @@ const styles = {
     letter-spacing: 0.7rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
-    color: gray;
+    color: var(--text);
   `,
 
   posts_context: css`

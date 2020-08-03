@@ -194,6 +194,7 @@ const styles = {
     overflow: hidden;
     position: relative;
     text-align: center;
+    filter: var(--bannerBGFilter);
 
     &:after {
       -moz-pointer-events: none;
@@ -451,6 +452,10 @@ const styles = {
 
     code {
       font-size: 0.85rem;
+    }
+    code.language-text {
+      background: var(--codeBG);
+      color: var(--codeText);
     }
 
     /* ブラウザ幅が狭くなった時にテーブルを横スクロールさせて、スマホでも大きいテーブルが見れるようにする */

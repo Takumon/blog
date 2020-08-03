@@ -25,6 +25,7 @@ const styles = css`
     --blockquoteBorder: hsla(0, 0%, 0%, 0.5);
     --textLink: #d86343;
     /* HighlightStyle */
+    --codeText: #657b83;
     --code: #b38383;
     --codeBG: #f3e3b9;
     --codeLineMarker: #f99;
@@ -95,9 +96,9 @@ const styles = css`
     --textHover: #a4a3bc;
     --title: #dcdbec;
     --titleRevert: #040404;
-    --bgActive: #fffbf0;
+    --bgActive: #0e0e0d;
     --bgDarkLittle: #303030;
-    --bgHover: #fee;
+    --bgHover: #000;
     --underline: #dadada;
     --underlineDark: gray;
     --underlineHover: #cbb;
@@ -105,11 +106,12 @@ const styles = css`
     --tagBorder: #363434;
     --blockquoteBorder: hsla(0, 0%, 0%, 0.5);
     --textLink: #d86343;
-    --code: #b38383;
-    --codeBG: #f3e3b9;
-    --codeLineMarker: #f99;
-    --codeHighlightBG: #feb;
-    --highlightBG: #fdf6e3;
+    --codeText: #afced8;
+    --code: #c2c2c2;
+    --codeBG: #26241d;
+    --codeLineMarker: #863636;
+    --codeHighlightBG: #39362c;
+    --highlightBG: #000000;
     --cardBorder: #000000;
     --cardBS: 0 0 0 1px rgb(186 186 199 / 5%), 0 1px 3px rgb(132 132 142 / 10%), 0 1px 2px rgba(0, 0, 0, 0.05);
     --buttonColor: #ffffff;
