@@ -126,7 +126,8 @@ const styles = {
   root_container: css`
     width: 100%;
     margin: 0;
-    background: var(--bgLight);
+    background-color: var(--bgLight);
+    transition: background-color 400ms var(--transitionMode);
   `,
 
   header_container: css`

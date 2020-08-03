@@ -14,7 +14,7 @@ import ScrollSyncToc from './ScrollSyncToc'
 import Image from './Thumbnail'
 import Pagination from './Pagination'
 import useIsScrollDownTo from '../hooks/useIsScrollDownTo'
-import HeaderAction from './HeaderAction'
+import { DarkToggle } from './DarkToggle'
 
 type Props = {
   fields: any
@@ -60,6 +60,7 @@ const Post: React.FC<Props> = ({
       />
 
       <div css={styles.header}>
+        <DarkToggle />
         <div css={styles.header__inner}>
           <div css={styles.header__inner__content}>
             <h4 css={styles.blog_title}>
@@ -196,6 +197,7 @@ const styles = {
     position: relative;
     text-align: center;
     filter: var(--bannerBGFilter);
+    transition: filter 200ms var(--transitionMode) !important;
 
     &:after {
       -moz-pointer-events: none;
