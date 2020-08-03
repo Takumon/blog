@@ -14,6 +14,7 @@ import ScrollSyncToc from './ScrollSyncToc'
 import Image from './Thumbnail'
 import Pagination from './Pagination'
 import useIsScrollDownTo from '../hooks/useIsScrollDownTo'
+import HeaderAction from './HeaderAction'
 
 type Props = {
   fields: any

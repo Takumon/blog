@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRss } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'gatsby'
 import feedlyLogo from '../images/feedly.svg'
-import { DarkToggle } from './DarkToggle'
 
 import config from '../config/blog-config'
 
@@ -14,8 +13,6 @@ type Props = {
 
 const HeaderAction: React.FC<Props> = ({ isAbout = false }) => (
   <div css={styles.content}>
-    <DarkToggle />
-
     {isAbout ? (
       <Link to={`/`} aria-label="blog_toppage" css={styles.link_button}>
         Top Page

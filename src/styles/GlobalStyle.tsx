@@ -86,6 +86,7 @@ const styles = css`
         rgba(225, 225, 225, 0.17) 110px
       );
     --bannerBGFilter: brightness(100%);
+    --transitionMode: cubic-bezier(0.1, 0.6, 0.58, 1);
   }
 
   body.dark {
@@ -125,6 +126,7 @@ const styles = css`
     --text: #dcdbec;
     --bgLight: #393841;
     --bgLightLittle: #4a4646;
+    --transitionMode: cubic-bezier(0.1, 0.6, 0.58, 1);
   }
 
   /* アンカーリンク（gatsby-remark-autolink-headersカスタム） */

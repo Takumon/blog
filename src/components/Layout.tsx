@@ -18,6 +18,7 @@ import HeaderAction from './HeaderAction'
 import UserHeat from './UserHeat'
 import useSpecificImages from '../hooks/useSpecificImages'
 import useRootThumbnailPath from '../hooks/useRootThumbnailPath'
+import { DarkToggle } from './DarkToggle'
 
 type Props = {
   location: WindowLocation
@@ -52,6 +53,7 @@ const Layout: React.FC<Props> = ({ location, children }) => {
     if (isRoot) {
       return (
         <BackgroundImage Tag="div" css={styles.header_container} fluid={headerImage} backgroundColor={`#8A5E5F`}>
+          <DarkToggle />
           <Seo isRoot={true} thumbnailSrc={rootThumbnailPath} />
           <div css={styles.header_container__inner}>
             <h1 css={styles.blog_title_area}>
@@ -69,6 +71,7 @@ const Layout: React.FC<Props> = ({ location, children }) => {
     if (isTag) {
       return (
         <BackgroundImage Tag="div" css={styles.header_container} fluid={headerImage} backgroundColor={`#8A5E5F`}>
+          <DarkToggle />
           <Seo isRoot={true} thumbnailSrc={rootThumbnailPath} />
           <div css={styles.header_container__inner}>
             <h1 css={styles.blog_title_area}>
@@ -86,6 +89,7 @@ const Layout: React.FC<Props> = ({ location, children }) => {
     if (isAbout) {
       return (
         <BackgroundImage Tag="div" css={styles.header_container} fluid={headerImage} backgroundColor={`#8A5E5F`}>
+          <DarkToggle />
           <Seo isRoot={true} thumbnailSrc={rootThumbnailPath} />
           <div css={styles.header_container__inner}>
             <h1 css={styles.blog_title_area}>
@@ -134,6 +138,7 @@ const styles = {
     &:after,
     &:before {
       filter: var(--bannerBGFilter);
+      transition: filter 200ms var(--transitionMode) !important;
     }
 
     & * {

@@ -55,6 +55,7 @@ const styles = {
     padding-top: 72px;
     width: 100%;
     background: var(--bgLightLittle);
+    transition: background-color 400ms var(--transitionMode);
     @media screen and (max-width: 680px) {
       /* to make about button clickable */
       padding-top: 36px;
