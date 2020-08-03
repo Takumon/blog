@@ -1,11 +1,5 @@
 import { css, keyframes } from '@emotion/core'
 
-export const gradientBackground = css`
-  background: -moz-linear-gradient(65deg, #f13f79, #ffc778);
-  background: -webkit-linear-gradient(65deg, #f13f79, #ffc778);
-  background: linear-gradient(25deg, #f13f79, #ffc778);
-`
-
 export const maxContentWidth = css`
   margin-left: auto;
   margin-right: auto;
@@ -43,5 +37,3 @@ export const fadeInDown = keyframes`
     -webkit-transform: translateY(0);
   }
 `
-
-export const colorFontSection = '#444'

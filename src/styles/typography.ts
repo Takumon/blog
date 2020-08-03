@@ -39,7 +39,7 @@ Wordpress2016.overrideThemeStyles = () => ({
   },
 
   'html,body,h1,h2,h3,h4,h5,h6': {
-    color: '#444',
+    color: 'var(--title)',
     fontFamily: [
       '-apple-system-body',
       'BlinkMacSystemFont',
@@ -73,18 +73,18 @@ Wordpress2016.overrideThemeStyles = () => ({
     textTransform: 'none',
   },
   'h1 a,h2 a,h3 a,h4 a,h5 a,h6 a': {
-    color: '#444',
+    color: 'var(--title)',
   },
   h2: {
     fontSize: '1.6rem',
-    borderBottom: '1px solid #ddd',
+    borderBottom: '1px solid var(--titleBorder)',
   },
   'html, body': {
     fontWeight: '500',
   },
   a: {
     boxShadow: 'none',
-    color: '#d86343',
+    color: 'var(--textLink)',
   },
   'a:hover': {
     opacity: '0.7',

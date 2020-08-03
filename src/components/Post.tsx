@@ -14,6 +14,7 @@ import ScrollSyncToc from './ScrollSyncToc'
 import Image from './Thumbnail'
 import Pagination from './Pagination'
 import useIsScrollDownTo from '../hooks/useIsScrollDownTo'
+import { DarkToggle } from './DarkToggle'
 
 type Props = {
   fields: any
@@ -41,12 +42,9 @@ const Post: React.FC<Props> = ({
 
   const postUrl = `${config.blogUrl}${slug}`
 
-  const cssSnsShare = useMemo(
-    () => {
-      return [styles.sns_share, isShowSnsShare ? styles.sns_share_show : styles.sns_share_hide]
-    },
-    [isShowSnsShare]
-  )
+  const cssSnsShare = useMemo(() => {
+    return [styles.sns_share, isShowSnsShare ? styles.sns_share_show : styles.sns_share_hide]
+  }, [isShowSnsShare])
 
   return (
     <article>
@@ -62,6 +60,7 @@ const Post: React.FC<Props> = ({
       />
 
       <div css={styles.header}>
+        <DarkToggle />
         <div css={styles.header__inner}>
           <div css={styles.header__inner__content}>
             <h4 css={styles.blog_title}>
@@ -146,7 +145,7 @@ const styles = {
     box-shadow: none;
     text-decoration: none;
     font-family: Montserrat;
-    color: #fee;
+    color: var(--titleRevert);
   `,
   blog_title__icon: css`
     display: inline-block;
@@ -165,7 +164,7 @@ const styles = {
     text-align: left;
 
     h1 {
-      color: white;
+      color: var(--titleRevert);
       font-weight: 200;
       font-size: 2.5em;
       line-height: 1.4;
@@ -191,19 +190,21 @@ const styles = {
     display: flex;
     align-items: center;
     background-attachment: fixed, fixed, fixed;
-    background-image: url('images/overlay2.png'), url('images/overlay4.svg'), linear-gradient(45deg, #bf002a 25%, #fd5210 70%, #ffa711);
+    background-image: url('images/overlay2.png'), url('images/overlay4.svg'), var(--headerBG);
     background-position: top left, top left, top left;
     background-size: auto, cover, cover;
     overflow: hidden;
     position: relative;
     text-align: center;
+    filter: var(--bannerBGFilter);
+    transition: filter 200ms var(--transitionMode) !important;
 
     &:after {
       -moz-pointer-events: none;
       -webkit-pointer-events: none;
       -ms-pointer-events: none;
       pointer-events: none;
-      background: linear-gradient(45deg, #8a5e5f, #d8bb93);
+      background: var(--headerBGBase);
       content: '';
       display: block;
       position: absolute;
@@ -218,12 +219,12 @@ const styles = {
     @media screen and (max-width: 720px) {
       min-height: 400px;
       background-attachment: scroll, scroll, scroll;
-      background-image: url('images/overlay2.png'), url('images/overlay4.svg'), linear-gradient(45deg, #bf002a 30%, #bf002a 60%, #fd5210 90%, #ffa711);
+      background-image: url('images/overlay2.png'), url('images/overlay4.svg'), var(--headerBGMiddle);
     }
 
     @media screen and (max-width: 400px) {
       min-height: 300px;
-      background-image: url('images/overlay2.png'), url('images/overlay4.svg'), linear-gradient(45deg, #bf002a 30%, #bf002a 60%, #fd5210 90%, #ffa711);
+      background-image: url('images/overlay2.png'), url('images/overlay4.svg'), var(--headerBGMiddle);
     }
   `,
   header__inner: css`
@@ -327,7 +328,7 @@ const styles = {
         margin-top: 3rem;
         margin-bottom: 1rem;
         font-size: 1.4rem;
-        border-bottom: 3px solid #ddd;
+        border-bottom: 3px solid var(--underline);
         position: relative;
       }
       h2::before {
@@ -336,7 +337,7 @@ const styles = {
         width: 100px;
         bottom: -3px;
         height: 3px;
-        background-color: rgb(206, 17, 38);
+        background-color: var(--accent);
       }
       h3 {
         margin-top: 1.2rem;
@@ -350,7 +351,7 @@ const styles = {
         width: 100px;
         bottom: -3px;
         height: 1px;
-        background-color: #dadada;
+        background-color: var(--underline);
       }
       h4 {
         margin-top: 1rem;
@@ -407,7 +408,7 @@ const styles = {
       margin-top: 3rem;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
-      border-bottom: ${sectionBorder} solid #ddd;
+      border-bottom: ${sectionBorder} solid var(--underline);
       position: relative;
     }
     h2::before {
@@ -416,7 +417,7 @@ const styles = {
       width: 100px;
       bottom: -${sectionBorder};
       height: ${sectionBorder};
-      background-color: #d32828;
+      background-color: var(--accent);
     }
     h3 {
       margin-top: 2rem;
@@ -430,7 +431,7 @@ const styles = {
       width: 100px;
       bottom: -3px;
       height: 1px;
-      background-color: #dadada;
+      background-color: var(--underline);
     }
     h4 {
       margin-top: 1rem;
@@ -454,6 +455,10 @@ const styles = {
 
     code {
       font-size: 0.85rem;
+    }
+    code.language-text {
+      background: var(--codeBG);
+      color: var(--codeText);
     }
 
     /* ブラウザ幅が狭くなった時にテーブルを横スクロールさせて、スマホでも大きいテーブルが見れるようにする */

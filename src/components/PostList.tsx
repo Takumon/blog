@@ -18,7 +18,7 @@ const PostList: React.FC<Props> = ({ postFields }) => {
   return (
     <div css={styles.content}>
       <div css={styles.content_inner}>
-        {filtered.map(postField => (
+        {filtered.map((postField) => (
           <PostPreview key={postField.slug} postField={postField} />
         ))}
       </div>
@@ -54,7 +54,8 @@ const styles = {
     /* to make about button clickable */
     padding-top: 72px;
     width: 100%;
-    background: #f1f1f1;
+    background: var(--bgLightLittle);
+    transition: background-color 400ms var(--transitionMode);
     @media screen and (max-width: 680px) {
       /* to make about button clickable */
       padding-top: 36px;
@@ -109,8 +110,8 @@ const styles = {
     height: 48px;
     background-size: contain;
     box-shadow: none;
-    color: #fff;
-    background: #f74539;
+    color: var(--buttonColor);
+    background: var(--buttonBG);
     border-radius: 24px;
     line-height: 25px;
     padding: 6px 24px;

@@ -4,11 +4,11 @@ import type { ElementDefinition } from 'cytoscape'
 import { css } from '@emotion/core'
 import CytoscapeComponent from 'react-cytoscapejs'
 import coseBilkent from 'cytoscape-cose-bilkent'
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import { FullScreen, useFullScreenHandle } from 'react-full-screen'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowsAlt, faCompress } from '@fortawesome/free-solid-svg-icons'
 import type { PostRelations } from '../../@types'
-import config from '../../config/blog-config.js'
+import config from '../../config/blog-config'
 import useThumbnailSrcMap from '../../hooks/useThumbnailSrcMap'
 
 cytoscape.use(coseBilkent)
@@ -168,8 +168,8 @@ const CYTOSCAPE_ZOOM_DOWN_ELEMENT = {
   locked: true,
 }
 
-const createPostNode = (posts: PostRelations, thumbnailSrcMap: {[path: string]: string;}): cytoscape.ElementDefinition[] => {
-  return posts.map(postRelation => {
+const createPostNode = (posts: PostRelations, thumbnailSrcMap: { [path: string]: string }): cytoscape.ElementDefinition[] => {
+  return posts.map((postRelation) => {
     const { fields } = postRelation.node
 
     // 記事サムネイルとして使う
@@ -200,11 +200,11 @@ const createPostNode = (posts: PostRelations, thumbnailSrcMap: {[path: string]: 
   })
 }
 
-function createPostEdges({ posts }: { posts: PostRelations}): ElementDefinition[] {
+function createPostEdges({ posts }: { posts: PostRelations }): ElementDefinition[] {
   const result: ElementDefinition[] = []
-  posts.forEach(postRelation => {
+  posts.forEach((postRelation) => {
     postRelation.relations.forEach(({ details, node }) =>
-      details.forEach(d => {
+      details.forEach((d) => {
         const k = (d.weight / 30) * 1
         const newOne = {
           data: {
@@ -218,7 +218,7 @@ function createPostEdges({ posts }: { posts: PostRelations}): ElementDefinition[
         }
 
         // source-targetの重複を除く
-        const isContain = result.some(b => {
+        const isContain = result.some((b) => {
           const isSameConnection =
             (newOne.data.source === b.data.source && newOne.data.target === b.data.target) ||
             (newOne.data.target === b.data.source && newOne.data.source === b.data.target)
@@ -236,32 +236,27 @@ function createPostEdges({ posts }: { posts: PostRelations}): ElementDefinition[
   return result
 }
 
-
 type Props = {
   posts: PostRelations
 }
 
 const PostRelationSection: React.FC<Props> = ({ posts }) => {
-  const fullScreenHandle = useFullScreenHandle();
+  const fullScreenHandle = useFullScreenHandle()
   const [cytoscapeElements, setCytoscapeElements] = useState<ElementDefinition[]>([])
   const [isShowContent, setIsShowContent] = useState(false)
 
-
   const thumbnailSrcMap = useThumbnailSrcMap()
 
-  const showContent = useCallback(
-    () => {
-      setIsShowContent(true)
+  const showContent = useCallback(() => {
+    setIsShowContent(true)
 
-      const nodes = createPostNode(posts, thumbnailSrcMap)
-      nodes.push(CYTOSCAPE_ZOOM_UP_ELEMENT)
-      nodes.push(CYTOSCAPE_ZOOM_DOWN_ELEMENT)
-      const edges = createPostEdges({ posts })
-      const cytoscapeElements = CytoscapeComponent.normalizeElements({ nodes, edges })
-      setCytoscapeElements(cytoscapeElements)
-    },
-      [posts, thumbnailSrcMap]
-    )
+    const nodes = createPostNode(posts, thumbnailSrcMap)
+    nodes.push(CYTOSCAPE_ZOOM_UP_ELEMENT)
+    nodes.push(CYTOSCAPE_ZOOM_DOWN_ELEMENT)
+    const edges = createPostEdges({ posts })
+    const cytoscapeElements = CytoscapeComponent.normalizeElements({ nodes, edges })
+    setCytoscapeElements(cytoscapeElements)
+  }, [posts, thumbnailSrcMap])
 
   let zoomLevel = 0.3
   const deltaZoomLevel = 0.02
@@ -305,8 +300,8 @@ const PostRelationSection: React.FC<Props> = ({ posts }) => {
         css={styles.container}
         style={{ width: fullScreenHandle.active ? '100vw' : '90%' }}
         stylesheet={CYTOSCAPE_COMPONENT_STYLE_SHEET}
-        cy={cy => {
-          cy.on('click', 'node[id = "zoomUp"]', function(e) {
+        cy={(cy) => {
+          cy.on('click', 'node[id = "zoomUp"]', function (e) {
             if (zoomLevel < 4) {
               zoomLevel = zoomLevel + deltaZoomLevel
             }
@@ -317,7 +312,7 @@ const PostRelationSection: React.FC<Props> = ({ posts }) => {
             })
           })
 
-          cy.on('click', 'node[id = "zoomDown"]', function(e) {
+          cy.on('click', 'node[id = "zoomDown"]', function (e) {
             if (zoomLevel > 0.1) {
               zoomLevel = zoomLevel - deltaZoomLevel
             }
@@ -335,7 +330,7 @@ const PostRelationSection: React.FC<Props> = ({ posts }) => {
               window.location.href = this.data('href')
             }
           })
-          cy.on('mouseover', 'node[id != "zoomUp"][ id != "zoomDown" ]', function(e) {
+          cy.on('mouseover', 'node[id != "zoomUp"][ id != "zoomDown" ]', function (e) {
             document.body.style.cursor = 'pointer'
             e.target.style({
               'text-margin-x': '-500px',
@@ -349,7 +344,7 @@ const PostRelationSection: React.FC<Props> = ({ posts }) => {
             })
           })
 
-          cy.on('mouseout', 'node[id != "zoomUp"][ id != "zoomDown" ]', function(e) {
+          cy.on('mouseout', 'node[id != "zoomUp"][ id != "zoomDown" ]', function (e) {
             document.body.style.cursor = 'default'
             e.target.style({
               'text-margin-x': '-300px',
@@ -375,39 +370,12 @@ const PostRelationSection: React.FC<Props> = ({ posts }) => {
         change the zoom level with the mouse wheel.
       </div>
 
-      <FullScreen handle={fullScreenHandle}>
-        {!isShowContent ? ContentAlternative : !cytoscapeElements ? ContentLoading : Content}
-      </FullScreen>
+      <FullScreen handle={fullScreenHandle}>{!isShowContent ? ContentAlternative : !cytoscapeElements ? ContentLoading : Content}</FullScreen>
     </>
   )
 }
 
 export default PostRelationSection
-
-const BG_IMAGE = `repeating-linear-gradient(
-  to bottom,
-  transparent 21px,
-  rgba(225, 225, 225, 0.17) 22px,  rgba(225, 225, 225, 0.17) 22px,
-  transparent 23px,  transparent 43px, 
-  rgba(225, 225, 225, 0.17) 44px,  rgba(225, 225, 225, 0.17) 44px,
-  transparent 45px,  transparent 65px, 
-  rgba(225, 225, 225, 0.17) 66px,  rgba(225, 225, 225, 0.17) 66px,
-  transparent 67px,  transparent 87px, 
-  rgba(225, 225, 225, 0.17) 88px,  rgba(225, 225, 225, 0.17) 88px,
-  transparent 89px,  transparent 109px, 
-  rgba(225, 225, 225, 0.17) 110px,  rgba(225, 225, 225, 0.17) 110px),
-  repeating-linear-gradient(to right,
-  transparent 21px,
-  rgba(225, 225, 225, 0.17) 22px,  rgba(225, 225, 225, 0.17) 22px,
-  transparent 23px,  transparent 43px, 
-  rgba(225, 225, 225, 0.17) 44px,  rgba(225, 225, 225, 0.17) 44px,
-  transparent 45px,  transparent 65px, 
-  rgba(225, 225, 225, 0.17) 66px,  rgba(225, 225, 225, 0.17) 66px,
-  transparent 67px,  transparent 87px, 
-  rgba(225, 225, 225, 0.17) 88px,  rgba(225, 225, 225, 0.17) 88px,
-  transparent 89px,  transparent 109px, 
-  rgba(225, 225, 225, 0.17) 110px,  rgba(225, 225, 225, 0.17) 110px
-)`
 
 const styles = {
   title: css`
@@ -431,13 +399,12 @@ const styles = {
     width: 90%;
     text-align: center;
     font-size: 2rem;
-    color: #555555;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 42px;
     border: 1px solid black;
-    background-color: #ffffff;
-    background-image: ${BG_IMAGE};
+    background-color: var(--bgLight);
+    background-image: var(--graphPaperBG);
     min-height: 40vh;
     line-height: 40vh;
   `,
@@ -449,7 +416,7 @@ const styles = {
     box-shadow: none;
     color: white;
     font-weight: 600;
-    background: #f74539;
+    background: var(--buttonBG);
     border-radius: 18px;
     line-height: 35px;
     font-size: 16px;
@@ -466,13 +433,13 @@ const styles = {
     width: 90%;
     text-align: center;
     font-size: 2rem;
-    color: #555555;
+    color: var(--textLightLittle);
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 42px;
     border: 1px solid black;
-    background-color: #ffffff;
-    background-image: ${BG_IMAGE};
+    background-color: var(--bgLight);
+    background-image: var(--graphPaperBG);
     min-height: 40vh;
     line-height: 40vh;
   `,
@@ -492,7 +459,7 @@ const styles = {
     margin-left: auto;
     margin-right: auto;
     border: 1px solid black;
-    background-color: #ffffff;
-    background-image: ${BG_IMAGE};
+    background-color: var(--bgLight);
+    background-image: var(--graphPaperBG);
   `,
 }

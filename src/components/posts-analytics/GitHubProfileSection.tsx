@@ -8,7 +8,9 @@ import ReactTooltip from 'react-tooltip'
 import useGitHubData from '../../hooks/useGitHubData'
 
 const GitHubProfileSection: React.FC = () => {
-  const { github: { viewer, user } } = useGitHubData()
+  const {
+    github: { viewer, user },
+  } = useGitHubData()
 
   const pinnedItemsNodes = user?.pinnedItems?.nodes
   return (
@@ -24,15 +26,15 @@ const GitHubProfileSection: React.FC = () => {
 
           <div>
             <div css={styles.userInfo__content}>
-              <FontAwesomeIcon color="#333" size="sm" css={styles.userInfo__content__icon} icon={faEnvelope} />
+              <FontAwesomeIcon color="var(--text)" size="sm" css={styles.userInfo__content__icon} icon={faEnvelope} />
               {viewer.email}
             </div>
             <div css={styles.userInfo__content}>
-              <FontAwesomeIcon color="#333" size="sm" css={styles.userInfo__content__icon} icon={faLink} />
+              <FontAwesomeIcon color="var(--text)" size="sm" css={styles.userInfo__content__icon} icon={faLink} />
               {viewer.websiteUrl}
             </div>
             <div css={styles.userInfo__content}>
-              <FontAwesomeIcon color="#333" size="sm" css={styles.userInfo__content__icon} icon={faMapMarkerAlt} />
+              <FontAwesomeIcon color="var(--text)" size="sm" css={styles.userInfo__content__icon} icon={faMapMarkerAlt} />
               {viewer.location}
             </div>
           </div>
@@ -41,11 +43,14 @@ const GitHubProfileSection: React.FC = () => {
 
           <div css={styles.subtitle}>Organizations</div>
           <div css={styles.profile__orgs}>
-            {viewer.organizations.nodes?.map(n => (n &&
-              <a key={n.avatarUrl} css={styles.orgs__content} href={n.url}>
-                <img src={n.avatarUrl} css={styles.orgs__content__icon} />
-              </a>
-            ))}
+            {viewer.organizations.nodes?.map(
+              (n) =>
+                n && (
+                  <a key={n.avatarUrl} css={styles.orgs__content} href={n.url}>
+                    <img src={n.avatarUrl} css={styles.orgs__content__icon} />
+                  </a>
+                )
+            )}
           </div>
 
           <div css={styles.divider} />
@@ -55,29 +60,32 @@ const GitHubProfileSection: React.FC = () => {
           <div css={styles.subtitle}>Repositories</div>
 
           <div css={styles.repos}>
-            {pinnedItemsNodes?.map((repo, i) => (repo &&
-              <a css={styles.repo} href={repo.url} key={i}>
-                <div css={styles.repo__name}>
-                  <div css={styles.repo__name__inner}>
-                    {repo?.owner.login}/{repo?.name}
-                  </div>
-                </div>
+            {pinnedItemsNodes?.map(
+              (repo, i) =>
+                repo && (
+                  <a css={styles.repo} href={repo.url} key={i}>
+                    <div css={styles.repo__name}>
+                      <div css={styles.repo__name__inner}>
+                        {repo?.owner.login}/{repo?.name}
+                      </div>
+                    </div>
 
-                <div css={styles.repo__description}>{repo?.description}</div>
+                    <div css={styles.repo__description}>{repo?.description}</div>
 
-                <div css={styles.repo__info}>
-                  <div css={styles.repo__info__factor}>
-                    <FontAwesomeIcon color="#333" size="sm" css={styles.repo__info__icon} icon={faStar} />
-                    {repo?.stargazers.totalCount}
-                  </div>
+                    <div css={styles.repo__info}>
+                      <div css={styles.repo__info__factor}>
+                        <FontAwesomeIcon color="#333" size="sm" css={styles.repo__info__icon} icon={faStar} />
+                        {repo?.stargazers.totalCount}
+                      </div>
 
-                  <div css={styles.repo__info__factor}>
-                    <FontAwesomeIcon color="#333" size="sm" css={styles.repo__info__icon} icon={faCodeBranch} />
-                    {repo?.forkCount}
-                  </div>
-                </div>
-              </a>
-            ))}
+                      <div css={styles.repo__info__factor}>
+                        <FontAwesomeIcon color="#333" size="sm" css={styles.repo__info__icon} icon={faCodeBranch} />
+                        {repo?.forkCount}
+                      </div>
+                    </div>
+                  </a>
+                )
+            )}
           </div>
 
           <GitHubCalendar username="takumon" years={[2020, 2019]} fullYear={false} fontSize={10}>
@@ -122,7 +130,7 @@ const styles = {
   divider: css`
     width: 100%;
     height: 0;
-    border-bottom: 0.1px solid #dfe2e5;
+    border-bottom: 0.1px solid var(--bgLightLittle);
     margin-top: 12px;
     margin-bottom: 12px;
   `,
@@ -153,7 +161,7 @@ const styles = {
     font-weight: 600;
     font-size: 24px;
     line-height: 24px;
-    color: rgb(36, 41, 46);
+    color: var(--text);
     margin-right: 8px;
     margin-bottom: 12px;
   `,
@@ -175,16 +183,20 @@ const styles = {
     height: 28px;
     border-radius: 50%;
     margin: 0;
-    background: #dddde4;
+    background: var(--text);
   `,
 
   userInfo__content: css`
-    color: rgb(36, 41, 46);
+    color: var(--text);
     margin-bottom: 2px;
     -webkit-box-align: center;
     align-items: center;
     display: flex;
     font-size: 0.8rem;
+
+    svg {
+      color: var(--text);
+    }
   `,
 
   userInfo__content__icon: css`
@@ -195,7 +207,7 @@ const styles = {
     font-family: Rubik, sans-serif;
     font-weight: 600;
     font-size: 24px;
-    color: rgb(36, 41, 46);
+    color: var(--text);
     margin: 0px 0px 8px;
   `,
 
@@ -212,14 +224,14 @@ const styles = {
     width: calc(50% - 4px);
     text-align: left;
     padding: 16px;
-    background-color: #fff;
+    background-color: var(--bgLight);
     border-radius: 3px;
-    border: 1px #e1e4e8 solid;
+    border: 1px solid var(--underline);
 
     &:hover {
       opacity: 1;
       transform: scale(1.02);
-      color: #989eb0;
+      color: var(--textLightLittle);
     }
     @media screen and (max-width: 1000px) {
       width: 100%;
@@ -240,7 +252,7 @@ const styles = {
     white-space: normal;
     margin-bottom: 8px;
     font-size: 0.75rem;
-    color: #444;
+    color: var(--text);
   `,
 
   repo__info: css`
@@ -250,7 +262,11 @@ const styles = {
   repo__info__factor: css`
     margin-right: 24px;
     font-size: 0.75rem;
-    color: #444;
+    color: var(--text);
+
+    svg {
+      color: var(--text);
+    }
   `,
 
   repo__info__icon: css`

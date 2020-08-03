@@ -3,8 +3,8 @@ import { Global, css } from '@emotion/core'
 
 const styles = css`
   .gatsby-code-title {
-    background: #f3e3b9;
-    color: #b38383;
+    background: var(--codeBG);
+    color: var(--code);
     margin-bottom: -0.65em;
     padding: 0.4rem 1.05rem;
     font-size: 0.8em;
@@ -16,17 +16,17 @@ const styles = css`
   }
 
   .gatsby-highlight-code-line {
-    background-color: #feb;
+    background-color: var(--codeHighlightBG);
     display: block;
     margin-right: -1em;
     margin-left: -1em;
     padding-right: 1em;
     padding-left: 0.75em;
-    border-left: 0.25em solid #f99;
+    border-left: 0.25em solid var(--codeLineMarker);
   }
 
   .gatsby-highlight {
-    background-color: #fdf6e3;
+    background: var(--highlightBG);
     border-radius: 0.3em;
     margin: 0.5em 0;
     padding: 1em;

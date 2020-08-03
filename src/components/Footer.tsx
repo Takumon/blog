@@ -52,7 +52,13 @@ const styles = {
     background-position-x: center;
 
     a {
-      color: white;
+      color: var(--textLight);
+    }
+
+    &:after,
+    &:before {
+      filter: var(--bannerBGFilter);
+      transition: filter 200ms cubic-bezier(0.1, 0.6, 0.58, 1) !important;
     }
   `,
 

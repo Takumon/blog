@@ -14,7 +14,7 @@ const Toc: React.FC<Props> = ({ headings, activeItemIds }) => {
       {({ location }) => (
         <div css={styles.container}>
           <ul css={styles.list_wrapper}>
-            {headings.map(item => (
+            {headings.map((item) => (
               <li
                 css={activeItemIds.includes(item.id) ? [styles.list, styles.listActive] : [styles.list]}
                 key={item.id}
@@ -49,15 +49,16 @@ const styles = {
       display: block;
       padding-left: 2px;
       box-shadow: none;
-      color: #aaa;
+      color: var(--textLightLittle);
       border-radius: 4px;
-      background-color: white;
-      letter-spacing: 0; // 幅が狭いので詰め詰めにする
+      background-color: var(--bgLight);
+      letter-spacing: 0; /* 幅が狭いので詰め詰めにする */
 
       &:hover {
-        background: #fee;
-        text-decoration: underline #cbb;
-        color: #000;
+        background-color: var(--bgHover);
+        text-decoration: underline var(--underlineHover);
+        color: var(--text);
+        opacity: 1;
         transition: background-color 0.2s ease-out;
       }
     }
@@ -65,8 +66,8 @@ const styles = {
 
   listActive: css`
     a {
-      background-color: #fffbf0;
-      color: #888;
+      background-color: var(--bgActive);
+      color: var(--text);
       transition: background-color 0.2s ease-out;
     }
   `,

@@ -8,18 +8,24 @@ import _flatMap from 'lodash/fp/flatMap'
 import _orderBy from 'lodash/orderBy'
 import striptags from 'striptags'
 
-import config from '../src/config/blog-config.js'
+import config from '../src/config/blog-config'
 import { extractRelatedPosts, extractRelatedPostRankings } from './gatsby-related-post'
 import { createWordCount, createWordCloud } from './wordCloud'
 import { POST_TYPE, query } from './constants'
 import type {
-  TagData, WordCloudParam,
-  QueryResult, PostNodeWrapper, PostNode, OriginalPostNode, QiitaPostNode, PageContextAbout, PageContextTags
+  TagData,
+  WordCloudParam,
+  QueryResult,
+  PostNodeWrapper,
+  PostNode,
+  OriginalPostNode,
+  QiitaPostNode,
+  PageContextAbout,
+  PageContextTags,
 } from '../src/@types'
 
-
 // onCreateNodeより後に実行される
-export const createPages = async({ graphql, actions }: CreatePagesArgs): Promise<void> => {
+export const createPages = async ({ graphql, actions }: CreatePagesArgs): Promise<void> => {
   const { createPage } = actions
 
   const BlogPostTemplate = path.resolve('./src/templates/BlogPostTemplate.tsx')
@@ -32,7 +38,7 @@ export const createPages = async({ graphql, actions }: CreatePagesArgs): Promise
   const siteMetadata = result.data?.site.siteMetadata
 
   // オリジナル記事とQiitaの記事を1つのリストにする
-  const originalPosts: PostNodeWrapper[] = result.data?.allMarkdownRemark.edges.map(p => {
+  const originalPosts: PostNodeWrapper[] = result.data?.allMarkdownRemark.edges.map((p) => {
     return {
       type: POST_TYPE.ORIGINAL,
       date: new Date(p.node.fields.date),
@@ -40,7 +46,7 @@ export const createPages = async({ graphql, actions }: CreatePagesArgs): Promise
     }
   })
 
-  const qiitaPosts: PostNodeWrapper[] = result.data?.allQiitaPost.edges.map(p => {
+  const qiitaPosts: PostNodeWrapper[] = result.data?.allQiitaPost.edges.map((p) => {
     return {
       type: POST_TYPE.QIITA,
       date: new Date(p.node.fields.date),
@@ -54,9 +60,9 @@ export const createPages = async({ graphql, actions }: CreatePagesArgs): Promise
     return 0
   })
 
-  const allPostNodes: PostNode[] = posts.map(p => p.node)
+  const allPostNodes: PostNode[] = posts.map((p) => p.node)
 
-  const defaultThumbnail = thumbnails?.edges.find(edge => edge.node.relativePath.includes(config.defaultThumbnailImagePath))
+  const defaultThumbnail = thumbnails?.edges.find((edge) => edge.node.relativePath.includes(config.defaultThumbnailImagePath))
 
   // 記事詳細ページ生成
   posts.forEach(({ type, node }: PostNodeWrapper, index: number) => {
@@ -65,7 +71,7 @@ export const createPages = async({ graphql, actions }: CreatePagesArgs): Promise
     const latestPosts = allPostNodes.slice(0, 5)
 
     if (type === POST_TYPE.ORIGINAL) {
-      const thumbnail = thumbnails?.edges.find(edge => edge.node.relativePath.includes(node.fields.thumbnail))
+      const thumbnail = thumbnails?.edges.find((edge) => edge.node.relativePath.includes(node.fields.thumbnail))
 
       const pageContextPost = {
         thumbnail,
@@ -82,7 +88,6 @@ export const createPages = async({ graphql, actions }: CreatePagesArgs): Promise
         context: pageContextPost,
       })
     } else if (type === POST_TYPE.QIITA) {
-
       const pageContextQiita = {
         thumbnail: defaultThumbnail,
         siteMetadata,
@@ -90,7 +95,6 @@ export const createPages = async({ graphql, actions }: CreatePagesArgs): Promise
         relatedPosts,
         latestPosts,
         ...prevNext(posts, index),
-      
       }
       createPage({
         path: node.fields.slug,
@@ -103,7 +107,7 @@ export const createPages = async({ graphql, actions }: CreatePagesArgs): Promise
   })
 
   // 記事関連情報生成
-  const allPostRelationsForAboutPage = allPostNodes.map(node => {
+  const allPostRelationsForAboutPage = allPostNodes.map((node) => {
     return {
       node,
       relations: extractRelatedPostRankings(allPostNodes, node, { threshold: 50 }),
@@ -125,13 +129,13 @@ export const createPages = async({ graphql, actions }: CreatePagesArgs): Promise
 
   const tagData: TagData = []
 
-  posts.forEach(post => {
-    post.node.fields.tags.forEach(t => {
+  posts.forEach((post) => {
+    post.node.fields.tags.forEach((t) => {
       if ('Qiita' === t) {
         return
       }
 
-      const targetData = tagData.find(data => data.text === t)
+      const targetData = tagData.find((data) => data.text === t)
       if (targetData) {
         targetData.size = targetData.size + 1
       } else {
@@ -175,7 +179,7 @@ export const createPages = async({ graphql, actions }: CreatePagesArgs): Promise
     wordCloudText: textSvg,
     wordCloudTag: tagSvg,
   }
-  
+
   // 記事分析ページ生成
   createPage({
     path: '/about/',
@@ -187,9 +191,9 @@ export const createPages = async({ graphql, actions }: CreatePagesArgs): Promise
   _flow(
     _flatMap((post: PostNodeWrapper) => post.node.fields.tags),
     _uniq,
-    _forEach((tag: string)=> {
+    _forEach((tag: string) => {
       // ソートは省略する。postsはソート済だから。
-      const nodes = posts.filter(post => post.node.fields.tags.includes(tag)).map(post => post.node)
+      const nodes = posts.filter((post) => post.node.fields.tags.includes(tag)).map((post) => post.node)
 
       const pageContextTag: PageContextTags = {
         nodes,
