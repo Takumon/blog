@@ -83,6 +83,7 @@
     "use-debounce": "^3.4.3"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.4.4",
     "@types/cytoscape": "3.14.7",
     "@types/d3": "5.7.2",
     "@types/d3-cloud": "1.2.3",
@@ -141,6 +142,7 @@
     "local-build": "run-s install-local-gatsby-plugins local-build:gatsby",
     "local-build:gatsby": "gatsby build --log-pages",
     "fix-semi": "eslint --quiet --ignore-pattern node_modules --ignore-pattern public --parser babel-eslint --no-eslintrc --rule '{\"semi\": [2, \"never\"], \"no-extra-semi\": [2]}' --fix gatsby-node.js",
-    "rm": "gatsby clean && rd /s ./public"
+    "rm": "gatsby clean && rd /s ./public",
+    "lhci": "lhci autorun"
   }
 }

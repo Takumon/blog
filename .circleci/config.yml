@@ -2,7 +2,7 @@ version: 2.1
 executors:
   node-executor:
     docker:
-      - image: circleci/node:12
+      - image: circleci/node:14.6.0-browsers
 commands:
   gatsby-build:
     steps:
@@ -27,6 +27,7 @@ commands:
           key: gatsby-public-cache-{{ .Branch }}
           paths:
             - ./public
+      - run: npm run lhci || echo "LHCI failed!"
 workflows:
   version: 2
   build-deploy:
