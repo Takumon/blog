@@ -27,7 +27,7 @@ commands:
           key: gatsby-public-cache-{{ .Branch }}
           paths:
             - ./public
-      - run: npm lhci || echo "LHCI failed!"
+      - run: npm run lhci || echo "LHCI failed!"
 workflows:
   version: 2
   build-deploy:
