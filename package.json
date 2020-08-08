@@ -83,7 +83,7 @@
     "use-debounce": "^3.4.3"
   },
   "devDependencies": {
-    "@lhci/cli": "^0.4.4",
+    "@lhci/cli": "0.4.4",
     "@types/cytoscape": "3.14.7",
     "@types/d3": "5.7.2",
     "@types/d3-cloud": "1.2.3",
