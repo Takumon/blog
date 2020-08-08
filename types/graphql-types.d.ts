@@ -752,9 +752,9 @@ export type FileFieldsEnum =
   | 'childMarkdownRemark___frontmatter___date'
   | 'childMarkdownRemark___frontmatter___tags'
   | 'childMarkdownRemark___frontmatter___keywords'
+  | 'childMarkdownRemark___frontmatter___slug'
   | 'childMarkdownRemark___frontmatter___thumbnail'
   | 'childMarkdownRemark___frontmatter____PARENT'
-  | 'childMarkdownRemark___frontmatter___slug'
   | 'childMarkdownRemark___excerpt'
   | 'childMarkdownRemark___rawMarkdownBody'
   | 'childMarkdownRemark___fileAbsolutePath'
@@ -1345,8 +1345,10 @@ export type GitHub_AddPullRequestReviewThreadInput = {
   path: Scalars['String'];
   /** Body of the thread's first comment. */
   body: Scalars['String'];
+  /** The node ID of the pull request reviewing */
+  pullRequestId?: Maybe<Scalars['ID']>;
   /** The Node ID of the review to modify. */
-  pullRequestReviewId: Scalars['ID'];
+  pullRequestReviewId?: Maybe<Scalars['ID']>;
   /** The line of the blob to which the thread refers. The end of the line range for multi-line comments. */
   line: Scalars['Int'];
   /** The side of the diff on which the line resides. For multi-line comments, this is the side for the end of the line range. */
@@ -5078,12 +5080,30 @@ export type GitHub_ExternalIdentityEdge = {
 
 /** SAML attributes for the External Identity */
 export type GitHub_ExternalIdentitySamlAttributes = {
+  /** The emails associated with the SAML identity */
+  emails?: Maybe<Array<GitHub_UserEmailMetadata>>;
+  /** Family name of the SAML identity */
+  familyName?: Maybe<Scalars['String']>;
+  /** Given name of the SAML identity */
+  givenName?: Maybe<Scalars['String']>;
+  /** The groups linked to this identity in IDP */
+  groups?: Maybe<Array<Scalars['String']>>;
   /** The NameID of the SAML identity */
   nameId?: Maybe<Scalars['String']>;
+  /** The userName of the SAML identity */
+  username?: Maybe<Scalars['String']>;
 };
 
 /** SCIM attributes for the External Identity */
 export type GitHub_ExternalIdentityScimAttributes = {
+  /** The emails associated with the SCIM identity */
+  emails?: Maybe<Array<GitHub_UserEmailMetadata>>;
+  /** Family name of the SCIM identity */
+  familyName?: Maybe<Scalars['String']>;
+  /** Given name of the SCIM identity */
+  givenName?: Maybe<Scalars['String']>;
+  /** The groups linked to this identity in IDP */
+  groups?: Maybe<Array<Scalars['String']>>;
   /** The userName of the SCIM identity */
   username?: Maybe<Scalars['String']>;
 };
@@ -17079,6 +17099,16 @@ export type GitHub_UserEdge = {
   node?: Maybe<GitHub_User>;
 };
 
+/** Email attributes from External Identity */
+export type GitHub_UserEmailMetadata = {
+  /** Boolean to identify primary emails */
+  primary?: Maybe<Scalars['Boolean']>;
+  /** Type of email */
+  type?: Maybe<Scalars['String']>;
+  /** Email id */
+  value: Scalars['String'];
+};
+
 /** The user's description of what they're currently doing. */
 export type GitHub_UserStatus = GitHub_Node & {
   /** Identifies the date and time when the object was created. */
@@ -18063,9 +18093,9 @@ export type MarkdownRemarkFieldsEnum =
   | 'frontmatter___date'
   | 'frontmatter___tags'
   | 'frontmatter___keywords'
+  | 'frontmatter___slug'
   | 'frontmatter___thumbnail'
   | 'frontmatter____PARENT'
-  | 'frontmatter___slug'
   | 'excerpt'
   | 'rawMarkdownBody'
   | 'fileAbsolutePath'
@@ -18129,9 +18159,9 @@ export type MarkdownRemarkFrontmatter = {
   date?: Maybe<Scalars['Date']>;
   tags?: Maybe<Array<Maybe<Scalars['String']>>>;
   keywords?: Maybe<Array<Maybe<Scalars['String']>>>;
+  slug?: Maybe<Scalars['String']>;
   thumbnail?: Maybe<Scalars['String']>;
   _PARENT?: Maybe<Scalars['String']>;
-  slug?: Maybe<Scalars['String']>;
 };
 
 
@@ -18147,9 +18177,9 @@ export type MarkdownRemarkFrontmatterFilterInput = {
   date?: Maybe<DateQueryOperatorInput>;
   tags?: Maybe<StringQueryOperatorInput>;
   keywords?: Maybe<StringQueryOperatorInput>;
+  slug?: Maybe<StringQueryOperatorInput>;
   thumbnail?: Maybe<StringQueryOperatorInput>;
   _PARENT?: Maybe<StringQueryOperatorInput>;
-  slug?: Maybe<StringQueryOperatorInput>;
 };
 
 export type MarkdownRemarkGroupConnection = {
