@@ -1,10 +1,8 @@
 import React, { useMemo } from 'react'
 import { graphql } from 'gatsby'
 import _orderBy from 'lodash/orderBy'
-import type { WindowLocation } from "@reach/router"
 import type { TagCounts } from '../@types'
 import type { IndexPageQuery } from '../../types/graphql-types'
-import Layout from '../components/Layout'
 import PostList from '../components/PostList'
 import TagList from '../components/TagList'
 import Title from '../components/Title'
@@ -13,10 +11,9 @@ import Title from '../components/Title'
 
 
 type Props = {
-  location: WindowLocation
   data: IndexPageQuery
 }
-const BlogIndex: React.FC<Props> = ({ location, data }) => {
+const BlogIndex: React.FC<Props> = ({ data }) => {
   // マージして降順で並び替え
   // gatsby-node.jsで2つのノードに共通のfieldsを追加しているため条件分岐なし
   const posts = useMemo(
@@ -35,7 +32,7 @@ const BlogIndex: React.FC<Props> = ({ location, data }) => {
 
   const tagCounts = useMemo(
     () => {
-      const _result:TagCounts = []
+      const _result: TagCounts = []
 
       posts.forEach(post => {
         post.node.fields?.tags?.forEach(t => {
@@ -67,11 +64,11 @@ const BlogIndex: React.FC<Props> = ({ location, data }) => {
   const postFields = useMemo(() => posts.map(post => post.node.fields), [posts])
 
   return (
-    <Layout location={location}>
+    <>
       <Title />
       <PostList postFields={postFields} />
       <TagList tagCounts={tagCounts} />
-    </Layout>
+    </>
   )
 }
 

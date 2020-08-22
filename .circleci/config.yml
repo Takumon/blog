@@ -13,7 +13,7 @@ commands:
             - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
             - node-v1-{{ .Branch }}-
             - node-v1-
-      - run: npm install
+      - run: npm ci
       - save_cache:
           paths:
             - ~/usr/local/lib/node_modules  # location depends on npm version

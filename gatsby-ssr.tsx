@@ -1,15 +1,12 @@
-require('dotenv').config()
-const { setPreBodyComponents } = require("react-dom/server")
-const React = require('react');
+import dotenv from 'dotenv'
+import * as React from 'react'
+import Layout from './src/components/Layout'
+dotenv.config()
 
-exports.replaceRenderer = ({ setPreBodyComponents }) => {
-  setPreBodyComponents([
-    <noscript>本ブログはJavaScriptが前提となっております。JavaScriptを有効にしてください。</noscript>
-  ])
-}
+export const wrapPageElement = ({ element, props }) => <Layout {...props}>{element}</Layout>
 
 
-// exports.onRenderBody = ({ setHeadComponents, setPostBodyComponents }) => {
+// export const onRenderBody = ({ setHeadComponents, setPostBodyComponents }) => {
 //   return setHeadComponents([
 //     <script
 //       async
