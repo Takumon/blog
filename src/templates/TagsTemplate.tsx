@@ -1,5 +1,4 @@
 import React from 'react'
-import type { WindowLocation } from "@reach/router"
 import { css } from '@emotion/core'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,11 +14,10 @@ import TagList from '../components/TagList'
 import type { PageContextTags } from '../@types'
 
 type Props = {
-  location: WindowLocation
   pageContext: PageContextTags
 }
 
-const TagsTemplate: React.FC<Props> = ({ location, pageContext }) => {
+const TagsTemplate: React.FC<Props> = ({ pageContext }) => {
   const posts = pageContext.nodes
   const totalCount = posts && posts.length ? posts.length : 0
 
@@ -37,14 +35,12 @@ const TagsTemplate: React.FC<Props> = ({ location, pageContext }) => {
     totalCount > 0 ? <PostList postFields={posts.map(node => node.fields)} /> : <div css={styles.no_post}>指摘したタグの記事はありません。</div>
 
   return (
-    <Layout location={location}>
-      <div>
-        <Title tag={pageContext.tag} />
-        {tagSearchResult}
-        {postList}
-        <TagList tagCounts={pageContext.tagCounts} />
-      </div>
-    </Layout>
+    <div>
+      <Title tag={pageContext.tag} />
+      {tagSearchResult}
+      {postList}
+      <TagList tagCounts={pageContext.tagCounts} />
+    </div>
   )
 }
 
@@ -61,7 +57,7 @@ const styles = {
   tag_icon: css`
     margin-right: 0.5em;
   `,
-  
+
   no_post: css`
     ${maxContentWidth}
     padding: 1em 0 0 1em;
