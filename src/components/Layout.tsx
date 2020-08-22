@@ -8,6 +8,7 @@ import NormalizeStyle from '../styles/NormalizeStyle'
 import GlobalStyle from '../styles/GlobalStyle'
 import HighlightStyle from '../styles/HighlightStyle'
 
+import 'prismjs/themes/prism-solarizedlight.css'
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
 
 import { flexColumnCenter } from '../styles/mixinStyle'
