@@ -108,7 +108,7 @@
     "imagemin": "7.0.1",
     "imagemin-mozjpeg": "9.0.0",
     "imagemin-pngquant": "9.0.0",
-    "netlify-cli": "2.59.0",
+    "netlify-cli": "2.59.1",
     "npm-run-all": "4.1.5",
     "prettier": "2.0.5",
     "ts-node": "8.10.2"
