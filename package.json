@@ -111,7 +111,7 @@
     "netlify-cli": "2.59.1",
     "npm-run-all": "4.1.5",
     "prettier": "2.0.5",
-    "ts-node": "8.10.2"
+    "ts-node": "9.0.0"
   },
   "homepage": "https://github.com/takumon/blog#readme",
   "keywords": [
