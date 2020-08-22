@@ -12738,10 +12738,16 @@ export type GitHub_Repository = GitHub_Node & GitHub_ProjectOwner & GitHub_Packa
   viewerCanSubscribe: Scalars['Boolean'];
   /** Indicates whether the viewer can update the topics of this repository. */
   viewerCanUpdateTopics: Scalars['Boolean'];
+  /** The last commit email for the viewer. */
+  viewerDefaultCommitEmail?: Maybe<Scalars['String']>;
+  /** The last used merge method by the viewer or the default for the repository. */
+  viewerDefaultMergeMethod: GitHub_PullRequestMergeMethod;
   /** Returns a boolean indicating whether the viewing user has starred this starrable. */
   viewerHasStarred: Scalars['Boolean'];
   /** The users permission level on the repository. Will return null if authenticated as an GitHub App. */
   viewerPermission?: Maybe<GitHub_RepositoryPermission>;
+  /** A list of emails this viewer can commit with. */
+  viewerPossibleCommitEmails?: Maybe<Array<Scalars['String']>>;
   /** Identifies if the viewer is watching, not watching, or ignoring the subscribable entity. */
   viewerSubscription?: Maybe<GitHub_SubscriptionState>;
   /** A list of vulnerability alerts that are on this repository. */

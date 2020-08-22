@@ -2,9 +2,17 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "ES2018",
-    "typeRoots": ["node_modules/@types", "src/@types"],
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "src/@types/*"
+      ]
+    },
     "jsx": "preserve",
-    "lib": ["dom", "esnext"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "strict": true,
     "noEmit": true,
     "isolatedModules": true,
@@ -12,5 +20,9 @@
     "noUnusedLocals": false,
     "allowJs": true
   },
-  "exclude": ["node_modules", "public", ".cache"]
+  "exclude": [
+    "node_modules",
+    "public",
+    ".cache"
+  ]
 }
