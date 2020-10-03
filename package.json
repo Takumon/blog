@@ -17,7 +17,7 @@
     "canvas": "^2.6.1",
     "cytoscape-cola": "^2.3.0",
     "cytoscape-cose-bilkent": "^4.0.0",
-    "d3": "^5.9.2",
+    "d3": "^6.0.0",
     "d3-cloud": "^1.2.5",
     "dotenv": "^8.0.0",
     "emotion-normalize": "^10.1.0",
