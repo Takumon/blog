@@ -2,7 +2,7 @@ version: 2.1
 executors:
   node-executor:
     docker:
-      - image: circleci/node:14.6.0-browsers
+      - image: circleci/node:14.15.1-browsers
 commands:
   gatsby-build:
     steps:
