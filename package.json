@@ -92,7 +92,7 @@
     "@types/node": "14.14.25",
     "@types/react": "17.0.3",
     "@types/react-cytoscapejs": "1.2.0",
-    "@types/react-dom": "16.9.11",
+    "@types/react-dom": "17.0.2",
     "@types/react-helmet": "6.1.0",
     "@types/react-share": "3.0.3",
     "@types/typography": "0.16.3",
