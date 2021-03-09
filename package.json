@@ -90,7 +90,7 @@
     "@types/jsdom": "16.2.6",
     "@types/kuromoji": "0.1.0",
     "@types/node": "14.14.25",
-    "@types/react": "16.14.2",
+    "@types/react": "17.0.3",
     "@types/react-cytoscapejs": "1.2.0",
     "@types/react-dom": "16.9.11",
     "@types/react-helmet": "6.1.0",
