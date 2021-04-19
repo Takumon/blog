@@ -64,7 +64,7 @@
     "katex": "^0.13.0",
     "kuromoji": "^0.1.2",
     "lodash": "^4.17.19",
-    "moment": "^2.22.2",
+    "moment": "^2.29.1",
     "prismjs": "^1.15.0",
     "react": "^17.0.0",
     "react-adsense": "^0.1.0",
