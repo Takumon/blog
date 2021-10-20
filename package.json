@@ -86,7 +86,7 @@
     "@lhci/cli": "0.7.0",
     "@types/cytoscape": "3.14.12",
     "@types/d3": "6.3.0",
-    "@types/d3-cloud": "1.2.3",
+    "@types/d3-cloud": "1.2.5",
     "@types/jsdom": "16.2.7",
     "@types/kuromoji": "0.1.0",
     "@types/node": "14.14.33",
