@@ -98,7 +98,7 @@
     "@types/typography": "0.16.3",
     "@typescript-eslint/eslint-plugin": "4.17.0",
     "@typescript-eslint/parser": "4.17.0",
-    "eslint": "7.19.0",
+    "eslint": "7.32.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-emotion": "11.0.0",
     "eslint-plugin-prettier": "3.3.1",
