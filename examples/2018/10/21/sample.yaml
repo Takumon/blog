@@ -1,6 +1,0 @@
-
-foo: "highlighted" # highlight-line
-bar: "not highlighted"
-# highlight-range{1-2}
-baz: "highlighted"
-quz: "highlighted"
