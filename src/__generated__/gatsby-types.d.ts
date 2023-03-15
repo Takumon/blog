@@ -2682,10 +2682,5 @@ type WebPOptions = {
   readonly quality: InputMaybe<Scalars['Int']>;
 };
 
-type BlogPostQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type BlogPostQuery = { readonly allMarkdownRemark: { readonly edges: ReadonlyArray<{ readonly node: { readonly html: string | null, readonly timeToRead: number | null, readonly frontmatter: { readonly title: string | null, readonly date: string | null } | null } }> } };
-
 
 }
