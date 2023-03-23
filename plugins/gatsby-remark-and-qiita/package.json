@@ -5,7 +5,7 @@
     "rehype-stringify": "8.0.0",
     "remark-parse": "9.0.0",
     "remark-rehype": "8.0.0",
-    "striptags": "3.1.1",
+    "striptags": "3.2.0",
     "unified": "9.2.1"
   }
 }
