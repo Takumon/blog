@@ -50,7 +50,7 @@ export const createPages = async ({ graphql, actions }: CreatePagesArgs): Promis
   posts.forEach(({ type, node }: PostNodeWrapper, index: number) => {
     // 最大5つ関連記事を取得
     // const relatedPosts = extractRelatedPosts(allPostNodes, node).slice(0, 5)
-    // const latestPosts = allPostNodes.slice(0, 5)
+    const latestPosts = allPostNodes.slice(0, 5)
 
     if (type === POST_TYPE.ORIGINAL) {
       const thumbnail = thumbnails?.edges.find((edge) => edge.node.relativePath.includes(node.frontmatter.thumbnail))
@@ -60,7 +60,7 @@ export const createPages = async ({ graphql, actions }: CreatePagesArgs): Promis
         siteMetadata,
         slug: node.frontmatter.slug,
         // relatedPosts,
-        // latestPosts,
+        latestPosts,
         ...prevNext(posts, index),
       }
 

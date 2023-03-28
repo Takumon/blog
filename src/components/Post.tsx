@@ -6,20 +6,19 @@ import 'katex/dist/katex.min.css'
 import config from '../config/blog-config'
 import Title from './Title'
 // import Adsense from './Adsense';
-// import SNSShare from './SNSShare'
+import SNSShare from './SNSShare'
 import PostMetaInfo from './PostMetaInfo'
 import Seo from './SEO'
-// import Iframely from './Iframely'
-// import ScrollSyncToc from './ScrollSyncToc'
+import Iframely from './Iframely'
+import ScrollSyncToc from './ScrollSyncToc'
 import Image from './Thumbnail'
-// import Pagination from './Pagination'
-// import useIsScrollDownTo from '../hooks/useIsScrollDownTo'
+import Pagination from './Pagination'
+import useIsScrollDownTo from '../hooks/useIsScrollDownTo'
 import { DarkToggle } from './DarkToggle'
-import { IGatsbyImageData } from 'gatsby-plugin-image'
 
 type Props = {
   item: GatsbyTypes.MarkdownRemark
-  // headings: any
+  headings: any
   pageContext: {
     previous: any
     next: any
@@ -33,22 +32,22 @@ type Props = {
 
 const Post: React.FC<Props> = ({
   item,
-  // headings,
+  headings,
   pageContext: { previous, next, slug, relatedPosts, latestPosts, thumbnail },
   siteTitle,
 }) => {
-  // const isShowSnsShare = useIsScrollDownTo(400)
+  const isShowSnsShare = useIsScrollDownTo(400)
 
   const postUrl = `${config.blogUrl}${slug}`
 
-  // const cssSnsShare = useMemo(() => {
-  //   return [styles.sns_share, isShowSnsShare ? styles.sns_share_show : styles.sns_share_hide]
-  // }, [isShowSnsShare])
+  const cssSnsShare = useMemo(() => {
+    return [styles.sns_share, isShowSnsShare ? styles.sns_share_show : styles.sns_share_hide]
+  }, [isShowSnsShare])
 
   return (
     <article>
       <Title postTitle={item.frontmatter.title} />
-      {/* <Iframely /> */}
+      <Iframely />
       <Seo
         isRoot={false}
         title={`${item.frontmatter.title} | ${siteTitle}`}
@@ -92,18 +91,18 @@ const Post: React.FC<Props> = ({
 
 
         <div css={styles.toc}>
-          {/* <ScrollSyncToc headings={headings} /> */}
+          <ScrollSyncToc headings={headings} />
           {/* <div>
             <Adsense />
           </div> */}
         </div>
-        {/* <div css={cssSnsShare}>
-          <SNSShare title={fields.title} link={postUrl} twitterUserName={config.blogAuthorTwitterUserName} />
-        </div> */}
+        <div css={cssSnsShare}>
+          <SNSShare title={item.frontmatter.title} link={postUrl} twitterUserName={config.blogAuthorTwitterUserName} />
+        </div>
 
-        {/* <div css={styles.paging}>
+        <div css={styles.paging}>
           <Pagination previous={previous} next={next} relatedPosts={relatedPosts} latestPosts={latestPosts} />
-        </div> */}
+        </div>
       </div>
     </article>
   )

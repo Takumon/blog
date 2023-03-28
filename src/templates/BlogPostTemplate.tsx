@@ -8,12 +8,12 @@ import 'katex/dist/katex.min.css'
 type Props = {
   pageContext: any
   data: {
-    post: GatsbyTypes.MarkdownRemark
+    post: GatsbyTypes.MarkdownRemark & {headingsDetail: any}
   }
 }
 
 const BlogPostTemplate: React.FC<Props> = ({ pageContext, data }) => ( 
-  <Post item={data.post} pageContext={pageContext} siteTitle={pageContext.siteMetadata.title} />
+  <Post item={data.post}  headings={data.post.headingsDetail} pageContext={pageContext} siteTitle={pageContext.siteMetadata.title} />
 )
 
 export default BlogPostTemplate
@@ -30,6 +30,16 @@ export const pageQuery = graphql`
         tags
         keywords
         thumbnail
+      }
+      headingsDetail {
+        id
+        value
+        depth
+        parents {
+          id
+          value
+          depth
+        }
       }
     }
   }

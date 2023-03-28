@@ -126,6 +126,7 @@ const config: GatsbyConfig = {
         ],
       },
     },
+    `gatsby-remark-headings-detail`,
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp", 
     {

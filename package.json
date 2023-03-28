@@ -23,6 +23,8 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
+    "install-local-gatsby-plugins": "run-p install-local-gatsby-plugins:**",
+    "install-local-gatsby-plugins:gatsby-remark-headings-detail": "cd ./plugins/gatsby-remark-headings-detail && npm i",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -67,10 +69,12 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
+    "react-share": "^4.4.1",
     "react-typography": "^0.16.23",
     "striptags": "^3.2.0",
     "typography": "^0.16.21",
-    "typography-theme-wordpress-2016": "^0.16.19"
+    "typography-theme-wordpress-2016": "^0.16.19",
+    "use-debounce": "^9.0.3"
   },
   "devDependencies": {
     "@types/node": "^18.14.0",

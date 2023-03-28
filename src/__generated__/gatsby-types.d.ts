@@ -1291,6 +1291,38 @@ type MarkdownHeading = {
   readonly value: Maybe<Scalars['String']>;
 };
 
+type MarkdownHeadingDetail = {
+  readonly depth: Maybe<Scalars['Int']>;
+  readonly id: Maybe<Scalars['String']>;
+  readonly parents: Maybe<ReadonlyArray<Maybe<MarkdownParentHeadingDetail>>>;
+  readonly value: Maybe<Scalars['String']>;
+};
+
+type MarkdownHeadingDetailFieldSelector = {
+  readonly depth: InputMaybe<FieldSelectorEnum>;
+  readonly id: InputMaybe<FieldSelectorEnum>;
+  readonly parents: InputMaybe<MarkdownParentHeadingDetailFieldSelector>;
+  readonly value: InputMaybe<FieldSelectorEnum>;
+};
+
+type MarkdownHeadingDetailFilterInput = {
+  readonly depth: InputMaybe<IntQueryOperatorInput>;
+  readonly id: InputMaybe<StringQueryOperatorInput>;
+  readonly parents: InputMaybe<MarkdownParentHeadingDetailFilterListInput>;
+  readonly value: InputMaybe<StringQueryOperatorInput>;
+};
+
+type MarkdownHeadingDetailFilterListInput = {
+  readonly elemMatch: InputMaybe<MarkdownHeadingDetailFilterInput>;
+};
+
+type MarkdownHeadingDetailSortInput = {
+  readonly depth: InputMaybe<SortOrderEnum>;
+  readonly id: InputMaybe<SortOrderEnum>;
+  readonly parents: InputMaybe<MarkdownParentHeadingDetailSortInput>;
+  readonly value: InputMaybe<SortOrderEnum>;
+};
+
 type MarkdownHeadingFieldSelector = {
   readonly depth: InputMaybe<FieldSelectorEnum>;
   readonly id: InputMaybe<FieldSelectorEnum>;
@@ -1321,6 +1353,34 @@ type MarkdownHeadingSortInput = {
   readonly value: InputMaybe<SortOrderEnum>;
 };
 
+type MarkdownParentHeadingDetail = {
+  readonly depth: Maybe<Scalars['Int']>;
+  readonly id: Maybe<Scalars['String']>;
+  readonly value: Maybe<Scalars['String']>;
+};
+
+type MarkdownParentHeadingDetailFieldSelector = {
+  readonly depth: InputMaybe<FieldSelectorEnum>;
+  readonly id: InputMaybe<FieldSelectorEnum>;
+  readonly value: InputMaybe<FieldSelectorEnum>;
+};
+
+type MarkdownParentHeadingDetailFilterInput = {
+  readonly depth: InputMaybe<IntQueryOperatorInput>;
+  readonly id: InputMaybe<StringQueryOperatorInput>;
+  readonly value: InputMaybe<StringQueryOperatorInput>;
+};
+
+type MarkdownParentHeadingDetailFilterListInput = {
+  readonly elemMatch: InputMaybe<MarkdownParentHeadingDetailFilterInput>;
+};
+
+type MarkdownParentHeadingDetailSortInput = {
+  readonly depth: InputMaybe<SortOrderEnum>;
+  readonly id: InputMaybe<SortOrderEnum>;
+  readonly value: InputMaybe<SortOrderEnum>;
+};
+
 type MarkdownRemark = Node & {
   readonly children: ReadonlyArray<Node>;
   readonly excerpt: Maybe<Scalars['String']>;
@@ -1328,6 +1388,7 @@ type MarkdownRemark = Node & {
   readonly fileAbsolutePath: Maybe<Scalars['String']>;
   readonly frontmatter: Frontmatter;
   readonly headings: Maybe<ReadonlyArray<Maybe<MarkdownHeading>>>;
+  readonly headingsDetail: Maybe<ReadonlyArray<Maybe<MarkdownHeadingDetail>>>;
   readonly html: Maybe<Scalars['String']>;
   readonly htmlAst: Maybe<Scalars['JSON']>;
   readonly id: Scalars['ID'];
@@ -1417,6 +1478,7 @@ type MarkdownRemarkFieldSelector = {
   readonly fileAbsolutePath: InputMaybe<FieldSelectorEnum>;
   readonly frontmatter: InputMaybe<FrontmatterFieldSelector>;
   readonly headings: InputMaybe<MarkdownHeadingFieldSelector>;
+  readonly headingsDetail: InputMaybe<MarkdownHeadingDetailFieldSelector>;
   readonly html: InputMaybe<FieldSelectorEnum>;
   readonly htmlAst: InputMaybe<FieldSelectorEnum>;
   readonly id: InputMaybe<FieldSelectorEnum>;
@@ -1435,6 +1497,7 @@ type MarkdownRemarkFilterInput = {
   readonly fileAbsolutePath: InputMaybe<StringQueryOperatorInput>;
   readonly frontmatter: InputMaybe<FrontmatterFilterInput>;
   readonly headings: InputMaybe<MarkdownHeadingFilterListInput>;
+  readonly headingsDetail: InputMaybe<MarkdownHeadingDetailFilterListInput>;
   readonly html: InputMaybe<StringQueryOperatorInput>;
   readonly htmlAst: InputMaybe<JSONQueryOperatorInput>;
   readonly id: InputMaybe<StringQueryOperatorInput>;
@@ -1498,6 +1561,7 @@ type MarkdownRemarkSortInput = {
   readonly fileAbsolutePath: InputMaybe<SortOrderEnum>;
   readonly frontmatter: InputMaybe<FrontmatterSortInput>;
   readonly headings: InputMaybe<MarkdownHeadingSortInput>;
+  readonly headingsDetail: InputMaybe<MarkdownHeadingDetailSortInput>;
   readonly html: InputMaybe<SortOrderEnum>;
   readonly htmlAst: InputMaybe<SortOrderEnum>;
   readonly id: InputMaybe<SortOrderEnum>;
@@ -1800,6 +1864,7 @@ type Query_markdownRemarkArgs = {
   fileAbsolutePath: InputMaybe<StringQueryOperatorInput>;
   frontmatter: InputMaybe<FrontmatterFilterInput>;
   headings: InputMaybe<MarkdownHeadingFilterListInput>;
+  headingsDetail: InputMaybe<MarkdownHeadingDetailFilterListInput>;
   html: InputMaybe<StringQueryOperatorInput>;
   htmlAst: InputMaybe<JSONQueryOperatorInput>;
   id: InputMaybe<StringQueryOperatorInput>;
