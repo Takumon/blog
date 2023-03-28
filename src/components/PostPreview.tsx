@@ -2,6 +2,9 @@ import React from 'react'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Link } from 'gatsby'
+import PostMetaInfo from './PostMetaInfo'
+import Image from './Thumbnail'
+import config from '../config/blog-config'
 
 
 const Card = styled.article`
@@ -110,17 +113,18 @@ type Props = {
 }
 
 const PostPreview: React.FC<{postField:GatsbyTypes.MarkdownRemark}> = ({postField}) => {
-  if (!postField.frontmatter) return <div>なにもない</div>
-
   return (
     <Card key={postField.frontmatter.slug}>
       <LinkCard to={postField.frontmatter.slug}>
-        <Header>
-          ヘッダー
+      <Header>
+          <ImageWrapper>
+            <Image css={styles.image} filename={postField.frontmatter.thumbnail || config.defaultThumbnailImagePath} alt={'thumbnail'} />
+          </ImageWrapper>
         </Header>
         <Body>
           <Title>{postField.frontmatter.title}</Title>
-          <Description dangerouslySetInnerHTML={{ __html: postField.frontmatter.title }} />
+          <Description dangerouslySetInnerHTML={{ __html: postField.excerpt ?? '' }} />
+          <PostMetaInfo tags={postField.frontmatter.tags ?? []} date={postField.frontmatter.date} />
         </Body>
       </LinkCard>
     </Card>

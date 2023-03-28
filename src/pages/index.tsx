@@ -3,7 +3,11 @@ import type { HeadFC, PageProps } from "gatsby"
 import { graphql } from 'gatsby';
 import { useMemo } from "react";
 import { css, keyframes } from '@emotion/react'
-import PostPreview from "../components/PostPreview";
+import PostList from "../components/PostList";
+import Title from "../components/Title";
+import _orderBy from 'lodash/orderBy'
+import TagList from "../components/TagList";
+import { TagCounts } from "index";
 
 
 const IndexPage: React.FC<PageProps<GatsbyTypes.Query>> = ({data}) => {
@@ -11,40 +15,69 @@ const IndexPage: React.FC<PageProps<GatsbyTypes.Query>> = ({data}) => {
 // マージして降順で並び替え
   // gatsby-node.jsで2つのノードに共通のfieldsを追加しているため条件分岐なし
   const posts = data.allMarkdownRemark.edges
-  const postFields = useMemo(() => posts.map(post => post.node), [posts])
 
+  
+  const tagCounts = useMemo(
+    () => {
+      const _result: TagCounts = []
+
+      posts.forEach(post => {
+        post.node.frontmatter?.tags?.forEach(t => {
+          if (!t) {
+            return
+          }
+
+          // TODO Qiita対応を除外するなら削除
+          if ('Qiita' === t) {
+            return
+          }
+
+          const targetData = _result.find(data => data.text === t)
+          if (targetData) {
+            targetData.size = targetData.size + 1
+          } else {
+            _result.push({
+              text: t,
+              size: 1,
+            })
+          }
+        })
+      })
+
+      return _orderBy(_result, ['size', 'text'], ['desc', 'asc'])
+    },
+    [posts]
+  )
+
+  const postFields = useMemo(() => posts.map(post => post.node), [posts])
 
   return (
     <>
-      <h1>Gatsby Blog Site</h1>
-      <div css={styles.content}>
-        <div css={styles.content_inner}>
-          {postFields.map((postField) => (
-            <PostPreview key={postField.id} postField={postField} />
-            ))}
-        </div>
-      </div>
+        <Title />
+        <PostList postFields={postFields} />
+      <TagList tagCounts={tagCounts} />
     </>
   )
 }
 
 
 export const query = graphql`
-  query BlogPost{
-    allMarkdownRemark {
-      edges {
-        node {
-          html
-          timeToRead
-          frontmatter {
-            title
-            date
-            slug
-          }
+query BlogPost{
+  allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
+    edges {
+      node {
+        excerpt
+        frontmatter {
+          slug
+          title
+          date
+          tags
+          thumbnail
         }
       }
     }
   }
+}
 `;
 
 export default IndexPage
