@@ -53,8 +53,8 @@ const IndexPage: React.FC<PageProps<GatsbyTypes.Query>> = ({data}) => {
 
   return (
     <>
-        <Title />
-        <PostList postFields={postFields} />
+      <Title />
+      <PostList postFields={postFields} />
       <TagList tagCounts={tagCounts} />
     </>
   )
@@ -62,7 +62,7 @@ const IndexPage: React.FC<PageProps<GatsbyTypes.Query>> = ({data}) => {
 
 
 export const query = graphql`
-query BlogPost{
+query {
   allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
     edges {
       node {

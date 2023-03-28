@@ -4,6 +4,7 @@ export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] 
   actions.createTypes(`
     type MarkdownRemark implements Node {
       excerpt: String!
+      html: String!
       frontmatter: Frontmatter!
     }
 
@@ -17,3 +18,5 @@ export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] 
     }
   `)
 }
+
+exports.createPages = require('./gatsby/createPages').createPages
