@@ -18,6 +18,10 @@
     "url": "git+https://github.com/takumon/blog.git"
   },
   "scripts": {
+    "preoptimizeImage": "run-s preoptimizeImage:**",
+    "preoptimizeImage:thumbnails": "node ./scripts/optimize-thumbnaisl.js",
+    "preoptimizeImage:markdownImages": "node ./scripts/optimize-markdown-images.js",
+    "compressImage": "node ./scripts/compress-image.js",
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
