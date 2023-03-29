@@ -21,7 +21,6 @@
     "preoptimizeImage": "run-s preoptimizeImage:**",
     "preoptimizeImage:thumbnails": "node ./scripts/optimize-thumbnaisl.js",
     "preoptimizeImage:markdownImages": "node ./scripts/optimize-markdown-images.js",
-    "compressImage": "node ./scripts/compress-image.js",
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
@@ -85,6 +84,7 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@types/react-helmet": "^6.1.6",
+    "npm-run-all": "^4.1.5",
     "typescript": "^4.9.5"
   }
 }
