@@ -7,6 +7,8 @@ tags:
   - 埋め込みコード
   - React
   - Gatsby
+keywords:
+  - Iframely
 slug: /iframely
 thumbnail: thumbnail/2019/01/iframely.png
 ---

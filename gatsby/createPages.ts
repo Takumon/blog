@@ -33,7 +33,6 @@ export const createPages = async ({ graphql, actions }: CreatePagesArgs): Promis
   const thumbnails = result.data?.thumbnails
   const siteMetadata = result.data?.site.siteMetadata
 
-  // オリジナル記事とQiitaの記事を1つのリストにする
   const posts: PostNodeWrapper[] = result.data?.allMarkdownRemark.edges.map((p) => {
     return {
       type: POST_TYPE.ORIGINAL,
