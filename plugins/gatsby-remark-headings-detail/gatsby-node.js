@@ -1,15 +1,9 @@
-const {
-  GraphQLString,
-  GraphQLInt,
-  GraphQLObjectType,
-  GraphQLList,
-} = require('gatsby/graphql')
+const { GraphQLString, GraphQLInt, GraphQLObjectType, GraphQLList } = require('gatsby/graphql')
 const remark = require('remark')
 const visit = require('unist-util-visit')
 const mdastToString = require('mdast-util-to-string')
 const GithubSlugger = require('github-slugger')
 const githubSlugger = new GithubSlugger()
-
 
 exports.setFieldsOnGraphQLNodeType = ({ type }) => {
   if (type.name !== `MarkdownRemark`) {
@@ -21,58 +15,54 @@ exports.setFieldsOnGraphQLNodeType = ({ type }) => {
     fields: {
       value: {
         type: GraphQLString,
-        resolve: ({value}) => value,
+        resolve: ({ value }) => value,
       },
       id: {
         type: GraphQLString,
-        resolve: ({id}) => id,
+        resolve: ({ id }) => id,
       },
       depth: {
         type: GraphQLInt,
-        resolve: ({depth}) => depth,
+        resolve: ({ depth }) => depth,
       },
-    }
+    },
   })
-
 
   const HeadingType = new GraphQLObjectType({
     name: `MarkdownHeadingDetail`,
     fields: {
       value: {
         type: GraphQLString,
-        resolve: ({value}) => value,
+        resolve: ({ value }) => value,
       },
       id: {
         type: GraphQLString,
-        resolve: ({id}) => id,
+        resolve: ({ id }) => id,
       },
       depth: {
         type: GraphQLInt,
-        resolve: ({depth}) => depth,
+        resolve: ({ depth }) => depth,
       },
       parents: {
         type: new GraphQLList(ParentHeadingType),
-        resolve: ({parents}) => parents,
+        resolve: ({ parents }) => parents,
       },
     },
   })
 
-
   return {
-    headingsDetail : {
+    headingsDetail: {
       type: new GraphQLList(HeadingType),
-      resolve: ({ rawMarkdownBody }) =>  _attachParents(_getHeaders(rawMarkdownBody)),
-    }
+      resolve: ({ rawMarkdownBody }) => _attachParents(_getHeaders(rawMarkdownBody)),
+    },
   }
 }
-
 
 /** ヘッダーの要素名 */
 const HEADING = 'heading'
 
 /** ヘッダーにおける最小の深さ（h2タグの時） */
 const MIN_HEADER_DEPTH = 2
-
 
 /**
  * マークダウン文字列からヘッダー情報を抽出する.
@@ -83,8 +73,8 @@ function _getHeaders(markdownStr) {
   githubSlugger.reset()
 
   const result = []
-  const ast = remark().parse(markdownStr);
-  visit(ast, HEADING, child => {
+  const ast = remark().parse(markdownStr)
+  visit(ast, HEADING, (child) => {
     const value = mdastToString(child)
     const id = githubSlugger.slug(value)
     const depth = child.depth
@@ -99,7 +89,6 @@ function _getHeaders(markdownStr) {
   return result
 }
 
-
 /**
  * ヘッダー情報に親ヘッダーの参照を追加
  *
@@ -113,7 +102,7 @@ function _attachParents(headers) {
     // 親が一つもない場合は空配列
     h.parents = []
 
-    const lastIndex = headers.length -1
+    const lastIndex = headers.length - 1
     if (i === lastIndex) {
       return h
     }
@@ -136,7 +125,6 @@ function _attachParents(headers) {
       } else {
         // (パターン2)今よりも大きければ、その先に親がある可能性があるので
         // 深さはそのままで捜査継続
-
         // (パターン3)同じであれば兄弟なので、その先に親がある可能性があるので
         // 深さはそのままで捜査継続
       }

@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 
-type Value = any | null | undefined 
+type Value = any | null | undefined
 
 export default function useThumbnailImage(filename: string): Value {
   const data = useStaticQuery<GatsbyTypes.ThumbnailImagesQuery>(graphql`
@@ -12,15 +12,7 @@ export default function useThumbnailImage(filename: string): Value {
             relativePath
             name
             childImageSharp {
-              gatsbyImageData(
-                width: 800,
-                quality: 50,
-                pngOptions: {
-                  quality: 50
-                },
-                
-                layout: CONSTRAINED
-              )
+              gatsbyImageData(width: 800, quality: 50, pngOptions: { quality: 50 }, layout: CONSTRAINED)
             }
           }
         }
@@ -29,13 +21,10 @@ export default function useThumbnailImage(filename: string): Value {
   `)
 
   const edges = data.images.edges
-  const targetFluid= useMemo(
-    () => {
-      const e = edges.find(n => n.node.relativePath.includes(filename))
-      return e?.node?.childImageSharp?.gatsbyImageData
-    },
-    [edges, filename]
-  )
+  const targetFluid = useMemo(() => {
+    const e = edges.find((n) => n.node.relativePath.includes(filename))
+    return e?.node?.childImageSharp?.gatsbyImageData
+  }, [edges, filename])
 
   return targetFluid
 }

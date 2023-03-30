@@ -12,14 +12,7 @@ import config from '../src/config/blog-config'
 // import { extractRelatedPosts, extractRelatedPostRankings } from './gatsby-related-post'
 // import { createWordCount, createWordCloud } from './wordCloud'
 import { POST_TYPE, query } from './constants'
-import type {
-  TagData,
-  WordCloudParam,
-  QueryResult,
-  PostNodeWrapper,
-  PageContextAbout,
-  PageContextTags,
-} from '../src/@types'
+import type { TagData, WordCloudParam, QueryResult, PostNodeWrapper, PageContextAbout, PageContextTags } from '../src/@types'
 
 // onCreateNodeより後に実行される
 export const createPages = async ({ graphql, actions }: CreatePagesArgs): Promise<void> => {

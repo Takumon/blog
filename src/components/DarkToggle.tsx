@@ -4,14 +4,6 @@ import { ThemeToggler } from 'gatsby-plugin-dark-mode'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
 
-type ToggleProps = {
-  icon: any
-  animation: any
-  toggle: () => void
-  moving: boolean
-  stopMoving: () => void
-}
-
 export const DarkToggle: React.FC = () => {
   const [moving, setMoving] = useState(false)
 

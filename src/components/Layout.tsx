@@ -2,7 +2,6 @@ import React, { useMemo } from 'react'
 import { css } from '@emotion/react'
 import { Link } from 'gatsby'
 import type { WindowLocation } from '@reach/router'
-import { GatsbyImage } from "gatsby-plugin-image"
 
 import NormalizeStyle from '../styles/NormalizeStyle'
 import GlobalStyle from '../styles/GlobalStyle'
@@ -15,21 +14,17 @@ import { flexColumnCenter } from '../styles/mixinStyle'
 import Seo from './SEO'
 import Footer from './Footer'
 import Bio from './Bio'
-// import HeaderAction from './HeaderAction'
 // import UserHeat from './UserHeat'
 import useSpecificImages from '../hooks/useSpecificImages'
 import useRootThumbnailPath from '../hooks/useRootThumbnailPath'
-// import { DarkToggle } from './DarkToggle'
-import { convertToBgImage } from "gbimage-bridge"
+import { convertToBgImage } from 'gbimage-bridge'
 import BackgroundImage from 'gatsby-background-image'
 import { DarkToggle } from './DarkToggle'
-import SEO from './SEO'
 import HeaderAction from './HeaderAction'
-
 
 type Props = {
   location: WindowLocation
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 const Layout: React.FC<Props> = ({ location, children }) => {
@@ -61,7 +56,7 @@ const Layout: React.FC<Props> = ({ location, children }) => {
 
     if (isRoot) {
       return (
-        <BackgroundImage  Tag="div" css={styles.header_container} {...convertedHeaderImage} backgroundColor={`#8A5E5F`}>
+        <BackgroundImage Tag="div" css={styles.header_container} {...convertedHeaderImage} backgroundColor={`#8A5E5F`}>
           <DarkToggle />
           <Seo isRoot={true} thumbnailSrc={rootThumbnailPath} />
           <div css={styles.header_container__inner}>
@@ -79,7 +74,7 @@ const Layout: React.FC<Props> = ({ location, children }) => {
 
     if (isTag) {
       return (
-        <BackgroundImage  Tag="div" css={styles.header_container} {...convertedHeaderImage} backgroundColor={`#8A5E5F`}>
+        <BackgroundImage Tag="div" css={styles.header_container} {...convertedHeaderImage} backgroundColor={`#8A5E5F`}>
           <DarkToggle />
           <Seo isRoot={true} thumbnailSrc={rootThumbnailPath} />
           <div css={styles.header_container__inner}>
@@ -97,7 +92,7 @@ const Layout: React.FC<Props> = ({ location, children }) => {
 
     if (isAbout) {
       return (
-        <BackgroundImage  Tag="div"  css={styles.header_container} {...convertedHeaderImage} backgroundColor={`#8A5E5F`}>
+        <BackgroundImage Tag="div" css={styles.header_container} {...convertedHeaderImage} backgroundColor={`#8A5E5F`}>
           <DarkToggle />
           <Seo isRoot={true} thumbnailSrc={rootThumbnailPath} />
           <div css={styles.header_container__inner}>
@@ -114,7 +109,7 @@ const Layout: React.FC<Props> = ({ location, children }) => {
     }
 
     return ''
-  }, [isRoot, isTag, isAbout, headerImage, rootThumbnailPath])
+  }, [isRoot, isTag, isAbout, rootThumbnailPath, convertedHeaderImage])
 
   return (
     <div css={styles.root_container}>

@@ -6,7 +6,6 @@ import { faTags } from '@fortawesome/free-solid-svg-icons'
 
 import { maxContentWidth } from '../styles/mixinStyle'
 
-import Layout from '../components/Layout'
 import Title from '../components/Title'
 import PostList from '../components/PostList'
 import Tag from '../components/Tag'
@@ -31,8 +30,7 @@ const TagsTemplate: React.FC<Props> = ({ pageContext }) => {
     </div>
   )
 
-  const postList =
-    totalCount > 0 ? <PostList postFields={posts} /> : <div css={styles.no_post}>指摘したタグの記事はありません。</div>
+  const postList = totalCount > 0 ? <PostList postFields={posts} /> : <div css={styles.no_post}>指摘したタグの記事はありません。</div>
 
   return (
     <div>
@@ -63,5 +61,5 @@ const styles = {
     padding: 1em 0 0 1em;
     display: flex;
     align-items: center;
-  `
+  `,
 }

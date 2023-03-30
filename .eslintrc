@@ -1,0 +1,24 @@
+{
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "env": {
+    "node": true
+  },
+  "plugins": ["react", "@emotion"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "prettier/react"
+  ],
+  "rules": {
+    "no-anonymous-exports-page-templates": "warn",
+    "limited-exports-page-templates": "warn",
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }]
+  }
+}

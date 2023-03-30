@@ -7,9 +7,15 @@
     "titleBar.inactiveForeground": "#e7e7e799"
   },
   "peacock.color": "#1857a4",
-  "cSpell.words": [
-    "fortawesome",
-    "frontmatter",
-    "preoptimize"
-  ]
+  "cSpell.words": ["fortawesome", "frontmatter", "preoptimize"],
+  "eslint.packageManager": "npm",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true, // eslint
+    "source.fixAll.stylelint": true // Stylelint
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "prettier.disableLanguages": ["markdown"]
 }

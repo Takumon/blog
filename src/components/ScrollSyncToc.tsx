@@ -8,7 +8,6 @@ type Props = {
 }
 
 const ScrollSyncToc: React.FC<Props> = ({ headings }) => {
-
   const activeItemIds = useScrollSyncToc(headings)
   return <Toc activeItemIds={activeItemIds} headings={headings} />
 }

@@ -8,9 +8,9 @@ import Tag from './Tag'
 import config from '../config/blog-config'
 
 type Props = {
-  tags: readonly string[];
-  date: string;
-  color?: string;
+  tags: readonly string[]
+  date: string
+  color?: string
 }
 
 const PostMetaInfo: React.FC<Props> = ({ tags, date, color }) => {

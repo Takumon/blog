@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { css, keyframes } from '@emotion/react'
 import PostPreview from './PostPreview'
 import usePaging from '../hooks/usePaging'
@@ -6,7 +6,7 @@ import usePaging from '../hooks/usePaging'
 const PER_PAGE = 15
 
 type Props = {
-  postFields:  GatsbyTypes.MarkdownRemark[]
+  postFields: GatsbyTypes.MarkdownRemark[]
 }
 
 const PostList: React.FC<Props> = ({ postFields }) => {

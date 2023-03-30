@@ -6,7 +6,6 @@ import PostMetaInfo from './PostMetaInfo'
 import Image from './Thumbnail'
 import config from '../config/blog-config'
 
-
 const Card = styled.article`
   border-bottom: 1px solid var(--cardBorder);
   border-radius: 4px;
@@ -102,21 +101,14 @@ const styles = {
 }
 
 type Props = {
-  postField: {
-    slug: string
-    title: string
-    excerpt: string
-    date: string
-    tags: string[]
-    thumbnail: string
-  }
+  postField: GatsbyTypes.MarkdownRemark
 }
 
-const PostPreview: React.FC<{postField:GatsbyTypes.MarkdownRemark}> = ({postField}) => {
+const PostPreview: React.FC<Props> = ({ postField }) => {
   return (
     <Card key={postField.frontmatter.slug}>
       <LinkCard to={postField.frontmatter.slug}>
-      <Header>
+        <Header>
           <ImageWrapper>
             <Image css={styles.image} filename={postField.frontmatter.thumbnail || config.defaultThumbnailImagePath} alt={'thumbnail'} />
           </ImageWrapper>

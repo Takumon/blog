@@ -1,14 +1,12 @@
 import React from 'react'
 import { css } from '@emotion/react'
 import { Link } from 'gatsby'
-import { GatsbyImage } from 'gatsby-plugin-image'
 
 import Bio from './Bio'
 import config from '../config/blog-config'
 import useSpecificImages from '../hooks/useSpecificImages'
-import { convertToBgImage } from "gbimage-bridge"
+import { convertToBgImage } from 'gbimage-bridge'
 import BackgroundImage from 'gatsby-background-image'
-
 
 type Props = {
   isRoot: boolean
@@ -22,13 +20,7 @@ const Footer: React.FC<Props> = ({ isRoot }) => {
 
   return (
     footerImage && (
-      <BackgroundImage
-        Tag="footer"
-        role="contentinfo" 
-        css={styles.content}
-        backgroundColor={`#8A5E5F`}
-        {...bgImage}
-      >
+      <BackgroundImage Tag="footer" role="contentinfo" css={styles.content} backgroundColor={`#8A5E5F`} {...bgImage}>
         <div css={styles.content__inner}>
           {bio}
           <h3 css={styles.title}>
@@ -44,33 +36,6 @@ const Footer: React.FC<Props> = ({ isRoot }) => {
           </div>
         </div>
       </BackgroundImage>
-    )
-  )
-}
-
-const _Footer: React.FC<Props> = ({ isRoot }) => {
-  const bio = isRoot ? '' : <Bio />
-
-  const { footerImage } = useSpecificImages()
-
-  return (
-    footerImage && (
-      <GatsbyImage alt="footer" role="contentinfo" css={styles.content} image={footerImage} backgroundColor={`#8A5E5F`}>
-        <div css={styles.content__inner}>
-          {bio}
-          <h3 css={styles.title}>
-            <Link css={styles.title__link} to="/">
-              {config.blogTitle}
-              <i css={styles.tomato_icon} />
-            </Link>
-          </h3>
-
-          <div css="copyright">
-            Copyright © 2018. {config.blogAuthor}
-            <a aria-label="blog_repository" href={config.blogRepositoryUrl} rel="noopener noreferrer" css={styles.github_icon} />
-          </div>
-        </div>
-      </GatsbyImage>
     )
   )
 }

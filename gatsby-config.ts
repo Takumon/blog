@@ -1,4 +1,5 @@
-import type { GatsbyConfig } from "gatsby";
+import type { GatsbyConfig } from 'gatsby'
+import path from 'path'
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -12,10 +13,10 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
-    "gatsby-plugin-dark-mode",
-    "gatsby-plugin-emotion",
-    "gatsby-plugin-image",
-    "gatsby-plugin-sitemap",
+    'gatsby-plugin-dark-mode',
+    'gatsby-plugin-emotion',
+    'gatsby-plugin-image',
+    'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
@@ -127,23 +128,23 @@ const config: GatsbyConfig = {
       },
     },
     `gatsby-remark-headings-detail`,
-    "gatsby-plugin-sharp",
-    "gatsby-transformer-sharp", 
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        "name": "images",
-        "path": "./src/images/"
+        name: 'images',
+        path: './src/images/',
       },
-      __key: "images"
+      __key: 'images',
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        "name": "pages",
-        "path": "./src/pages/"
+        name: 'pages',
+        path: './src/pages/',
       },
-      __key: "pages"
+      __key: 'pages',
     },
     {
       resolve: `gatsby-remark-prismjs`,
@@ -154,14 +155,26 @@ const config: GatsbyConfig = {
         showLineNumbers: true,
       },
     },
-    "gatsby-plugin-typegen",
+    'gatsby-plugin-typegen',
     {
       resolve: 'gatsby-plugin-typography',
       options: {
         pathToConfigModule: 'src/styles/typography',
       },
     },
+    {
+      resolve: 'gatsby-plugin-eslint',
+      options: {
+        // Get paths of Gatsby's required rules, which as of writing is located at:
+        // https://github.com/gatsbyjs/gatsby/tree/fbfe3f63dec23d279a27b54b4057dd611dce74bb/packages/
+        // gatsby/src/utils/eslint-rules
+        rulePaths: [path.join(process.cwd(), 'node_modules', 'gatsby', 'dist', 'utils', 'eslint-rules')],
+        stages: ['develop'],
+        extensions: ['js', 'jsx', 'ts', 'tsx'],
+        exclude: ['node_modules', '.cache', 'public'],
+      },
+    },
   ],
-};
+}
 
-export default config;
+export default config

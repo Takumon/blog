@@ -8,7 +8,7 @@ import type { Headings, ItemTopOffsets, ActiveItemIds } from '../@types'
  */
 const OFFSET_ACTIVE_ITEM = 64
 
-const getItemTopOffsetsFromDOM: (headings: Headings) => ItemTopOffsets = headings => {
+const getItemTopOffsetsFromDOM: (headings: Headings) => ItemTopOffsets = (headings) => {
   const result: ItemTopOffsets = []
 
   headings.forEach(({ id, parents }) => {
@@ -28,34 +28,30 @@ const getItemTopOffsetsFromDOM: (headings: Headings) => ItemTopOffsets = heading
   return result
 }
 
-
 export default function useScrollSyncToc(headings: Headings): ActiveItemIds {
   const [activeItemIds, setActiveItemIds] = useState<ActiveItemIds>([])
   const [itemTopOffsets, setItemTopOffsets] = useState<ItemTopOffsets>([])
 
-  const calculateItemTopOffsets = useCallback(
-    () => {
-      if (window) {
-        const newItemTopOffsets = getItemTopOffsetsFromDOM(headings)
-        setItemTopOffsets(newItemTopOffsets)
-      }
-    },
-    [headings]
-  )
+  const calculateItemTopOffsets = useCallback(() => {
+    if (window) {
+      const newItemTopOffsets = getItemTopOffsetsFromDOM(headings)
+      setItemTopOffsets(newItemTopOffsets)
+    }
+  }, [headings])
 
   const handleScroll = useDebouncedCallback(() => {
     if (window) {
       const item = itemTopOffsets.find((current, i) => {
         const next = itemTopOffsets[i + 1]
-  
+
         return next
           ? window.scrollY + OFFSET_ACTIVE_ITEM >= current.offsetTop && window.scrollY + OFFSET_ACTIVE_ITEM < next.offsetTop
           : window.scrollY + OFFSET_ACTIVE_ITEM >= current.offsetTop
       })
-  
+
       // const newActiveItemIds = item ? (item.parents ? [item.id, ...item.parents.map(i => i.id)] : [item.id]) : []
-      const newActiveItemIds = item ? (item.parents ? [item.id, ...item.parents.map(i => i.id)] : [item.id]) : []
-  
+      const newActiveItemIds = item ? (item.parents ? [item.id, ...item.parents.map((i) => i.id)] : [item.id]) : []
+
       setActiveItemIds(newActiveItemIds)
     }
   }, 100) // 負荷軽減のため間引く
@@ -67,24 +63,20 @@ export default function useScrollSyncToc(headings: Headings): ActiveItemIds {
     }
   }, 500) // 負荷軽減のため間引く
 
+  useEffect(() => {
+    if (window) {
+      calculateItemTopOffsets()
+      window.addEventListener('resize', handleResize)
+      window.addEventListener('scroll', handleScroll)
+    }
 
-  useEffect(
-    () => {
+    return () => {
       if (window) {
-        calculateItemTopOffsets()
-        window.addEventListener('resize', handleResize)
-        window.addEventListener('scroll', handleScroll)
+        window.removeEventListener('resize', handleResize)
+        window.removeEventListener('scroll', handleScroll)
       }
-
-      return () => {
-        if (window) {
-          window.removeEventListener('resize', handleResize)
-          window.removeEventListener('scroll', handleScroll)
-        }
-      }
-    },
-    [calculateItemTopOffsets, handleResize, handleScroll]
-  )
+    }
+  }, [calculateItemTopOffsets, handleResize, handleScroll])
 
   return activeItemIds
 }

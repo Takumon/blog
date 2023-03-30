@@ -11,7 +11,6 @@ type Props = {
   tagCounts: TagCounts
 }
 
-// eslint-disable-next-line react/prop-types
 const TagList: React.FC<Props> = ({ tagCounts }) => {
   return (
     <div css={styles.content}>

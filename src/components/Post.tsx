@@ -30,12 +30,7 @@ type Props = {
   siteTitle: any
 }
 
-const Post: React.FC<Props> = ({
-  item,
-  headings,
-  pageContext: { previous, next, slug, relatedPosts, latestPosts, thumbnail },
-  siteTitle,
-}) => {
+const Post: React.FC<Props> = ({ item, headings, pageContext: { previous, next, slug, relatedPosts, latestPosts, thumbnail }, siteTitle }) => {
   const isShowSnsShare = useIsScrollDownTo(400)
 
   const postUrl = `${config.blogUrl}${slug}`
@@ -88,7 +83,6 @@ const Post: React.FC<Props> = ({
             <Adsense />
           </div> */}
         </div>
-
 
         <div css={styles.toc}>
           <ScrollSyncToc headings={headings} />
