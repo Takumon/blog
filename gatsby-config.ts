@@ -80,6 +80,12 @@ const config: GatsbyConfig = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     {
+      resolve: 'gatsby-plugin-google-analytics',
+      options: {
+        trackingId: 'UA-93478785-2',
+      },
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'images',
@@ -152,6 +158,7 @@ const config: GatsbyConfig = {
       },
     },
     'gatsby-plugin-catch-links',
+    'gatsby-plugin-lodash',
     {
       resolve: 'gatsby-plugin-nprogress',
       options: {
