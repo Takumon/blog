@@ -7,7 +7,6 @@ import Title from '../components/Title'
 import _orderBy from 'lodash/orderBy'
 import TagList from '../components/TagList'
 import { TagCounts } from 'index'
-import GitHubProfile from '../components/GitHubProfileSection'
 
 const IndexPage: React.FC<PageProps<GatsbyTypes.Query>> = ({ data }) => {
   // マージして降順で並び替え
@@ -45,7 +44,6 @@ const IndexPage: React.FC<PageProps<GatsbyTypes.Query>> = ({ data }) => {
       <Title />
       <PostList postFields={postFields} />
       <TagList tagCounts={tagCounts} />
-      <GitHubProfile />
     </>
   )
 }

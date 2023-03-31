@@ -20,38 +20,27 @@ const config: GatsbyConfig = {
     'gatsby-plugin-image',
     'gatsby-plugin-sitemap',
     {
-      resolve: 'gatsby-source-graphql',
-      options: {
-        typeName: 'GitHub',
-        fieldName: 'github',
-        url: 'https://api.github.com/graphql',
-        headers: {
-          Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
-        },
-      },
-    },
-    {
-      resolve: `gatsby-transformer-remark`,
+      resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
-          `gatsby-remark-katex`,
-          `gatsby-remark-graphviz`,
-          `gatsby-remark-code-titles`,
+          'gatsby-remark-katex',
+          'gatsby-remark-graphviz',
+          'gatsby-remark-code-titles',
           {
-            resolve: `gatsby-remark-images`,
+            resolve: 'gatsby-remark-images',
             options: {
               maxWidth: 800,
               withWebp: true,
             },
           },
-          `gatsby-remark-embed-youtube`,
+          'gatsby-remark-embed-youtube',
           {
-            resolve: `gatsby-remark-responsive-iframe`,
+            resolve: 'gatsby-remark-responsive-iframe',
             options: {
-              wrapperStyle: `margin-bottom: 1.0725rem`,
+              wrapperStyle: 'margin-bottom: 1.0725rem',
             },
           },
-          `gatsby-remark-autolink-headers`,
+          'gatsby-remark-autolink-headers',
           {
             resolve: 'gatsby-remark-embed-snippet',
             options: {
@@ -60,7 +49,7 @@ const config: GatsbyConfig = {
             },
           },
           {
-            resolve: `gatsby-remark-prismjs`,
+            resolve: 'gatsby-remark-prismjs',
             options: {
               classPrefix: 'language-',
               inlineCodeMarker: null,
@@ -87,7 +76,7 @@ const config: GatsbyConfig = {
         ],
       },
     },
-    `gatsby-remark-headings-detail`,
+    'gatsby-remark-headings-detail',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     {
@@ -106,8 +95,9 @@ const config: GatsbyConfig = {
       },
       __key: 'pages',
     },
-    `gatsby-plugin-feed`,
-    `gatsby-plugin-react-helmet`,
+    'gatsby-plugin-remove-serviceworker',
+    'gatsby-plugin-twitter',
+    'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
@@ -161,8 +151,17 @@ const config: GatsbyConfig = {
         ],
       },
     },
+    'gatsby-plugin-catch-links',
     {
-      resolve: `gatsby-remark-prismjs`,
+      resolve: 'gatsby-plugin-nprogress',
+      options: {
+        color: 'blue',
+        showSpinner: true,
+      },
+    },
+    'gatsby-plugin-no-sourcemaps',
+    {
+      resolve: 'gatsby-remark-prismjs',
       options: {
         classPrefix: 'language-',
         inlineCodeMarker: null,
