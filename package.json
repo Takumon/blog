@@ -89,7 +89,7 @@
     "@types/d3-cloud": "1.2.3",
     "@types/jsdom": "16.2.7",
     "@types/kuromoji": "0.1.0",
-    "@types/node": "14.14.33",
+    "@types/node": "14.18.42",
     "@types/react": "17.0.3",
     "@types/react-cytoscapejs": "1.2.0",
     "@types/react-dom": "17.0.2",
