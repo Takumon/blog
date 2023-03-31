@@ -6,31 +6,6 @@
   "bugs": {
     "url": "https://github.com/takumon/blog/issues"
   },
-  "private": true,
-  "homepage": "https://github.com/takumon/blog#readme",
-  "keywords": [
-    "gatsby",
-    "blog"
-  ],
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/takumon/blog.git"
-  },
-  "scripts": {
-    "preoptimizeImage": "run-s preoptimizeImage:**",
-    "preoptimizeImage:thumbnails": "node ./scripts/optimize-thumbnaisl.js",
-    "preoptimizeImage:markdownImages": "node ./scripts/optimize-markdown-images.js",
-    "install-local-gatsby-plugins": "run-p install-local-gatsby-plugins:**",
-    "install-local-gatsby-plugins:gatsby-remark-headings-detail": "cd ./plugins/gatsby-remark-headings-detail && npm i",
-    "develop": "gatsby develop",
-    "start": "gatsby develop",
-    "build": "run-s install-local-gatsby-plugins build:gatsby",
-    "build:gatsby": "gatsby build --log-pages",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "typecheck": "tsc --noEmit"
-  },
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
@@ -100,5 +75,31 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.7",
     "typescript": "^4.9.5"
+  },
+  "private": true,
+  "homepage": "https://github.com/takumon/blog#readme",
+  "keywords": [
+    "gatsby",
+    "blog"
+  ],
+  "license": "MIT",
+  "main": "n/a",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/takumon/blog.git"
+  },
+  "scripts": {
+    "preoptimizeImage": "run-s preoptimizeImage:**",
+    "preoptimizeImage:thumbnails": "node ./scripts/optimize-thumbnaisl.js",
+    "preoptimizeImage:markdownImages": "node ./scripts/optimize-markdown-images.js",
+    "install-local-gatsby-plugins": "run-p install-local-gatsby-plugins:**",
+    "install-local-gatsby-plugins:gatsby-remark-headings-detail": "cd ./plugins/gatsby-remark-headings-detail && npm i",
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "run-s install-local-gatsby-plugins build:gatsby",
+    "build:gatsby": "gatsby build --log-pages",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "typecheck": "tsc --noEmit"
   }
 }
