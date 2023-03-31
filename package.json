@@ -20,6 +20,7 @@
     "gatsby-background-image": "^1.6.0",
     "gatsby-plugin-dark-mode": "^1.1.2",
     "gatsby-plugin-emotion": "^8.7.0",
+    "gatsby-plugin-feed": "^5.8.0",
     "gatsby-plugin-image": "^3.7.0",
     "gatsby-plugin-lodash": "^6.8.0",
     "gatsby-plugin-manifest": "^5.7.0",
