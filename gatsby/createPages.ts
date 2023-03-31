@@ -8,11 +8,9 @@ import _flatMap from 'lodash/fp/flatMap'
 import _orderBy from 'lodash/orderBy'
 import striptags from 'striptags'
 
-import config from '../src/config/blog-config'
-// import { extractRelatedPosts, extractRelatedPostRankings } from './gatsby-related-post'
-// import { createWordCount, createWordCloud } from './wordCloud'
+import { extractRelatedPosts } from './gatsby-related-post'
 import { POST_TYPE, query } from './constants'
-import type { TagData, WordCloudParam, QueryResult, PostNodeWrapper, PageContextAbout, PageContextTags } from '../src/@types'
+import type { TagData, QueryResult, PostNodeWrapper, PageContextTags } from '../src/@types'
 
 // onCreateNodeより後に実行される
 export const createPages = async ({ graphql, actions }: CreatePagesArgs): Promise<void> => {
@@ -20,7 +18,6 @@ export const createPages = async ({ graphql, actions }: CreatePagesArgs): Promis
 
   const BlogPostTemplate = path.resolve('./src/templates/BlogPostTemplate.tsx')
   const TagsTemplate = path.resolve('./src/templates/TagsTemplate.tsx')
-  // const AboutTemplate = path.resolve('./src/templates/AboutTemplate.tsx')
 
   const result = await graphql<QueryResult>(query)
   const thumbnails = result.data?.thumbnails
@@ -36,12 +33,10 @@ export const createPages = async ({ graphql, actions }: CreatePagesArgs): Promis
 
   const allPostNodes: GatsbyTypes.MarkdownRemark[] = posts.map((p) => p.node)
 
-  const defaultThumbnail = thumbnails?.edges.find((edge) => edge.node.relativePath.includes(config.defaultThumbnailImagePath))
-
   // 記事詳細ページ生成
   posts.forEach(({ type, node }: PostNodeWrapper, index: number) => {
     // 最大5つ関連記事を取得
-    // const relatedPosts = extractRelatedPosts(allPostNodes, node).slice(0, 5)
+    const relatedPosts = extractRelatedPosts(allPostNodes, node).slice(0, 5)
     const latestPosts = allPostNodes.slice(0, 5)
 
     if (type === POST_TYPE.ORIGINAL) {
@@ -51,7 +46,7 @@ export const createPages = async ({ graphql, actions }: CreatePagesArgs): Promis
         thumbnail,
         siteMetadata,
         slug: node.frontmatter.slug,
-        // relatedPosts,
+        relatedPosts,
         latestPosts,
         ...prevNext(posts, index),
       }
@@ -65,27 +60,6 @@ export const createPages = async ({ graphql, actions }: CreatePagesArgs): Promis
       throw new Error(`Unexpected post type = ${type}`)
     }
   })
-
-  // 記事関連情報生成
-  const allPostRelationsForAboutPage = allPostNodes.map((node) => {
-    return {
-      node,
-      // relations: extractRelatedPostRankings(allPostNodes, node, { threshold: 50 }),
-    }
-  })
-
-  // // WordCloud用データ加工処理
-  // const allText = posts
-  //   .map(({ type, node }) => {
-  //     if (type === POST_TYPE.ORIGINAL) {
-  //       const originalNode = node as OriginalPostNode
-  //       return rawText(originalNode.html)
-  //     } else {
-  //       const qiitaNode = node as QiitaPostNode
-  //       return rawText(qiitaNode.rendered_body)
-  //     }
-  //   })
-  //   .join('\n')
 
   const tagData: TagData = []
 
@@ -109,43 +83,6 @@ export const createPages = async ({ graphql, actions }: CreatePagesArgs): Promis
 
   // JSON使ってDeepコピーする
   const tagCounts = _orderBy(JSON.parse(JSON.stringify(tagData)), ['size', 'text'], ['desc', 'asc'])
-
-  // WordCloud生成
-  // const paramForTag: WordCloudParam = {
-  //   words: tagData,
-  //   w: 1200,
-  //   h: 630,
-  //   fontSizePow: 0.8,
-  //   fontSizeZoom: 18,
-  //   padding: 2,
-  // }
-
-  // const tagSvg = await createWordCloud(paramForTag)
-  // const wordCloudData = await createWordCount(allText)
-
-  // const paramForText: WordCloudParam = {
-  //   words: wordCloudData,
-  //   w: 1200,
-  //   h: 630,
-  //   fontSizePow: 0.6,
-  //   fontSizeZoom: 3.1,
-  //   padding: 0.2,
-  // }
-
-  // const textSvg = await createWordCloud(paramForText)
-
-  // const pageContextAbout: PageContextAbout = {
-  //   allPostRelations: allPostRelationsForAboutPage,
-  //   wordCloudText: textSvg,
-  //   wordCloudTag: tagSvg,
-  // }
-
-  // 記事分析ページ生成
-  // createPage({
-  //   path: '/about/',
-  //   component: AboutTemplate,
-  //   context: pageContextAbout,
-  // })
 
   // タグ別一覧ページ生成
   _flow(

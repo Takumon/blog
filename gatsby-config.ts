@@ -1,5 +1,7 @@
 import type { GatsbyConfig } from 'gatsby'
 import path from 'path'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -17,6 +19,17 @@ const config: GatsbyConfig = {
     'gatsby-plugin-emotion',
     'gatsby-plugin-image',
     'gatsby-plugin-sitemap',
+    {
+      resolve: 'gatsby-source-graphql',
+      options: {
+        typeName: 'GitHub',
+        fieldName: 'github',
+        url: 'https://api.github.com/graphql',
+        headers: {
+          Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
+        },
+      },
+    },
     {
       resolve: 'gatsby-plugin-manifest',
       options: {

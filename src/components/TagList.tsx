@@ -34,6 +34,7 @@ const styles = {
     ${maxContentWidth}
     padding: 1em;
     margin-top: 2em;
+    margin-bottom: 2em;
   `,
 
   title: css`

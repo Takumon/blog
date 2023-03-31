@@ -31,18 +31,15 @@ const Layout: React.FC<Props> = ({ location, children }) => {
   const prefix: string = __PATH_PREFIX__ || ''
   const rootPath = `${prefix}/`
   const tagPath = `${prefix}/tags/`
-  const mapPath = `${prefix}/about`
 
-  const { isRoot, isTag, isAbout } = useMemo(() => {
+  const { isRoot, isTag } = useMemo(() => {
     const isRoot = location.pathname === rootPath
     const isTag = location.pathname.startsWith(tagPath)
-    const isAbout = location.pathname.startsWith(mapPath)
     return {
       isRoot,
       isTag,
-      isAbout,
     }
-  }, [location.pathname, mapPath, rootPath, tagPath])
+  }, [location.pathname, rootPath, tagPath])
 
   const rootThumbnailPath = useRootThumbnailPath()
 
@@ -90,26 +87,8 @@ const Layout: React.FC<Props> = ({ location, children }) => {
       )
     }
 
-    if (isAbout) {
-      return (
-        <BackgroundImage Tag="div" css={styles.header_container} {...convertedHeaderImage} backgroundColor={`#8A5E5F`}>
-          <DarkToggle />
-          <Seo isRoot={true} thumbnailSrc={rootThumbnailPath} />
-          <div css={styles.header_container__inner}>
-            <h1 css={styles.blog_title_area}>
-              <Link css={styles.blog_title} to={'/'}>
-                ABOUT ME
-              </Link>
-            </h1>
-            <Bio />
-          </div>
-          <HeaderAction isAbout={isAbout} />
-        </BackgroundImage>
-      )
-    }
-
     return ''
-  }, [isRoot, isTag, isAbout, rootThumbnailPath, convertedHeaderImage])
+  }, [isRoot, isTag, rootThumbnailPath, convertedHeaderImage])
 
   return (
     <div css={styles.root_container}>

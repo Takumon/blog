@@ -28,7 +28,6 @@ export type QueryResult = {
   allQiitaPost: any
 }
 
-
 export type PostNodeWrapper = {
   node: GatsbyTypes.MarkdownRemark
   type: string
@@ -117,12 +116,6 @@ export type WordCount = {
 
 export type WordCounts = WordCount[]
 
-export type PageContextAbout = {
-  allPostRelations: PostRelations
-  wordCloudText: string
-  wordCloudTag: string
-}
-
 export type PageContextTags = {
   nodes: GatsbyTypes.MarkdownRemark[]
   tag: string
@@ -183,12 +176,3 @@ export type TagDataFactor = {
 }
 
 export type TagData = TagDataFactor[]
-
-export type WordCloudParam = {
-  words: TagData
-  w: number
-  h: number
-  fontSizePow: number
-  fontSizeZoom: number
-  padding: number
-}

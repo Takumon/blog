@@ -44,7 +44,7 @@ export default Footer
 
 const styles = {
   content: css`
-    margin-top: 24px;
+    margin-top: 0px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
