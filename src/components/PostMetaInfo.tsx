@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTags, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import moment from 'moment'
@@ -8,7 +8,7 @@ import Tag from './Tag'
 import config from '../config/blog-config'
 
 type Props = {
-  tags: string[]
+  tags: readonly string[]
   date: string
   color?: string
 }

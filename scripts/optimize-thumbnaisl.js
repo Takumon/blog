@@ -1,4 +1,3 @@
-
 const sharp = require(`sharp`)
 const glob = require(`glob`)
 const fs = require(`fs`)
@@ -6,7 +5,7 @@ const matches = glob.sync(`src/images/thumbnail/**/*.{png,jpg,jpeg}`)
 const MAX_WIDTH = 1200 * 2 // maxwidth is 1200 for Twitter, 2times is for retina
 
 Promise.all(
-  matches.map(async match => {
+  matches.map(async (match) => {
     const stream = sharp(match)
     const info = await stream.metadata()
 
@@ -20,4 +19,3 @@ Promise.all(
     return 'Success'
   })
 )
-

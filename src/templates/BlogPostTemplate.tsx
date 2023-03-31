@@ -4,28 +4,33 @@ import { graphql } from 'gatsby'
 import Post from '../components/Post'
 
 import 'katex/dist/katex.min.css'
-import { BlogPostQueryQuery } from '../../types/graphql-types'
 
 type Props = {
   pageContext: any
-  data: BlogPostQueryQuery
+  data: {
+    post: GatsbyTypes.MarkdownRemark & { headingsDetail: any }
+  }
 }
 
-const BlogPostTemplate: React.FC<Props> = ({ pageContext, data }) => {
-  const { post } = data
-  const siteTitle = pageContext.siteMetadata.title
-
-  return (
-    <Post fields={post?.fields} headings={post?.headingsDetail} html={post?.html} pageContext={pageContext} siteTitle={siteTitle} />
-  )
-}
+const BlogPostTemplate: React.FC<Props> = ({ pageContext, data }) => (
+  <Post item={data.post} headings={data.post.headingsDetail} pageContext={pageContext} siteTitle={pageContext.siteMetadata.title} />
+)
 
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
-  query BlogPostQuery($slug: String) {
-    post: markdownRemark(fields: { slug: { eq: $slug } }) {
+  query ($slug: String) {
+    post: markdownRemark(frontmatter: { slug: { eq: $slug } }) {
       html
+      excerpt
+      frontmatter {
+        slug
+        title
+        date
+        tags
+        keywords
+        thumbnail
+      }
       headingsDetail {
         id
         value
@@ -35,15 +40,6 @@ export const pageQuery = graphql`
           value
           depth
         }
-      }
-      fields {
-        slug
-        title
-        date
-        excerpt
-        tags
-        keywords
-        thumbnail
       }
     }
   }

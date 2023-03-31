@@ -7,15 +7,15 @@ query GatsbyNodeQuery {
     }
   }
 
-  allMarkdownRemark(sort: { fields: [fields___date], order: DESC }, limit: 1000) {
+  allMarkdownRemark(sort: { frontmatter: { date: DESC } }, limit: 1000) {
     edges {
       node {
         html
-        fields {
+        excerpt
+        frontmatter {
           slug
           title
           date
-          excerpt
           tags
           keywords
           thumbnail
@@ -23,30 +23,6 @@ query GatsbyNodeQuery {
       }
     }
   }
-
-
-  allQiitaPost(sort: { fields: [fields___date], order: DESC }, limit: 1000) {
-    edges {
-      node {
-        rendered_body
-        fields {
-          slug
-          title
-          date
-          excerpt
-          tags
-          keywords
-          thumbnail
-        }
-        user {
-          id
-          profile_image_url
-          description
-        }
-      }
-    }
-  }
-
 
   thumbnails: allFile(filter: {relativePath: {regex: "/^thumbnail/*/"}}) {
     edges {
@@ -54,13 +30,14 @@ query GatsbyNodeQuery {
         relativePath
         name
         childImageSharp {
-          fluid(maxWidth: 1200, quality: 90, pngQuality: 90) {
-            base64
-            aspectRatio
-            src
-            srcSet
-            sizes
-          }
+          gatsbyImageData(
+            width: 1200, 
+            quality: 90,
+            pngOptions: {
+              quality: 90
+            },
+            layout: CONSTRAINED
+          )
         }
       }
     }

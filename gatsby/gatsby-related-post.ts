@@ -1,5 +1,15 @@
 import _ from 'lodash'
-import type { PostNode, RelatedPostConfig, OptionalRelatedPostConfig, RelatedPostConfigIndex, InvertedIndex, RelatedPostSearchQuery, RelatedPostRankingMap, CalculatedRelatedPostRankings } from '../src/@types'
+import type {
+  RelatedPostConfig,
+  OptionalRelatedPostConfig,
+  RelatedPostConfigIndex,
+  InvertedIndex,
+  RelatedPostSearchQuery,
+  RelatedPostRankingMap,
+  CalculatedRelatedPostRankings,
+} from '../src/@types'
+
+type PostNode = GatsbyTypes.MarkdownRemark
 
 export const RELATED_POST_DEFAULT_CONFIG: RelatedPostConfig = {
   threshold: 80,
@@ -21,7 +31,6 @@ export const RELATED_POST_DEFAULT_CONFIG: RelatedPostConfig = {
   ],
 }
 
-  
 /**
  * 指定した記事の関連記事を抽出する.
  *
@@ -29,12 +38,12 @@ export const RELATED_POST_DEFAULT_CONFIG: RelatedPostConfig = {
  * @param {Object} postNode 記事のノード
  * @param {Object} config 設定
  */
-export function extractRelatedPosts(allpostNodes: PostNode[], postNode: PostNode, config?: OptionalRelatedPostConfig): PostNode[]  {
+export function extractRelatedPosts(allpostNodes: PostNode[], postNode: PostNode, config?: OptionalRelatedPostConfig): PostNode[] {
   if (!allpostNodes || allpostNodes.length === 0) {
     return []
   }
 
-  return extractRelatedPostRankings(allpostNodes, postNode, config).map(r => r.node)
+  return extractRelatedPostRankings(allpostNodes, postNode, config).map((r) => r.node)
 }
 
 /**
@@ -44,19 +53,19 @@ export function extractRelatedPosts(allpostNodes: PostNode[], postNode: PostNode
  * @param {Object} postNode 記事のノード
  * @param {Object} config 設定
  */
-export function extractRelatedPostRankings(allpostNodes: PostNode[], postNode: PostNode, config?: OptionalRelatedPostConfig): CalculatedRelatedPostRankings {
+function extractRelatedPostRankings(allpostNodes: PostNode[], postNode: PostNode, config?: OptionalRelatedPostConfig): CalculatedRelatedPostRankings {
   if (!allpostNodes || allpostNodes.length === 0) {
     return []
   }
 
-  const mergedConfig: RelatedPostConfig = config ? {...RELATED_POST_DEFAULT_CONFIG, ...config} : RELATED_POST_DEFAULT_CONFIG
+  const mergedConfig: RelatedPostConfig = config ? { ...RELATED_POST_DEFAULT_CONFIG, ...config } : RELATED_POST_DEFAULT_CONFIG
 
   const idx = createInvertedIndex(allpostNodes, mergedConfig)
   const query = createQuery(idx, postNode, mergedConfig.indices)
-  const upperDate = new Date(postNode.fields.date)
+  const upperDate = new Date(postNode.frontmatter.date)
 
   // 自分自身は関連記事のランキングから削除する
-  return _extractRelatedPostRankings(idx, query, upperDate).filter(r => r.node != postNode)
+  return _extractRelatedPostRankings(idx, query, upperDate).filter((r) => r.node != postNode)
 }
 
 /**
@@ -80,9 +89,9 @@ function createInvertedIndex(allpostNodes: PostNode[], config: RelatedPostConfig
  */
 function initInvertedIndex(config: RelatedPostConfig): InvertedIndex {
   return {
-    index: config.indices.map(i => ({ [i.name]: {} })).reduce((result, item) => Object.assign(result, item), {}),
-    minWeight: Math.min(...config.indices.map(i => i.weight)),
-    maxWeight: Math.max(...config.indices.map(i => i.weight)),
+    index: config.indices.map((i) => ({ [i.name]: {} })).reduce((result, item) => Object.assign(result, item), {}),
+    minWeight: Math.min(...config.indices.map((i) => i.weight)),
+    maxWeight: Math.max(...config.indices.map((i) => i.weight)),
     cfg: config,
   }
 }
@@ -95,15 +104,15 @@ function initInvertedIndex(config: RelatedPostConfig): InvertedIndex {
  * @return なし
  */
 function addInvertedIndex(idx: InvertedIndex, allpostNodes: PostNode[]): void {
-  idx.cfg.indices.forEach(config => {
+  idx.cfg.indices.forEach((config) => {
     if (config.weight === 0) {
       return
     }
 
     const setm = idx.index[config.name]
 
-    allpostNodes.forEach(postNode => {
-      getKeywords(postNode, config, idx.cfg.toLower).forEach(keyword => {
+    allpostNodes.forEach((postNode) => {
+      getKeywords(postNode, config, idx.cfg.toLower).forEach((keyword) => {
         if (setm[keyword]) {
           setm[keyword].push(postNode)
         } else {
@@ -127,12 +136,12 @@ function createQuery(idx: InvertedIndex, postNode: PostNode, indices: RelatedPos
   const indexConfigs =
     indices && indices.length > 0
       ? // 索引を指定している場合は、指定した転置インデックスから検索設定を取得する
-        indices.map(i => getIndexCfg(idx, i.name))
+        indices.map((i) => getIndexCfg(idx, i.name))
       : // 索引未指定の場合は、設定ファイルに指定した索引を使用する
-      idx.cfg.indices
+        idx.cfg.indices
 
   // 索引設定から検索クエリを生成
-  return indexConfigs.map(indexConfig => ({
+  return indexConfigs.map((indexConfig) => ({
     index: indexConfig.name,
     keywords: getKeywords(postNode, indexConfig, idx.cfg.toLower),
   }))
@@ -163,7 +172,7 @@ function getIndexCfg(idx: InvertedIndex, name: string): RelatedPostConfigIndex {
  * @return 記事ノードのメタ情報（設定で指定した名前の情報）
  */
 function getKeywords(postNode: PostNode, cfg: RelatedPostConfigIndex, toLower: boolean): string[] {
-  const keywords = postNode.fields[cfg.name]
+  const keywords = postNode.frontmatter[cfg.name]
 
   // メタ情報は未指定or文字列or文字列配列の可能性がある
   if (!keywords) {
@@ -172,7 +181,7 @@ function getKeywords(postNode: PostNode, cfg: RelatedPostConfigIndex, toLower: b
 
   if (_.isArray(keywords)) {
     if (toLower) {
-      return keywords.map(k => k.toLowerCase())
+      return keywords.map((k) => k.toLowerCase())
     }
     return keywords
   }
@@ -199,7 +208,7 @@ function _extractRelatedPostRankings(idx: InvertedIndex, query: RelatedPostSearc
   // 記事の識別は記事のURL(slug)で行う
   const rangings: RelatedPostRankingMap = {}
 
-  query.forEach(q => {
+  query.forEach((q) => {
     const setm = idx.index[q.index]
     if (!setm) {
       throw new Error(`index for ${q.index} not found`)
@@ -211,7 +220,7 @@ function _extractRelatedPostRankings(idx: InvertedIndex, query: RelatedPostSearc
     }
 
     q.keywords
-      .map(keyword => ({
+      .map((keyword) => ({
         // 索引に紐づく記事のノード一覧を取得
         keyword,
         postNodes: setm[keyword],
@@ -219,15 +228,15 @@ function _extractRelatedPostRankings(idx: InvertedIndex, query: RelatedPostSearc
       .filter(({ postNodes }) => !postNodes || postNodes.length > 0) // 見つからない場合、空配列の場合は除外
       .forEach(({ keyword, postNodes }) => {
         postNodes
-          .filter(postNode => {
+          .filter((postNode) => {
             if (idx.cfg.includeNewer) {
               return true
             }
             // includeNewerを指定していない場合、対象記事より新しい記事を関連記事から除外する
-            return new Date(postNode.fields.date).getTime() <= upperDate.getTime()
+            return new Date(postNode.frontmatter.date).getTime() <= upperDate.getTime()
           })
-          .forEach(postNode => {
-            const slug = postNode.fields.slug
+          .forEach((postNode) => {
+            const slug = postNode.frontmatter.slug
             const r = rangings[slug]
 
             // ランキングが存在する場合は、情報追加
@@ -258,7 +267,7 @@ function _extractRelatedPostRankings(idx: InvertedIndex, query: RelatedPostSearc
 
   // 収集したランキングの正規化した重み付けが、設定した閾値以上の場合を関連記事とみなす
   return Object.values(rangings)
-    .map(ranking => {
+    .map((ranking) => {
       const avgWeight = ranking.weight / ranking.matches
       const totalWeight = norm(avgWeight, idx.minWeight, idx.maxWeight)
       const threshold = idx.cfg.threshold / ranking.matches
@@ -271,7 +280,7 @@ function _extractRelatedPostRankings(idx: InvertedIndex, query: RelatedPostSearc
         isRelated,
       })
     })
-    .filter(ranking => ranking.isRelated)
+    .filter((ranking) => ranking.isRelated)
     .sort((a, b) => {
       // 第一ソートキーは重み 降順（関連が多い記事を先に）
       if (a.weight > b.weight) {
@@ -281,10 +290,10 @@ function _extractRelatedPostRankings(idx: InvertedIndex, query: RelatedPostSearc
         return 1
       }
       // 第二ソートキーは日付 降順（新しい記事を先に）
-      if (new Date(a.node.fields.date).getTime() > new Date(a.node.fields.date).getTime()) {
+      if (new Date(a.node.frontmatter.date).getTime() > new Date(a.node.frontmatter.date).getTime()) {
         return -1
       }
-      if (new Date(a.node.fields.date).getTime() < new Date(a.node.fields.date).getTime()) {
+      if (new Date(a.node.frontmatter.date).getTime() < new Date(a.node.frontmatter.date).getTime()) {
         return 1
       }
 

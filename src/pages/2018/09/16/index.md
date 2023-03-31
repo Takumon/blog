@@ -9,6 +9,7 @@ tags:
   - SRE
 keywords:
   - React
+slug: /2018/09/16/
 thumbnail: thumbnail/2018/react-sns.png
 ---
 

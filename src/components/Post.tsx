@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { Link } from 'gatsby'
-import { css, keyframes } from '@emotion/core'
+import { css, keyframes } from '@emotion/react'
 import 'katex/dist/katex.min.css'
 
 import config from '../config/blog-config'
@@ -17,9 +17,8 @@ import useIsScrollDownTo from '../hooks/useIsScrollDownTo'
 import { DarkToggle } from './DarkToggle'
 
 type Props = {
-  fields: any
+  item: GatsbyTypes.MarkdownRemark
   headings: any
-  html: any
   pageContext: {
     previous: any
     next: any
@@ -31,13 +30,7 @@ type Props = {
   siteTitle: any
 }
 
-const Post: React.FC<Props> = ({
-  fields,
-  headings,
-  html,
-  pageContext: { previous, next, slug, relatedPosts, latestPosts, thumbnail },
-  siteTitle,
-}) => {
+const Post: React.FC<Props> = ({ item, headings, pageContext: { previous, next, slug, relatedPosts, latestPosts, thumbnail }, siteTitle }) => {
   const isShowSnsShare = useIsScrollDownTo(400)
 
   const postUrl = `${config.blogUrl}${slug}`
@@ -48,15 +41,15 @@ const Post: React.FC<Props> = ({
 
   return (
     <article>
-      <Title postTitle={fields.title} />
+      <Title postTitle={item.frontmatter.title} />
       <Iframely />
       <Seo
         isRoot={false}
-        title={`${fields.title} | ${siteTitle}`}
-        description={fields.excerpt}
+        title={`${item.frontmatter.title} | ${siteTitle}`}
+        description={item.excerpt ?? ``} // TODO excerpt型修正
         postUrl={postUrl}
-        postDate={fields.date}
-        thumbnailSrc={thumbnail.node.childImageSharp.fluid.src}
+        postDate={item.frontmatter.date}
+        thumbnailSrc={thumbnail.node.childImageSharp.gatsbyImageData.images.fallback.src}
       />
 
       <div css={styles.header}>
@@ -71,10 +64,10 @@ const Post: React.FC<Props> = ({
             </h4>
 
             <a href={postUrl} rel="current" css={styles.post_title}>
-              <h1>{fields.title}</h1>
+              <h1>{item.frontmatter.title}</h1>
             </a>
 
-            <PostMetaInfo tags={fields.tags} date={fields.date} color={`#fff`} />
+            <PostMetaInfo tags={item.frontmatter.tags} date={item.frontmatter.date} color={`#fff`} />
           </div>
         </div>
       </div>
@@ -82,13 +75,15 @@ const Post: React.FC<Props> = ({
       <div css={styles.container}>
         <div css={styles.post}>
           <div>
-            <Image filename={fields.thumbnail || config.defaultThumbnailImagePath} alt={'thumbnail'} />
+            <Image filename={item.frontmatter.thumbnail || config.defaultThumbnailImagePath} alt={'thumbnail'} />
           </div>
-          <div dangerouslySetInnerHTML={{ __html: html }} />
+          {/* TODO html型修正 */}
+          <div dangerouslySetInnerHTML={{ __html: item.html ?? '' }} />
           {/* <div>
             <Adsense />
           </div> */}
         </div>
+
         <div css={styles.toc}>
           <ScrollSyncToc headings={headings} />
           {/* <div>
@@ -96,7 +91,7 @@ const Post: React.FC<Props> = ({
           </div> */}
         </div>
         <div css={cssSnsShare}>
-          <SNSShare title={fields.title} link={postUrl} twitterUserName={config.blogAuthorTwitterUserName} />
+          <SNSShare title={item.frontmatter.title} link={postUrl} twitterUserName={config.blogAuthorTwitterUserName} />
         </div>
 
         <div css={styles.paging}>

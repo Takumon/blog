@@ -1,14 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import { css } from '@emotion/core'
-import {
-  FacebookShareButton,
-  FacebookIcon,
-  LinkedinShareButton,
-  LinkedinIcon,
-  TwitterShareButton,
-  TwitterIcon,
-} from 'react-share'
+import { css } from '@emotion/react'
+import { FacebookShareButton, FacebookIcon, LinkedinShareButton, LinkedinIcon, TwitterShareButton, TwitterIcon } from 'react-share'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGetPocket } from '@fortawesome/free-brands-svg-icons'
 
@@ -22,8 +15,8 @@ const SNSShare: React.FC<Props> = ({ title, link, twitterUserName }) => {
   return (
     <ul css={styles.content}>
       <Helmet>
-        <script type="text/javascript" src="//b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async" />
-        <script type="text/javascript" src="//widgets.getpocket.com/v1/j/btn.js?v=1" charset="utf-8" async="async" />
+        <script type="text/javascript" src="//b.st-hatena.com/js/bookmark_button.js" async />
+        <script type="text/javascript" src="//widgets.getpocket.com/v1/j/btn.js?v=1" async />
       </Helmet>
       <li css={styles.share_button}>
         <FacebookShareButton url={link}>
@@ -52,9 +45,9 @@ const SNSShare: React.FC<Props> = ({ title, link, twitterUserName }) => {
                 `https://getpocket.com/edit?url=${link}&title=${title}`,
                 'PCwindow',
                 'width=550,height=350,menubar=no,toolbar=no,scrollbars=yes'
-              );
+              )
             }
-            return false;
+            return false
           }}
         >
           <FontAwesomeIcon color="#fff" css={styles.pocket_icon} icon={faGetPocket} />

@@ -7,6 +7,7 @@ tags:
   - SER
 keywords:
   - Gatsby
+slug: /2018/10/07/
 thumbnail: thumbnail/2018/youtube-in-gatsby.png
 ---
 

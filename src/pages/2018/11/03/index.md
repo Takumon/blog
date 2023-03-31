@@ -6,6 +6,7 @@ tags:
   - GatsbyPlugin
 keywords:
   - GatsbyPlugin
+slug: /2018/11/03/
 thumbnail: thumbnail/2018/gatsby-plugin-graphql.png
 ---
 

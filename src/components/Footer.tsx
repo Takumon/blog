@@ -1,11 +1,12 @@
 import React from 'react'
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { Link } from 'gatsby'
-import BackgroundImage from 'gatsby-background-image'
 
 import Bio from './Bio'
 import config from '../config/blog-config'
 import useSpecificImages from '../hooks/useSpecificImages'
+import { convertToBgImage } from 'gbimage-bridge'
+import BackgroundImage from 'gatsby-background-image'
 
 type Props = {
   isRoot: boolean
@@ -15,10 +16,11 @@ const Footer: React.FC<Props> = ({ isRoot }) => {
   const bio = isRoot ? '' : <Bio />
 
   const { footerImage } = useSpecificImages()
+  const bgImage = convertToBgImage(footerImage)
 
   return (
     footerImage && (
-      <BackgroundImage Tag="footer" role="contentinfo" css={styles.content} fluid={footerImage} backgroundColor={`#8A5E5F`}>
+      <BackgroundImage Tag="footer" role="contentinfo" css={styles.content} backgroundColor={`#8A5E5F`} {...bgImage}>
         <div css={styles.content__inner}>
           {bio}
           <h3 css={styles.title}>
@@ -42,7 +44,7 @@ export default Footer
 
 const styles = {
   content: css`
-    margin-top: 24px;
+    margin-top: 0px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

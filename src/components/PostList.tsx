@@ -1,12 +1,12 @@
 import React from 'react'
-import { css, keyframes } from '@emotion/core'
+import { css, keyframes } from '@emotion/react'
 import PostPreview from './PostPreview'
 import usePaging from '../hooks/usePaging'
 
 const PER_PAGE = 15
 
 type Props = {
-  postFields: any
+  postFields: GatsbyTypes.MarkdownRemark[]
 }
 
 const PostList: React.FC<Props> = ({ postFields }) => {
@@ -19,7 +19,7 @@ const PostList: React.FC<Props> = ({ postFields }) => {
     <div css={styles.content}>
       <div css={styles.content_inner}>
         {filtered.map((postField) => (
-          <PostPreview key={postField.slug} postField={postField} />
+          <PostPreview key={postField.frontmatter.slug} postField={postField} />
         ))}
       </div>
       {hasNextPage ? (

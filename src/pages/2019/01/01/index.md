@@ -7,6 +7,7 @@ tags:
   - 読書感想
 keywords:
   - Git
+slug: /2019/01/01/
 thumbnail: thumbnail/2018/ichiyasa-git.png
 ---
 

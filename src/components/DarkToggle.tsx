@@ -1,16 +1,8 @@
 import React, { useState, useCallback } from 'react'
-import { css, keyframes } from '@emotion/core'
+import { css, keyframes } from '@emotion/react'
 import { ThemeToggler } from 'gatsby-plugin-dark-mode'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
-
-type ToggleProps = {
-  icon: any
-  animation: any
-  toggle: () => void
-  moving: boolean
-  stopMoving: () => void
-}
 
 export const DarkToggle: React.FC = () => {
   const [moving, setMoving] = useState(false)
@@ -56,12 +48,12 @@ export const DarkToggle: React.FC = () => {
 
 const spin = keyframes`
   0%  {transform: rotate(0deg);}
-  100% {transform: rotate(360deg);}   
+  100% {transform: rotate(360deg);}
 `
 
 const spinRevert = keyframes`
   0%  {transform: rotate(0deg);}
-  100% {transform: rotate(-360deg);}   
+  100% {transform: rotate(-360deg);}
 `
 
 const styles = {

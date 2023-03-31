@@ -6,6 +6,7 @@ tags:
   - ランチャー
 keywords:
   - ランチャー
+slug: /2018/11/18/
 thumbnail: thumbnail/2018/windows-r-rancher.png
 ---
 

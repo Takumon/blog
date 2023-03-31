@@ -1,6 +1,6 @@
 import React from 'react'
-import Img from 'gatsby-image'
-import { css } from '@emotion/core'
+import { GatsbyImage } from 'gatsby-plugin-image'
+import { css } from '@emotion/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithubSquare, faTwitterSquare } from '@fortawesome/free-brands-svg-icons'
@@ -14,7 +14,7 @@ const Bio: React.FC = () => {
 
   return (
     <div css={styles.content}>
-      {avatarImage && <Img fluid={avatarImage} alt={config.blogAuthor} css={styles.avatar} />}
+      {avatarImage && <GatsbyImage image={avatarImage} alt={config.blogAuthor} css={styles.avatar} />}
       <div css={styles.main}>
         <div css={styles.description}>{config.blogDescription}</div>
         <div css={styles.profile}>

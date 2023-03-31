@@ -1,67 +1,43 @@
-import React, { useMemo } from 'react'
+import * as React from 'react'
+import type { PageProps } from 'gatsby'
 import { graphql } from 'gatsby'
-import _orderBy from 'lodash/orderBy'
-import type { TagCounts } from '../@types'
-import type { IndexPageQuery } from '../../types/graphql-types'
+import { useMemo } from 'react'
 import PostList from '../components/PostList'
-import TagList from '../components/TagList'
 import Title from '../components/Title'
+import _orderBy from 'lodash/orderBy'
+import TagList from '../components/TagList'
+import { TagCounts } from 'index'
 
-
-
-
-type Props = {
-  data: IndexPageQuery
-}
-const BlogIndex: React.FC<Props> = ({ data }) => {
+const IndexPage: React.FC<PageProps<GatsbyTypes.Query>> = ({ data }) => {
   // マージして降順で並び替え
   // gatsby-node.jsで2つのノードに共通のfieldsを追加しているため条件分岐なし
-  const posts = useMemo(
-    () => {
-      return [...data.allMarkdownRemark.edges, ...data.allQiitaPost.edges].sort((a, b) => {
-        const aDate = new Date(a.node.fields?.date)
-        const bDate = new Date(b.node.fields?.date)
+  const posts = data.allMarkdownRemark.edges
 
-        if (aDate < bDate) return 1
-        if (aDate > bDate) return -1
-        return 0
+  const tagCounts = useMemo(() => {
+    const _result: TagCounts = []
+
+    posts.forEach((post) => {
+      post.node.frontmatter?.tags?.forEach((t) => {
+        if (!t) {
+          return
+        }
+
+        const targetData = _result.find((data) => data.text === t)
+        if (targetData) {
+          targetData.size = targetData.size + 1
+        } else {
+          _result.push({
+            text: t,
+            size: 1,
+          })
+        }
       })
-    },
-    [data]
-  )
+    })
 
-  const tagCounts = useMemo(
-    () => {
-      const _result: TagCounts = []
+    return _orderBy(_result, ['size', 'text'], ['desc', 'asc'])
+  }, [posts])
 
-      posts.forEach(post => {
-        post.node.fields?.tags?.forEach(t => {
-          if (!t) {
-            return
-          }
-
-          if ('Qiita' === t) {
-            return
-          }
-
-          const targetData = _result.find(data => data.text === t)
-          if (targetData) {
-            targetData.size = targetData.size + 1
-          } else {
-            _result.push({
-              text: t,
-              size: 1,
-            })
-          }
-        })
-      })
-
-      return _orderBy(_result, ['size', 'text'], ['desc', 'asc'])
-    },
-    [posts]
-  )
-
-  const postFields = useMemo(() => posts.map(post => post.node.fields), [posts])
+  const postFields = useMemo(() => posts.map((post) => post.node), [posts])
 
   return (
     <>
@@ -72,17 +48,15 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
   )
 }
 
-export default BlogIndex
-
-export const pageQuery = graphql`
-  query IndexPage {
-    allMarkdownRemark(sort: { fields: [fields___date], order: DESC }) {
+export const query = graphql`
+  query {
+    allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
       edges {
         node {
-          fields {
+          excerpt
+          frontmatter {
             slug
             title
-            excerpt
             date
             tags
             thumbnail
@@ -90,18 +64,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    allQiitaPost(sort: { fields: [fields___date], order: DESC }) {
-      edges {
-        node {
-          fields {
-            slug
-            title
-            excerpt
-            date
-            tags
-          }
-        }
-      }
-    }
   }
 `
+
+export default IndexPage

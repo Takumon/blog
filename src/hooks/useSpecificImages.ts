@@ -1,62 +1,36 @@
 import { useStaticQuery, graphql } from 'gatsby'
-import type { FluidObject } from 'gatsby-image'
-import { BackgroundImagesQueryQuery } from '../../types/graphql-types'
+import { IGatsbyImageData } from 'gatsby-plugin-image'
 
-type Factor = FluidObject | null | undefined 
 type ReturnValue = {
-  headerImage: Factor,
-  footerImage: Factor,
-  avatarImage: Factor,
+  headerImage: IGatsbyImageData
+  footerImage: IGatsbyImageData
+  avatarImage: IGatsbyImageData
 }
 
 export default function useSpecificImages(): ReturnValue {
-  const data = useStaticQuery<BackgroundImagesQueryQuery>(graphql`
+  const data = useStaticQuery<GatsbyTypes.BackgroundImagesQueryQuery>(graphql`
     query BackgroundImagesQuery {
       headerImage: file(relativePath: { eq: "background.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 1500, quality: 100) {
-            base64
-            aspectRatio
-            src
-            srcSet
-            srcWebp
-            srcSetWebp
-            sizes
-          }
+          gatsbyImageData(width: 1500, quality: 100, layout: CONSTRAINED)
         }
       }
       footerImage: file(relativePath: { eq: "background-for-footer.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 1500, quality: 100) {
-            base64
-            aspectRatio
-            src
-            srcSet
-            srcWebp
-            srcSetWebp
-            sizes
-          }
+          gatsbyImageData(width: 1500, quality: 100, layout: CONSTRAINED)
         }
       }
       avatarImage: file(relativePath: { eq: "avatar.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 280, quality: 100) {
-            base64
-            aspectRatio
-            src
-            srcSet
-            srcWebp
-            srcSetWebp
-            sizes
-          }
+          gatsbyImageData(width: 200, quality: 100, layout: CONSTRAINED)
         }
       }
     }
   `)
 
   return {
-    headerImage: data.headerImage?.childImageSharp?.fluid as FluidObject,
-    footerImage: data.footerImage?.childImageSharp?.fluid as FluidObject,
-    avatarImage: data.avatarImage?.childImageSharp?.fluid as FluidObject,
+    headerImage: data.headerImage?.childImageSharp?.gatsbyImageData as IGatsbyImageData, // 必ず取得できるのでキャスト
+    footerImage: data.footerImage?.childImageSharp?.gatsbyImageData as IGatsbyImageData, // 必ず取得できるのでキャスト
+    avatarImage: data.avatarImage?.childImageSharp?.gatsbyImageData as IGatsbyImageData, // 必ず取得できるのでキャスト
   }
 }

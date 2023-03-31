@@ -1,13 +1,9 @@
 node_modules/
-public
-.gatsby-context.js
-.DS_Store
-.intermediate-representation/
 .cache/
+public
+src/gatsby-types.d.ts
+.DS_Store
 .env
-yarn.lock
 
 # Local Netlify folder
 .netlify
-
-.lighthouseci/

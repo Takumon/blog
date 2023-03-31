@@ -6,6 +6,7 @@ tags:
   - Gatsby theme
 keywords:
   - Gatsby
+slug: /2018/11/24/
 thumbnail: thumbnail/2018/gatsby-theme.png
 ---
 

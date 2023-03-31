@@ -6,6 +6,7 @@ tags:
   - Vimium
 keywords:
   - Vim
+slug: /2018/12/09/
 thumbnail: thumbnail/2018/vim-beginners.png
 ---
 

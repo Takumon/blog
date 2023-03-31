@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import { css, keyframes } from '@emotion/core'
+import { css, keyframes } from '@emotion/react'
 
 import PostPreviewSmall from './PostPreviewSmall'
 
@@ -24,14 +24,14 @@ const Pagination: React.FC<Props> = ({ previous, next, relatedPosts, latestPosts
       {previous && (
         <div css={styles.posts_context}>
           <h2 css={styles.posts_category}>←前の記事</h2>
-          <PostPreviewSmall key={previous.fields.slug} postField={previous.fields} />
+          <PostPreviewSmall key={previous.frontmatter.slug} postField={previous.frontmatter} />
         </div>
       )}
 
       {next && (
         <div css={styles.posts_context}>
           <h2 css={styles.posts_category}>次の記事→</h2>
-          <PostPreviewSmall key={next.fields.slug} postField={next.fields} />
+          <PostPreviewSmall key={next.frontmatter.slug} postField={next.frontmatter} />
         </div>
       )}
 
@@ -40,7 +40,7 @@ const Pagination: React.FC<Props> = ({ previous, next, relatedPosts, latestPosts
           <h2 css={styles.posts_category}>関連記事</h2>
 
           {relatedPosts.map((p) => (
-            <PostPreviewSmall key={p.fields.slug} postField={p.fields} />
+            <PostPreviewSmall key={p.frontmatter.slug} postField={p.frontmatter} />
           ))}
         </div>
       )}
@@ -50,7 +50,7 @@ const Pagination: React.FC<Props> = ({ previous, next, relatedPosts, latestPosts
           <h2 css={styles.posts_category}>最近の記事</h2>
 
           {latestPosts.map((p) => (
-            <PostPreviewSmall key={p.fields.slug} postField={p.fields} />
+            <PostPreviewSmall key={p.frontmatter.slug} postField={p.frontmatter} />
           ))}
         </div>
       )}

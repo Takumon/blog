@@ -7,6 +7,7 @@ tags:
   - React
 keywords:
   - React
+slug: /2018/12/02/
 thumbnail: thumbnail/2018/react-slit-animation.png
 ---
 

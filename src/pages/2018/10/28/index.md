@@ -8,6 +8,7 @@ tags:
   - rehype
 keywords:
   - React
+slug: /2018/10/28/
 thumbnail: thumbnail/2018/qiita-like-top-of-content-with-unified.png
 ---
 

@@ -8,6 +8,7 @@ tags:
   - デュアルキーボード
 keywords:
   - キーボード
+slug: /2018/12/29/
 thumbnail: thumbnail/2018/dual-keybord.png
 ---
 

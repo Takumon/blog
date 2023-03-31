@@ -1,8 +1,7 @@
 import { useStaticQuery, graphql } from 'gatsby'
-import { RootThumbnailPathQueryQuery } from '../../types/graphql-types'
 
 export default function useRootThumbnailPath(): string {
-  const data = useStaticQuery<RootThumbnailPathQueryQuery>(graphql`
+  const data = useStaticQuery<GatsbyTypes.RootThumbnailPathQueryQuery>(graphql`
     query RootThumbnailPathQuery {
       file(relativePath: { eq: "thumbnail/for-root-page.png" }) {
         childImageSharp {

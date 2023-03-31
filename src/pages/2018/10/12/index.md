@@ -5,6 +5,7 @@ tags:
   - Gatsby
 keywords:
   - Gatsby
+slug: /2018/10/12/
 thumbnail: thumbnail/2018/gatsby-v2.png
 ---
 

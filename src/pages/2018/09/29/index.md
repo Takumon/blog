@@ -8,6 +8,7 @@ tags:
   - SRE
 keywords:
   - JSON-LD
+slug: /2018/09/29/
 thumbnail: thumbnail/2018/react-json-ld.png
 ---
 

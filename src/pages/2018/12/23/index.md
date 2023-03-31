@@ -10,6 +10,7 @@ tags:
   - スライド
 keywords:
   - mdx-deck
+slug: /2018/12/23/
 thumbnail: thumbnail/2018/mdx-and-codesufer.png
 ---
 

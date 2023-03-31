@@ -7,6 +7,7 @@ tags:
   - Qiita
 keywords:
   - GatsbyPlugin
+slug: /2018/11/11/
 thumbnail: thumbnail/2018/gatsby-plugin-qiita.png
 ---
 

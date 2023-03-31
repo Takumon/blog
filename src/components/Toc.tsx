@@ -1,7 +1,7 @@
 import React from 'react'
 import { Location } from '@reach/router'
 import { Link } from 'gatsby'
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { Headings } from '../@types'
 
 type Props = {

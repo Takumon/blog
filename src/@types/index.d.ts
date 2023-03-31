@@ -28,37 +28,8 @@ export type QueryResult = {
   allQiitaPost: any
 }
 
-export type PostNodeFields = {
-  slug: string
-  title: string
-  date: string
-  excerpt: string
-  tags: string[]
-  keywords: string
-  thumbnail: string
-}
-
-export interface BasePostNode {
-  fields: PostNodeFields
-}
-
-export type OriginalPostNode = BasePostNode & {
-  html: string
-}
-
-export type QiitaPostNode = BasePostNode & {
-  rendered_body: string
-  user: {
-    id: string
-    profile_image_url: string
-    description: string
-  }
-}
-
-export type PostNode = OriginalPostNode | QiitaPostNode
-
 export type PostNodeWrapper = {
-  node: PostNode
+  node: GatsbyTypes.MarkdownRemark
   type: string
   date: Date
 }
@@ -83,7 +54,7 @@ export type OptionalRelatedPostConfig = {
 }
 
 export type InvertedIndex = {
-  index: { [name: string]: { [keyword: string]: PostNode[] } }
+  index: { [name: string]: { [keyword: string]: GatsbyTypes.MarkdownRemark[] } }
   minWeight: number
   maxWeight: number
   cfg: RelatedPostConfig
@@ -104,7 +75,7 @@ export type RelatedPostRankingDetail = {
 export type RelatedPostRankingDetails = RelatedPostRankingDetail[]
 
 export type RelatedPostRanking = {
-  node: PostNode
+  node: GatsbyTypes.MarkdownRemark
   matches: number
   weight: number
   details: RelatedPostRankingDetails
@@ -124,7 +95,7 @@ export type RelatedPostRankingMap = {
 }
 
 export type PostRelation = {
-  node: PostNode
+  node: GatsbyTypes.MarkdownRemark
   relations: CalculatedRelatedPostRankings
 }
 
@@ -145,14 +116,8 @@ export type WordCount = {
 
 export type WordCounts = WordCount[]
 
-export type PageContextAbout = {
-  allPostRelations: PostRelations
-  wordCloudText: string
-  wordCloudTag: string
-}
-
 export type PageContextTags = {
-  nodes: PostNode[]
+  nodes: GatsbyTypes.MarkdownRemark[]
   tag: string
   tagCounts: TagData
 }
@@ -211,12 +176,3 @@ export type TagDataFactor = {
 }
 
 export type TagData = TagDataFactor[]
-
-export type WordCloudParam = {
-  words: TagData
-  w: number
-  h: number
-  fontSizePow: number
-  fontSizeZoom: number
-  padding: number
-}

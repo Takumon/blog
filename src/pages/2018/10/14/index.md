@@ -7,6 +7,7 @@ tags:
   - CSSModules
 keywords:
   - Gatsby
+slug: /2018/10/14/
 thumbnail: thumbnail/2018/gatsby-css-modules.png
 ---
 

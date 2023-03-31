@@ -6,6 +6,7 @@ tags:
   - ブログ
 keywords:
   - Gatsby
+slug: /2018/09/09/
 thumbnail: thumbnail/2018/beginning-of-blog.png
 ---
 

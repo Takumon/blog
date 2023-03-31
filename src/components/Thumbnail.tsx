@@ -1,5 +1,5 @@
 import React from 'react'
-import Img from 'gatsby-image'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import useThumbnailImage from '../hooks/useThumbnailImage'
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 
 const Thumbnail: React.FC<Props> = ({ filename, alt }) => {
   const fluidImage = useThumbnailImage(filename)
-  return fluidImage ? <Img alt={alt} fluid={fluidImage} /> : null
+  return fluidImage ? <GatsbyImage alt={alt} image={fluidImage} /> : null
 }
 
 export default Thumbnail

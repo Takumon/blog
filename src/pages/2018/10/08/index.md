@@ -6,6 +6,7 @@ tags:
   - PWA
 keywords:
   - Gatsby
+slug: /2018/10/08/
 thumbnail: thumbnail/2018/gatsby-pwa.png
 ---
 

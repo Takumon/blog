@@ -1,8 +1,7 @@
 import React from 'react'
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Link } from 'gatsby'
-
 import PostMetaInfo from './PostMetaInfo'
 import Image from './Thumbnail'
 import config from '../config/blog-config'
@@ -102,29 +101,22 @@ const styles = {
 }
 
 type Props = {
-  postField: {
-    slug: string
-    title: string
-    excerpt: string
-    date: string
-    tags: string[]
-    thumbnail: string
-  }
+  postField: GatsbyTypes.MarkdownRemark
 }
 
-const PostPreview: React.FC<Props> = ({ postField: { slug, title, excerpt, date, tags, thumbnail } }) => {
+const PostPreview: React.FC<Props> = ({ postField }) => {
   return (
-    <Card key={slug}>
-      <LinkCard to={slug}>
+    <Card key={postField.frontmatter.slug}>
+      <LinkCard to={postField.frontmatter.slug}>
         <Header>
           <ImageWrapper>
-            <Image css={styles.image} filename={thumbnail || config.defaultThumbnailImagePath} alt={'thumbnail'} />
+            <Image css={styles.image} filename={postField.frontmatter.thumbnail || config.defaultThumbnailImagePath} alt={'thumbnail'} />
           </ImageWrapper>
         </Header>
         <Body>
-          <Title>{title}</Title>
-          <Description dangerouslySetInnerHTML={{ __html: excerpt }} />
-          <PostMetaInfo tags={tags} date={date} />
+          <Title>{postField.frontmatter.title}</Title>
+          <Description dangerouslySetInnerHTML={{ __html: postField.excerpt ?? '' }} />
+          <PostMetaInfo tags={postField.frontmatter.tags ?? []} date={postField.frontmatter.date} />
         </Body>
       </LinkCard>
     </Card>

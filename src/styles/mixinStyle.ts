@@ -1,4 +1,4 @@
-import { css, keyframes } from '@emotion/core'
+import { css, keyframes } from '@emotion/react'
 
 export const maxContentWidth = css`
   margin-left: auto;

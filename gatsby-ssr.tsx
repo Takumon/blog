@@ -5,7 +5,6 @@ dotenv.config()
 
 export const wrapPageElement = ({ element, props }) => <Layout {...props}>{element}</Layout>
 
-
 // export const onRenderBody = ({ setHeadComponents, setPostBodyComponents }) => {
 //   return setHeadComponents([
 //     <script

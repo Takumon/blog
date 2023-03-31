@@ -8,6 +8,7 @@ tags:
   - イベントレポート
 keywords:
   - Java
+slug: /2018/12/16/
 thumbnail: thumbnail/2018/jjug-ccc-2018-fall.png
 ---
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTags } from '@fortawesome/free-solid-svg-icons'
 import type { TagCounts } from '../@types'
@@ -11,7 +11,6 @@ type Props = {
   tagCounts: TagCounts
 }
 
-// eslint-disable-next-line react/prop-types
 const TagList: React.FC<Props> = ({ tagCounts }) => {
   return (
     <div css={styles.content}>
@@ -35,6 +34,7 @@ const styles = {
     ${maxContentWidth}
     padding: 1em;
     margin-top: 2em;
+    margin-bottom: 2em;
   `,
 
   title: css`

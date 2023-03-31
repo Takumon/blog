@@ -8,6 +8,7 @@ tags:
   - Gatsby
 keywords:
   - カスタムドメイン
+slug: /2018/09/12/
 thumbnail: thumbnail/2018/github-pages-https.png
 ---
 

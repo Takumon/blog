@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { Link } from 'gatsby'
-import BackgroundImage from 'gatsby-background-image'
 import type { WindowLocation } from '@reach/router'
 
 import NormalizeStyle from '../styles/NormalizeStyle'
@@ -15,45 +14,46 @@ import { flexColumnCenter } from '../styles/mixinStyle'
 import Seo from './SEO'
 import Footer from './Footer'
 import Bio from './Bio'
-import HeaderAction from './HeaderAction'
-import UserHeat from './UserHeat'
+// import UserHeat from './UserHeat'
 import useSpecificImages from '../hooks/useSpecificImages'
 import useRootThumbnailPath from '../hooks/useRootThumbnailPath'
+import { convertToBgImage } from 'gbimage-bridge'
+import BackgroundImage from 'gatsby-background-image'
 import { DarkToggle } from './DarkToggle'
+import HeaderAction from './HeaderAction'
 
 type Props = {
   location: WindowLocation
+  children: React.ReactNode
 }
 
 const Layout: React.FC<Props> = ({ location, children }) => {
   const prefix: string = __PATH_PREFIX__ || ''
   const rootPath = `${prefix}/`
   const tagPath = `${prefix}/tags/`
-  const mapPath = `${prefix}/about`
 
-  const { isRoot, isTag, isAbout } = useMemo(() => {
+  const { isRoot, isTag } = useMemo(() => {
     const isRoot = location.pathname === rootPath
     const isTag = location.pathname.startsWith(tagPath)
-    const isAbout = location.pathname.startsWith(mapPath)
     return {
       isRoot,
       isTag,
-      isAbout,
     }
-  }, [location.pathname, mapPath, rootPath, tagPath])
+  }, [location.pathname, rootPath, tagPath])
 
   const rootThumbnailPath = useRootThumbnailPath()
 
   const { headerImage } = useSpecificImages()
+  const convertedHeaderImage = convertToBgImage(headerImage)
 
   const header = useMemo(() => {
-    if (!headerImage) {
+    if (!convertedHeaderImage) {
       return null
     }
 
     if (isRoot) {
       return (
-        <BackgroundImage Tag="div" css={styles.header_container} fluid={headerImage} backgroundColor={`#8A5E5F`}>
+        <BackgroundImage Tag="div" css={styles.header_container} {...convertedHeaderImage} backgroundColor={`#8A5E5F`}>
           <DarkToggle />
           <Seo isRoot={true} thumbnailSrc={rootThumbnailPath} />
           <div css={styles.header_container__inner}>
@@ -71,7 +71,7 @@ const Layout: React.FC<Props> = ({ location, children }) => {
 
     if (isTag) {
       return (
-        <BackgroundImage Tag="div" css={styles.header_container} fluid={headerImage} backgroundColor={`#8A5E5F`}>
+        <BackgroundImage Tag="div" css={styles.header_container} {...convertedHeaderImage} backgroundColor={`#8A5E5F`}>
           <DarkToggle />
           <Seo isRoot={true} thumbnailSrc={rootThumbnailPath} />
           <div css={styles.header_container__inner}>
@@ -87,33 +87,15 @@ const Layout: React.FC<Props> = ({ location, children }) => {
       )
     }
 
-    if (isAbout) {
-      return (
-        <BackgroundImage Tag="div" css={styles.header_container} fluid={headerImage} backgroundColor={`#8A5E5F`}>
-          <DarkToggle />
-          <Seo isRoot={true} thumbnailSrc={rootThumbnailPath} />
-          <div css={styles.header_container__inner}>
-            <h1 css={styles.blog_title_area}>
-              <Link css={styles.blog_title} to={'/'}>
-                ABOUT ME
-              </Link>
-            </h1>
-            <Bio />
-          </div>
-          <HeaderAction isAbout={isAbout} />
-        </BackgroundImage>
-      )
-    }
-
     return ''
-  }, [isRoot, isTag, isAbout, headerImage, rootThumbnailPath])
+  }, [isRoot, isTag, rootThumbnailPath, convertedHeaderImage])
 
   return (
     <div css={styles.root_container}>
       <NormalizeStyle />
       <GlobalStyle />
       <HighlightStyle />
-      <UserHeat />
+      {/* <UserHeat /> */}
       {header}
       {children}
       <Footer isRoot={isRoot} />

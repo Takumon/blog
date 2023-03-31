@@ -6,6 +6,7 @@ tags:
   - ブログ
 keywords:
   - Gatsby
+slug: /2018/09/10/
 thumbnail: thumbnail/2018/how-to-start-a-blog-with-gatsby.png
 ---
 

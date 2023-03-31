@@ -1,52 +1,46 @@
-require('dotenv').config()
-const key = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, '\n')
+import type { GatsbyConfig } from 'gatsby'
+import path from 'path'
+import dotenv from 'dotenv'
+dotenv.config()
 
-module.exports = {
+const config: GatsbyConfig = {
   siteMetadata: {
     title: 'Takumon Blog',
     author: 'Takuto Inoue',
     description: "SIer's tech blog powered by Gatsby",
     siteUrl: 'https://takumon.com',
   },
+  // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
+  // If you use VSCode you can also use the GraphQL plugin
+  // Learn more at: https://gatsby.dev/graphql-typegen
+  graphqlTypegen: true,
   plugins: [
-    `gatsby-plugin-dark-mode`,
-    `gatsby-plugin-emotion`,
+    'gatsby-plugin-dark-mode',
+    'gatsby-plugin-emotion',
+    'gatsby-plugin-image',
+    'gatsby-plugin-sitemap',
     {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/src/pages`,
-        name: 'pages',
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
-      },
-    },
-    {
-      resolve: `gatsby-transformer-remark`,
+      resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
-          `gatsby-remark-katex`,
-          `gatsby-remark-graphviz`,
-          `gatsby-remark-code-titles`,
+          'gatsby-remark-katex',
+          'gatsby-remark-graphviz',
+          'gatsby-remark-code-titles',
           {
-            resolve: `gatsby-remark-images`,
+            resolve: 'gatsby-remark-images',
             options: {
               maxWidth: 800,
               withWebp: true,
             },
           },
-          `gatsby-remark-embed-youtube`,
+          'gatsby-remark-embed-youtube',
           {
-            resolve: `gatsby-remark-responsive-iframe`,
+            resolve: 'gatsby-remark-responsive-iframe',
             options: {
-              wrapperStyle: `margin-bottom: 1.0725rem`,
+              wrapperStyle: 'margin-bottom: 1.0725rem',
             },
           },
-          `gatsby-remark-autolink-headers`,
+          'gatsby-remark-autolink-headers',
           {
             resolve: 'gatsby-remark-embed-snippet',
             options: {
@@ -55,7 +49,7 @@ module.exports = {
             },
           },
           {
-            resolve: `gatsby-remark-prismjs`,
+            resolve: 'gatsby-remark-prismjs',
             options: {
               classPrefix: 'language-',
               inlineCodeMarker: null,
@@ -82,31 +76,34 @@ module.exports = {
         ],
       },
     },
+    'gatsby-remark-headings-detail',
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     {
-      resolve: `gatsby-source-qiita`,
+      resolve: 'gatsby-plugin-google-analytics',
       options: {
-        accessToken: process.env.ACCESS_TOKEN,
-        userName: process.env.USER_NAME,
-        excludedPostIds: process.env.EXCLUDED_POST_IDS.split(','),
-      },
-    },
-    `gatsby-remark-headings-detail`,
-    `gatsby-remark-and-qiita`,
-    `gatsby-plugin-sharp`,
-    {
-      resolve: `gatsby-transformer-sharp`,
-      options: {
-        checkSupportedExtensions: false,
+        trackingId: 'UA-93478785-2',
       },
     },
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: 'gatsby-source-filesystem',
       options: {
-        trackingId: `UA-93478785-2`,
+        name: 'images',
+        path: './src/images/',
       },
+      __key: 'images',
     },
-    `gatsby-plugin-feed`,
-    `gatsby-plugin-react-helmet`,
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'pages',
+        path: './src/pages/',
+      },
+      __key: 'pages',
+    },
+    'gatsby-plugin-remove-serviceworker',
+    'gatsby-plugin-twitter',
+    'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
@@ -160,64 +157,45 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-remove-serviceworker`,
-    `gatsby-plugin-twitter`,
-    `gatsby-plugin-sitemap`,
+    'gatsby-plugin-catch-links',
+    'gatsby-plugin-lodash',
+    {
+      resolve: 'gatsby-plugin-nprogress',
+      options: {
+        color: 'blue',
+        showSpinner: true,
+      },
+    },
+    'gatsby-plugin-no-sourcemaps',
+    {
+      resolve: 'gatsby-remark-prismjs',
+      options: {
+        classPrefix: 'language-',
+        inlineCodeMarker: null,
+        aliases: {},
+        showLineNumbers: true,
+      },
+    },
+    'gatsby-plugin-typegen',
     {
       resolve: 'gatsby-plugin-typography',
       options: {
         pathToConfigModule: 'src/styles/typography',
       },
     },
-    `gatsby-plugin-catch-links`,
     {
-      resolve: `gatsby-plugin-nprogress`,
+      resolve: 'gatsby-plugin-eslint',
       options: {
-        color: `blue`,
-        showSpinner: true,
-      },
-    },
-    `gatsby-plugin-no-sourcemaps`,
-    `gatsby-plugin-lodash`,
-    {
-      resolve: `gatsby-plugin-webpack-bundle-analyzer`,
-      options: {
-        openAnalyzer: false,
-      },
-    },
-    `gatsby-plugin-netlify`,
-    {
-      resolve: 'gatsby-source-graphql',
-      options: {
-        typeName: 'GitHub',
-        fieldName: 'github',
-        url: 'https://api.github.com/graphql',
-        headers: {
-          Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
-        },
-      },
-    },
-    {
-      resolve: 'gatsby-plugin-guess-js',
-      options: {
-        GAViewID: `181551797`,
-        jwt: {
-          client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-          private_key: `${key}`,
-        },
-        minimumThreshold: 0.03,
-        period: {
-          startDate: new Date('2020-1-1'),
-          endDate: new Date(),
-        },
-      },
-    },
-    `gatsby-plugin-typescript`,
-    {
-      resolve: 'gatsby-plugin-graphql-codegen',
-      options: {
-        fileName: `types/graphql-types.d.ts`,
+        // Get paths of Gatsby's required rules, which as of writing is located at:
+        // https://github.com/gatsbyjs/gatsby/tree/fbfe3f63dec23d279a27b54b4057dd611dce74bb/packages/
+        // gatsby/src/utils/eslint-rules
+        rulePaths: [path.join(process.cwd(), 'node_modules', 'gatsby', 'dist', 'utils', 'eslint-rules')],
+        stages: ['develop'],
+        extensions: ['js', 'jsx', 'ts', 'tsx'],
+        exclude: ['node_modules', '.cache', 'public'],
       },
     },
   ],
 }
+
+export default config
