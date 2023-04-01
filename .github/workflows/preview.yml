@@ -7,33 +7,29 @@ permissions:
   deployments: write
 jobs:
   deploy_preview:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v3
-      - uses: nelonoel/branch-name@v1.0.1
-      - name: deploy preview version of GatsbyJS to Netlify
-        uses: jsmrcaga/action-netlify-deploy@v1.7.2
+
+      - uses: actions/setup-node@v3
         with:
+          node-version: 18.12.1
+
+      - run: npm ci --legacy-peer-deps
+
+      - run: npm run build
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@vv2.0
+        with:
+          publish-dir: './public'
+          production-branch: master
+          github-deployment-environment: ${{ steps.github_deployment_environment.outputs.GITHUB_DEPLOYMENT_ENVIRONMENT }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: ${{ github.event.head_commit.message || github.event.pull_request.title }}
+          alias: deploy-preview-${{ github.event.number }}
+          fails-without-credentials: true
+        env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          install_command: npm ci --legacy-peer-deps
-          build_command: npm run build
-          build_directory: 'public'
-          deploy_alias: ${{ env.BRANCH_NAME }}
-      - name: find the comment
-        uses: peter-evans/find-comment@v1
-        id: fc
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          comment-author: 'github-actions[bot]'
-          body-includes: Netlify Preview Deployment Information
-      - name: create or update comment
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-          comment-id: ${{ steps.fc.outputs.comment-id }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            Netlify Preview Deployment Information
-            - Log URL: ${{ steps.deploy_preview.outputs.NETLIFY_LOGS_URL }}
-            - Preview URL: ${{ steps.deploy_preview.outputs.NETLIFY_PREVIEW_URL }}
-          edit-mode: replace
