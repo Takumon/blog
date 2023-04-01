@@ -4,9 +4,12 @@ jobs:
   deploy_preview:
     runs-on: ubuntu-latest
     steps:
+      - name: initialize
+        uses: actions/checkout@v1
+        run: |
+          sudo apt-get install nasm
       - name: checkout
         uses: actions/checkout@v3
-
       - name: deploy preview version of GatsbyJS to Netlify
         uses: jsmrcaga/action-netlify-deploy@v1.7.2
         id: deploy_preview
