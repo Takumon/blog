@@ -2,6 +2,7 @@ on:
   pull_request:
 jobs:
   deploy_preview:
+    runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: actions/checkout@v3
