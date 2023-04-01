@@ -4,8 +4,7 @@ jobs:
   deploy_preview:
     runs-on: ubuntu-latest
     steps:
-      - name: initialize
-        uses: actions/checkout@v1
+      - uses: actions/checkout@v1
         run: |
           sudo apt-get install nasm
       - name: checkout
