@@ -94,11 +94,11 @@
   },
   "scripts": {
     "install-local-gatsby-plugins": "run-p install-local-gatsby-plugins:**",
-    "install-local-gatsby-plugins:gatsby-remark-headings-detail": "cd ./plugins/gatsby-remark-headings-detail && npm i",
+    "install-local-gatsby-plugins:gatsby-remark-headings-detail": "cd ./plugins/gatsby-remark-headings-detail && npm ci --legacy-peer-deps",
     "develop": "gatsby develop",
     "start": "gatsby develop",
-    "build": "run-s install-local-gatsby-plugins build:gatsby",
-    "build:gatsby": "gatsby build --log-pages",
+    "build": "run-s install-local-gatsby-plugins clean build:gatsby",
+    "build:gatsby": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit"
