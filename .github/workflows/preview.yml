@@ -1,20 +1,25 @@
 on:
   pull_request:
+permissions:
+  contents: write
+  pull-requests: write
+  statuses: write
+  deployments: write
 jobs:
   deploy_preview:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - uses: nelonoel/branch-name@v1.0.1
       - name: deploy preview version of GatsbyJS to Netlify
         uses: jsmrcaga/action-netlify-deploy@v1.7.2
-        id: deploy_preview
         with:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           install_command: npm ci --legacy-peer-deps
-          build_command: sudo npm run build
+          build_command: npm run build
           build_directory: 'public'
+          deploy_alias: ${{ env.BRANCH_NAME }}
       - name: find the comment
         uses: peter-evans/find-comment@v1
         id: fc
