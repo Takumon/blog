@@ -3,6 +3,7 @@ import { Link } from 'gatsby'
 import { css, keyframes } from '@emotion/react'
 
 import PostPreviewSmall from './PostPreviewSmall'
+import tomatoImg from '../images/tomato.svg'
 
 type Props = {
   previous: any
@@ -98,7 +99,7 @@ const tomato = (rotateDegree: string) => {
     display: inline-block;
     box-sizing: border-box;
     vertical-align: bottom;
-    background-image: url(images/tomato.svg);
+    background-image: url(${tomatoImg});
     width: 1.2rem;
     height: 1.2rem;
     background-repeat: no-repeat;

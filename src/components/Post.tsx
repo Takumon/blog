@@ -15,6 +15,9 @@ import Image from './Thumbnail'
 import Pagination from './Pagination'
 import useIsScrollDownTo from '../hooks/useIsScrollDownTo'
 import { DarkToggle } from './DarkToggle'
+import tomato from '../images/tomato.svg'
+import overlay2 from '../images/overlay2.png'
+import overlay4 from '../images/overlay4.svg'
 
 type Props = {
   item: GatsbyTypes.MarkdownRemark
@@ -145,7 +148,7 @@ const styles = {
   blog_title__icon: css`
     display: inline-block;
     vertical-align: bottom;
-    background-image: url(images/tomato.svg);
+    background-image: url(${tomato});
     width: 1em;
     height: 1em;
     background-repeat: no-repeat;
@@ -185,7 +188,7 @@ const styles = {
     display: flex;
     align-items: center;
     background-attachment: fixed, fixed, fixed;
-    background-image: url('images/overlay2.png'), url('images/overlay4.svg'), var(--headerBG);
+    background-image: url(${overlay2}), url(${overlay4}), var(--headerBG);
     background-position: top left, top left, top left;
     background-size: auto, cover, cover;
     overflow: hidden;
@@ -214,12 +217,12 @@ const styles = {
     @media screen and (max-width: 720px) {
       min-height: 400px;
       background-attachment: scroll, scroll, scroll;
-      background-image: url('images/overlay2.png'), url('images/overlay4.svg'), var(--headerBGMiddle);
+      background-image: url(${overlay2}), url(${overlay4}), var(--headerBGMiddle);
     }
 
     @media screen and (max-width: 400px) {
       min-height: 300px;
-      background-image: url('images/overlay2.png'), url('images/overlay4.svg'), var(--headerBGMiddle);
+      background-image: url(${overlay2}), url(${overlay4}), var(--headerBGMiddle);
     }
   `,
   header__inner: css`
