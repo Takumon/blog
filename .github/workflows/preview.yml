@@ -1,32 +1,49 @@
 on:
+  push:
+    branches:
+      - main
   pull_request:
+    types: [opened, synchronize]
+permissions:
+  contents: write
+  pull-requests: write
+  statuses: write
+  deployments: write
+jobs:
+  deploy_preview:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
 
-steps:
-  - name: checkout
-    uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.12.1
 
-  - name: deploy preview version of GatsbyJS to Netlify
-    uses: jsmrcaga/action-netlify-deploy@v1.7.2
-    id: deploy_preview
-    with:
-      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-      build_command: npm run build
-      build_directory: 'public'
-  - name: find the comment
-    uses: peter-evans/find-comment@v1
-    id: fc
-    with:
-      issue-number: ${{ github.event.pull_request.number }}
-      comment-author: 'github-actions[bot]'
-      body-includes: Netlify Preview Deployment Information
-  - name: create or update comment
-    uses: peter-evans/create-or-update-comment@v1
-    with:
-      comment-id: ${{ steps.fc.outputs.comment-id }}
-      issue-number: ${{ github.event.pull_request.number }}
-      body: |
-        Netlify Preview Deployment Information
-        - Log URL: ${{ steps.deploy_preview.outputs.NETLIFY_LOGS_URL }}
-        - Preview URL: ${{ steps.deploy_preview.outputs.NETLIFY_PREVIEW_URL }}
-      edit-mode: replace
+      - run: npm ci --legacy-peer-deps
+
+      - run: npm run build
+
+      - name: Set GitHub Deployment Environment
+        id: github_deployment_environment
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "push" ]; then
+            echo "GITHUB_DEPLOYMENT_ENVIRONMENT=Netlify prd" >> "${GITHUB_OUTPUT}"
+          else
+            echo "GITHUB_DEPLOYMENT_ENVIRONMENT=Netlify preview" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v2.0
+        with:
+          publish-dir: './public'
+          production-branch: master
+          github-deployment-environment: ${{ steps.github_deployment_environment.outputs.GITHUB_DEPLOYMENT_ENVIRONMENT }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: ${{ github.event.head_commit.message || github.event.pull_request.title }}
+          alias: deploy-preview-${{ github.event.number }}
+          fails-without-credentials: true
+          production-deploy: ${{ github.event_name == 'push' }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
