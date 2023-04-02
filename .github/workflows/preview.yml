@@ -43,7 +43,7 @@ jobs:
           deploy-message: ${{ github.event.head_commit.message || github.event.pull_request.title }}
           alias: deploy-preview-${{ github.event.number }}
           fails-without-credentials: true
-          production-deploy: ${{ GITHUB_EVENT_NAME == 'push' }}
+          production-deploy: ${{ github.event_name == 'push' }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
