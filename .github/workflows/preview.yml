@@ -1,5 +1,9 @@
 on:
+  push:
+    branches:
+      - main
   pull_request:
+    types: [opened, synchronize]
 permissions:
   contents: write
   pull-requests: write
@@ -20,6 +24,15 @@ jobs:
 
       - run: npm run build
 
+      - name: Set GitHub Deployment Environment
+        id: github_deployment_environment
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "push" ]; then
+            echo "GITHUB_DEPLOYMENT_ENVIRONMENT=Netlify prd" >> "${GITHUB_OUTPUT}"
+          else
+            echo "GITHUB_DEPLOYMENT_ENVIRONMENT=Netlify preview" >> "${GITHUB_OUTPUT}"
+          fi
+
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2.0
         with:
@@ -30,6 +43,7 @@ jobs:
           deploy-message: ${{ github.event.head_commit.message || github.event.pull_request.title }}
           alias: deploy-preview-${{ github.event.number }}
           fails-without-credentials: true
+          production-deploy: ${{ GITHUB_EVENT_NAME == 'push' }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
