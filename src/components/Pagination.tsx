@@ -4,13 +4,9 @@ import { css, keyframes } from '@emotion/react'
 
 import PostPreviewSmall from './PostPreviewSmall'
 import tomatoImg from '../images/tomato.svg'
+import { PageContextPost } from 'index'
 
-type Props = {
-  previous: any
-  next: any
-  relatedPosts: any
-  latestPosts: any
-}
+type Props = Pick<PageContextPost, 'previous' | 'next' | 'relatedPosts' | 'latestPosts'>
 
 const Pagination: React.FC<Props> = ({ previous, next, relatedPosts, latestPosts }) => {
   return (

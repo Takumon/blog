@@ -18,19 +18,13 @@ import { DarkToggle } from './DarkToggle'
 import tomato from '../images/tomato.svg'
 import overlay2 from '../images/overlay2.png'
 import overlay4 from '../images/overlay4.svg'
+import { HeadingDetail, PageContextPost } from 'index'
 
 type Props = {
   item: GatsbyTypes.MarkdownRemark
-  headings: any
-  pageContext: {
-    previous: any
-    next: any
-    slug: any
-    relatedPosts: any
-    latestPosts: any
-    thumbnail: any
-  }
-  siteTitle: any
+  headings: HeadingDetail
+  pageContext: PageContextPost
+  siteTitle: string
 }
 
 const Post: React.FC<Props> = ({ item, headings, pageContext: { previous, next, slug, relatedPosts, latestPosts, thumbnail }, siteTitle }) => {

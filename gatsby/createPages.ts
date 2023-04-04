@@ -10,7 +10,7 @@ import striptags from 'striptags'
 
 import { extractRelatedPosts } from './gatsby-related-post'
 import { POST_TYPE, query } from './constants'
-import type { TagData, QueryResult, PostNodeWrapper, PageContextTags } from '../src/@types'
+import type { TagData, QueryResult, PostNodeWrapper, PageContextTags, PageContextPost } from '../src/@types'
 
 // onCreateNodeより後に実行される
 export const createPages = async ({ graphql, actions }: CreatePagesArgs): Promise<void> => {
@@ -20,8 +20,10 @@ export const createPages = async ({ graphql, actions }: CreatePagesArgs): Promis
   const TagsTemplate = path.resolve('./src/templates/TagsTemplate.tsx')
 
   const result = await graphql<QueryResult>(query)
-  const thumbnails = result.data?.thumbnails
-  const siteMetadata = result.data?.site.siteMetadata
+  if (!result.data) return
+
+  const thumbnails = result.data.thumbnails
+  const siteMetadata = result.data.site.siteMetadata
 
   const posts: PostNodeWrapper[] = result.data?.allMarkdownRemark.edges.map((p) => {
     return {
@@ -42,7 +44,7 @@ export const createPages = async ({ graphql, actions }: CreatePagesArgs): Promis
     if (type === POST_TYPE.ORIGINAL) {
       const thumbnail = thumbnails?.edges.find((edge) => edge.node.relativePath.includes(node.frontmatter.thumbnail))
 
-      const pageContextPost = {
+      const pageContextPost: PageContextPost = {
         thumbnail,
         siteMetadata,
         slug: node.frontmatter.slug,
@@ -112,7 +114,13 @@ export const createPages = async ({ graphql, actions }: CreatePagesArgs): Promis
  * @param {Array} posts 記事一覧
  * @param {int} index 対象記事のインデックス
  */
-function prevNext(posts: PostNodeWrapper[], index: number) {
+function prevNext(
+  posts: PostNodeWrapper[],
+  index: number
+): {
+  previous: GatsbyTypes.MarkdownRemark | null
+  next: GatsbyTypes.MarkdownRemark | null
+} {
   return {
     previous: index === posts.length - 1 ? null : posts[index + 1].node,
     next: index === 0 ? null : posts[index - 1].node,

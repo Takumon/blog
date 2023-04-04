@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { css, keyframes } from '@emotion/react'
-import { ThemeToggler } from 'gatsby-plugin-dark-mode'
+import { useTheme } from '@skagami/gatsby-plugin-dark-mode'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
 
@@ -15,33 +15,24 @@ export const DarkToggle: React.FC = () => {
     setMoving(true)
   }, [])
 
+  const [theme, toggleTheme] = useTheme()
+
+  const toggle = useCallback(() => {
+    toggleTheme(theme === 'dark' ? 'light' : 'dark')
+    startMoving()
+  }, [startMoving, theme, toggleTheme])
+
+  if (!theme) return null
+
   return (
     <div css={styles.content}>
-      <ThemeToggler>
-        {({ theme, toggleTheme }) => {
-          if (!theme) {
-            return null
-          }
-
-          const isDark = theme === 'dark'
-          const toggle = () => {
-            toggleTheme(isDark ? 'light' : 'dark')
-            startMoving()
-          }
-
-          const icon = isDark ? (
-            <FontAwesomeIcon css={[styles.icon, moving && styles.spin]} icon={faMoon} />
-          ) : (
-            <FontAwesomeIcon css={[styles.icon, moving && styles.spinRevert]} icon={faSun} />
-          )
-
-          return (
-            <div onClick={toggle} onAnimationEnd={stopMoving}>
-              {icon}
-            </div>
-          )
-        }}
-      </ThemeToggler>
+      <div onClick={toggle} onAnimationEnd={stopMoving}>
+        {theme === 'dark' ? (
+          <FontAwesomeIcon css={[styles.icon, moving && styles.spin]} icon={faMoon} />
+        ) : (
+          <FontAwesomeIcon css={[styles.icon, moving && styles.spinRevert]} icon={faSun} />
+        )}
+      </div>
     </div>
   )
 }

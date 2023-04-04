@@ -1,7 +1,8 @@
 import { useMemo } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
+import { IGatsbyImageData } from 'gatsby-plugin-image'
 
-type Value = any | null | undefined
+type Value = IGatsbyImageData | undefined
 
 export default function useThumbnailImage(filename: string): Value {
   const data = useStaticQuery<GatsbyTypes.ThumbnailImagesQuery>(graphql`
