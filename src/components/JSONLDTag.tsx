@@ -51,7 +51,7 @@ const JSONLDTag: React.FC<Props> = ({ isRoot, title, description, postUrl, postD
     },
   }
 
-  const result: any = [
+  const result = [
     {
       '@context': 'http://schema.org',
       '@type': 'WebSite',
@@ -69,47 +69,48 @@ const JSONLDTag: React.FC<Props> = ({ isRoot, title, description, postUrl, postD
         'query-input': 'required name=q',
       },
     },
-  ]
-
-  if (!isRoot) {
-    result.push({
-      '@context': 'http://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        {
-          '@type': 'ListItem',
-          position: 1,
-          item: {
-            '@id': postUrl,
-            name: title,
-            image: config.blogImageUrl,
+    ...(isRoot
+      ? []
+      : [
+          {
+            '@context': 'http://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                item: {
+                  '@id': postUrl,
+                  name: title,
+                  image: config.blogImageUrl,
+                },
+              },
+            ],
           },
-        },
-      ],
-    }),
-      result.push({
-        '@context': 'http://schema.org',
-        '@type': 'BlogPosting',
-        url: config.blogUrl,
-        name: title,
-        alternateName: config.blogTitle,
-        headline: title,
-        image: {
-          '@type': 'ImageObject',
-          url: config.blogImageUrl,
-        },
-        description: description || '',
-        datePublished: postDate,
-        // TODO 更新日を記事のデータとして追加する
-        dateModified: postDate,
-        mainEntityOfPage: {
-          '@type': 'WebPage',
-          '@id': config.blogUrl,
-        },
-        author,
-        publisher,
-      })
-  }
+          {
+            '@context': 'http://schema.org',
+            '@type': 'BlogPosting',
+            url: config.blogUrl,
+            name: title,
+            alternateName: config.blogTitle,
+            headline: title,
+            image: {
+              '@type': 'ImageObject',
+              url: config.blogImageUrl,
+            },
+            description: description || '',
+            datePublished: postDate,
+            // TODO 更新日を記事のデータとして追加する
+            dateModified: postDate,
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': config.blogUrl,
+            },
+            author,
+            publisher,
+          },
+        ]),
+  ]
 
   return <script type="application/ld+json">{JSON.stringify(result)}</script>
 }

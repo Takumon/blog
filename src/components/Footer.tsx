@@ -7,6 +7,8 @@ import config from '../config/blog-config'
 import useSpecificImages from '../hooks/useSpecificImages'
 import { convertToBgImage } from 'gbimage-bridge'
 import BackgroundImage from 'gatsby-background-image'
+import tomato from '../images/tomato.svg'
+import github from '../images/github.svg'
 
 type Props = {
   isRoot: boolean
@@ -92,7 +94,7 @@ const styles = {
     display: inline-block;
     box-sizing: border-box;
     vertical-align: bottom;
-    background-image: url(images/tomato.svg);
+    background-image: url(${tomato});
     width: 1em;
     height: 1em;
     background-repeat: no-repeat;
@@ -109,6 +111,6 @@ const styles = {
     height: 32px;
     border-radius: 50%;
     box-shadow: none;
-    background-image: url(images/github.svg);
+    background-image: url(${github});
   `,
 }

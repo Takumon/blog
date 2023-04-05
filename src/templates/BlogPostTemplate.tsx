@@ -4,11 +4,12 @@ import { graphql } from 'gatsby'
 import Post from '../components/Post'
 
 import 'katex/dist/katex.min.css'
+import { HeadingDetail, PageContextPost } from 'index'
 
 type Props = {
-  pageContext: any
+  pageContext: PageContextPost
   data: {
-    post: GatsbyTypes.MarkdownRemark & { headingsDetail: any }
+    post: GatsbyTypes.MarkdownRemark & { headingsDetail: HeadingDetail }
   }
 }
 

@@ -1,3 +1,4 @@
+import { IGatsbyImageData } from 'gatsby-plugin-image'
 declare module 'gatsby-plugin-dark-mode'
 
 interface PageInput {
@@ -23,9 +24,13 @@ export type QueryResult = {
       }
     }>
   }
-  site: any
-  allMarkdownRemark: any
-  allQiitaPost: any
+  site: {
+    siteMetadata: {
+      title: string
+      author: string
+    }
+  }
+  allMarkdownRemark: MarkdownRemarkConnection
 }
 
 export type PostNodeWrapper = {
@@ -115,6 +120,34 @@ export type WordCount = {
 }
 
 export type WordCounts = WordCount[]
+
+export type HeadingDetail = {
+  value: string
+  id: string
+  depth: number
+  parents: HeadingDetail[] | undefined
+}
+
+export type PageContextPost = {
+  thumbnail: {
+    node: {
+      relativePath: string
+      name: string
+      childImageSharp: {
+        gatsbyImageData: IGatsbyImageData
+      }
+    }
+  }
+  siteMetadata: {
+    title: string
+    author: string
+  }
+  slug: string
+  relatedPosts: GatsbyTypes.MarkdownRemark[]
+  latestPosts: GatsbyTypes.MarkdownRemark[]
+  previous: GatsbyTypes.MarkdownRemark | null
+  next: GatsbyTypes.MarkdownRemark | null
+}
 
 export type PageContextTags = {
   nodes: GatsbyTypes.MarkdownRemark[]

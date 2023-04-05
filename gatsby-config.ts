@@ -15,7 +15,7 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
-    'gatsby-plugin-dark-mode',
+    '@skagami/gatsby-plugin-dark-mode',
     'gatsby-plugin-emotion',
     'gatsby-plugin-image',
     'gatsby-plugin-sitemap',
