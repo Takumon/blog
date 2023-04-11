@@ -79,9 +79,6 @@ Wordpress2016.overrideThemeStyles = () => ({
     fontSize: '1.6rem',
     borderBottom: '1px solid var(--titleBorder)',
   },
-  'html, body': {
-    fontWeight: '500',
-  },
   a: {
     boxShadow: 'none',
     color: 'var(--textLink)',
