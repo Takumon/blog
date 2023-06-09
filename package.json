@@ -17,7 +17,7 @@
     "@skagami/gatsby-plugin-dark-mode": "^2.0.0",
     "dotenv": "^16.0.3",
     "emotion-normalize": "^11.0.1",
-    "gatsby": "^5.7.0",
+    "gatsby": "^5.9.1",
     "gatsby-background-image": "^1.6.0",
     "gatsby-plugin-catch-links": "^5.8.0",
     "gatsby-plugin-emotion": "^8.7.0",
